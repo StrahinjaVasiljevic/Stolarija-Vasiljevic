@@ -1,1 +1,37 @@
+{
+  "projects": [
+    {
+      "id": "kuhinja-ns",
+      "title": "Kuhinja po meri — Novi Sad",
+      "type": "Kuhinje",
+      "location": "Novi Sad",
+      "description": "MDF lak mat, radna ploča hrast, tihi sistemi. Precizno uklapanje i čisti spojevi.",
+      "images": ["../images/ph2.svg"]
+    },
+    {
+      "id": "plakar-bg",
+      "title": "Ugradni plakar — Beograd",
+      "type": "Plakari i garderoberi",
+      "location": "Beograd",
+      "description": "Klizna vrata, maksimalno iskorišćen prostor sa unutrašnjim organizatorima.",
+      "images": ["../images/ph3.svg"]
+    },
+    {
+      "id": "tv-zid",
+      "title": "TV zid sa policama",
+      "type": "TV zidovi",
+      "location": "Novi Sad",
+      "description": "Integrisan kabl menadžment, ravne linije i skrivena rasveta.",
+      "images": ["../images/ph2.svg"]
+    },
+    {
+      "id": "komoda",
+      "title": "Komoda i police",
+      "type": "Komode i police",
+      "location": "Beograd",
+      "description": "Topla kombinacija drveta i bele boje za dnevnu sobu.",
+      "images": ["../images/ph3.svg"]
+    }
+  ]
+}
 
