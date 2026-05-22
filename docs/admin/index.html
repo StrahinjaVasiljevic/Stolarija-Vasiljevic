@@ -1,1 +1,78 @@
+<!doctype html>
+<html lang="sr">
+<head>
+  <meta charset="utf-8">
+  <title>Admin — Stolarija Vasiljević</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="../assets/config.js"></script>
+  <script src="../assets/admin.js" defer></script>
+</head>
+<body class="font-sans bg-[#f8f8f8]">
+  <div class="max-w-4xl mx-auto p-6">
+    <h1 class="text-2xl font-semibold mb-4">Admin — Stolarija Vasiljević</h1>
+
+    <div id="authBox" class="card p-6">
+      <p class="mb-3 text-gray-700">Unesite GitHub Personal Access Token (repo contents: read/write) za ovaj repo.</p>
+      <div class="flex gap-2 items-end">
+        <div class="flex-1">
+          <label class="block text-sm font-medium mb-1">GitHub PAT</label>
+          <input id="pat" class="w-full border rounded px-3 py-2" placeholder="ghp_...">
+          <button id="showPat" class="text-xs text-blue-700 mt-1">Prikaži uneseni token</button>
+        </div>
+        <button id="connectBtn" class="btn btn-primary">Poveži</button>
+      </div>
+      <p class="text-xs text-gray-500 mt-3">Token se čuva u vašem pregledaču (localStorage). Ne delite ga.</p>
+    </div>
+
+    <div id="appBox" class="hidden space-y-8 mt-6">
+      <div class="card p-6">
+        <h2 class="text-xl font-semibold mb-4">Hero</h2>
+        <div class="grid md:grid-cols-2 gap-4">
+          <div><label class="block text-sm font-medium mb-1">Naslov</label><input id="heroTitle" class="w-full border rounded px-3 py-2"></div>
+          <div><label class="block text-sm font-medium mb-1">Podnaslov</label><input id="heroSubtitle" class="w-full border rounded px-3 py-2"></div>
+          <div><label class="block text-sm font-medium mb-1">CTA primarni</label><input id="ctaPrimary" class="w-full border rounded px-3 py-2"></div>
+          <div><label class="block text-sm font-medium mb-1">CTA sekundarni</label><input id="ctaSecondary" class="w-full border rounded px-3 py-2"></div>
+        </div>
+        <div class="mt-4">
+          <label class="block text-sm font-medium mb-1">Benefiti (JSON lista)</label>
+          <textarea id="benefits" class="w-full border rounded px-3 py-2 min-h-[120px]"></textarea>
+        </div>
+      </div>
+
+      <div class="card p-6">
+        <h2 class="text-xl font-semibold mb-4">Zašto mi (JSON lista)</h2>
+        <textarea id="whyUs" class="w-full border rounded px-3 py-2 min-h-[120px]"></textarea>
+      </div>
+
+      <div class="card p-6">
+        <h2 class="text-xl font-semibold mb-4">Utisci (JSON lista)</h2>
+        <textarea id="testimonials" class="w-full border rounded px-3 py-2 min-h-[120px]"></textarea>
+      </div>
+
+      <div class="card p-6">
+        <h2 class="text-xl font-semibold mb-4">FAQ (JSON lista)</h2>
+        <textarea id="faq" class="w-full border rounded px-3 py-2 min-h-[120px]"></textarea>
+      </div>
+
+      <div class="card p-6">
+        <h2 class="text-xl font-semibold mb-4">Projekti (JSON lista objekata)</h2>
+        <textarea id="projects" class="w-full border rounded px-3 py-2 min-h-[200px]"></textarea>
+      </div>
+
+      <div class="flex gap-3">
+        <button id="saveSiteBtn" class="btn btn-primary">Sačuvaj sadržaj (site.json)</button>
+        <button id="saveProjectsBtn" class="btn btn-secondary">Sačuvaj projekte (projects.json)</button>
+      </div>
+      <div id="notice" class="mt-2 text-green-700 hidden">Sačuvano.</div>
+    </div>
+  </div>
+  <style>
+    .card{background:#fff;border:1px solid #f0f0f0;border-radius:16px;box-shadow:0 8px 30px rgba(0,0,0,0.08)}
+    .btn{display:inline-flex;align-items:center;justify-content:center;border-radius:12px;padding:12px 20px;font-weight:500;transition:all .2s}
+    .btn-primary{background:#0B3D3A;color:#fff}.btn-primary:hover{background:#000}
+    .btn-secondary{background:#E9E2D2;color:#000}.btn-secondary:hover{background:#d8cfbb}
+  </style>
+</body>
+</html>
 
