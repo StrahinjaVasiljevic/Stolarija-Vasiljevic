@@ -17,6 +17,6 @@ window.APP_CONFIG = {
   BRANCH: "main",
 
   // Public URL (GitHub Pages)
-  SITE_URL: "https://strahinjavasiljevic.github.io/Stolarija-Vasiljevi-/"
+  SITE_URL: "https://vasiljevic.stolarija.com/"
 };
 
