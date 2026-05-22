@@ -2,7 +2,7 @@
 window.APP_CONFIG = {
   // Kontakt (prikaz u UI i adresa koja prima upite)
   CONTACT_PHONE: "+381 64 122 04 29",
-  CONTACT_EMAIL: "{{strahinjavasiljevic00@gmail.com}}",
+  CONTACT_EMAIL: "strahinjavasiljevic00@gmail.com",
 
   // Cloudinary (upload slika bez servera — Unsigned preset)
   CLOUDINARY_CLOUD_NAME: "{{CLOUDINARY_CLOUD_NAME}}",
