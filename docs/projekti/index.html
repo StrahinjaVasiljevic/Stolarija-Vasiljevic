@@ -1,1 +1,106 @@
+<!doctype html>
+<html lang="sr">
+<head>
+  <meta charset="utf-8">
+  <title>Projekti — Stolarija Vasiljević</title>
+  <meta name="description" content="Izbor realizovanih projekata: kuhinje, plakari, komode, police, TV zidovi i kancelarije.">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config={theme:{extend:{colors:{'brand-dark':'#0B3D3A','brand-beige':'#E9E2D2','brand-light':'#F7F7F5'},borderRadius:{xl:'16px','2xl':'24px'},boxShadow:{card:'0 8px 30px rgba(0,0,0,0.08)'},fontFamily:{serif:['Cormorant Garamond','serif'],sans:['Inter','ui-sans-serif','system-ui']}}}}
+  </script>
+  <style>.container{max-width:1200px;margin:0 auto;padding:0 16px}.card{background:#fff;border:1px solid #f0f0f0;border-radius:16px;box-shadow:0 8px 30px rgba(0,0,0,0.08)}.btn{display:inline-flex;align-items:center;justify-content:center;border-radius:12px;padding:10px 16px;font-weight:500;transition:all .2s}.btn-primary{background:#0B3D3A;color:#fff}.btn-secondary{background:#E9E2D2;color:#000}</style>
+  <script src="../assets/config.js"></script>
+</head>
+<body class="font-sans">
+  <header class="border-b border-gray-100 bg-white/80 backdrop-blur sticky top-0 z-50">
+    <div class="container h-16 flex items-center justify-between">
+      <a href="../" class="flex items-center gap-3"><img src="../logo.svg" alt="Stolarija Vasiljević" class="h-8 w-auto"><span class="font-serif text-xl">Stolarija Vasiljević</span></a>
+      <nav class="hidden md:flex items-center gap-6 text-sm">
+        <a href="../#usluge" class="hover:text-brand-dark">Usluge</a>
+        <a href="../#proces" class="hover:text-brand-dark">Proces</a>
+        <a href="./" class="hover:text-brand-dark">Projekti</a>
+        <a href="../#faq" class="hover:text-brand-dark">FAQ</a>
+        <a href="../#kontakt" class="hover:text-brand-dark">Kontakt</a>
+      </nav>
+      <div class="hidden md:flex items-center gap-4">
+        <a id="headerPhone" href="#" class="text-sm font-medium hover:text-brand-dark">+381 64 122 04 29</a>
+        <a href="../#kontakt" class="btn btn-primary text-sm">Pošalji upit</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="py-16">
+    <div class="container">
+      <h1 class="font-serif text-4xl mb-2">Projekti</h1>
+      <p class="mb-8 text-gray-600">Izbor naših radova. Filtrirajte po kategoriji.</p>
+      <div id="filters" class="flex flex-wrap gap-2 mb-6"></div>
+      <div id="grid" class="grid md:grid-cols-3 gap-6"></div>
+    </div>
+  </main>
+
+  <footer class="bg-brand-light border-t border-gray-100">
+    <div class="container py-12 grid md:grid-cols-3 gap-8">
+      <div>
+        <div class="flex items-center gap-3 mb-4"><img src="../logo.svg" alt="Stolarija Vasiljević" class="h-8 w-auto"><span class="font-serif text-xl">Stolarija Vasiljević</span></div>
+        <p class="text-gray-700">Nameštaj po meri za dom i kancelariju. Novi Sad, Beograd i okolina. Transparentan predračun, realni rokovi i uredna montaža.</p>
+      </div>
+      <div>
+        <h4 class="font-medium mb-3">Navigacija</h4>
+        <ul class="space-y-2 text-gray-700">
+          <li><a href="../#usluge" class="hover:text-brand-dark">Usluge</a></li>
+          <li><a href="../#proces" class="hover:text-brand-dark">Proces</a></li>
+          <li><a href="./" class="hover:text-brand-dark">Projekti</a></li>
+          <li><a href="../#faq" class="hover:text-brand-dark">FAQ</a></li>
+          <li><a href="../#kontakt" class="hover:text-brand-dark">Kontakt</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="font-medium mb-3">Kontakt</h4>
+        <ul class="space-y-2 text-gray-700">
+          <li>Telefon: <a id="footerPhone" href="#" class="hover:text-brand-dark">+381 64 122 04 29</a></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const CATS = ['Sve','Kuhinje','Plakari i garderoberi','Komode i police','TV zidovi','Kancelarije','Uređenje enterijera'];
+    document.addEventListener("DOMContentLoaded", async () => {
+      const cfg = window.APP_CONFIG || {};
+      const phone = cfg.CONTACT_PHONE || "+381 64 122 04 29";
+      document.querySelectorAll("#headerPhone,#footerPhone").forEach(a => { a.textContent=phone; a.href="tel:"+phone.replace(/\s+/g,""); });
+
+      const list = (await fetch("../content/projects.json").then(r=>r.json())).projects || [];
+      let current = 'Sve';
+      const filters = document.getElementById("filters");
+      const grid = document.getElementById("grid");
+      CATS.forEach(c=>{
+        const b = document.createElement("button");
+        b.className = "btn " + (c===current?"btn-primary":"btn-secondary") + " text-sm";
+        b.textContent = c; b.addEventListener("click",()=>{ current=c; render(); });
+        filters.appendChild(b);
+      });
+      function render(){
+        filters.querySelectorAll("button").forEach(b=>{
+          b.className = "btn " + (b.textContent===current?"btn-primary":"btn-secondary") + " text-sm";
+        });
+        const items = current==='Sve' ? list : list.filter(p=>p.type===current);
+        grid.innerHTML = items.map(p=>`
+          <div class="card overflow-hidden">
+            <div class="w-full h-56 bg-brand-light"><img src="${(p.images&&p.images[0]) || '../images/ph3.svg'}" alt="${p.title}" class="w-full h-56 object-cover"></div>
+            <div class="p-4">
+              <div class="text-sm text-gray-500">${p.type} · ${p.location}</div>
+              <div class="font-medium mb-2">${p.title}</div>
+              <p class="text-sm text-gray-700">${p.description}</p>
+            </div>
+          </div>
+        `).join("");
+      }
+      render();
+    });
+  </script>
+</body>
+</html>
 
