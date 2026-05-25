@@ -70,7 +70,36 @@
   }
 
   function renderServices() { /* statički u HTML-u */ }
-  function renderProcess() { /* statički u HTML-u */ }
+
+  function renderProcess() {
+    const steps = [
+      { t: "Upoznavanje sa projektom", d: "Pregled prostora (uživo ili putem upita) i prikupljanje informacija" },
+      { t: "Predlog rešenja", d: "Dizajn, izbor materijala i okvirna ideja projekta" },
+      { t: "Predračun", d: "Dostavljamo skicu i transparentan pregled cene materijala i troškova" },
+      { t: "Finalizacija projekta", d: "Nakon odobrenja izrađujemo finalni model i definišemo rokove i ponudu" },
+      { t: "Avans i početak izrade", d: "Plaćanje avansa (materijal + troškovi) i početak proizvodnje" },
+      { t: "Izrada i montaža", d: "Proizvodnja, isporuka i montaža na lokaciji" },
+      { t: "Završetak projekta", d: "Primopredaja i isplata ostatka dogovorene cene" }
+    ];
+    const wrap = qs("#processList");
+    if (!wrap) return;
+    wrap.innerHTML = steps.map((s, i) => `
+      <div class="card p-4">
+        <button class="w-full text-left flex items-center gap-3 process-toggle" data-i="${i}">
+          <span class="flex-shrink-0 w-8 h-8 rounded-full bg-brand-dark text-white flex items-center justify-center">${i+1}</span>
+          <span class="font-medium">${esc(s.t)}</span>
+        </button>
+        <div class="mt-3 text-gray-700 hidden process-desc">${esc(s.d)}</div>
+      </div>
+    `).join("");
+    wrap.querySelectorAll(".process-toggle").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const desc = btn.parentElement.querySelector(".process-desc");
+        if (desc.classList.contains("hidden")) desc.classList.remove("hidden");
+        else desc.classList.add("hidden");
+      });
+    });
+  }
 
   function renderWhyUs() {
     const items = state.site.whyUs || [];
@@ -86,7 +115,7 @@
             </div>
           `).join("")}
         </div>
-        <p class="text-sm text-gray-600 mt-4">Radimo po procedurama. Zato su naše estimacije realne i rokovi dostižni.</p>
+        <p class="text-sm text-gray-600 mt-4">Radimo po procedurama. Zato su naše estimacije realne i rokovi dostižni</p>
       </div>`;
   }
 
@@ -154,7 +183,7 @@
       btn.addEventListener("click", () => {
         const a = btn.parentElement.querySelector(".faq-a");
         const sym = btn.querySelector("span.text-gray-500");
-        if (a.classList.contains("hidden")) { a.classList.remove("hidden"); sym.textContent = "-"; }
+        if (a.classList.contains("hidden")) { a.classList.remove("hidden"); sym.textContent = "−"; }
         else { a.classList.add("hidden"); sym.textContent = "+"; }
       });
     });
@@ -162,7 +191,7 @@
 
   function renderContact() {
     const phone = cfg.CONTACT_PHONE || "+381 64 122 04 29";
-    const email = cfg.CONTACT_EMAIL || "strahinjavasiljevic00@gmail.com";
+    const email = cfg.CONTACT_EMAIL || "";
     qs("#contactPhone").textContent = phone;
     qs("#contactPhone").href = telHref(phone);
     const emailEl = qs("#contactEmail");
@@ -180,7 +209,7 @@
     const cloudEnabled = Boolean(cloudName && preset);
     if (!cloudEnabled) {
       fallbackBox.classList.remove("hidden");
-      fallbackBox.textContent = "Slike možete naknadno poslati kao odgovor na email.";
+      fallbackBox.textContent = "Slike možete naknadno poslati kao odgovor na email";
     }
 
     const FORMSPREE_ID = cfg.FORMSPREE_ID || "";
@@ -189,7 +218,7 @@
       const fl = Array.from(e.target.files || []);
       const allowed = 10 - files.length;
       const selected = fl.slice(0, allowed);
-      if (fl.length > allowed) showError("Maksimalno 10 slika.");
+      if (fl.length > allowed) showError("Maksimalno 10 slika");
       for (const f of selected) {
         if (f.size > 5 * 1024 * 1024) files.push({ file: f, progress: 0, error: "Veće od 5MB" });
         else files.push({ file: f, progress: 0 });
@@ -231,7 +260,7 @@
         imageUrls: []
       };
       if (!payload.fullName || !payload.phone || !payload.email || !payload.city || !payload.projectType || !payload.description || !payload.consent) {
-        return showError("Popunite obavezna polja.");
+        return showError("Popunite obavezna polja");
       }
 
       let urls = [];
@@ -248,9 +277,9 @@
       }
       payload.imageUrls = urls;
 
-      if (!FORMSPREE_ID) return showError("Slanje nije uspelo - pokušajte kasnije.");
+      if (!FORMSPREE_ID) return showError("Slanje nije uspelo. Molimo pokušajte kasnije");
       try {
-        const res = await fetch(`https://formspree.io/f/${FORMSPREE_ID}`, {
+        const res = await fetch(`https://formspree.io/f/${https://formspree.io/f/mzdwgzyj}`, {
           method: "POST",
           headers: { "Accept": "application/json", "Content-Type": "application/json" },
           body: JSON.stringify(payload)
@@ -259,12 +288,12 @@
         qs("#contactSection").innerHTML = `
           <div class="container">
             <div class="card p-8 text-center">
-              <h2 class="font-serif text-2xl mb-2">Hvala! Upit je poslat.</h2>
-              <p>Radimo. Javićemo se uskoro </p>
+              <h2 class="font-serif text-2xl mb-2">Hvala! Upit je poslat</h2>
+              <p>Javićemo se uskoro</p>
             </div>
           </div>`;
       } catch (err) {
-        showError("Došlo je do greške. Molimo, pokušajte ponovo.");
+        showError("Došlo je do greške> Molimo, pokušajte ponovo");
       }
     });
 
@@ -302,7 +331,7 @@
 
   function renderFooter() {
     const phone = (window.APP_CONFIG && window.APP_CONFIG.CONTACT_PHONE) || "+381 64 122 04 29";
-    const email = (window.APP_CONFIG && window.APP_CONFIG.CONTACT_EMAIL) || "";
+    const email = (window.APP_CONFIG && window.APP_CONFIG.CONTACT_EMAIL) || "strahinjavasiljevic00@gmail.com";
     const tel = document.querySelector("#footerPhone");
     if (tel) { tel.textContent = phone; tel.href = "tel:" + phone.replace(/\s+/g,""); }
     const em = document.querySelector("#footerEmail");
@@ -331,8 +360,8 @@
       "name": "Stolarija Vasiljević",
       "url": siteUrl,
       "telephone": phone,
-      "areaServed": ["Novi Sad", "Beograd", "Okolina"],
-      "address": { "@type": "PostalAddress", "addressLocality": "Novi Sad / Beograd", "addressCountry": "Serbia" },
+      "areaServed": ["Novi Sad", "Beograd", "Ostala mesta"],
+      "address": { "@type": "PostalAddress", "addressLocality": "Novi Sad / Beograd", "addressCountry": "RS" },
       "founder": [
         { "@type": "Person", "name": "Strahinja Vasiljević" },
         { "@type": "Person", "name": "Nemanja Vasiljević" }
