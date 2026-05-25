@@ -11,52 +11,23 @@
     tailwind.config={theme:{extend:{colors:{'brand-dark':'#0B3D3A','brand-beige':'#E9E2D2','brand-light':'#F7F7F5'},borderRadius:{xl:'16px','2xl':'24px'},boxShadow:{card:'0 8px 30px rgba(0,0,0,0.08)'},fontFamily:{serif:['Cormorant Garamond','serif'],sans:['Inter','ui-sans-serif','system-ui']}}}}
   </script>
   <style>
-    :root{
-      --bg:#ffffff;
-      --text:#0b0b0b;
-      --cream:#EDE7DD;
-      --brand:#0B3D3A;
-      --card:#ffffff;
-      --border:#f0f0f0;
-      --muted:#6B7280;
-      --secondary-bg:#E9E2D2;
-      --text-on-primary:#ffffff;
-    }
-    html.theme-dark{
-      --bg:#0D1113;
-      --text:#EDE7DD;
-      --card:#121619;
-      --border:#1E2326;
-      --muted:#C8C3BB;
-      --secondary-bg:#2B2F31;
-      --text-on-primary:#EDE7DD;
-    }
-
+    :root{--bg:#ffffff;--text:#0b0b0b;--card:#ffffff;--border:#f0f0f0;--muted:#6B7280;--secondary-bg:#E9E2D2;--text-on-primary:#ffffff}
+    html.theme-dark{--bg:#0D1113;--text:#EDE7DD;--card:#121619;--border:#1E2326;--muted:#C8C3BB;--secondary-bg:#2B2F31;--text-on-primary:#EDE7DD}
     .container{max-width:1200px;margin:0 auto;padding:0 16px}
     body{background:var(--bg);color:var(--text)}
     .card{background:var(--card);border:1px solid var(--border);border-radius:16px;box-shadow:0 8px 30px rgba(0,0,0,0.08)}
     .btn{display:inline-flex;align-items:center;justify-content:center;border-radius:12px;padding:10px 16px;font-weight:500;transition:all .2s}
-    .btn-primary{background:var(--brand);color:var(--text-on-primary)}
+    .btn-primary{background:#0B3D3A;color:var(--text-on-primary)}
     .btn-secondary{background:var(--secondary-bg);color:#000}
     html.theme-dark .btn-secondary{color:var(--text)}
-
-    /* suptilna tekstura u tamnoj temi */
-    html.theme-dark body::before{
-      content:"";position:fixed;inset:0;pointer-events:none;z-index:-1;
-      background:
-        radial-gradient(1000px 700px at 15% 0%, rgba(255,255,255,0.02), transparent 60%),
-        radial-gradient(900px 600px at 100% 25%, rgba(255,255,255,0.015), transparent 60%),
-        radial-gradient(700px 700px at 50% 100%, rgba(255,255,255,0.02), transparent 60%);
-      mix-blend-mode:overlay;
-    }
-
-    /* neutralni sivi ka krem */
-    html.theme-dark .text-gray-700{color:var(--text)}
-    html.theme-dark .text-gray-600{color:var(--muted)}
-
-    /* lightbox */
-    #lightbox{background:rgba(0,0,0,.7)}
-    #lightbox img{max-height:80vh}
+    #lightbox{background:rgba(0,0,0,.7)} #lightbox img{max-height:80vh}
+    .dropdown{position:relative}
+    .dropdown-btn{display:flex;align-items:center;gap:8px;padding:8px 10px;border:1px solid var(--border);border-radius:10px;background:var(--card);color:var(--text)}
+    .dropdown-menu{position:absolute;right:0;top:calc(100% + 8px);min-width:180px;background:var(--card);border:1px solid var(--border);border-radius:12px;box-shadow:0 8px 30px rgba(0,0,0,0.08);padding:6px;z-index:50}
+    .dropdown-item{display:flex;align-items:center;gap:8px;width:100%;text-align:left;padding:8px 10px;border-radius:8px;color:var(--text)}
+    .dropdown-item:hover{background:var(--secondary-bg)}
+    .flag{font-size:16px}
+    .chev{transition:transform .2s}.open .chev{transform:rotate(180deg)}
   </style>
   <script src="../assets/config.js"></script>
 </head>
@@ -72,11 +43,18 @@
         <a href="../#kontakt" class="hover:text-brand-dark">Kontakt</a>
       </nav>
       <div class="flex items-center gap-3">
-        <div class="hidden md:flex items-center gap-1 text-sm">
-          <button class="px-2 py-1 rounded hover:bg-gray-100" data-lang="sr">SR</button>
-          <button class="px-2 py-1 rounded hover:bg-gray-100" data-lang="en">EN</button>
-          <button class="px-2 py-1 rounded hover:bg-gray-100" data-lang="de">DE</button>
-          <button class="px-2 py-1 rounded hover:bg-gray-100" data-lang="ru">RU</button>
+        <div class="dropdown" id="langSelectProj">
+          <button id="langToggleProj" class="dropdown-btn" aria-haspopup="true" aria-expanded="false">
+            <span class="flag" id="langFlagProj">🇷🇸</span>
+            <span id="langLabelProj">Jezik: srb</span>
+            <svg class="chev" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </button>
+          <div id="langMenuProj" class="dropdown-menu hidden" role="menu" aria-label="Izaberi jezik">
+            <button class="dropdown-item" data-lang="sr"><span class="flag">🇷🇸</span><span>srb</span></button>
+            <button class="dropdown-item" data-lang="en"><span class="flag">🇬🇧</span><span>eng</span></button>
+            <button class="dropdown-item" data-lang="de"><span class="flag">🇩🇪</span><span>deu</span></button>
+            <button class="dropdown-item" data-lang="ru"><span class="flag">🇷🇺</span><span>rus</span></button>
+          </div>
         </div>
         <button id="themeToggle" class="p-2 rounded-xl border border-gray-200 hover:bg-gray-100" aria-label="Promeni temu">
           <span id="iconLight" class="block" aria-hidden="true">
@@ -151,13 +129,43 @@
       });
     })();
 
-    (function initLang(){
+    function initLangDropdownProj(){
       const stored = localStorage.getItem('lang') || 'sr';
-      document.querySelectorAll('[data-lang]').forEach(b=>{
-        b.classList.toggle('bg-gray-100', b.dataset.lang===stored);
-        b.addEventListener('click', ()=>{ localStorage.setItem('lang', b.dataset.lang); location.reload(); });
+      const map = {
+        sr: { label:'Jezik', abbr:'srb', flag:'🇷🇸' },
+        en: { label:'Language', abbr:'eng', flag:'🇬🇧' },
+        de: { label:'Sprache', abbr:'deu', flag:'🇩🇪' },
+        ru: { label:'Язык', abbr:'рус', flag:'🇷🇺' }
+      };
+      const cur = map[stored] || map.sr;
+      document.getElementById('langFlagProj').textContent = cur.flag;
+      document.getElementById('langLabelProj').textContent = `${cur.label}: ${cur.abbr}`;
+
+      const toggle = document.getElementById('langToggleProj');
+      const menu = document.getElementById('langMenuProj');
+      toggle.addEventListener('click', (e)=>{
+        e.stopPropagation();
+        const open = !menu.classList.contains('hidden');
+        menu.classList.toggle('hidden', open);
+        toggle.parentElement.classList.toggle('open', !open);
+        toggle.setAttribute('aria-expanded', String(!open));
       });
-    })();
+      document.addEventListener('click', ()=>{
+        if (!menu.classList.contains('hidden')){
+          menu.classList.add('hidden');
+          toggle.parentElement.classList.remove('open');
+          toggle.setAttribute('aria-expanded','false');
+        }
+      });
+      menu.querySelectorAll('.dropdown-item').forEach(b=>{
+        b.addEventListener('click', ()=>{
+          const lang = b.getAttribute('data-lang');
+          localStorage.setItem('lang', lang);
+          location.reload();
+        });
+      });
+    }
+    initLangDropdownProj();
 
     (async function(){
       try {
