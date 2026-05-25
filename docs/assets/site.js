@@ -85,18 +85,24 @@
     if (!wrap) return;
     wrap.innerHTML = steps.map((s, i) => `
       <div class="card p-4">
-        <button class="w-full text-left flex items-center gap-3 process-toggle" data-i="${i}">
+        <button class="w-full text-left flex items-center gap-3 process-toggle focus:outline-none focus:ring-2 focus:ring-brand-dark/30 rounded-xl px-1"
+                data-i="${i}" aria-expanded="false">
           <span class="flex-shrink-0 w-8 h-8 rounded-full bg-brand-dark text-white flex items-center justify-center">${i+1}</span>
           <span class="font-medium">${esc(s.t)}</span>
         </button>
-        <div class="mt-3 text-gray-700 hidden process-desc">${esc(s.d)}</div>
+        <div class="mt-3 text-gray-700 hidden process-desc" aria-hidden="true">${esc(s.d)}</div>
       </div>
     `).join("");
     wrap.querySelectorAll(".process-toggle").forEach(btn => {
       btn.addEventListener("click", () => {
         const desc = btn.parentElement.querySelector(".process-desc");
-        if (desc.classList.contains("hidden")) desc.classList.remove("hidden");
-        else desc.classList.add("hidden");
+        const isHidden = desc.classList.contains("hidden");
+        desc.classList.toggle("hidden");
+        btn.setAttribute("aria-expanded", String(isHidden));
+        desc.setAttribute("aria-hidden", String(!isHidden));
+      });
+      btn.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" || e.key === " ") { e.preventDefault(); btn.click(); }
       });
     });
   }
@@ -183,8 +189,9 @@
       btn.addEventListener("click", () => {
         const a = btn.parentElement.querySelector(".faq-a");
         const sym = btn.querySelector("span.text-gray-500");
-        if (a.classList.contains("hidden")) { a.classList.remove("hidden"); sym.textContent = "−"; }
-        else { a.classList.add("hidden"); sym.textContent = "+"; }
+        const isHidden = a.classList.contains("hidden");
+        a.classList.toggle("hidden");
+        sym.textContent = isHidden ? "−" : "+";
       });
     });
   }
@@ -277,9 +284,10 @@
       }
       payload.imageUrls = urls;
 
-      if (!FORMSPREE_ID) return showError("Slanje nije uspelo. Molimo pokušajte kasnije");
+      if (!FORMSPREE_ID) return showError("Slanje nije podešeno — pokušajte kasnije");
       try {
-        const res = await fetch(`https://formspree.io/f/${https://formspree.io/f/mzdwgzyj}`, {
+        const endpoint = `https://formspree.io/f/${FORMSPREE_ID}`;
+        const res = await fetch(endpoint, {
           method: "POST",
           headers: { "Accept": "application/json", "Content-Type": "application/json" },
           body: JSON.stringify(payload)
@@ -293,7 +301,7 @@
             </div>
           </div>`;
       } catch (err) {
-        showError("Došlo je do greške> Molimo, pokušajte ponovo");
+        showError("Došlo je do greške — molimo pokušajte ponovo");
       }
     });
 
