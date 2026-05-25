@@ -23,6 +23,29 @@
     .btn-primary{background:#0B3D3A;color:#fff}.btn-primary:hover{background:#000}
     .btn-secondary{background:#E9E2D2;color:#000}.btn-secondary:hover{background:#d8cfbb}
     .section{padding:64px 0}.section-title{font-size:32px;margin-bottom:24px}
+
+    /* Tamna tema */
+    .theme-dark body{background:#0c0f10;color:#e7e7e7}
+    .theme-dark .card{background:#121516;border-color:#1e2123;box-shadow:none}
+    .theme-dark .btn-secondary{background:#2a2f31;color:#e7e7e7}
+    .theme-dark header{background:rgba(10,12,13,.85)}
+    .theme-dark .bg-brand-light{background:#121516}
+    .theme-dark a:hover{color:#cfd8dc}
+    .theme-dark .section-title{color:#e7e7e7}
+
+    /* Proces strelica */
+    .flow-arrow{width:24px;height:24px;opacity:.8}
+    .flow-arrow svg{animation:arrowDown 1.6s infinite}
+    @keyframes arrowDown{0%{transform:translateY(-2px);opacity:.6}50%{transform:translateY(2px);opacity:1}100%{transform:translateY(-2px);opacity:.6}}
+
+    /* Lightbox */
+    #lightbox{background:rgba(0,0,0,.7)}
+    #lightbox img{max-height:80vh}
+
+    /* Kontakt profilisanje */
+    .contact-aside h4{font-weight:600;margin-bottom:.5rem}
+    .divider{height:1px;background:#eee}
+    .theme-dark .divider{background:#232729}
   </style>
   <link rel="icon" href="./favicon.ico">
   <script src="./assets/config.js"></script>
@@ -36,19 +59,35 @@
         <span class="font-serif text-xl">Stolarija Vasiljević</span>
       </a>
       <nav class="hidden md:flex items-center gap-6 text-sm">
-        <a href="#usluge" class="hover:text-brand-dark">Usluge</a>
-        <a href="#proces" class="hover:text-brand-dark">Proces</a>
-        <a href="./projekti/" class="hover:text-brand-dark">Projekti</a>
-        <a href="#onama" class="hover:text-brand-dark">O nama</a>
-        <a href="#faq" class="hover:text-brand-dark">FAQ</a>
-        <a href="#kontakt" class="hover:text-brand-dark">Kontakt</a>
+        <a href="#usluge" class="hover:text-brand-dark" id="navServices">Usluge</a>
+        <a href="#proces" class="hover:text-brand-dark" id="navProcess">Proces</a>
+        <a href="./projekti/" class="hover:text-brand-dark" id="navProjects">Projekti</a>
+        <a href="#onama" class="hover:text-brand-dark" id="navAbout">O nama</a>
+        <a href="#faq" class="hover:text-brand-dark" id="navFAQ">FAQ</a>
+        <a href="#kontakt" class="hover:text-brand-dark" id="navContact">Kontakt</a>
       </nav>
-      <div class="hidden md:flex items-center gap-4">
-        <a id="headerPhone" href="tel:+381641220429" class="text-sm font-medium hover:text-brand-dark">+381 64 122 04 29</a>
-        <a href="#kontakt" class="btn btn-primary text-sm">Pošalji upit</a>
-      </div>
-      <div class="md:hidden">
-        <a id="headerPhoneMobile" href="tel:+381641220429" class="btn btn-primary text-sm">Pozovi</a>
+      <div class="flex items-center gap-3">
+        <!-- Jezik -->
+        <div class="hidden md:flex items-center gap-1 text-sm">
+          <button class="px-2 py-1 rounded hover:bg-gray-100" data-lang="sr">SR</button>
+          <button class="px-2 py-1 rounded hover:bg-gray-100" data-lang="en">EN</button>
+          <button class="px-2 py-1 rounded hover:bg-gray-100" data-lang="de">DE</button>
+          <button class="px-2 py-1 rounded hover:bg-gray-100" data-lang="ru">RU</button>
+        </div>
+        <!-- Tema -->
+        <button id="themeToggle" class="p-2 rounded-xl border border-gray-200 hover:bg-gray-100 md:ml-2" aria-label="Promeni temu">
+          <span id="iconLight" class="block" aria-hidden="true">
+            <!-- Kućica + sunce -->
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M3 11l9-7 9 7" stroke="#0B3D3A" stroke-width="1.5" stroke-linecap="round"/><path d="M5 10.8V20h14v-9.2" stroke="#0B3D3A" stroke-width="1.5"/><circle cx="18.5" cy="5.5" r="2" fill="#E9E2D2" stroke="#0B3D3A" stroke-width="1"/></svg>
+          </span>
+          <span id="iconDark" class="hidden" aria-hidden="true">
+            <!-- Kućica + mesec -->
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M3 11l9-7 9 7" stroke="#E9E2D2" stroke-width="1.5" stroke-linecap="round"/><path d="M5 10.8V20h14v-9.2" stroke="#E9E2D2" stroke-width="1.5"/><path d="M19 3.5c-1.7.4-3 1.9-3 3.7 0 2.1 1.7 3.8 3.8 3.8 1.7 0 3.2-1.1 3.6-2.8-2.2.3-4.1-1.4-4.4-3.4z" fill="#E9E2D2"/></svg>
+          </span>
+        </button>
+        <a id="headerPhone" href="tel:+381641220429" class="hidden md:inline text-sm font-medium hover:text-brand-dark">+381 64 122 04 29</a>
+        <a href="#kontakt" class="hidden md:inline btn btn-primary text-sm" id="ctaHeader">Pošalji upit</a>
+        <a id="headerPhoneMobile" href="tel:+381641220429" class="md:hidden btn btn-primary text-sm">Pozovi</a>
       </div>
     </div>
   </header>
@@ -58,7 +97,7 @@
 
     <section id="usluge" class="section">
       <div class="container">
-        <h2 class="section-title font-serif">Usluge</h2>
+        <h2 class="section-title font-serif" id="labelServices">Usluge</h2>
         <div class="grid md:grid-cols-3 gap-6">
           <div class="card p-6 hover:shadow-lg transition-shadow">
             <div class="text-xl font-medium mb-2">Kuhinje</div>
@@ -90,52 +129,57 @@
 
     <section id="proces" class="section bg-brand-light">
       <div class="container">
-        <h2 class="section-title font-serif">Proces</h2>
+        <h2 class="section-title font-serif" id="labelProcess">Proces</h2>
         <div id="processList" class="space-y-4"></div>
       </div>
     </section>
 
     <section class="section" id="whyus"></section>
+
     <section class="section bg-white" id="portfolioPreview"></section>
+
     <section class="section bg-brand-light" id="testimonials"></section>
+
     <section class="section" id="faq"></section>
 
     <section id="onama" class="section">
       <div class="container">
-        <h2 class="section-title font-serif">O nama</h2>
+        <h2 class="section-title font-serif" id="labelAbout">O nama</h2>
         <p class="text-gray-700">Stolarija Vasiljević — Strahinja i Nemanja. Nameštaj po meri za dom i kancelariju. Procedura jasna, predračun transparentan, rokovi realni. Kulturna saradnja i uredna montaža.</p>
       </div>
     </section>
 
     <section id="kontakt" class="section bg-brand-light">
       <div class="container" id="contactSection">
-        <h2 class="section-title font-serif">Kontakt</h2>
+        <h2 class="section-title font-serif" id="labelContact">Kontakt</h2>
         <div class="grid md:grid-cols-3 gap-8">
-          <div class="card p-6">
-            <div class="text-gray-700 space-y-2">
-              <p>Telefon — <a id="contactPhone" class="text-brand-dark font-medium" href="#">+381 64 122 04 29</a></p>
-              <p>Email — <a id="contactEmail" class="text-brand-dark font-medium" href="#"></a></p>
-              <p>Upit šaljite mejlom ili ovde</p>
-              <p>Područje — Novi Sad, Beograd i okolina</p>
+          <aside class="card p-6 contact-aside">
+            <h4 id="labelReachUs">Kontakt podaci</h4>
+            <div class="space-y-2 text-gray-700">
+              <p><span id="labelPhone">Telefon</span> — <a id="contactPhone" class="text-brand-dark font-medium" href="#">+381 64 122 04 29</a></p>
+              <p><span id="labelEmail">Email</span> — <a id="contactEmail" class="text-brand-dark font-medium" href="#"></a></p>
+              <div class="divider my-3"></div>
+              <p id="labelArea">Područje — Novi Sad, Beograd i okolina</p>
+              <p id="labelHint">Upit šaljite mejlom ili ovde</p>
             </div>
-          </div>
+          </aside>
           <form class="card p-6 md:col-span-2 space-y-4" id="contactForm">
             <div id="formAlert" class="bg-red-50 text-red-700 p-3 rounded-xl hidden"></div>
             <div id="fallbackBox" class="bg-yellow-50 text-yellow-800 p-3 rounded-xl hidden"></div>
             <div class="grid md:grid-cols-2 gap-4">
-              <div><label class="block text-sm font-medium mb-1">Ime i prezime *</label><input name="fullName" class="w-full border rounded-xl px-3 py-2" required></div>
-              <div><label class="block text-sm font-medium mb-1">Telefon *</label><input name="phone" class="w-full border rounded-xl px-3 py-2" required></div>
+              <div><label class="block text-sm font-medium mb-1" id="labelFullName">Ime i prezime *</label><input name="fullName" class="w-full border rounded-xl px-3 py-2" required></div>
+              <div><label class="block text-sm font-medium mb-1" id="labelPhoneField">Telefon *</label><input name="phone" class="w-full border rounded-xl px-3 py-2" required></div>
             </div>
             <div class="grid md:grid-cols-2 gap-4">
-              <div><label class="block text-sm font-medium mb-1">Email *</label><input type="email" name="email" class="w-full border rounded-xl px-3 py-2" required></div>
-              <div><label class="block text-sm font-medium mb-1">Grad *</label>
+              <div><label class="block text-sm font-medium mb-1" id="labelEmailField">Email *</label><input type="email" name="email" class="w-full border rounded-xl px-3 py-2" required></div>
+              <div><label class="block text-sm font-medium mb-1" id="labelCity">Grad *</label>
                 <select name="city" class="w-full border rounded-xl px-3 py-2" required>
                   <option>Novi Sad</option><option>Beograd</option><option>Okolina</option>
                 </select>
               </div>
             </div>
             <div class="grid md:grid-cols-2 gap-4">
-              <div><label class="block text-sm font-medium mb-1">Tip projekta *</label>
+              <div><label class="block text-sm font-medium mb-1" id="labelType">Tip projekta *</label>
                 <select name="projectType" class="w-full border rounded-xl px-3 py-2" required>
                   <option>Kuhinje</option>
                   <option>Plakari i garderoberi</option>
@@ -145,26 +189,26 @@
                   <option>Uređenje enterijera</option>
                 </select>
               </div>
-              <div><label class="block text-sm font-medium mb-1">Imam mere *</label>
+              <div><label class="block text-sm font-medium mb-1" id="labelMeasures">Imam mere *</label>
                 <select name="haveMeasures" class="w-full border rounded-xl px-3 py-2" required>
                   <option>Ne</option><option>Da</option>
                 </select>
               </div>
             </div>
-            <div><label class="block text-sm font-medium mb-1">Dimenzije</label><input name="dimensions" class="w-full border rounded-xl px-3 py-2" placeholder="npr 240x60x220 cm"></div>
-            <div><label class="block text-sm font-medium mb-1">Opis projekta *</label><textarea name="description" class="w-full border rounded-xl px-3 py-2 min-h-[120px]" required></textarea></div>
+            <div><label class="block text-sm font-medium mb-1" id="labelDims">Dimenzije</label><input name="dimensions" class="w-full border rounded-xl px-3 py-2" placeholder="npr 240x60x220 cm"></div>
+            <div><label class="block text-sm font-medium mb-1" id="labelDesc">Opis projekta *</label><textarea name="description" class="w-full border rounded-xl px-3 py-2 min-h-[120px]" required></textarea></div>
             <div class="grid md:grid-cols-2 gap-4">
-              <div><label class="block text-sm font-medium mb-1">Rok</label><input name="deadline" class="w-full border rounded-xl px-3 py-2" placeholder="npr kraj jula"></div>
-              <div><label class="block text-sm font-medium mb-1">Budžet</label><input name="budget" class="w-full border rounded-xl px-3 py-2" placeholder="npr 1500–2500€"></div>
+              <div><label class="block text-sm font-medium mb-1" id="labelDeadline">Rok</label><input name="deadline" class="w-full border rounded-xl px-3 py-2" placeholder="npr kraj jula"></div>
+              <div><label class="block text-sm font-medium mb-1" id="labelBudget">Budžet</label><input name="budget" class="w-full border rounded-xl px-3 py-2" placeholder="npr 1500–2500€"></div>
             </div>
             <div>
-              <label class="block text-sm font-medium mb-1">Slike — max 10 — do 5MB po slici</label>
+              <label class="block text-sm font-medium mb-1" id="labelImages">Slike — max 10 — do 5MB po slici</label>
               <input id="filesInput" type="file" accept="image/*" multiple>
               <div id="filesList" class="mt-2"></div>
             </div>
             <div class="flex items-center gap-2">
               <input type="checkbox" id="consent" name="consent" required>
-              <label for="consent" class="text-sm">Slažem se da budem kontaktiran</label>
+              <label for="consent" class="text-sm" id="labelConsent">Slažem se da budem kontaktiran</label>
             </div>
             <div class="flex gap-3">
               <button id="submitBtn" class="btn btn-primary" type="submit">Pošalji upit</button>
@@ -191,19 +235,19 @@
       <div>
         <h4 class="font-medium mb-3">Navigacija</h4>
         <ul class="space-y-2 text-gray-700">
-          <li><a href="#usluge" class="hover:text-brand-dark">Usluge</a></li>
-          <li><a href="#proces" class="hover:text-brand-dark">Proces</a></li>
-          <li><a href="./projekti/" class="hover:text-brand-dark">Projekti</a></li>
-          <li><a href="#faq" class="hover:text-brand-dark">FAQ</a></li>
-          <li><a href="#kontakt" class="hover:text-brand-dark">Kontakt</a></li>
+          <li><a href="#usluge" class="hover:text-brand-dark" id="footServices">Usluge</a></li>
+          <li><a href="#proces" class="hover:text-brand-dark" id="footProcess">Proces</a></li>
+          <li><a href="./projekti/" class="hover:text-brand-dark" id="footProjects">Projekti</a></li>
+          <li><a href="#faq" class="hover:text-brand-dark" id="footFAQ">FAQ</a></li>
+          <li><a href="#kontakt" class="hover:text-brand-dark" id="footContact">Kontakt</a></li>
         </ul>
       </div>
       <div>
-        <h4 class="font-medium mb-3">Kontakt</h4>
+        <h4 class="font-medium mb-3" id="footContactTitle">Kontakt</h4>
         <ul class="space-y-2 text-gray-700">
-          <li>Telefon — <a id="footerPhone" href="#" class="hover:text-brand-dark">+381 64 122 04 29</a></li>
-          <li>Email — <a id="footerEmail" href="#" class="hover:text-brand-dark"></a></li>
-          <li>Područje — Novi Sad / Beograd i okolina</li>
+          <li><span id="footPhoneLabel">Telefon</span> — <a id="footerPhone" href="#" class="hover:text-brand-dark">+381 64 122 04 29</a></li>
+          <li><span id="footEmailLabel">Email</span> — <a id="footerEmail" href="#" class="hover:text-brand-dark"></a></li>
+          <li id="footArea">Područje — Novi Sad / Beograd i okolina</li>
         </ul>
         <div class="text-xs text-gray-500 mt-4">
           <a href="#" class="hover:underline">Privatnost</a> · <a href="#" class="hover:underline">Uslovi</a>
@@ -211,5 +255,13 @@
       </div>
     </div>
   </footer>
+
+  <!-- Lightbox modal -->
+  <div id="lightbox" class="fixed inset-0 hidden items-center justify-center z-50 px-4">
+    <div class="card p-2 max-w-4xl w-full bg-white relative">
+      <button id="lightboxClose" class="absolute -top-10 right-0 text-white text-lg">Zatvori</button>
+      <img id="lightboxImg" src="" alt="Pregled projekta" class="w-full h-auto rounded-xl">
+    </div>
+  </div>
 </body>
 </html>
