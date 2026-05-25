@@ -86,7 +86,7 @@
             </div>
           `).join("")}
         </div>
-        <p class="text-sm text-gray-600 mt-4">Radimo po proceduri — zato su estimacije realne i rokovi dostižni.</p>
+        <p class="text-sm text-gray-600 mt-4">Radimo po procedurama. Zato su naše estimacije realne i rokovi dostižni.</p>
       </div>`;
   }
 
@@ -154,7 +154,7 @@
       btn.addEventListener("click", () => {
         const a = btn.parentElement.querySelector(".faq-a");
         const sym = btn.querySelector("span.text-gray-500");
-        if (a.classList.contains("hidden")) { a.classList.remove("hidden"); sym.textContent = "−"; }
+        if (a.classList.contains("hidden")) { a.classList.remove("hidden"); sym.textContent = "-"; }
         else { a.classList.add("hidden"); sym.textContent = "+"; }
       });
     });
@@ -162,7 +162,7 @@
 
   function renderContact() {
     const phone = cfg.CONTACT_PHONE || "+381 64 122 04 29";
-    const email = cfg.CONTACT_EMAIL || "";
+    const email = cfg.CONTACT_EMAIL || "strahinjavasiljevic00@gmail.com";
     qs("#contactPhone").textContent = phone;
     qs("#contactPhone").href = telHref(phone);
     const emailEl = qs("#contactEmail");
@@ -248,7 +248,7 @@
       }
       payload.imageUrls = urls;
 
-      if (!FORMSPREE_ID) return showError("Slanje nije podešeno — pokušajte kasnije.");
+      if (!FORMSPREE_ID) return showError("Slanje nije uspelo - pokušajte kasnije.");
       try {
         const res = await fetch(`https://formspree.io/f/${FORMSPREE_ID}`, {
           method: "POST",
@@ -259,12 +259,12 @@
         qs("#contactSection").innerHTML = `
           <div class="container">
             <div class="card p-8 text-center">
-              <h2 class="font-serif text-2xl mb-2">Hvala — upit je poslat</h2>
-              <p>Javićemo se uskoro</p>
+              <h2 class="font-serif text-2xl mb-2">Hvala! Upit je poslat.</h2>
+              <p>Radimo. Javićemo se uskoro </p>
             </div>
           </div>`;
       } catch (err) {
-        showError("Došlo je do greške — pokušajte ponovo.");
+        showError("Došlo je do greške. Molimo, pokušajte ponovo.");
       }
     });
 
@@ -332,7 +332,7 @@
       "url": siteUrl,
       "telephone": phone,
       "areaServed": ["Novi Sad", "Beograd", "Okolina"],
-      "address": { "@type": "PostalAddress", "addressLocality": "Novi Sad / Beograd", "addressCountry": "RS" },
+      "address": { "@type": "PostalAddress", "addressLocality": "Novi Sad / Beograd", "addressCountry": "Serbia" },
       "founder": [
         { "@type": "Person", "name": "Strahinja Vasiljević" },
         { "@type": "Person", "name": "Nemanja Vasiljević" }
