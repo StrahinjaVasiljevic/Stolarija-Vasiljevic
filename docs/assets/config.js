@@ -2,7 +2,7 @@
 window.APP_CONFIG = {
   // Kontakt (prikaz u UI i adresa koja prima upite)
   CONTACT_PHONE: "+381 64 122 04 29",
-  CONTACT_EMAIL: "{{TARGET_EMAIL}}",
+  CONTACT_EMAIL: "{strahinjavasiljevic00@gmail.com}",
 
   // Cloudinary (upload slika bez servera — Unsigned preset)
   CLOUDINARY_CLOUD_NAME: "{{CLOUDINARY_CLOUD_NAME}}",
@@ -17,5 +17,5 @@ window.APP_CONFIG = {
   BRANCH: "main",
 
   // Public URL (custom domen na GitHub Pages)
-  SITE_URL: "https://stolarija-vasiljevic.rs"
+  SITE_URL: "http://vasiljevic-stolarija.com/"
 };
