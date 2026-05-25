@@ -1,6 +1,7 @@
 (function() {
   const cfg = window.APP_CONFIG || {};
-  const state = { site: null, projects: null, lang: 'sr' };
+  const base = typeof cfg.withBase === 'function' ? cfg.withBase : (p)=>p;
+  const state = { site: null, projects: [], lang: 'sr' };
 
   const UI = {
     sr: {
@@ -13,43 +14,34 @@
         submit:'Pošalji upit', call:'Pozovi', successTitle:'Hvala! Upit je poslat', successText:'Javićemo se uskoro',
         errReq:'Popunite obavezna polja', errSend:'Došlo je do greške — molimo pokušajte ponovo', fallback:'Slike možete naknadno poslati kao odgovor na email'
       },
-      langLabel: 'Jezik', langAbbrev: 'srb', flag: '🇷🇸'
+      langLabel:'Jezik', langAbbrev:'srb', flag:'🇷🇸'
     },
-    en: {
-      nav: { services:'Services', process:'Process', projects:'Projects', about:'About', faq:'FAQ', contact:'Contact' },
-      heads: { services:'Services', process:'Process', about:'About', contact:'Contact', projects:'Projects', testimonials:'Testimonials', faq:'FAQ' },
-      contact: {
-        reach:'Contact details', phone:'Phone', email:'Email', area:'Area — Novi Sad, Belgrade and nearby', hint:'Send inquiry by email or here',
-        fullName:'Full name *', phoneF:'Phone *', emailF:'Email *', city:'City *', type:'Project type *', measures:'Have measurements *',
-        dims:'Dimensions', desc:'Project description *', deadline:'Deadline', budget:'Budget', images:'Images — max 10 — up to 5MB each', consent:'I agree to be contacted',
-        submit:'Send inquiry', call:'Call', successTitle:'Thank you! Inquiry sent', successText:'We will get back soon',
-        errReq:'Please fill required fields', errSend:'Error — please try again', fallback:'You can send images later by replying to email'
-      },
-      langLabel: 'Language', langAbbrev: 'eng', flag: '🇬🇧'
+    en: { nav:{services:'Services',process:'Process',projects:'Projects',about:'About',faq:'FAQ',contact:'Contact'},
+      heads:{services:'Services',process:'Process',about:'About',contact:'Contact',projects:'Projects',testimonials:'Testimonials',faq:'FAQ'},
+      contact:{reach:'Contact details',phone:'Phone',email:'Email',area:'Area — Novi Sad, Belgrade and nearby',hint:'Send inquiry by email or here',
+        fullName:'Full name *',phoneF:'Phone *',emailF:'Email *',city:'City *',type:'Project type *',measures:'Have measurements *',
+        dims:'Dimensions',desc:'Project description *',deadline:'Deadline',budget:'Budget',images:'Images — max 10 — up to 5MB each',consent:'I agree to be contacted',
+        submit:'Send inquiry',call:'Call',successTitle:'Thank you! Inquiry sent',successText:'We will get back soon',
+        errReq:'Please fill required fields',errSend:'Error — please try again',fallback:'You can send images later by replying to email'},
+      langLabel:'Language', langAbbrev:'eng', flag:'🇬🇧'
     },
-    de: {
-      nav: { services:'Leistungen', process:'Ablauf', projects:'Projekte', about:'Über uns', faq:'FAQ', contact:'Kontakt' },
-      heads: { services:'Leistungen', process:'Ablauf', about:'Über uns', contact:'Kontakt', projects:'Projekte', testimonials:'Stimmen', faq:'FAQ' },
-      contact: {
-        reach:'Kontaktdaten', phone:'Telefon', email:'E‑Mail', area:'Gebiet — Novi Sad, Belgrad und Umgebung', hint:'Anfrage per E‑Mail oder hier',
-        fullName:'Vollständiger Name *', phoneF:'Telefon *', emailF:'E‑Mail *', city:'Stadt *', type:'Projekttyp *', measures:'Maße vorhanden *',
-        dims:'Maße', desc:'Projektbeschreibung *', deadline:'Frist', budget:'Budget', images:'Bilder — max. 10 — bis 5MB', consent:'Ich stimme der Kontaktaufnahme zu',
-        submit:'Anfrage senden', call:'Anrufen', successTitle:'Danke! Anfrage gesendet', successText:'Wir melden uns bald',
-        errReq:'Bitte Pflichtfelder ausfüllen', errSend:'Fehler — bitte erneut versuchen', fallback:'Bilder können später per E‑Mail geschickt werden'
-      },
-      langLabel: 'Sprache', langAbbrev: 'deu', flag: '🇩🇪'
+    de: { nav:{services:'Leistungen',process:'Ablauf',projects:'Projekte',about:'Über uns',faq:'FAQ',contact:'Kontakt'},
+      heads:{services:'Leistungen',process:'Ablauf',about:'Über uns',contact:'Kontakt',projects:'Projekte',testimonials:'Stimmen',faq:'FAQ'},
+      contact:{reach:'Kontaktdaten',phone:'Telefon',email:'E‑Mail',area:'Gebiet — Novi Sad, Belgrad und Umgebung',hint:'Anfrage per E‑Mail oder hier',
+        fullName:'Vollständiger Name *',phoneF:'Telefon *',emailF:'E‑Mail *',city:'Stadt *',type:'Projekttyp *',measures:'Maße vorhanden *',
+        dims:'Maße',desc:'Projektbeschreibung *',deadline:'Frist',budget:'Budget',images:'Bilder — max. 10 — bis 5MB',consent:'Ich stimme der Kontaktaufnahme zu',
+        submit:'Anfrage senden',call:'Anrufen',successTitle:'Danke! Anfrage gesendet',successText:'Wir melden uns bald',
+        errReq:'Bitte Pflichtfelder ausfüllen',errSend:'Fehler — bitte erneut versuchen',fallback:'Bilder können später per E‑Mail geschickt werden'},
+      langLabel:'Sprache', langAbbrev:'deu', flag:'🇩🇪'
     },
-    ru: {
-      nav: { services:'Услуги', process:'Процесс', projects:'Проекты', about:'О нас', faq:'FAQ', contact:'Контакты' },
-      heads: { services:'Услуги', process:'Процесс', about:'О нас', contact:'Контакты', projects:'Проекты', testimonials:'Отзывы', faq:'FAQ' },
-      contact: {
-        reach:'Контакты', phone:'Телефон', email:'Email', area:'Регион — Нови Сад, Белград и окрестности', hint:'Пишите на email или через форму',
-        fullName:'Имя и фамилия *', phoneF:'Телефон *', emailF:'Email *', city:'Город *', type:'Тип проекта *', measures:'Есть размеры *',
-        dims:'Размеры', desc:'Описание проекта *', deadline:'Срок', budget:'Бюджет', images:'Изображения — до 10 — по 5MB', consent:'Согласен на контакт',
-        submit:'Отправить заявку', call:'Позвонить', successTitle:'Спасибо! Заявка отправлена', successText:'Мы свяжемся скоро',
-        errReq:'Заполните обязательные поля', errSend:'Ошибка — попробуйте снова', fallback:'Изображения можно отправить позже ответом на письмо'
-      },
-      langLabel: 'Язык', langAbbrev: 'рус', flag: '🇷🇺'
+    ru: { nav:{services:'Услуги',process:'Процесс',projects:'Проекты',about:'О нас',faq:'FAQ',contact:'Контакты'},
+      heads:{services:'Услуги',process:'Процесс',about:'О нас',contact:'Контакты',projects:'Проекты',testimonials:'Отзывы',faq:'FAQ'},
+      contact:{reach:'Контакты',phone:'Телефон',email:'Email',area:'Регион — Нови Сад, Белград и окрестности',hint:'Пишите на email или через форму',
+        fullName:'Имя и фамилия *',phoneF:'Телефон *',emailF:'Email *',city:'Город *',type:'Тип проекта *',measures:'Есть размеры *',
+        dims:'Размеры',desc:'Описание проекта *',deadline:'Срок',budget:'Бюджет',images:'Изображения — до 10 — по 5MB',consent:'Согласен на контакт',
+        submit:'Отправить заявку',call:'Позвонить',successTitle:'Спасибо! Заявка отправлена',successText:'Мы свяжемся скоро',
+        errReq:'Заполните обязательные поля',errSend:'Ошибка — попробуйте снова',fallback:'Изображения можно отправить позже ответом на письмо'},
+      langLabel:'Язык', langAbbrev:'рус', flag:'🇷🇺'
     }
   };
 
@@ -59,7 +51,7 @@
     try {
       initTheme();
       initLangDropdown();
-      await loadContent();
+      await safeLoadContent();
       renderHeader();
       renderHero();
       renderServices();
@@ -73,12 +65,15 @@
       injectSEO();
       wireNav();
       wireLightbox();
-    } catch (e) { console.error(e); }
+    } catch (e) {
+      console.error(e);
+    }
   }
 
   function getLang() {
     const stored = localStorage.getItem('lang');
-    return (stored && UI[stored]) ? stored : (cfg.DEFAULT_LANG || 'sr');
+    const defaultLang = (cfg.DEFAULT_LANG || 'sr');
+    return (stored && UI[stored]) ? stored : defaultLang;
   }
   function setLang(lang) {
     const next = UI[lang] ? lang : (cfg.DEFAULT_LANG || 'sr');
@@ -126,12 +121,40 @@
     }
   }
 
-  async function loadContent() {
-    const file = state.lang === 'sr' ? './content/site.json' : `./content/site.${state.lang}.json`;
-    const site = await fetch(file, {cache:"no-store"}).then(r => r.json());
-    const projects = await fetch("./content/projects.json", {cache:"no-store"}).then(r => r.json());
-    state.site = site;
-    state.projects = projects.projects || [];
+  async function safeLoadContent() {
+    // pokušaj prevod → fallback na sr → fallback na ugrađene podrazumevane vrednosti
+    const langFile = state.lang === 'sr' ? base('content/site.json') : base(`content/site.${state.lang}.json`);
+    state.site = await tryFetchJson(langFile)
+      || await tryFetchJson(base('content/site.json'))
+      || defaultSite();
+    state.projects = (await tryFetchJson(base('content/projects.json'))?.projects) || [];
+  }
+
+  async function tryFetchJson(url) {
+    try {
+      const res = await fetch(url, { cache: 'no-store' });
+      if (!res.ok) return null;
+      return await res.json();
+    } catch { return null; }
+  }
+
+  function defaultSite() {
+    return {
+      hero: {
+        title: "Nameštaj po meri — uredno, tačno, na vreme",
+        subtitle: "Kuhinje, plakari, komode, police, TV zidovi, kancelarije. Dogovor jasan — predračun transparentan — montaža uredna.",
+        ctaPrimary: "Pošalji upit",
+        ctaSecondary: "Pogledaj projekte",
+        benefits: [
+          { title: "Jasan predračun", text: "Sve stavke na jednom mestu." },
+          { title: "Realni rokovi", text: "Plan i obaveštenja." },
+          { title: "Kultura rada", text: "Uredna montaža i komunikacija." }
+        ]
+      },
+      whyUs: [],
+      testimonials: [],
+      faq: []
+    };
   }
 
   function qs(sel) { return document.querySelector(sel); }
@@ -173,29 +196,29 @@
   }
 
   function renderHero() {
-    const c = state.site.hero; if (!c) return;
-    const el = qs("#hero");
+    const c = state.site?.hero; if (!c) return;
+    const el = qs("#hero"); if (!el) return;
     el.innerHTML = `
       <div class="container mx-auto px-4">
         <div class="grid md:grid-cols-2 gap-8 items-center">
           <div>
-            <h1 class="font-serif text-4xl md:text-5xl leading-tight mb-4">${esc(c.title)}</h1>
-            <p class="text-lg text-gray-700 mb-6">${esc(c.subtitle)}</p>
+            <h1 class="font-serif text-4xl md:text-5xl leading-tight mb-4">${esc(c.title || '')}</h1>
+            <p class="text-lg text-gray-700 mb-6">${esc(c.subtitle || '')}</p>
             <div class="flex flex-wrap gap-3 mb-8">
-              <a href="#kontakt" class="btn btn-primary">${esc(c.ctaPrimary)}</a>
-              <a href="./projekti/" class="btn btn-secondary">${esc(c.ctaSecondary)}</a>
+              <a href="#kontakt" class="btn btn-primary">${esc(c.ctaPrimary || 'Pošalji upit')}</a>
+              <a href="${base('projekti/')}" class="btn btn-secondary">${esc(c.ctaSecondary || 'Pogledaj projekte')}</a>
             </div>
             <div class="grid sm:grid-cols-3 gap-4">
-              ${c.benefits.slice(0,3).map(b => `
+              ${(c.benefits || []).slice(0,3).map(b => `
                 <div class="card p-4">
-                  <div class="font-medium mb-1">${esc(b.title)}</div>
-                  <div class="text-sm text-gray-600">${esc(b.text)}</div>
+                  <div class="font-medium mb-1">${esc(b.title || '')}</div>
+                  <div class="text-sm text-gray-600">${esc(b.text || '')}</div>
                 </div>
               `).join("")}
             </div>
           </div>
           <div class="card p-6 bg-brand-beige/30">
-            <img src="./images/ph1.svg" alt="Primer enterijera po meri" class="w-full h-auto rounded-xl" />
+            <img src="${base('images/ph1.svg')}" alt="Primer enterijera po meri" class="w-full h-auto rounded-xl" />
           </div>
         </div>
       </div>
@@ -214,8 +237,7 @@
       { t: "Izrada i montaža", d: "Proizvodnja, isporuka i montaža na lokaciji" },
       { t: "Završetak projekta", d: "Primopredaja i isplata ostatka dogovorene cene" }
     ];
-    const wrap = qs("#processList");
-    if (!wrap) return;
+    const wrap = qs("#processList"); if (!wrap) return;
     wrap.innerHTML = steps.map((s, i) => `
       <div class="card process-tile tile-pattern">
         <button class="w-full text-center process-toggle focus:outline-none focus:ring-2 focus:ring-brand-dark/30 rounded-xl"
@@ -246,16 +268,16 @@
   }
 
   function renderWhyUs() {
-    const items = state.site.whyUs || [];
-    const el = qs("#whyus");
+    const items = state.site?.whyUs || [];
+    const el = qs("#whyus"); if (!el) return;
     el.innerHTML = `
       <div class="container">
         <h2 class="section-title font-serif">Zašto mi</h2>
         <div class="grid md:grid-cols-3 gap-6">
           ${items.map(it => `
             <div class="card p-6 hover:shadow-lg transition-shadow">
-              <div class="text-xl font-medium mb-2">${esc(it.title)}</div>
-              <div class="text-gray-700">${esc(it.text)}</div>
+              <div class="text-xl font-medium mb-2">${esc(it.title || '')}</div>
+              <div class="text-gray-700">${esc(it.text || '')}</div>
             </div>
           `).join("")}
         </div>
@@ -264,42 +286,44 @@
   }
 
   function renderPortfolioPreview() {
-    const list = state.projects.slice(0, 8);
-    const el = qs("#portfolioPreview");
+    const list = (state.projects || []).slice(0, 8);
+    const el = qs("#portfolioPreview"); if (!el) return;
     el.innerHTML = `
       <div class="container">
         <div class="flex items-center justify-between mb-6">
           <h2 class="section-title font-serif">${UI[state.lang].heads.projects || 'Projekti'}</h2>
-          <a href="./projekti/" class="text-brand-dark font-medium hover:underline">Pogledaj sve</a>
+          <a href="${base('projekti/')}" class="text-brand-dark font-medium hover:underline">Pogledaj sve</a>
         </div>
         <div class="grid md:grid-cols-4 gap-6">
-          ${list.map(p => `
-            <button class="card overflow-hidden text-left preview-btn" data-img="${esc(p.images[0] || './images/ph2.svg')}">
+          ${list.map(p => {
+            const img = (p.images && p.images[0]) ? p.images[0] : base('images/ph2.svg');
+            return `
+            <button class="card overflow-hidden text-left preview-btn" data-img="${esc(img)}">
               <div class="relative w-full h-40 bg-brand-light">
-                <img src="${esc(p.images[0] || './images/ph2.svg')}" alt="${esc(p.title)} — ${esc(p.type)}" class="w-full h-40 object-cover" />
+                <img src="${esc(img)}" alt="${esc((p.title||'') + ' — ' + (p.type||''))}" class="w-full h-40 object-cover" />
               </div>
               <div class="p-4">
-                <div class="text-sm text-gray-500">${esc(p.type)} · ${esc(p.location)}</div>
-                <div class="font-medium">${esc(p.title)}</div>
+                <div class="text-sm text-gray-500">${esc(p.type || '')} · ${esc(p.location || '')}</div>
+                <div class="font-medium">${esc(p.title || '')}</div>
               </div>
-            </button>
-          `).join("")}
+            </button>`;
+          }).join("")}
         </div>
       </div>`;
   }
 
   function renderTestimonials() {
-    const items = state.site.testimonials || [];
+    const items = state.site?.testimonials || [];
     const head = UI[state.lang].heads.testimonials || 'Utisci';
-    const el = qs("#testimonials");
+    const el = qs("#testimonials"); if (!el) return;
     el.innerHTML = `
       <div class="container">
         <h2 class="section-title font-serif">${head}</h2>
         <div class="grid md:grid-cols-3 gap-6">
           ${items.map(t => `
             <div class="card p-6">
-              <div class="text-gray-700 mb-3">${esc(t.text)}</div>
-              <div class="text-sm font-medium text-gray-900">${esc(t.name)}</div>
+              <div class="text-gray-700 mb-3">${esc(t.text || '')}</div>
+              <div class="text-sm font-medium text-gray-900">${esc(t.name || '')}</div>
               ${t.date ? `<div class="text-xs text-gray-500 mt-1">${esc(formatDate(t.date))}</div>` : ``}
             </div>
           `).join("")}
@@ -318,9 +342,9 @@
   }
 
   function renderFAQ() {
-    const items = state.site.faq || [];
+    const items = state.site?.faq || [];
     const head = UI[state.lang].heads.faq || 'FAQ';
-    const el = qs("#faq");
+    const el = qs("#faq"); if (!el) return;
     el.innerHTML = `
       <div class="container">
         <h2 class="section-title font-serif">${head}</h2>
@@ -328,10 +352,10 @@
           ${items.map((it, i) => `
             <div class="card">
               <button data-i="${i}" class="w-full text-left px-5 py-4 flex justify-between items-center faq-toggle">
-                <span class="font-medium">${esc(it.q)}</span>
+                <span class="font-medium">${esc(it.q || '')}</span>
                 <span class="text-gray-500">+</span>
               </button>
-              <div class="px-5 pb-5 text-gray-700 hidden faq-a">${esc(it.a)}</div>
+              <div class="px-5 pb-5 text-gray-700 hidden faq-a">${esc(it.a || '')}</div>
             </div>
           `).join("")}
         </div>
@@ -502,9 +526,7 @@
           if (e.lengthComputable) {
             const p = Math.round((e.loaded / e.total) * 100);
             files[index].progress = p;
-            const filesList = qs("#filesList"); if (filesList) {
-              filesList.children[index]?.querySelector('.h-1.bg-brand-dark').style.width = `${p}%`;
-            }
+            renderFiles();
           }
         });
         xhr.onreadystatechange = () => {
@@ -512,7 +534,9 @@
             if (xhr.status >= 200 && xhr.status < 300) {
               try { const res = JSON.parse(xhr.responseText); resolve(res.secure_url); }
               catch { resolve(""); }
-            } else { resolve(""); }
+            } else {
+              files[index].error = "Greška pri uploadu"; renderFiles(); resolve("");
+            }
           }
         };
         xhr.open("POST", `https://api.cloudinary.com/v1_1/${cloud}/upload`, true);
@@ -581,7 +605,7 @@
         { "@type": "Person", "name": "Strahinja Vasiljević" },
         { "@type": "Person", "name": "Nemanja Vasiljević" }
       ],
-      "image": siteUrl ? `${siteUrl}/images/ph1.svg` : "./images/ph1.svg",
+      "image": siteUrl ? `${siteUrl}/images/ph1.svg` : base('images/ph1.svg'),
       "sameAs": []
     };
     const s = document.createElement("script");
