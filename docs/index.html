@@ -29,28 +29,24 @@
       --text-on-primary:#ffffff;
     }
     html.theme-dark{
-      /* karbon crna pozadina sa visokim kontrastom i krem tekstom */
       --bg:#0D1113;
-      --text:#EDE7DD; /* krem za tekst */
-      --card:#121619; /* tamna grafitna za kartice */
+      --text:#EDE7DD;
+      --card:#121619;
       --border:#1E2326;
-      --muted:#C8C3BB; /* sekundarni tekst kremast */
-      --secondary-bg:#2B2F31; /* za sekundarna dugmad u tamnoj temi */
-      --text-on-primary:#EDE7DD; /* krem tekst na primarnom brendu */
+      --muted:#C8C3BB;
+      --secondary-bg:#2B2F31;
+      --text-on-primary:#EDE7DD;
     }
 
     .container{max-width:1200px;margin:0 auto;padding:0 16px}
-
     body{background:var(--bg);color:var(--text)}
     .card{background:var(--card);border:1px solid var(--border);border-radius:16px;box-shadow:0 8px 30px rgba(0,0,0,0.08)}
     .btn{display:inline-flex;align-items:center;justify-content:center;border-radius:12px;padding:12px 20px;font-weight:500;transition:all .2s}
     .btn-primary{background:var(--brand);color:var(--text-on-primary)} .btn-primary:hover{filter:brightness(.95)}
     .btn-secondary{background:var(--secondary-bg);color:#000} .btn-secondary:hover{filter:brightness(.97)}
     html.theme-dark .btn-secondary{color:var(--text)}
-
     .section{padding:64px 0}.section-title{font-size:32px;margin-bottom:24px}
 
-    /* tamna tema – suptilna tekstura (glatka) */
     html.theme-dark body::before{
       content:"";position:fixed;inset:0;pointer-events:none;z-index:-1;
       background:
@@ -59,25 +55,38 @@
         radial-gradient(800px 800px at 50% 100%, rgba(255,255,255,0.02), transparent 60%);
       mix-blend-mode:overlay;
     }
-    /* tamna pozadina sekcija */
     html.theme-dark .bg-brand-light{background:var(--card)}
-    /* opšti link hover u tamnoj temi */
     html.theme-dark a:hover{color:#DAD3C7}
-
-    /* neutralni sivi tonovi u tamnoj temi ka krem */
     html.theme-dark .text-gray-700{color:var(--text)}
     html.theme-dark .text-gray-600{color:var(--muted)}
 
-    /* Proces strelica animacija */
+    .process-wrap{display:flex;flex-direction:column;align-items:center;gap:14px}
+    .process-tile{width:260px;min-height:120px;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:14px;text-align:center;position:relative;overflow:hidden}
+    .tile-head{display:flex;flex-direction:column;gap:6px;align-items:center}
+    .chip{display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;border:1px solid var(--border);border-radius:8px;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13px;color:var(--brand);background:transparent}
+    .tile-title{font-weight:600}
+    .tile-desc{margin-top:10px;font-size:14px;color:var(--muted)}
+    .tile-pattern::after{content:"";position:absolute;inset:0;pointer-events:none;background-image:linear-gradient(135deg, rgba(0,0,0,0.03) 12.5%, transparent 12.5%, transparent 50%, rgba(0,0,0,0.03) 50%, rgba(0,0,0,0.03) 62.5%, transparent 62.5%, transparent 100%);background-size:12px 12px;opacity:.6}
+    html.theme-dark .tile-pattern::after{background-image:linear-gradient(135deg, rgba(255,255,255,0.04) 12.5%, transparent 12.5%, transparent 50%, rgba(255,255,255,0.04) 50%, rgba(255,255,255,0.04) 62.5%, transparent 62.5%, transparent 100%);opacity:.4}
     .flow-arrow{width:24px;height:24px;opacity:.85}
     .flow-arrow svg{animation:arrowDown 1.6s infinite}
     @keyframes arrowDown{0%{transform:translateY(-2px);opacity:.6}50%{transform:translateY(2px);opacity:1}100%{transform:translateY(-2px);opacity:.6}}
+
+    /* Dropdown jezik */
+    .dropdown{position:relative}
+    .dropdown-btn{display:flex;align-items:center;gap:8px;padding:8px 10px;border:1px solid var(--border);border-radius:10px;background:var(--card);color:var(--text)}
+    .dropdown-menu{position:absolute;right:0;top:calc(100% + 8px);min-width:180px;background:var(--card);border:1px solid var(--border);border-radius:12px;box-shadow:0 8px 30px rgba(0,0,0,0.08);padding:6px;z-index:50}
+    .dropdown-item{display:flex;align-items:center;gap:8px;width:100%;text-align:left;padding:8px 10px;border-radius:8px;color:var(--text)}
+    .dropdown-item:hover{background:var(--secondary-bg)}
+    .flag{font-size:16px}
+    .chev{transition:transform .2s}
+    .open .chev{transform:rotate(180deg)}
   </style>
   <link rel="icon" href="./favicon.ico">
   <script src="./assets/config.js"></script>
   <script src="./assets/site.js" defer></script>
 </head>
-<body class="font-sans">
+<body class="font-sans text-[#0b0b0b] bg-white">
   <header class="border-b border-gray-100 bg-white/80 backdrop-blur sticky top-0 z-50">
     <div class="container h-16 flex items-center justify-between">
       <a href="./" class="flex items-center gap-3">
@@ -93,12 +102,21 @@
         <a href="#kontakt" class="hover:text-brand-dark" id="navContact">Kontakt</a>
       </nav>
       <div class="flex items-center gap-3">
-        <div class="hidden md:flex items-center gap-1 text-sm">
-          <button class="px-2 py-1 rounded hover:bg-gray-100" data-lang="sr">SR</button>
-          <button class="px-2 py-1 rounded hover:bg-gray-100" data-lang="en">EN</button>
-          <button class="px-2 py-1 rounded hover:bg-gray-100" data-lang="de">DE</button>
-          <button class="px-2 py-1 rounded hover:bg-gray-100" data-lang="ru">RU</button>
+        <!-- Jezik dropdown -->
+        <div class="dropdown" id="langSelect">
+          <button id="langToggle" class="dropdown-btn" aria-haspopup="true" aria-expanded="false">
+            <span class="flag" id="langFlag">🇷🇸</span>
+            <span id="langLabel">Jezik: srb</span>
+            <svg class="chev" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          </button>
+          <div id="langMenu" class="dropdown-menu hidden" role="menu" aria-label="Izaberi jezik">
+            <button class="dropdown-item" data-lang="sr"><span class="flag">🇷🇸</span><span>srb</span></button>
+            <button class="dropdown-item" data-lang="en"><span class="flag">🇬🇧</span><span>eng</span></button>
+            <button class="dropdown-item" data-lang="de"><span class="flag">🇩🇪</span><span>deu</span></button>
+            <button class="dropdown-item" data-lang="ru"><span class="flag">🇷🇺</span><span>rus</span></button>
+          </div>
         </div>
+        <!-- Tema -->
         <button id="themeToggle" class="p-2 rounded-xl border border-gray-200 hover:bg-gray-100 md:ml-2" aria-label="Promeni temu">
           <span id="iconLight" class="block" aria-hidden="true">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M3 11l9-7 9 7" stroke="#0B3D3A" stroke-width="1.5" stroke-linecap="round"/><path d="M5 10.8V20h14v-9.2" stroke="#0B3D3A" stroke-width="1.5"/><circle cx="18.5" cy="5.5" r="2" fill="#E9E2D2" stroke="#0B3D3A" stroke-width="1"/></svg>
@@ -152,16 +170,13 @@
     <section id="proces" class="section bg-brand-light">
       <div class="container">
         <h2 class="section-title font-serif" id="labelProcess">Proces</h2>
-        <div id="processList" class="space-y-4"></div>
+        <div id="processList" class="process-wrap"></div>
       </div>
     </section>
 
     <section class="section" id="whyus"></section>
-
     <section class="section bg-white" id="portfolioPreview"></section>
-
     <section class="section bg-brand-light" id="testimonials"></section>
-
     <section class="section" id="faq"></section>
 
     <section id="onama" class="section">
