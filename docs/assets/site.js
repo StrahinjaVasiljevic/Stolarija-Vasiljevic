@@ -12,7 +12,8 @@
         dims:'Dimenzije', desc:'Opis projekta *', deadline:'Rok', budget:'Budžet', images:'Slike — max 10 — do 5MB po slici', consent:'Slažem se da budem kontaktiran',
         submit:'Pošalji upit', call:'Pozovi', successTitle:'Hvala! Upit je poslat', successText:'Javićemo se uskoro',
         errReq:'Popunite obavezna polja', errSend:'Došlo je do greške — molimo pokušajte ponovo', fallback:'Slike možete naknadno poslati kao odgovor na email'
-      }
+      },
+      langLabel: 'Jezik', langAbbrev: 'srb', flag: '🇷🇸'
     },
     en: {
       nav: { services:'Services', process:'Process', projects:'Projects', about:'About', faq:'FAQ', contact:'Contact' },
@@ -23,7 +24,8 @@
         dims:'Dimensions', desc:'Project description *', deadline:'Deadline', budget:'Budget', images:'Images — max 10 — up to 5MB each', consent:'I agree to be contacted',
         submit:'Send inquiry', call:'Call', successTitle:'Thank you! Inquiry sent', successText:'We will get back soon',
         errReq:'Please fill required fields', errSend:'Error — please try again', fallback:'You can send images later by replying to email'
-      }
+      },
+      langLabel: 'Language', langAbbrev: 'eng', flag: '🇬🇧'
     },
     de: {
       nav: { services:'Leistungen', process:'Ablauf', projects:'Projekte', about:'Über uns', faq:'FAQ', contact:'Kontakt' },
@@ -34,7 +36,8 @@
         dims:'Maße', desc:'Projektbeschreibung *', deadline:'Frist', budget:'Budget', images:'Bilder — max. 10 — bis 5MB', consent:'Ich stimme der Kontaktaufnahme zu',
         submit:'Anfrage senden', call:'Anrufen', successTitle:'Danke! Anfrage gesendet', successText:'Wir melden uns bald',
         errReq:'Bitte Pflichtfelder ausfüllen', errSend:'Fehler — bitte erneut versuchen', fallback:'Bilder können später per E‑Mail geschickt werden'
-      }
+      },
+      langLabel: 'Sprache', langAbbrev: 'deu', flag: '🇩🇪'
     },
     ru: {
       nav: { services:'Услуги', process:'Процесс', projects:'Проекты', about:'О нас', faq:'FAQ', contact:'Контакты' },
@@ -45,7 +48,8 @@
         dims:'Размеры', desc:'Описание проекта *', deadline:'Срок', budget:'Бюджет', images:'Изображения — до 10 — по 5MB', consent:'Согласен на контакт',
         submit:'Отправить заявку', call:'Позвонить', successTitle:'Спасибо! Заявка отправлена', successText:'Мы свяжемся скоро',
         errReq:'Заполните обязательные поля', errSend:'Ошибка — попробуйте снова', fallback:'Изображения можно отправить позже ответом на письмо'
-      }
+      },
+      langLabel: 'Язык', langAbbrev: 'рус', flag: '🇷🇺'
     }
   };
 
@@ -54,7 +58,7 @@
   async function init() {
     try {
       initTheme();
-      initLang();
+      initLangDropdown();
       await loadContent();
       renderHeader();
       renderHero();
@@ -74,18 +78,52 @@
 
   function getLang() {
     const stored = localStorage.getItem('lang');
-    return (stored && UI[stored]) ? stored : 'sr';
+    return (stored && UI[stored]) ? stored : (cfg.DEFAULT_LANG || 'sr');
   }
   function setLang(lang) {
-    state.lang = UI[lang] ? lang : 'sr';
-    localStorage.setItem('lang', state.lang);
+    const next = UI[lang] ? lang : (cfg.DEFAULT_LANG || 'sr');
+    localStorage.setItem('lang', next);
+    state.lang = next;
   }
-  function initLang() {
+
+  function initLangDropdown(){
     setLang(getLang());
-    document.querySelectorAll('[data-lang]').forEach(b=>{
-      b.classList.toggle('bg-gray-100', b.dataset.lang===state.lang);
-      b.addEventListener('click', ()=>{ setLang(b.dataset.lang); location.reload(); });
-    });
+    const toggle = qs('#langToggle');
+    const menu = qs('#langMenu');
+    const flagEl = qs('#langFlag');
+    const labelEl = qs('#langLabel');
+
+    const applyLabel = () => {
+      const LUI = UI[state.lang];
+      if (flagEl) flagEl.textContent = LUI.flag;
+      if (labelEl) labelEl.textContent = `${LUI.langLabel}: ${LUI.langAbbrev}`;
+    };
+    applyLabel();
+
+    if (toggle && menu){
+      toggle.addEventListener('click', (e)=>{
+        e.stopPropagation();
+        const open = !menu.classList.contains('hidden');
+        menu.classList.toggle('hidden', open);
+        toggle.parentElement.classList.toggle('open', !open);
+        toggle.setAttribute('aria-expanded', String(!open));
+      });
+      document.addEventListener('click', ()=>{
+        if (!menu.classList.contains('hidden')){
+          menu.classList.add('hidden');
+          toggle.parentElement.classList.remove('open');
+          toggle.setAttribute('aria-expanded', 'false');
+        }
+      });
+      menu.querySelectorAll('.dropdown-item').forEach(item=>{
+        item.addEventListener('click', ()=>{
+          const lang = item.getAttribute('data-lang');
+          setLang(lang || 'sr');
+          applyLabel();
+          location.reload();
+        });
+      });
+    }
   }
 
   async function loadContent() {
@@ -128,6 +166,9 @@
       const el = qs('#nav'+k); if (el) el.textContent = nav[k.toLowerCase()];
       const fl = qs('#foot'+k); if (fl) fl.textContent = nav[k.toLowerCase()];
     });
+    const heads = UI[state.lang].heads;
+    const ids = { labelServices:'services', labelProcess:'process', labelAbout:'about', labelContact:'contact' };
+    Object.entries(ids).forEach(([id,key])=>{ const el2=qs('#'+id); if(el2) el2.textContent = heads[key]; });
     const cta = qs('#ctaHeader'); if (cta && state.lang!=='sr') cta.textContent = UI[state.lang].contact.submit;
   }
 
@@ -159,9 +200,6 @@
         </div>
       </div>
     `;
-    const heads = UI[state.lang].heads;
-    const ids = { labelServices:'services', labelProcess:'process', labelAbout:'about', labelContact:'contact' };
-    Object.entries(ids).forEach(([id,key])=>{ const el2=qs('#'+id); if(el2) el2.textContent = heads[key]; });
   }
 
   function renderServices() { /* statički u HTML-u */ }
@@ -212,7 +250,7 @@
     const el = qs("#whyus");
     el.innerHTML = `
       <div class="container">
-        <h2 class="section-title font-serif">${UI[state.lang].heads.services ? 'Zašto mi' : 'Zašto mi'}</h2>
+        <h2 class="section-title font-serif">Zašto mi</h2>
         <div class="grid md:grid-cols-3 gap-6">
           ${items.map(it => `
             <div class="card p-6 hover:shadow-lg transition-shadow">
@@ -228,11 +266,10 @@
   function renderPortfolioPreview() {
     const list = state.projects.slice(0, 8);
     const el = qs("#portfolioPreview");
-    const head = UI[state.lang].heads.projects || 'Projekti';
     el.innerHTML = `
       <div class="container">
         <div class="flex items-center justify-between mb-6">
-          <h2 class="section-title font-serif">${head}</h2>
+          <h2 class="section-title font-serif">${UI[state.lang].heads.projects || 'Projekti'}</h2>
           <a href="./projekti/" class="text-brand-dark font-medium hover:underline">Pogledaj sve</a>
         </div>
         <div class="grid md:grid-cols-4 gap-6">
@@ -451,6 +488,7 @@
     }
 
     function showError(msg) {
+      const alertBox = qs("#formAlert");
       if (!alertBox) return;
       alertBox.textContent = msg;
       alertBox.classList.remove("hidden");
@@ -464,7 +502,9 @@
           if (e.lengthComputable) {
             const p = Math.round((e.loaded / e.total) * 100);
             files[index].progress = p;
-            renderFiles();
+            const filesList = qs("#filesList"); if (filesList) {
+              filesList.children[index]?.querySelector('.h-1.bg-brand-dark').style.width = `${p}%`;
+            }
           }
         });
         xhr.onreadystatechange = () => {
@@ -472,9 +512,7 @@
             if (xhr.status >= 200 && xhr.status < 300) {
               try { const res = JSON.parse(xhr.responseText); resolve(res.secure_url); }
               catch { resolve(""); }
-            } else {
-              files[index].error = "Greška pri uploadu"; renderFiles(); resolve("");
-            }
+            } else { resolve(""); }
           }
         };
         xhr.open("POST", `https://api.cloudinary.com/v1_1/${cloud}/upload`, true);
@@ -552,4 +590,3 @@
     document.head.appendChild(s);
   }
 })();
-
