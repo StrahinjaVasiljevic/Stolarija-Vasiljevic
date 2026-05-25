@@ -1,7 +1,7 @@
 {
   "hero": {
-    "title": "Nameštaj po meri - uredno, tačno, na vreme",
-    "subtitle": "Kuhinje, plakari, komode, police, TV zidovi, kancelarije. Dogovor sa nama je jasan - predračun transparentan - montaža uredna.",
+    "title": "Dizan enterijera i Nameštaj po meri: Radimo uredno, tačno i na vreme",
+    "subtitle": "Kuhinje, plakari, TV komode, police, zidni paneli, kancelarijski nameštaj. Od lakog dogovora do uredne montaže!",
     "ctaPrimary": "Pošalji upit",
     "ctaSecondary": "Pogledaj projekte",
     "benefits": [
@@ -11,28 +11,26 @@
     ]
   },
   "whyUs": [
-    { "title": "Rad po koracima", "text": "Znate gde smo i šta sledi." },
-    { "title": "Materijali i okovi", "text": "Provereno — po vašem izboru." },
-    { "title": "Precizne mere i crteži", "text": "Bez nedoumica." },
-    { "title": "Jasna komunikacija", "text": "Brzo i korektno." },
-    { "title": "Uredna montaža", "text": "Čist završetak posla." },
-    { "title": "NS i BG", "text": "Lokalna podrška." }
+    { "title": "Radimo zajedno sa Vama", "text": "Vodimo Vas kroz ceo proces kako bi se Vaše ideje što bolje izvele u stvarnosti" },
+    { "title": "Koristimo kvalitetne materijale", "text": "Kod proverenih partnera sa kojima već dugo sarađujemo" },
+    { "title": "Merimo precizno i kreiramo realne crteže", "text": "Znate unapred šta dobijate" },
+    { "title": "Otvorena komunikacija", "text": "Uvek smo dostupni" },
+    { "title": "Uredna montaža", "text": "Uvek očistimo prostor na kraju posla" },
+    { "title": "Tačnost", "text": "Poštujemo rokove" }
   ],
   "testimonials": [
-    { "name": "Maja - Novi Sad", "text": "Sve po dogovoru - uredno i korektno. Momci su sjajni!" },
-    { "name": "Stefan - Beograd", "text": "Precizno urađeno, odlično su izvukli mere, sav nameštaj je legao u milimetar. Dobra komunikacija, preporuka za momke." },
-    { "name": "Ana - Beograd", "text": "Sve je urađeno po dogovoru. Stan su ostavili čist nakon montaže. Preporuke" }
+    { "name": "Maja - Novi Sad", "text": "Sve po dogovoru. Momci rade uredno i korektno. Preporuke!" },
+    { "name": "Stefan - Beograd", "text": "Precizno odrađen posao. Sav nameštaj je stao u milimetar. Dobra komunikacija, svaka preporuka za momke." },
+    { "name": "Ana - Beograd", "text": "Sve po dogovoru, profesionalno urađen posao. Svaka čast" }
   ],
   "faq": [
-    { "q": "Kako do okvirne cene", "a": "Pošaljite opis, slike i mere ako ih imate - odgovorićemo Vam sa skicom i okvirnom cenom." },
-    { "q": "Da li izlazite na teren", "a": "Da, izlazimo na teren da uzmemo okvirne mere i diskutujemo dizajn. Na osnovu toga izrađujemo predračun." },
-    { "q": "Koje materijale koristite", "a": "Radimo sa MDF (medijapan), Oplemenjenom ivericom (univer), različitim vrstama okova i ostalim materijalima po želji klijenta. Imamo više dobavljača sa kojima sarađujemo tako da je kvalitet i transparentnost cena stvar na kojima insistiramo!" },
-    { "q": "Kako ide avans i plaćanje", "a": "Avans pokriva materijal, transport i troškove: sve stavke su prikazane a ostatak ide po primopredaji." },
-    { "q": "Koliki su rokovi", "a": "Zavise od obima, sa procenom dobijate i plan: isporuka, izrada, montaža." },
-    { "q": "Da li radite 3D prikaz", "a": "Po potrebi, uz skicu i detaljne crteže pre odluke." },
-    { "q": "Radite li van NS/BG", "a": "Primarno NS i BG, za udaljenije pišite - procenićemo." },
-    { "q": "Imate li minimalnu porudžbinu", "a": "Ne, ali mali zahtevi mogu imati duži rok zbog organizacije. Radimo kompletnu ponudu nameštaja po meri, bio to noćni stočić, plakar ili opremanje restorana, studija, kancelarija itd." }
+    { "q": "Kako do okvirne cene", "a": "Pošaljite opis, slike i mere ako ih imate - dobijate skicu i okvirnu cenu." },
+    { "q": "Da li izlazite na teren", "a": "Da - po potrebi u Novom Sadu, Beogradu i okolini." },
+    { "q": "Koje materijale koristite", "a": "Radimo sa pločastim materijalom: MDF (medijapan), Oplemenjenom ivericom (univer) i različitim vrstama okova za nameštaj. Sarađujemo sa većim brojem dobavljača, tako da maksimalno olakšavamo izbor materijala." },
+    { "q": "Kako ide avans i plaćanje", "a": "Avans pokriva materijal, transport i troškove. Sve stavke su prikazane u predračunu/ponudi. Ostatak se plaća nakon završene montaže, po primopredaji." },
+    { "q": "Koliki su rokovi isporuke", "a": "Rokovi zavise od obima. Sa predračunom troškova, dobijate i očekivane rokove izrade, isporuke, i montaže." },
+    { "q": "Da li radite 3D prikaz", "a": "Da, po zahtevu ili potrebi projekta. Uz skicu prilažemo i detaljne crteže pre odluke." },
+    { "q": "Radite li van NS/BG", "a": "Primarno NS i BG. Za udaljenije lokacije pišite - procenićemo." },
+    { "q": "Imate li minimalnu porudžbinu", "a": "Minimalna porudžbina ne postoji. Pravimo nameštaj od noćnog stočića, ili plakara do opremanja restorana, apoteka i poslovni prostora." }
   ]
 }
-
-
