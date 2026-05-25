@@ -84,10 +84,7 @@
     setLang(getLang());
     document.querySelectorAll('[data-lang]').forEach(b=>{
       b.classList.toggle('bg-gray-100', b.dataset.lang===state.lang);
-      b.addEventListener('click', ()=>{
-        setLang(b.dataset.lang);
-        location.reload();
-      });
+      b.addEventListener('click', ()=>{ setLang(b.dataset.lang); location.reload(); });
     });
   }
 
@@ -103,7 +100,6 @@
   function telHref(phone) { return "tel:" + String(phone || "").replace(/\s+/g, ""); }
   function esc(s){ return String(s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
 
-  // THEME
   function initTheme(){
     const saved = localStorage.getItem('theme') || 'light';
     applyTheme(saved);
@@ -163,7 +159,6 @@
         </div>
       </div>
     `;
-    // Heads via i18n
     const heads = UI[state.lang].heads;
     const ids = { labelServices:'services', labelProcess:'process', labelAbout:'about', labelContact:'contact' };
     Object.entries(ids).forEach(([id,key])=>{ const el2=qs('#'+id); if(el2) el2.textContent = heads[key]; });
@@ -184,13 +179,15 @@
     const wrap = qs("#processList");
     if (!wrap) return;
     wrap.innerHTML = steps.map((s, i) => `
-      <div class="card p-4">
-        <button class="w-full text-left flex items-center gap-3 process-toggle focus:outline-none focus:ring-2 focus:ring-brand-dark/30 rounded-xl px-1"
+      <div class="card process-tile tile-pattern">
+        <button class="w-full text-center process-toggle focus:outline-none focus:ring-2 focus:ring-brand-dark/30 rounded-xl"
                 data-i="${i}" aria-expanded="false">
-          <span class="flex-shrink-0 w-8 h-8 rounded-full bg-brand-dark text-white flex items-center justify-center">${i+1}</span>
-          <span class="font-medium">${esc(s.t)}</span>
+          <div class="tile-head">
+            <span class="chip">${i+1}</span>
+            <span class="tile-title">${esc(s.t)}</span>
+          </div>
         </button>
-        <div class="mt-3 text-gray-700 hidden process-desc" aria-hidden="true">${esc(s.d)}</div>
+        <div class="tile-desc hidden process-desc" aria-hidden="true">${esc(s.d)}</div>
       </div>
       ${i<steps.length-1 ? `<div class="flex justify-center"><span class="flow-arrow" aria-hidden="true">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 4v16M12 20l-4-4M12 20l4-4" stroke="#0B3D3A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -318,7 +315,6 @@
     const phone = cfg.CONTACT_PHONE || "+381 64 122 04 29";
     const email = cfg.CONTACT_EMAIL || "";
 
-    // labels
     setText('#labelReachUs', L.reach);
     setText('#labelPhone', L.phone);
     setText('#labelEmail', L.email);
@@ -399,6 +395,7 @@
         e.preventDefault();
         if (alertBox) alertBox.classList.add("hidden");
         const data = Object.fromEntries(new FormData(form).entries());
+        const haveYes = ["Da","Yes","Ja","Да"];
         const payload = {
           fullName: (data.fullName || "").toString().trim(),
           phone: (data.phone || "").toString().trim(),
@@ -406,7 +403,7 @@
           city: data.city,
           projectType: data.projectType,
           description: (data.description || "").toString().trim(),
-          haveMeasures: data.haveMeasures === "Da" || data.haveMeasures === "Yes" || data.haveMeasures === "Ja" || data.haveMeasures === "Да",
+          haveMeasures: haveYes.includes(String(data.haveMeasures)),
           dimensions: data.dimensions || "",
           deadline: data.deadline || "",
           budget: data.budget || "",
@@ -495,7 +492,6 @@
     if (tel) { tel.textContent = phone; tel.href = "tel:" + phone.replace(/\s+/g,""); }
     const em = qs("#footerEmail");
     if (em && email) { em.textContent = email; em.href = "mailto:" + email; }
-    // Foot labels i18n
     const nav = UI[state.lang].nav;
     setText('#footContactTitle', nav.contact);
     setText('#footPhoneLabel', UI[state.lang].contact.phone);
@@ -556,3 +552,4 @@
     document.head.appendChild(s);
   }
 })();
+
