@@ -1,0 +1,36 @@
+{
+  "hero": {
+    "title": "Möbel nach Maß — ordentlich, präzise, pünktlich",
+    "subtitle": "Küchen, Schränke, Kommoden, Regale, TV‑Wände, Büros. Klarer Vertrag — transparenter Kostenvoranschlag — saubere Montage.",
+    "ctaPrimary": "Anfrage senden",
+    "ctaSecondary": "Projekte ansehen",
+    "benefits": [
+      { "title": "Klarer Kostenvoranschlag", "text": "Alle Posten auf einen Blick." },
+      { "title": "Realistische Termine", "text": "Plan und Updates." },
+      { "title": "Sorgfältige Arbeit", "text": "Saubere Montage und Kommunikation." }
+    ]
+  },
+  "whyUs": [
+    { "title": "Wir arbeiten mit Ihnen", "text": "Wir führen Sie durch den Ablauf, damit Ideen Realität werden" },
+    { "title": "Qualitätsmaterialien", "text": "Von langjährigen Partnern" },
+    { "title": "Exakte Maße & Zeichnungen", "text": "Sie wissen im Voraus, was Sie erhalten" },
+    { "title": "Offene Kommunikation", "text": "Immer erreichbar" },
+    { "title": "Saubere Montage", "text": "Wir hinterlassen alles ordentlich" },
+    { "title": "Pünktlichkeit", "text": "Wir halten Fristen ein" }
+  ],
+  "testimonials": [
+    { "name": "Maja — Novi Sad", "text": "Alles wie vereinbart — ordentlich und korrekt.", "date": "2024-05-10" },
+    { "name": "Stefan — Belgrad", "text": "Exakte Maße — gute Kommunikation — Empfehlung.", "date": "2024-06-02" },
+    { "name": "Ana — Belgrad", "text": "Klarer Kostenvoranschlag und Termin — ohne Überraschungen.", "date": "2024-07-18" }
+  ],
+  "faq": [
+    { "q": "Wie bekomme ich einen Richtpreis", "a": "Senden Sie Beschreibung, Fotos und Maße — Sie erhalten Skizze und Richtpreis." },
+    { "q": "Vor‑Ort‑Termin", "a": "Ja — bei Bedarf in Novi Sad, Belgrad und Umgebung." },
+    { "q": "Welche Materialien", "a": "MDF, Spanplatte und bewährte Beschläge — mit Preisen erläutert." },
+    { "q": "Anzahlung und Zahlung", "a": "Anzahlung deckt Material, Transport und Kosten — Rest nach Übergabe." },
+    { "q": "Termine", "a": "Abhängig vom Umfang — Plan für Lieferung, Produktion, Montage." },
+    { "q": "3D‑Ansicht", "a": "Bei Bedarf — mit Skizze und Zeichnungen." },
+    { "q": "Außerhalb NS/BG", "a": "Hauptsächlich NS und BG — für weitere Orte schreiben Sie uns." },
+    { "q": "Mindestauftrag", "a": "Kein fixes Minimum — sehr kleine Aufträge können länger dauern." }
+  ]
+}
