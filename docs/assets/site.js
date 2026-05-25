@@ -50,7 +50,7 @@
             <p class="text-lg text-gray-700 mb-6">${esc(c.subtitle)}</p>
             <div class="flex flex-wrap gap-3 mb-8">
               <a href="#kontakt" class="btn btn-primary">${esc(c.ctaPrimary)}</a>
-              <a href="./projekti/" className="btn btn-secondary btn">${esc(c.ctaSecondary)}</a>
+              <a href="./projekti/" class="btn btn-secondary">${esc(c.ctaSecondary)}</a>
             </div>
             <div class="grid sm:grid-cols-3 gap-4">
               ${c.benefits.slice(0,3).map(b => `
@@ -69,13 +69,8 @@
     `;
   }
 
-  function renderServices() {
-    // statički u HTML-u; ostavljeno radi čitljivosti
-  }
-
-  function renderProcess() {
-    // statički u HTML-u
-  }
+  function renderServices() { /* statički u HTML-u */ }
+  function renderProcess() { /* statički u HTML-u */ }
 
   function renderWhyUs() {
     const items = state.site.whyUs || [];
@@ -129,7 +124,7 @@
         <div class="grid md:grid-cols-3 gap-6">
           ${items.map(t => `
             <div class="card p-6">
-              <div class="text-gray-700 mb-3">“${esc(t.text)}”</div>
+              <div class="text-gray-700 mb-3">${esc(t.text)}</div>
               <div class="text-sm font-medium text-gray-900">${esc(t.name)}</div>
             </div>
           `).join("")}
@@ -236,7 +231,7 @@
         imageUrls: []
       };
       if (!payload.fullName || !payload.phone || !payload.email || !payload.city || !payload.projectType || !payload.description || !payload.consent) {
-        return showError("Popunite sva obavezna polja.");
+        return showError("Popunite obavezna polja.");
       }
 
       let urls = [];
@@ -253,7 +248,7 @@
       }
       payload.imageUrls = urls;
 
-      if (!FORMSPREE_ID) return showError("Slanje trenutno nije podešeno. Pokušajte kasnije.");
+      if (!FORMSPREE_ID) return showError("Slanje nije podešeno — pokušajte kasnije.");
       try {
         const res = await fetch(`https://formspree.io/f/${FORMSPREE_ID}`, {
           method: "POST",
@@ -264,12 +259,12 @@
         qs("#contactSection").innerHTML = `
           <div class="container">
             <div class="card p-8 text-center">
-              <h2 class="font-serif text-2xl mb-2">Upit je poslat.</h2>
-              <p>Javićemo se u najkraćem roku.</p>
+              <h2 class="font-serif text-2xl mb-2">Hvala — upit je poslat</h2>
+              <p>Javićemo se uskoro</p>
             </div>
           </div>`;
       } catch (err) {
-        showError("Došlo je do greške. Pokušajte ponovo.");
+        showError("Došlo je do greške — pokušajte ponovo.");
       }
     });
 
@@ -351,4 +346,3 @@
     document.head.appendChild(s);
   }
 })();
-
