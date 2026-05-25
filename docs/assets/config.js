@@ -1,17 +1,15 @@
 // Globalna konfiguracija za GitHub Pages varijantu (bez servera)
 (function () {
-  // GitHub korisnik i repozitorijum (tačno prema vašem linku)
+  // GitHub korisnik i repozitorijum (prema tvom linku)
   const GH_OWNER = "strahinjavasiljevic";
   const GH_REPO = "Stolarija-Vasiljevic";
 
   // Base path za Project Pages: https://username.github.io/REPO/
   const GH_BASE_PATH = `/${GH_REPO}/`;
-
-  // Public URL (GitHub Pages link)
   const GH_PAGES_URL = `https://${GH_OWNER}.github.io/${GH_REPO}/`;
 
-  // Custom domen (ako ga kasnije dodate). Ako je setovan, BASE_PATH postaje "/"
-  const CUSTOM_DOMAIN_URL = ""; // npr. "https://vasiljevic-stolarija.com"
+  // Custom domen (ostavi prazno ako ga nemaš)
+  const CUSTOM_DOMAIN_URL = "";
 
   // Aktivni URL i base path
   const SITE_URL = (CUSTOM_DOMAIN_URL && CUSTOM_DOMAIN_URL.trim())
@@ -30,14 +28,14 @@
     CONTACT_PHONE: "+381 64 122 04 29",
     CONTACT_EMAIL: "strahinjavasiljevic00@gmail.com",
 
-    // Cloudinary (unsigned preset) — ostavite prazno ako ne koristite upload
+    // Cloudinary (ostavi prazno ako ne koristiš upload)
     CLOUDINARY_CLOUD_NAME: "",
     CLOUDINARY_UPLOAD_PRESET: "",
 
-    // Formspree — ostavite prazno ako ne koristite
-    FORMSPREE_ID: "",
+    // Formspree (OVDE UNESI ID)
+    FORMSPREE_ID: "mzdwgzyj",
 
-    // Repo info (za eventualni admin commit)
+    // Repo info (za admin commit ako koristiš)
     REPO_OWNER: GH_OWNER,
     REPO_NAME: GH_REPO,
     BRANCH: "main",
