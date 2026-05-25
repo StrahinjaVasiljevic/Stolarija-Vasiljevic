@@ -11,12 +11,50 @@
     tailwind.config={theme:{extend:{colors:{'brand-dark':'#0B3D3A','brand-beige':'#E9E2D2','brand-light':'#F7F7F5'},borderRadius:{xl:'16px','2xl':'24px'},boxShadow:{card:'0 8px 30px rgba(0,0,0,0.08)'},fontFamily:{serif:['Cormorant Garamond','serif'],sans:['Inter','ui-sans-serif','system-ui']}}}}
   </script>
   <style>
+    :root{
+      --bg:#ffffff;
+      --text:#0b0b0b;
+      --cream:#EDE7DD;
+      --brand:#0B3D3A;
+      --card:#ffffff;
+      --border:#f0f0f0;
+      --muted:#6B7280;
+      --secondary-bg:#E9E2D2;
+      --text-on-primary:#ffffff;
+    }
+    html.theme-dark{
+      --bg:#0D1113;
+      --text:#EDE7DD;
+      --card:#121619;
+      --border:#1E2326;
+      --muted:#C8C3BB;
+      --secondary-bg:#2B2F31;
+      --text-on-primary:#EDE7DD;
+    }
+
     .container{max-width:1200px;margin:0 auto;padding:0 16px}
-    .card{background:#fff;border:1px solid #f0f0f0;border-radius:16px;box-shadow:0 8px 30px rgba(0,0,0,0.08)}
+    body{background:var(--bg);color:var(--text)}
+    .card{background:var(--card);border:1px solid var(--border);border-radius:16px;box-shadow:0 8px 30px rgba(0,0,0,0.08)}
     .btn{display:inline-flex;align-items:center;justify-content:center;border-radius:12px;padding:10px 16px;font-weight:500;transition:all .2s}
-    .btn-primary{background:#0B3D3A;color:#fff}.btn-secondary{background:#E9E2D2;color:#000}
-    .theme-dark body{background:#0c0f10;color:#e7e7e7}
-    .theme-dark .card{background:#121516;border-color:#1e2123;box-shadow:none}
+    .btn-primary{background:var(--brand);color:var(--text-on-primary)}
+    .btn-secondary{background:var(--secondary-bg);color:#000}
+    html.theme-dark .btn-secondary{color:var(--text)}
+
+    /* suptilna tekstura u tamnoj temi */
+    html.theme-dark body::before{
+      content:"";position:fixed;inset:0;pointer-events:none;z-index:-1;
+      background:
+        radial-gradient(1000px 700px at 15% 0%, rgba(255,255,255,0.02), transparent 60%),
+        radial-gradient(900px 600px at 100% 25%, rgba(255,255,255,0.015), transparent 60%),
+        radial-gradient(700px 700px at 50% 100%, rgba(255,255,255,0.02), transparent 60%);
+      mix-blend-mode:overlay;
+    }
+
+    /* neutralni sivi ka krem */
+    html.theme-dark .text-gray-700{color:var(--text)}
+    html.theme-dark .text-gray-600{color:var(--muted)}
+
+    /* lightbox */
     #lightbox{background:rgba(0,0,0,.7)}
     #lightbox img{max-height:80vh}
   </style>
@@ -45,7 +83,7 @@
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M3 11l9-7 9 7" stroke="#0B3D3A" stroke-width="1.5" stroke-linecap="round"/><path d="M5 10.8V20h14v-9.2" stroke="#0B3D3A" stroke-width="1.5"/><circle cx="18.5" cy="5.5" r="2" fill="#E9E2D2" stroke="#0B3D3A" stroke-width="1"/></svg>
           </span>
           <span id="iconDark" class="hidden" aria-hidden="true">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M3 11l9-7 9 7" stroke="#E9E2D2" stroke-width="1.5" stroke-linecap="round"/><path d="M5 10.8V20h14v-9.2" stroke="#E9E2D2" stroke-width="1.5"/><path d="M19 3.5c-1.7.4-3 1.9-3 3.7 0 2.1 1.7 3.8 3.8 3.8 1.7 0 3.2-1.1 3.6-2.8-2.2.3-4.1-1.4-4.4-3.4z" fill="#E9E2D2"/></svg>
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M3 11l9-7 9 7" stroke="#EDE7DD" stroke-width="1.5" stroke-linecap="round"/><path d="M5 10.8V20h14v-9.2" stroke="#EDE7DD" stroke-width="1.5"/><path d="M19 3.5c-1.7.4-3 1.9-3 3.7 0 2.1 1.7 3.8 3.8 3.8 1.7 0 3.2-1.1 3.6-2.8-2.2.3-4.1-1.4-4.4-3.4z" fill="#EDE7DD"/></svg>
           </span>
         </button>
         <a id="headerPhone" href="#" class="hidden md:inline text-sm font-medium hover:text-brand-dark">+381 64 122 04 29</a>
@@ -88,7 +126,6 @@
     </div>
   </footer>
 
-  <!-- Lightbox -->
   <div id="lightbox" class="fixed inset-0 hidden items-center justify-center z-50 px-4">
     <div class="card p-2 max-w-4xl w-full bg-white relative">
       <button id="lightboxClose" class="absolute -top-10 right-0 text-white text-lg">Zatvori</button>
@@ -100,7 +137,6 @@
     const CATS = ['Sve','Kuhinje','Plakari i garderoberi','Komode i police','TV zidovi','Kancelarije','Uređenje enterijera'];
     const phoneDefault = "+381 64 122 04 29";
 
-    // Tema
     function applyTheme(theme){
       document.documentElement.classList.toggle('theme-dark', theme==='dark');
       const light = document.getElementById('iconLight'), dark = document.getElementById('iconDark');
@@ -115,7 +151,6 @@
       });
     })();
 
-    // Jezik
     (function initLang(){
       const stored = localStorage.getItem('lang') || 'sr';
       document.querySelectorAll('[data-lang]').forEach(b=>{
@@ -124,7 +159,6 @@
       });
     })();
 
-    // Phone
     (async function(){
       try {
         const phone = (window.APP_CONFIG && window.APP_CONFIG.CONTACT_PHONE) || phoneDefault;
@@ -134,7 +168,6 @@
       }
     })();
 
-    // Data + grid
     document.addEventListener("DOMContentLoaded", async () => {
       const list = (await fetch("../content/projects.json").then(r=>r.json())).projects || [];
       let current = 'Sve';
@@ -153,9 +186,9 @@
         const items = current==='Sve' ? list : list.filter(p=>p.type===current);
         grid.innerHTML = items.map(p=>`
           <button class="card overflow-hidden text-left preview-btn" data-img="${(p.images&&p.images[0]) || '../images/ph3.svg'}">
-            <div class="w-full h-56 bg-brand-light"><img src="${(p.images&&p.images[0]) || '../images/ph3.svg'}" alt="${p.title}" class="w-full h-56 object-cover"></div>
+            <div class="w-full h-56" style="background:var(--card)"><img src="${(p.images&&p.images[0]) || '../images/ph3.svg'}" alt="${p.title}" class="w-full h-56 object-cover"></div>
             <div class="p-4">
-              <div class="text-sm text-gray-500">${p.type} · ${p.location}</div>
+              <div class="text-sm" style="color:var(--muted)">${p.type} · ${p.location}</div>
               <div class="font-medium mb-2">${p.title}</div>
               <p class="text-sm text-gray-700">${p.description}</p>
             </div>
@@ -164,7 +197,6 @@
       }
       render();
 
-      // Lightbox
       const box = document.getElementById('lightbox');
       const img = document.getElementById('lightboxImg');
       const close = document.getElementById('lightboxClose');
