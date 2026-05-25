@@ -1,105 +1,91 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg width="1200" height="420" viewBox="0 0 1200 420" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="VASILJEVIĆ — Stolarija & Dizajn enterijera">
+<svg width="220" height="40" viewBox="0 0 440 80" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="VASILJEVIĆ — Stolarija & Dizajn enterijera">
   <defs>
-    <!-- Colors -->
     <style>
       :root{
-        --graphite:#1E1F22;
-        --milk:#FAFAF7;
-        --oak:#C9A77D;
-        --oak2:#B79267;
-        --ink:#0D0D0D;
+        /* Light theme (site header na beloj pozadini) */
+        --fg:#0B3D3A;        /* tamno zelena (brand) za linije i tekst */
+        --fg-soft:#4C6A67;   /* mekši akcent za podnaslov */
+        --cream:#EDE7DD;     /* krem (koristi se u dark temi) */
+        --oak:#C9A77D;       /* drvo gradijent 1 */
+        --oak2:#B79267;      /* drvo gradijent 2 */
+        --grain:rgba(0,0,0,.12);
       }
-      .stroke{stroke:var(--milk);stroke-width:4;stroke-linecap:round;stroke-linejoin:miter;}
-      .plan{stroke:var(--milk);stroke-width:4;stroke-linecap:round;stroke-linejoin:miter;opacity:.95;}
-      .grain{stroke:rgba(0,0,0,.12);stroke-width:2;stroke-linecap:round;}
-      .title{fill:var(--milk);font-family:Manrope, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;font-weight:700;letter-spacing:.22em;}
-      .sub{fill:rgba(250,250,247,.92);font-family:Manrope, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;font-weight:400;letter-spacing:.06em;}
+      @media (prefers-color-scheme: dark){
+        /* Dark theme (karbon crna pozadina) */
+        :root{
+          --fg:#EDE7DD;      /* krem linije/tekst */
+          --fg-soft:#C8C3BB; /* mekši krem za podnaslov */
+          --grain:rgba(255,255,255,.14);
+        }
+      }
+      .stroke{stroke:var(--fg);stroke-width:3.8;stroke-linecap:round;stroke-linejoin:miter;}
+      .plan{stroke:var(--fg);stroke-width:3.2;stroke-linecap:round;stroke-linejoin:miter;opacity:.95;}
+      .grain{stroke:var(--grain);stroke-width:2;stroke-linecap:round}
+      .title{fill:var(--fg);font-family:Manrope, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;font-weight:700;letter-spacing:.18em}
+      .sub{fill:var(--fg-soft);font-family:Manrope, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;font-weight:500;letter-spacing:.06em}
     </style>
 
-    <!-- Soft shadow under icon -->
     <filter id="softShadow" x="-40%" y="-40%" width="180%" height="220%" color-interpolation-filters="sRGB">
-      <feDropShadow dx="0" dy="12" stdDeviation="14" flood-color="#000000" flood-opacity="0.14"/>
+      <feDropShadow dx="0" dy="8" stdDeviation="10" flood-color="#000000" flood-opacity="0.12"/>
     </filter>
 
-    <!-- Very faint inner shadow for wood panels -->
     <filter id="panelInner" x="-20%" y="-20%" width="140%" height="160%" color-interpolation-filters="sRGB">
-      <feDropShadow dx="0" dy="4" stdDeviation="5" flood-color="#000000" flood-opacity="0.10"/>
+      <feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="#000000" flood-opacity="0.10"/>
     </filter>
 
-    <!-- Subtle wood gradient (still flat-ish, not glossy) -->
     <linearGradient id="oakGrad" x1="0" y1="0" x2="1" y2="1">
       <stop offset="0" stop-color="var(--oak)"/>
       <stop offset="1" stop-color="var(--oak2)"/>
     </linearGradient>
   </defs>
 
-  <!-- Transparent background (page controls background) -->
-  <!-- ICON -->
-  <g transform="translate(120,40)" filter="url(#softShadow)">
-    <!-- House/space outline (rounded square + subtle gable) -->
-    <!-- 820x820 scaled down into 320x320 area (keep stroke 4) -->
+  <!-- Ikona (levo) -->
+  <g transform="translate(16,8)" filter="url(#softShadow)">
+    <!-- Kuća / prostor (kontura) -->
     <path class="stroke" d="
-      M 40 120
-      Q 40 100 60 100
-      L 140 100
-      L 200 60
-      L 260 100
-      L 340 100
-      Q 360 100 360 120
-      L 360 340
-      Q 360 360 340 360
-      L 60 360
-      Q 40 360 40 340
+      M 18 48
+      Q 18 40 26 40
+      L 70 40
+      L 104 24
+      L 138 40
+      L 182 40
+      Q 190 40 190 48
+      L 190 120
+      Q 190 128 182 128
+      L 26 128
+      Q 18 128 18 120
       Z" />
 
-    <!-- Floor-plan lines: L-walls inset -->
-    <!-- Left wall -->
-    <path class="plan" d="M 120 140 L 120 320" />
-    <!-- Bottom wall with doorway gap (120px wide centered) -->
-    <path class="plan" d="M 120 320 L 210 320" />
-    <path class="plan" d="M 330 320 L 280 320" />
+    <!-- Plan (minimalne linije) -->
+    <path class="plan" d="M 58 56 L 58 112" />
+    <path class="plan" d="M 58 112 L 98 112" />
+    <path class="plan" d="M 152 112 L 124 112" />
 
-    <!-- Small plan details (sparse) -->
-    <path class="plan" d="M 250 150 L 330 150" opacity=".8"/>
-    <path class="plan" d="M 250 220 L 330 220" opacity=".8"/>
-    <path class="plan" d="M 250 150 L 250 250" opacity=".55"/>
-    <path class="plan" d="M 330 150 L 330 250" opacity=".55"/>
-
-    <!-- WOOD PANELS forming negative-space V -->
-    <!-- Left panel -->
+    <!-- Drveni paneli koji formiraju negativni V -->
+    <!-- Levi panel -->
     <g filter="url(#panelInner)">
-      <path d="M 170 140 L 230 140 L 270 300 L 230 300 Z" fill="url(#oakGrad)"/>
-      <!-- Grain lines (horizontal, 18px spacing) -->
-      <path class="grain" d="M 176 160 L 232 160"/>
-      <path class="grain" d="M 182 178 L 238 178"/>
-      <path class="grain" d="M 188 196 L 244 196"/>
-      <path class="grain" d="M 194 214 L 250 214"/>
-      <path class="grain" d="M 200 232 L 256 232"/>
-      <path class="grain" d="M 206 250 L 262 250"/>
-      <path class="grain" d="M 212 268 L 268 268"/>
-      <path class="grain" d="M 218 286 L 274 286"/>
+      <path d="M 88 56 L 118 56 L 136 116 L 108 116 Z" fill="url(#oakGrad)"/>
+      <path class="grain" d="M 92 70 L 120 70"/>
+      <path class="grain" d="M 94 84 L 122 84"/>
+      <path class="grain" d="M 98 98 L 126 98"/>
+      <path class="grain" d="M 102 112 L 130 112"/>
     </g>
 
-    <!-- Right panel (mirror-ish) -->
+    <!-- Desni panel -->
     <g filter="url(#panelInner)">
-      <path d="M 240 140 L 300 140 L 240 300 L 200 300 Z" fill="url(#oakGrad)"/>
-      <path class="grain" d="M 246 160 L 296 160"/>
-      <path class="grain" d="M 242 178 L 292 178"/>
-      <path class="grain" d="M 238 196 L 288 196"/>
-      <path class="grain" d="M 234 214 L 284 214"/>
-      <path class="grain" d="M 230 232 L 280 232"/>
-      <path class="grain" d="M 226 250 L 276 250"/>
-      <path class="grain" d="M 222 268 L 272 268"/>
-      <path class="grain" d="M 218 286 L 268 286"/>
+      <path d="M 122 56 L 152 56 L 122 116 L 98 116 Z" fill="url(#oakGrad)"/>
+      <path class="grain" d="M 126 70 L 150 70"/>
+      <path class="grain" d="M 124 84 L 148 84"/>
+      <path class="grain" d="M 120 98 L 144 98"/>
+      <path class="grain" d="M 116 112 L 140 112"/>
     </g>
-
-    <!-- The negative V gap is implied between panels -->
   </g>
 
-  <!-- TYPOGRAPHY -->
-  <g transform="translate(520,140)">
-    <text class="title" x="0" y="0" font-size="64">VASILJEVIĆ</text>
-    <text class="sub" x="0" y="58" font-size="24">Stolarija &amp; Dizajn enterijera</text>
+  <!-- Tipografija (desno) -->
+  <g transform="translate(220,30)">
+    <text class="title" x="0" y="0" font-size="28">VASILJEVIĆ</text>
+    <text class="sub" x="0" y="22" font-size="12">Stolarija &amp; Dizajn enterijera</text>
   </g>
 </svg>
+
