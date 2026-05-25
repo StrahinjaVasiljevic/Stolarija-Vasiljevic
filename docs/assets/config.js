@@ -45,7 +45,10 @@
     BRANCH: "main",
 
     // Public URL i base path
-    SITE_URL: SITE_URL,
+    SITE_URL: "https://YOUR_GITHUB_USERNAME.github.io/stolarija-vasiljevic",
+
+  SUPPORTED_LANGS: ["sr","en","de","ru"],
+  DEFAULT_LANG: "sr"
     BASE_PATH: BASE_PATH,
 
     // Helper (opciono, ali korisno u site.js)
