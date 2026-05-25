@@ -24,9 +24,6 @@
     BRANCH: "main",
 
     // Public URL (Pages URL dok ne povežeš custom domen)
-    SITE_URL: GH_PAGES_URL,
-
-    // Base path (ključan za SPA routing i putanje do asset-a na GitHub Pages)
-    BASE_PATH: GH_BASE_PATH
+    SITE_URL: https://strahinjavasiljevic.github.io/Stolarija-Vasiljevi-/,
   };
 })();
