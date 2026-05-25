@@ -1,0 +1,36 @@
+{
+  "hero": {
+    "title": "Custom furniture — neat, precise, on time",
+    "subtitle": "Kitchens, wardrobes, sideboards, shelves, TV walls, offices. Clear agreement — transparent quote — clean installation.",
+    "ctaPrimary": "Send inquiry",
+    "ctaSecondary": "See projects",
+    "benefits": [
+      { "title": "Clear quote", "text": "All items in one place." },
+      { "title": "Real timelines", "text": "Plan and updates." },
+      { "title": "Polite work", "text": "Clean install and communication." }
+    ]
+  },
+  "whyUs": [
+    { "title": "We work with you", "text": "We guide you so your ideas become reality" },
+    { "title": "Quality materials", "text": "From trusted partners" },
+    { "title": "Accurate measuring & drawings", "text": "You know what you get" },
+    { "title": "Open communication", "text": "Always reachable" },
+    { "title": "Clean installation", "text": "We leave the place tidy" },
+    { "title": "On time", "text": "We respect deadlines" }
+  ],
+  "testimonials": [
+    { "name": "Maja — Novi Sad", "text": "Everything as agreed — neat and fair.", "date": "2024-05-10" },
+    { "name": "Stefan — Belgrade", "text": "Accurate measuring — smooth communication — recommend.", "date": "2024-06-02" },
+    { "name": "Ana — Belgrade", "text": "Clear quote and timeline — no surprises.", "date": "2024-07-18" }
+  ],
+  "faq": [
+    { "q": "How to get a rough price", "a": "Send a description, photos and sizes if you have them — you get a sketch and rough price." },
+    { "q": "Do you visit on site", "a": "Yes — when needed in Novi Sad, Belgrade and nearby." },
+    { "q": "What materials do you use", "a": "MDF, particleboard and trusted fittings — we go through options with prices." },
+    { "q": "Advance and payment", "a": "Advance covers materials, transport and costs — the rest after handover." },
+    { "q": "Timelines", "a": "Depends on scope — you get a plan for delivery, production and install." },
+    { "q": "3D visuals", "a": "If needed — with sketch and detailed drawings." },
+    { "q": "Outside NS/BG", "a": "Mainly NS and BG — for further locations, write us." },
+    { "q": "Minimum order", "a": "No fixed minimum — very small jobs may take longer." }
+  ]
+}
