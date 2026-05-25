@@ -17,41 +17,67 @@
     } } };
   </script>
   <style>
+    :root{
+      --bg:#ffffff;
+      --text:#0b0b0b;
+      --cream:#EDE7DD;
+      --brand:#0B3D3A;
+      --card:#ffffff;
+      --border:#f0f0f0;
+      --muted:#6B7280;
+      --secondary-bg:#E9E2D2;
+      --text-on-primary:#ffffff;
+    }
+    html.theme-dark{
+      /* karbon crna pozadina sa visokim kontrastom i krem tekstom */
+      --bg:#0D1113;
+      --text:#EDE7DD; /* krem za tekst */
+      --card:#121619; /* tamna grafitna za kartice */
+      --border:#1E2326;
+      --muted:#C8C3BB; /* sekundarni tekst kremast */
+      --secondary-bg:#2B2F31; /* za sekundarna dugmad u tamnoj temi */
+      --text-on-primary:#EDE7DD; /* krem tekst na primarnom brendu */
+    }
+
     .container{max-width:1200px;margin:0 auto;padding:0 16px}
-    .card{background:#fff;border:1px solid #f0f0f0;border-radius:16px;box-shadow:0 8px 30px rgba(0,0,0,0.08)}
+
+    body{background:var(--bg);color:var(--text)}
+    .card{background:var(--card);border:1px solid var(--border);border-radius:16px;box-shadow:0 8px 30px rgba(0,0,0,0.08)}
     .btn{display:inline-flex;align-items:center;justify-content:center;border-radius:12px;padding:12px 20px;font-weight:500;transition:all .2s}
-    .btn-primary{background:#0B3D3A;color:#fff}.btn-primary:hover{background:#000}
-    .btn-secondary{background:#E9E2D2;color:#000}.btn-secondary:hover{background:#d8cfbb}
+    .btn-primary{background:var(--brand);color:var(--text-on-primary)} .btn-primary:hover{filter:brightness(.95)}
+    .btn-secondary{background:var(--secondary-bg);color:#000} .btn-secondary:hover{filter:brightness(.97)}
+    html.theme-dark .btn-secondary{color:var(--text)}
+
     .section{padding:64px 0}.section-title{font-size:32px;margin-bottom:24px}
 
-    /* Tamna tema */
-    .theme-dark body{background:#0c0f10;color:#e7e7e7}
-    .theme-dark .card{background:#121516;border-color:#1e2123;box-shadow:none}
-    .theme-dark .btn-secondary{background:#2a2f31;color:#e7e7e7}
-    .theme-dark header{background:rgba(10,12,13,.85)}
-    .theme-dark .bg-brand-light{background:#121516}
-    .theme-dark a:hover{color:#cfd8dc}
-    .theme-dark .section-title{color:#e7e7e7}
+    /* tamna tema – suptilna tekstura (glatka) */
+    html.theme-dark body::before{
+      content:"";position:fixed;inset:0;pointer-events:none;z-index:-1;
+      background:
+        radial-gradient(1200px 800px at 20% 0%, rgba(255,255,255,0.02), transparent 60%),
+        radial-gradient(1000px 600px at 100% 20%, rgba(255,255,255,0.015), transparent 60%),
+        radial-gradient(800px 800px at 50% 100%, rgba(255,255,255,0.02), transparent 60%);
+      mix-blend-mode:overlay;
+    }
+    /* tamna pozadina sekcija */
+    html.theme-dark .bg-brand-light{background:var(--card)}
+    /* opšti link hover u tamnoj temi */
+    html.theme-dark a:hover{color:#DAD3C7}
 
-    /* Proces strelica */
-    .flow-arrow{width:24px;height:24px;opacity:.8}
+    /* neutralni sivi tonovi u tamnoj temi ka krem */
+    html.theme-dark .text-gray-700{color:var(--text)}
+    html.theme-dark .text-gray-600{color:var(--muted)}
+
+    /* Proces strelica animacija */
+    .flow-arrow{width:24px;height:24px;opacity:.85}
     .flow-arrow svg{animation:arrowDown 1.6s infinite}
     @keyframes arrowDown{0%{transform:translateY(-2px);opacity:.6}50%{transform:translateY(2px);opacity:1}100%{transform:translateY(-2px);opacity:.6}}
-
-    /* Lightbox */
-    #lightbox{background:rgba(0,0,0,.7)}
-    #lightbox img{max-height:80vh}
-
-    /* Kontakt profilisanje */
-    .contact-aside h4{font-weight:600;margin-bottom:.5rem}
-    .divider{height:1px;background:#eee}
-    .theme-dark .divider{background:#232729}
   </style>
   <link rel="icon" href="./favicon.ico">
   <script src="./assets/config.js"></script>
   <script src="./assets/site.js" defer></script>
 </head>
-<body class="font-sans text-[#0b0b0b] bg-white">
+<body class="font-sans">
   <header class="border-b border-gray-100 bg-white/80 backdrop-blur sticky top-0 z-50">
     <div class="container h-16 flex items-center justify-between">
       <a href="./" class="flex items-center gap-3">
@@ -67,22 +93,18 @@
         <a href="#kontakt" class="hover:text-brand-dark" id="navContact">Kontakt</a>
       </nav>
       <div class="flex items-center gap-3">
-        <!-- Jezik -->
         <div class="hidden md:flex items-center gap-1 text-sm">
           <button class="px-2 py-1 rounded hover:bg-gray-100" data-lang="sr">SR</button>
           <button class="px-2 py-1 rounded hover:bg-gray-100" data-lang="en">EN</button>
           <button class="px-2 py-1 rounded hover:bg-gray-100" data-lang="de">DE</button>
           <button class="px-2 py-1 rounded hover:bg-gray-100" data-lang="ru">RU</button>
         </div>
-        <!-- Tema -->
         <button id="themeToggle" class="p-2 rounded-xl border border-gray-200 hover:bg-gray-100 md:ml-2" aria-label="Promeni temu">
           <span id="iconLight" class="block" aria-hidden="true">
-            <!-- Kućica + sunce -->
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M3 11l9-7 9 7" stroke="#0B3D3A" stroke-width="1.5" stroke-linecap="round"/><path d="M5 10.8V20h14v-9.2" stroke="#0B3D3A" stroke-width="1.5"/><circle cx="18.5" cy="5.5" r="2" fill="#E9E2D2" stroke="#0B3D3A" stroke-width="1"/></svg>
           </span>
           <span id="iconDark" class="hidden" aria-hidden="true">
-            <!-- Kućica + mesec -->
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M3 11l9-7 9 7" stroke="#E9E2D2" stroke-width="1.5" stroke-linecap="round"/><path d="M5 10.8V20h14v-9.2" stroke="#E9E2D2" stroke-width="1.5"/><path d="M19 3.5c-1.7.4-3 1.9-3 3.7 0 2.1 1.7 3.8 3.8 3.8 1.7 0 3.2-1.1 3.6-2.8-2.2.3-4.1-1.4-4.4-3.4z" fill="#E9E2D2"/></svg>
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M3 11l9-7 9 7" stroke="#EDE7DD" stroke-width="1.5" stroke-linecap="round"/><path d="M5 10.8V20h14v-9.2" stroke="#EDE7DD" stroke-width="1.5"/><path d="M19 3.5c-1.7.4-3 1.9-3 3.7 0 2.1 1.7 3.8 3.8 3.8 1.7 0 3.2-1.1 3.6-2.8-2.2.3-4.1-1.4-4.4-3.4z" fill="#EDE7DD"/></svg>
           </span>
         </button>
         <a id="headerPhone" href="tel:+381641220429" class="hidden md:inline text-sm font-medium hover:text-brand-dark">+381 64 122 04 29</a>
@@ -158,7 +180,7 @@
             <div class="space-y-2 text-gray-700">
               <p><span id="labelPhone">Telefon</span> — <a id="contactPhone" class="text-brand-dark font-medium" href="#">+381 64 122 04 29</a></p>
               <p><span id="labelEmail">Email</span> — <a id="contactEmail" class="text-brand-dark font-medium" href="#"></a></p>
-              <div class="divider my-3"></div>
+              <div class="h-px bg-gray-100 my-3"></div>
               <p id="labelArea">Područje — Novi Sad, Beograd i okolina</p>
               <p id="labelHint">Upit šaljite mejlom ili ovde</p>
             </div>
@@ -256,7 +278,6 @@
     </div>
   </footer>
 
-  <!-- Lightbox modal -->
   <div id="lightbox" class="fixed inset-0 hidden items-center justify-center z-50 px-4">
     <div class="card p-2 max-w-4xl w-full bg-white relative">
       <button id="lightboxClose" class="absolute -top-10 right-0 text-white text-lg">Zatvori</button>
