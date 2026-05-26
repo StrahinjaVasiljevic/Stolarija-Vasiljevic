@@ -1,37 +1,106 @@
 {
   "projects": [
     {
-      "id": "kuhinja-ns",
-      "title": "Kuhinja po meri — Novi Sad",
       "type": "Kuhinje",
       "location": "Novi Sad",
-      "description": "MDF lak mat, radna ploča hrast, tihi sistemi. Precizno uklapanje i čisti spojevi.",
-      "images": ["../images/ph2.svg"]
+      "title": {
+        "sr": "Kuhinja „M“ — mat lak",
+        "en": "Kitchen “M” — matte lacquer",
+        "de": "Küche „M“ — Mattlack",
+        "ru": "Кухня «M» — матовый лак"
+      },
+      "description": {
+        "sr": "Linearni raspored sa funkcionalnim skladištenjem i tihim zatvaranjem.",
+        "en": "Linear layout with smart storage and soft-close hardware.",
+        "de": "Lineares Layout mit cleverem Stauraum und Soft‑Close Beschlägen.",
+        "ru": "Линейная планировка с удобным хранением и доводчиками."
+      },
+      "images": ["images/ph2.svg"]
     },
     {
-      "id": "plakar-bg",
-      "title": "Ugradni plakar — Beograd",
       "type": "Plakari i garderoberi",
       "location": "Beograd",
-      "description": "Klizna vrata, maksimalno iskorišćen prostor sa unutrašnjim organizatorima.",
-      "images": ["../images/ph3.svg"]
+      "title": {
+        "sr": "Ugradni plakar „S”",
+        "en": "Built‑in wardrobe “S”",
+        "de": "Einbauschrank „S“",
+        "ru": "Встроенный шкаф «S»"
+      },
+      "description": {
+        "sr": "Klizna vrata, maksimalno iskorišćen prostor do plafona.",
+        "en": "Sliding doors, full-height storage up to the ceiling.",
+        "de": "Schiebetüren, Stauraum bis zur Decke.",
+        "ru": "Раздвижные двери, хранение до потолка."
+      },
+      "images": ["images/ph3.svg"]
     },
     {
-      "id": "tv-zid",
-      "title": "TV zid sa policama",
-      "type": "TV zidovi",
-      "location": "Novi Sad",
-      "description": "Integrisan kabl menadžment, ravne linije i skrivena rasveta.",
-      "images": ["../images/ph2.svg"]
-    },
-    {
-      "id": "komoda",
-      "title": "Komoda i police",
       "type": "Komode i police",
+      "location": "Novi Sad",
+      "title": {
+        "sr": "TV komoda i police",
+        "en": "TV sideboard and shelves",
+        "de": "TV‑Lowboard und Regale",
+        "ru": "ТВ‑тумба и полки"
+      },
+      "description": {
+        "sr": "Diskretno vođenje kablova i čiste linije.",
+        "en": "Discrete cable routing and clean lines.",
+        "de": "Diskrete Kabelführung und klare Linien.",
+        "ru": "Скрытая проводка кабелей и чистые линии."
+      },
+      "images": ["images/ph2.svg"]
+    },
+    {
+      "type": "TV zidovi",
+      "location": "Zemun",
+      "title": {
+        "sr": "TV zid sa panelima",
+        "en": "TV wall with panels",
+        "de": "TV‑Wand mit Paneelen",
+        "ru": "TV‑стена с панелями"
+      },
+      "description": {
+        "sr": "Paneli sa teksturom drveta i skrivenim kanalima.",
+        "en": "Wood‑texture panels with concealed channels.",
+        "de": "Holzstruktur‑Paneele mit verdeckten Kanälen.",
+        "ru": "Панели с текстурой дерева и скрытыми каналами."
+      },
+      "images": ["images/ph3.svg"]
+    },
+    {
+      "type": "Kancelarije",
+      "location": "Novi Sad",
+      "title": {
+        "sr": "Radni kutak „Compact“",
+        "en": "Workspace “Compact”",
+        "de": "Arbeitsplatz „Compact“",
+        "ru": "Рабочая зона «Compact»"
+      },
+      "description": {
+        "sr": "Kompaktan sto sa policama i prikrivenim napajanjem.",
+        "en": "Compact desk with shelving and concealed power.",
+        "de": "Kompakter Tisch mit Regalen und verdeckter Stromführung.",
+        "ru": "Компактный стол с полками и скрытым питанием."
+      },
+      "images": ["images/ph2.svg"]
+    },
+    {
+      "type": "Uređenje enterijera",
       "location": "Beograd",
-      "description": "Topla kombinacija drveta i bele boje za dnevnu sobu.",
-      "images": ["../images/ph3.svg"]
+      "title": {
+        "sr": "Dnevna soba „Balance“",
+        "en": "Living room “Balance”",
+        "de": "Wohnzimmer „Balance“",
+        "ru": "Гостиная «Balance»"
+      },
+      "description": {
+        "sr": "Usklađeni elementi: komoda, police i paneli u istom tonu.",
+        "en": "Harmonized elements: sideboard, shelves and panels in matching tone.",
+        "de": "Harmonisierte Elemente: Lowboard, Regale und Paneele im gleichen Ton.",
+        "ru": "Согласованные элементы: тумба, полки и панели в едином тоне."
+      },
+      "images": ["images/ph3.svg"]
     }
   ]
 }
-
