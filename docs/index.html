@@ -10,7 +10,6 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet">
 
-  <!-- Preload realističnog logoa (brže renderovanje u header-u) -->
   <link rel="preload" as="image" href="./logo.webp">
 
   <script src="https://cdn.tailwindcss.com"></script>
@@ -34,6 +33,10 @@
       --muted:#6B7280;
       --secondary-bg:#E9E2D2;
       --text-on-primary:#ffffff;
+      /* nove promenljive */
+      --surface-1:#ffffff;
+      --surface-2:#FAFAF9;
+      --ring:#0B3D3A;
     }
     html.theme-dark{
       --bg:#0D1113;
@@ -43,30 +46,35 @@
       --muted:#C8C3BB;
       --secondary-bg:#2B2F31;
       --text-on-primary:#EDE7DD;
+      /* nove promenljive */
+      --surface-1:#121619;
+      --surface-2:#171C1F;
+      --ring:#5FB2AD;
     }
 
     .container{max-width:1200px;margin:0 auto;padding:0 16px}
     body{background:var(--bg);color:var(--text)}
 
-    /* HEADER background da prati temu (umesto bg-white iz tailwind-a) */
+    /* HEADER */
     .site-header{
       background: color-mix(in srgb, var(--bg) 85%, transparent);
       border-bottom: 1px solid var(--border);
       backdrop-filter: blur(10px);
     }
-    /* Fallback ako browser ne podržava color-mix */
     @supports not (background: color-mix(in srgb, white 50%, transparent)){
       .site-header{ background: rgba(255,255,255,0.80); }
       html.theme-dark .site-header{ background: rgba(13,17,19,0.80); }
     }
 
     .card{background:var(--card);border:1px solid var(--border);border-radius:16px;box-shadow:0 8px 30px rgba(0,0,0,0.08)}
+    html.theme-dark .card{ box-shadow: 0 16px 40px rgba(0,0,0,0.35); }
     .btn{display:inline-flex;align-items:center;justify-content:center;border-radius:12px;padding:12px 20px;font-weight:500;transition:all .2s}
     .btn-primary{background:var(--brand);color:var(--text-on-primary)} .btn-primary:hover{filter:brightness(.95)}
     .btn-secondary{background:var(--secondary-bg);color:#000} .btn-secondary:hover{filter:brightness(.97)}
     html.theme-dark .btn-secondary{color:var(--text)}
     .section{padding:64px 0}.section-title{font-size:32px;margin-bottom:24px}
 
+    /* Dekor */
     html.theme-dark body::before{
       content:"";position:fixed;inset:0;pointer-events:none;z-index:-1;
       background:
@@ -76,17 +84,13 @@
       mix-blend-mode:overlay;
     }
     html.theme-dark .bg-brand-light{background:var(--card)}
+    html.theme-dark a{color:var(--text)}
     html.theme-dark a:hover{color:#DAD3C7}
     html.theme-dark .text-gray-700{color:var(--text)}
     html.theme-dark .text-gray-600{color:var(--muted)}
 
-    /* PREMIUM REALISTIC LOGO */
-    .brand-logo{
-      height: 32px;
-      width: auto;
-      display: block;
-      filter: drop-shadow(0 10px 18px rgba(0,0,0,.35));
-    }
+    /* LOGO */
+    .brand-logo{ height:32px; width:auto; display:block; filter:drop-shadow(0 10px 18px rgba(0,0,0,.35)); }
     .brand-logo--footer{ height: 32px; }
     .brand-lockup{ display:flex; align-items:center; gap:12px; }
     .brand-name{ font-family:'Cormorant Garamond', serif; font-size:20px; line-height:1; }
@@ -102,9 +106,10 @@
     html.theme-dark .tile-pattern::after{background-image:linear-gradient(135deg, rgba(255,255,255,0.04) 12.5%, transparent 12.5%, transparent 50%, rgba(255,255,255,0.04) 50%, rgba(255,255,255,0.04) 62.5%, transparent 62.5%, transparent 100%);opacity:.4}
     .flow-arrow{width:24px;height:24px;opacity:.85}
     .flow-arrow svg{animation:arrowDown 1.6s infinite}
+    html.theme-dark .flow-arrow svg path{ stroke: var(--muted) !important; }
     @keyframes arrowDown{0%{transform:translateY(-2px);opacity:.6}50%{transform:translateY(2px);opacity:1}100%{transform:translateY(-2px);opacity:.6}}
 
-    /* Dropdown jezik */
+    /* Dropdown */
     .dropdown{position:relative}
     .dropdown-btn{display:flex;align-items:center;gap:8px;padding:8px 10px;border:1px solid var(--border);border-radius:10px;background:var(--card);color:var(--text)}
     .dropdown-menu{position:absolute;right:0;top:calc(100% + 8px);min-width:180px;background:var(--card);border:1px solid var(--border);border-radius:12px;box-shadow:0 8px 30px rgba(0,0,0,0.08);padding:6px;z-index:50}
@@ -114,28 +119,37 @@
     .chev{transition:transform .2s}
     .open .chev{transform:rotate(180deg)}
 
-    /* Dark theme coverage for Tailwind utility classes and gradients */
+    /* Dark theme coverage: Tailwind utility + gradijenti + hover */
     html.theme-dark .bg-white { background: var(--card) !important; }
     html.theme-dark .bg-gray-100, html.theme-dark .bg-gray-200 { background: var(--border) !important; }
     html.theme-dark .border-gray-100, html.theme-dark .border-gray-200 { border-color: var(--border) !important; }
     html.theme-dark .hover\:bg-gray-100:hover { background: var(--secondary-bg) !important; }
 
-    html.theme-dark .text-gray-900, 
-    html.theme-dark .text-gray-800 { color: var(--text) !important; }
+    html.theme-dark .text-gray-900, html.theme-dark .text-gray-800 { color: var(--text) !important; }
     html.theme-dark .text-gray-700 { color: var(--text) !important; }
-    html.theme-dark .text-gray-600, 
-    html.theme-dark .text-gray-500 { color: var(--muted) !important; }
+    html.theme-dark .text-gray-600, html.theme-dark .text-gray-500 { color: var(--muted) !important; }
 
-    /* Gradients on hero: from-white -> var(--bg), to-brand-light -> var(--card) */
     html.theme-dark .from-white { 
       --tw-gradient-from: var(--bg) !important; 
       --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(0,0,0,0)); 
     }
     html.theme-dark .to-brand-light { --tw-gradient-to: var(--card) !important; }
 
-    /* Soften beige highlight in dark mode */
     html.theme-dark .bg-brand-beige\/30 { 
       background-color: color-mix(in srgb, var(--secondary-bg) 70%, transparent) !important; 
+    }
+
+    /* Forme i fokus pristupačnost */
+    :where(input, select, textarea){
+      background: var(--card);
+      color: var(--text);
+      border-color: var(--border);
+    }
+    :where(input, select, textarea)::placeholder{ color: var(--muted); opacity: 1; }
+    :where(a, button, input, select, textarea, [role="button"], .dropdown-btn, .process-toggle, .faq-toggle):focus-visible{
+      outline: 2px solid var(--ring);
+      outline-offset: 2px;
+      border-color: var(--ring);
     }
   </style>
 
@@ -166,7 +180,6 @@
       </nav>
 
       <div class="flex items-center gap-3">
-        <!-- Jezik dropdown -->
         <div class="dropdown" id="langSelect">
           <button id="langToggle" class="dropdown-btn" aria-haspopup="true" aria-expanded="false">
             <span class="flag" id="langFlag">🇷🇸</span>
@@ -183,7 +196,6 @@
           </div>
         </div>
 
-        <!-- Tema -->
         <button id="themeToggle" class="p-2 rounded-xl border border-gray-200 hover:bg-gray-100 md:ml-2" aria-label="Promeni temu">
           <span id="iconLight" class="block" aria-hidden="true">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
