@@ -224,9 +224,16 @@
       }
     };
 
-    const phoneDefault = "+381 64 122 04 29";
     const L = localStorage.getItem('lang') || 'sr';
     const T = I18N[L] || I18N.sr;
+    const cfg = window.APP_CONFIG || {};
+    const withBase = typeof cfg.withBase === 'function' ? cfg.withBase : (p)=>p;
+
+    function locText(val){
+      if (!val) return '';
+      if (typeof val === 'string') return val;
+      return val[L] || val.sr || '';
+    }
 
     function applyTheme(theme){
       document.documentElement.classList.toggle('theme-dark', theme==='dark');
@@ -285,12 +292,10 @@
     initLangDropdownProj();
 
     (function initStaticTexts(){
-      // Header nav
       const n = T.nav;
       const set = (id, text) => { const el=document.getElementById(id); if(el) el.textContent=text; };
       set('navServices', n.services); set('navProcess', n.process); set('navProjects', n.projects); set('navFAQ', n.faq); set('navContact', n.contact);
       set('footServices', n.services); set('footProcess', n.process); set('footProjects', n.projects); set('footFAQ', n.faq); set('footContact', n.contact);
-      // Page head/sub
       const h=document.getElementById('pageTitle'); if(h) h.textContent=T.head;
       const s=document.getElementById('pageSub'); if(s) s.textContent=T.sub;
       const cta=document.getElementById('headerCTA'); if(cta) cta.textContent=T.cta;
@@ -299,21 +304,18 @@
     })();
 
     (async function phoneInit(){
-      try {
-        const phone = (window.APP_CONFIG && window.APP_CONFIG.CONTACT_PHONE) || phoneDefault;
-        document.querySelectorAll("#headerPhone,#footerPhone").forEach(a => { a.textContent=phone; a.href="tel:"+phone.replace(/\s+/g,""); });
-      } catch {
-        document.querySelectorAll("#headerPhone,#footerPhone").forEach(a => { a.textContent=phoneDefault; a.href="tel:"+phoneDefault.replace(/\s+/g,""); });
-      }
+      const phone = (window.APP_CONFIG && window.APP_CONFIG.CONTACT_PHONE) || "+381 64 122 04 29";
+      document.querySelectorAll("#headerPhone,#footerPhone").forEach(a => { a.textContent=phone; a.href="tel:"+phone.replace(/\s+/g,""); });
     })();
 
     document.addEventListener("DOMContentLoaded", async () => {
-      const list = (await fetch("../content/projects.json", { cache: "no-store" }).then(r=>r.json())).projects || [];
+      const json = await fetch("../content/projects.json", { cache: "no-store" }).then(r=>r.json()).catch(()=>({projects:[]}));
+      const list = json.projects || [];
       let current = T.cats[0];
       const filters = document.getElementById("filters");
       const grid = document.getElementById("grid");
 
-      // build filters
+      // filters
       T.cats.forEach(c=>{
         const b = document.createElement("button");
         b.className = "btn " + (c===current?"btn-primary":"btn-secondary") + " text-sm";
@@ -321,20 +323,25 @@
         filters.appendChild(b);
       });
 
+      function resolveImg(src){
+        if (!src) return withBase('images/ph3.svg');
+        if (/^https?:\/\//i.test(src)) return src;
+        return withBase(src);
+      }
+
       function render(){
         filters.querySelectorAll("button").forEach(b=>{
           b.className = "btn " + (b.textContent===current?"btn-primary":"btn-secondary") + " text-sm";
         });
         const items = current===T.cats[0] ? list : list.filter(p=>{
-          // map stored SR type to localized filter label
-          const t = T.types[p.type] || p.type || '';
-          return t === current;
+          const typeTxt = T.types[p.type] || p.type || '';
+          return typeTxt === current;
         });
         grid.innerHTML = items.map(p=>{
-          const img = (p.images && p.images[0]) || '../images/ph3.svg';
+          const img = resolveImg((p.images && p.images[0]) || '');
           const typeTxt = T.types[p.type] || p.type || '';
-          const title = p.title || '';
-          const desc = p.description || '';
+          const title = locText(p.title) || '';
+          const desc = locText(p.description) || '';
           const loc = p.location || '';
           return `
           <button class="card overflow-hidden text-left preview-btn" data-img="${img}">
@@ -344,7 +351,7 @@
             <div class="p-4">
               <div class="text-sm text-gray-600">${typeTxt} · ${loc}</div>
               <div class="font-medium mb-2">${title}</div>
-              <p class="text-sm text-gray-700">${desc}</p>
+              ${desc ? `<p class="text-sm text-gray-700">${desc}</p>` : ``}
             </div>
           </button>`;
         }).join("");
@@ -368,4 +375,3 @@
   </script>
 </body>
 </html>
-
