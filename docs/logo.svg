@@ -1,38 +1,15 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="440" height="160" viewBox="0 0 440 160" role="img" aria-label="VASILJEVIĆ — Stolarija &amp; Dizajn enterijera"><svg xmlns="http <!--
-    GitHub-friendly SVG:
-    - well-formed (ONLY this SVG in file)
-    - no <style> block
-    - no filters (drop-shadows) to avoid GitHub preview renderer issues
-  -->
-
-  <!-- Colors -->
-  <!-- graphite: #1E1F22  milk: #FAFAF7  oak: #C9A77D  oak2: #B79267  accents: #0D0D0D -->
-  <!-- You can change stroke/fill below if you prefer dark-green (#0B3D3A) like in your draft -->
-
-  <!-- ICON GROUP -->
+<svg xmlns="http://www.w3.org/2000/svg" width="440" height="160" viewBox="0 0 440 160" role="img" aria-label="VASILJEVIĆ — Stolarija &amp; Dizajn enterijera">
   <g transform="translate(16,16)">
-    <!-- House/space outline with subtle gable -->
-    <path
-      d="M18 48 Q18 40 26 40 L70 40 L104 24 L138 40 L182 40 Q190 40 190 48 L190 120 Q190 128 182 128 L26 128 Q18 128 18 120 Z"
-      fill="none"
-      stroke="#FAFAF7"
-      stroke-width="4"
-      stroke-linecap="round"
-      stroke-linejoin="miter"
-    />
+    <path d="M18 48 Q18 40 26 40 L70 40 L104 24 L138 40 L182 40 Q190 40 190 48 L190 120 Q190 128 182 128 L26 128 Q18 128 18 120 Z"
+          fill="none" stroke="#FAFAF7" stroke-width="4" stroke-linecap="round" stroke-linejoin="miter"/>
 
-    <!-- Floor-plan lines (simple L + doorway gap) -->
-    <path d="M58 56 L58 112" fill="none" stroke="#FAFAF7" stroke-width="4" stroke-linecap="round" stroke-linejoin="miter" opacity="0.95"/>
-    <path d="M58 112 L98 112" fill="none" stroke="#FAFAF7" stroke-width="4" stroke-linecap="round" stroke-linejoin="miter" opacity="0.95"/>
-    <path d="M152 112 L124 112" fill="none" stroke="#FAFAF7" stroke-width="4" stroke-linecap="round" stroke-linejoin="miter" opacity="0.95"/>
+    <path d="M58 56 L58 112" fill="none" stroke="#FAFAF7" stroke-width="4" stroke-linecap="round" opacity="0.95"/>
+    <path d="M58 112 L98 112" fill="none" stroke="#FAFAF7" stroke-width="4" stroke-linecap="round" opacity="0.95"/>
+    <path d="M152 112 L124 112" fill="none" stroke="#FAFAF7" stroke-width="4" stroke-linecap="round" opacity="0.95"/>
 
-    <!-- Wood panels forming negative-space V -->
-    <!-- Left panel -->
     <path d="M88 56 L118 56 L136 116 L108 116 Z" fill="#C9A77D"/>
-    <!-- Right panel -->
     <path d="M122 56 L152 56 L122 116 L98 116 Z" fill="#B79267" opacity="0.85"/>
 
-    <!-- Minimal grain lines (2px, low opacity) -->
     <path d="M92 70 L120 70" fill="none" stroke="#0D0D0D" stroke-width="2" stroke-linecap="round" opacity="0.12"/>
     <path d="M94 84 L122 84" fill="none" stroke="#0D0D0D" stroke-width="2" stroke-linecap="round" opacity="0.12"/>
     <path d="M98 98 L126 98" fill="none" stroke="#0D0D0D" stroke-width="2" stroke-linecap="round" opacity="0.12"/>
@@ -44,27 +21,19 @@
     <path d="M116 112 L140 112" fill="none" stroke="#0D0D0D" stroke-width="2" stroke-linecap="round" opacity="0.12"/>
   </g>
 
-  <!-- TYPE LOCKUP -->
   <g transform="translate(220,62)">
-    <!-- Brand name -->
-    <text
-      x="0" y="0"
-      fill="#FAFAF7"
-      font-family="Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif"
-      font-weight="700"
-      font-size="28"
-      letter-spacing="0.18em"
-    >VASILJEVIĆ</text>
+    <text x="0" y="0"
+          fill="#FAFAF7"
+          font-family="Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif"
+          font-weight="700"
+          font-size="28"
+          letter-spacing="0.18em">VASILJEVIĆ</text>
 
-    <!-- Subtitle -->
-    <text
-      x="0" y="24"
-      fill="rgba(250,250,247,0.90)"
-      font-family="Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif"
-      font-weight="500"
-      font-size="12"
-      letter-spacing="0.06em"
-    >Stolarija &amp; Dizajn enterijera</text>
+    <text x="0" y="24"
+          fill="rgba(250,250,247,0.90)"
+          font-family="Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif"
+          font-weight="500"
+          font-size="12"
+          letter-spacing="0.06em">Stolarija &amp; Dizajn enterijera</text>
   </g>
 </svg>
-
