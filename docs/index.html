@@ -27,11 +27,9 @@
       --secondary-bg:#E9E2D2; --text-on-primary:#ffffff;
       --surface-1:#ffffff; --surface-2:#FAFAF9; --ring:#0B3D3A;
 
-      /* Toggle (light) */
       --toggle-day-bg1:#F7F3EA; --toggle-day-bg2:#E9E2D2; --toggle-day-border:#E4DCCB;
       --toggle-bg1:var(--toggle-day-bg1); --toggle-bg2:var(--toggle-day-bg2); --toggle-border-c:var(--toggle-day-border);
 
-      /* Process wood (light) */
       --process-wood-light-1:#F2E9DD; --process-wood-light-2:#E6D8C7;
       --process-wood-dark-1:#3A2F28; --process-wood-dark-2:#2C2622;
       --process-text-strong:#0B0B0B; --process-text-muted:#6B7280;
@@ -43,11 +41,9 @@
       --muted:#C8C3BB; --secondary-bg:#2B2F31; --text-on-primary:#EDE7DD;
       --surface-1:#121619; --surface-2:#171C1F; --ring:#5FB2AD;
 
-      /* Toggle (dark) */
       --toggle-night-bg1:#0F1517; --toggle-night-bg2:#0B3D3A; --toggle-night-border:#1E2A2B;
       --toggle-bg1:var(--toggle-night-bg1); --toggle-bg2:var(--toggle-night-bg2); --toggle-border-c:var(--toggle-night-border);
 
-      /* Process wood (dark) */
       --process-wood-light-1:#1A1E20; --process-wood-light-2:#15191B;
       --process-wood-dark-1:#232828; --process-wood-dark-2:#1B1F21;
       --process-text-strong:#EDE7DD; --process-text-muted:#C8C3BB;
@@ -58,7 +54,6 @@
     .container{max-width:1200px;margin:0 auto;padding:0 16px}
     body{background:var(--bg);color:var(--text)}
 
-    /* HEADER */
     .site-header{
       background: color-mix(in srgb, var(--bg) 85%, transparent);
       border-bottom: 1px solid var(--border);
@@ -77,7 +72,6 @@
     html.theme-dark .btn-secondary{color:var(--text)}
     .section{padding:64px 0}.section-title{font-size:32px;margin-bottom:24px}
 
-    /* Dark mode premium overrides */
     html.theme-dark body::before{
       content:"";position:fixed;inset:0;pointer-events:none;z-index:-1;
       background:
@@ -101,13 +95,21 @@
     html.theme-dark .to-brand-light { --tw-gradient-to: var(--card) !important; }
     html.theme-dark .bg-brand-beige\/30 { background-color: color-mix(in srgb, var(--secondary-bg) 70%, transparent) !important; }
 
-    /* Logo */
-    .brand-logo{ height:32px; width:auto; display:block; filter:drop-shadow(0 10px 18px rgba(0,0,0,.35)); }
-    .brand-logo--footer{ height:32px; }
-    .brand-lockup{ display:flex; align-items:center; gap:12px; }
-    .brand-name{ font-family:'Cormorant Garamond', serif; font-size:20px; line-height:1; }
+    /* LOGO: samo simbol, tema-aware */
+    .logo { display:inline-flex; align-items:center; justify-content:center; }
+    .logo-img { display:block; height:auto; image-rendering: -webkit-optimize-contrast; }
+    .logo--header .logo-img { height: 32px; }
+    @media (min-width:768px){ .logo--header .logo-img { height: 36px; } }
+    @media (min-width:1024px){ .logo--header .logo-img { height: 40px; } }
+    .logo--contact .logo-img { height: 72px; }
+    @media (min-width:768px){ .logo--contact .logo-img { height: 88px; } }
+    @media (min-width:1024px){ .logo--contact .logo-img { height: 96px; } }
+    .logo-dark { display:none; }
+    html.theme-dark .logo-light { display:none; }
+    html.theme-dark .logo-dark { display:block; }
+    .logo img[src$=".svg"] { shape-rendering: geometricPrecision; text-rendering: geometricPrecision; }
 
-    /* Language dropdown — kompaktan, flag vidljiv svuda */
+    /* Jezik dropdown — kompaktan, flag vidljiv */
     .dropdown{position:relative}
     #langToggle{ display:flex; align-items:center; gap:6px; padding:6px 10px; min-height:36px; border:1px solid var(--border); border-radius:9999px; background:var(--card); color:var(--text); }
     @media (max-width: 767px){ #langToggle{ min-height:40px; padding:8px 12px; } }
@@ -118,7 +120,7 @@
     .dropdown-item{ display:flex; align-items:center; gap:8px; width:100%; text-align:left; padding:6px 8px; border-radius:10px; color:var(--text); min-height:34px; }
     .dropdown-item:hover{ background:var(--secondary-bg) }
 
-    /* Theme toggle (vizuelni fill) */
+    /* Theme toggle (fill) */
     #themeToggle{
       background: linear-gradient(180deg, var(--toggle-bg1), var(--toggle-bg2));
       border-color: var(--toggle-border-c) !important;
@@ -131,7 +133,6 @@
     #themeToggle:active{ transform: translateY(0.5px); }
     #themeToggle svg{ display:block; }
 
-    /* Forms + focus ring */
     :where(input, select, textarea){ background: var(--card); color: var(--text); border-color: var(--border); }
     :where(input, select, textarea)::placeholder{ color: var(--muted); opacity: 1; }
     :where(a, button, input, select, textarea, [role="button"], .dropdown-btn, .process-card):focus-visible{
@@ -195,9 +196,11 @@
 <body class="font-sans">
   <header class="site-header sticky top-0 z-50">
     <div class="container h-16 flex items-center justify-between">
-      <a href="./" class="brand-lockup">
-        <img src="./logo.svg" alt="Stolarija Vasiljević" class="brand-logo" loading="eager" decoding="async">
-        <span class="brand-name">Stolarija Vasiljević</span>
+      <a href="./" class="brand-lockup" aria-label="Početna">
+        <span class="logo logo--header">
+          <img src="./assets/img/logo-light.svg" alt="Vasiljević" class="logo-img logo-light" decoding="async">
+          <img src="./assets/img/logo-dark.svg" alt="Vasiljević" class="logo-img logo-dark" decoding="async">
+        </span>
       </a>
 
       <nav class="hidden md:flex items-center gap-6 text-sm">
@@ -210,14 +213,11 @@
       </nav>
 
       <div class="flex items-center gap-2 md:gap-3">
-        <!-- Jezik dropdown (kompaktan) -->
         <div class="dropdown" id="langSelect">
           <button id="langToggle" class="dropdown-btn" aria-haspopup="true" aria-expanded="false">
             <span class="flag" id="langFlag">🇷🇸</span>
             <span id="langLabel">Jezik: srb</span>
-            <svg class="chev" viewBox="0 0 24 24" fill="none">
-              <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-            </svg>
+            <svg class="chev" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
           </button>
           <div id="langMenu" class="dropdown-menu hidden" role="menu" aria-label="Izaberi jezik">
             <button class="dropdown-item" data-lang="sr"><span class="flag">🇷🇸</span><span>srb</span></button>
@@ -227,7 +227,6 @@
           </div>
         </div>
 
-        <!-- Tema -->
         <button id="themeToggle" class="p-2 rounded-xl border border-gray-200 hover:bg-gray-100 md:ml-1" aria-label="Promeni temu">
           <span id="iconLight" class="block" aria-hidden="true">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
@@ -287,7 +286,6 @@
       </div>
     </section>
 
-    <!-- SECTION: PROCES (novo — generiše site.js u #processMount) -->
     <section id="proces" class="process-flow section">
       <div class="container">
         <h2 class="section-title font-serif" id="labelProcess">Proces</h2>
@@ -312,7 +310,11 @@
         <h2 class="section-title font-serif" id="labelContact">Kontakt</h2>
         <div class="grid md:grid-cols-3 gap-8">
           <aside class="card p-6 contact-aside">
-            <h4 id="labelReachUs">Kontakt podaci</h4>
+            <div class="logo logo--contact" aria-hidden="true">
+              <img src="./assets/img/logo-light.svg" alt="" class="logo-img logo-light">
+              <img src="./assets/img/logo-dark.svg" alt="" class="logo-img logo-dark">
+            </div>
+            <h4 id="labelReachUs" class="mt-3">Kontakt podaci</h4>
             <div class="space-y-2 text-gray-700">
               <p><span id="labelPhone">Telefon</span> — <a id="contactPhone" class="text-brand-dark font-medium" href="#">+381 64 122 04 29</a></p>
               <p><span id="labelEmail">Email</span> — <a id="contactEmail" class="text-brand-dark font-medium" href="#"></a></p>
@@ -394,8 +396,10 @@
     <div class="container py-12 grid md:grid-cols-3 gap-8">
       <div>
         <div class="brand-lockup mb-4">
-          <img src="./logo.svg" alt="Stolarija Vasiljević" class="brand-logo brand-logo--footer" loading="lazy" decoding="async">
-          <span class="brand-name">Stolarija Vasiljević</span>
+          <span class="logo logo--header">
+            <img src="./assets/img/logo-light.svg" alt="Vasiljević" class="logo-img logo-light">
+            <img src="./assets/img/logo-dark.svg" alt="Vasiljević" class="logo-img logo-dark">
+          </span>
         </div>
         <p class="text-gray-700">
           Nameštaj po meri za dom i kancelariju — Novi Sad, Beograd i okolina
@@ -428,6 +432,6 @@
     </div>
   </footer>
 
-  <!-- (site.js već učitan defer u <head>) -->
+  <script src="./assets/site.js" defer></script>
 </body>
 </html>
