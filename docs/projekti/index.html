@@ -52,6 +52,17 @@
       html.theme-dark .site-header{ background: rgba(13,17,19,0.80); }
     }
 
+    /* LOGO */
+    .logo { display:inline-flex; align-items:center; justify-content:center; }
+    .logo-img { display:block; height:auto; image-rendering: -webkit-optimize-contrast; }
+    .logo--header .logo-img { height: 32px; }
+    @media (min-width:768px){ .logo--header .logo-img { height: 36px; } }
+    @media (min-width:1024px){ .logo--header .logo-img { height: 40px; } }
+    .logo-dark { display:none; }
+    html.theme-dark .logo-light { display:none; }
+    html.theme-dark .logo-dark { display:block; }
+    .logo img[src$=".svg"] { shape-rendering: geometricPrecision; text-rendering: geometricPrecision; }
+
     /* Dropdown kompaktan */
     .dropdown{position:relative}
     #langToggleProj{ display:flex; align-items:center; gap:6px; padding:6px 10px; min-height:36px; border:1px solid var(--border); border-radius:9999px; background:var(--card); color:var(--text); }
@@ -96,9 +107,11 @@
 <body class="font-sans">
   <header class="site-header border-b border-gray-100 bg-white/80 backdrop-blur sticky top-0 z-50">
     <div class="container h-16 flex items-center justify-between">
-      <a href="../" class="flex items-center gap-3">
-        <img src="../logo.svg" alt="Stolarija Vasiljević" class="h-8 w-auto">
-        <span class="font-serif text-xl" id="navBrand">Stolarija Vasiljević</span>
+      <a href="../" class="flex items-center gap-3" aria-label="Početna">
+        <span class="logo logo--header">
+          <img src="../assets/img/logo-light.svg" alt="Vasiljević" class="logo-img logo-light">
+          <img src="../assets/img/logo-dark.svg" alt="Vasiljević" class="logo-img logo-dark">
+        </span>
       </a>
       <nav class="hidden md:flex items-center gap-6 text-sm">
         <a href="../#usluge" class="hover:text-brand-dark" id="navServices">Usluge</a>
@@ -147,7 +160,12 @@
   <footer class="bg-brand-light border-t border-gray-100">
     <div class="container py-12 grid md:grid-cols-3 gap-8">
       <div>
-        <div class="flex items-center gap-3 mb-4"><img src="../logo.svg" alt="Stolarija Vasiljević" class="h-8 w-auto"><span class="font-serif text-xl">Stolarija Vasiljević</span></div>
+        <div class="flex items-center gap-3 mb-4">
+          <span class="logo logo--header">
+            <img src="../assets/img/logo-light.svg" alt="Vasiljević" class="logo-img logo-light">
+            <img src="../assets/img/logo-dark.svg" alt="Vasiljević" class="logo-img logo-dark">
+          </span>
+        </div>
         <p class="text-gray-700" id="footIntro">Nameštaj po meri za dom i kancelariju — NS, BG i okolina. Jasan predračun — realni rokovi — uredna montaža.</p>
       </div>
       <div>
@@ -175,68 +193,28 @@
     </div>
   </div>
 
+  <script src="../assets/config.js"></script>
   <script>
     const I18N = {
-      sr: {
-        nav:{services:'Usluge',process:'Proces',projects:'Projekti',faq:'FAQ',contact:'Kontakt'},
-        head:'Projekti',
-        sub:'Naši radovi — izaberite kategoriju.',
-        cta:'Pošalji upit',
+      sr:{nav:{services:'Usluge',process:'Proces',projects:'Projekti',faq:'FAQ',contact:'Kontakt'},head:'Projekti',sub:'Naši radovi — izaberite kategoriju.',cta:'Pošalji upit',
         cats:['Sve','Kuhinje','Plakari i garderoberi','Komode i police','TV zidovi','Kancelarije','Uređenje enterijera'],
-        types:{
-          'Kuhinje':'Kuhinje','Plakari i garderoberi':'Plakari i garderoberi','Komode i police':'Komode i police',
-          'TV zidovi':'TV zidovi','Kancelarije':'Kancelarije','Uređenje enterijera':'Uređenje enterijera'
-        },
-        footIntro:'Nameštaj po meri za dom i kancelariju — NS, BG i okolina. Jasan predračun — realni rokovi — uredna montaža.'
-      },
-      en: {
-        nav:{services:'Services',process:'Process',projects:'Projects',faq:'FAQ',contact:'Contact'},
-        head:'Projects',
-        sub:'Our work — choose a category.',
-        cta:'Send inquiry',
+        types:{'Kuhinje':'Kuhinje','Plakari i garderoberi':'Plakari i garderoberi','Komode i police':'Komode i police','TV zidovi':'TV zidovi','Kancelarije':'Kancelarije','Uređenje enterijera':'Uređenje enterijera'},
+        footIntro:'Nameštaj po meri za dom i kancelariju — NS, BG i okolina. Jasan predračun — realni rokovi — uredna montaža.'},
+      en:{nav:{services:'Services',process:'Process',projects:'Projects',faq:'FAQ',contact:'Contact'},head:'Projects',sub:'Our work — choose a category.',cta:'Send inquiry',
         cats:['All','Kitchens','Wardrobes','Sideboards & Shelves','TV walls','Offices','Interior design'],
-        types:{
-          'Kuhinje':'Kitchens','Plakari i garderoberi':'Wardrobes','Komode i police':'Sideboards & Shelves',
-          'TV zidovi':'TV walls','Kancelarije':'Offices','Uređenje enterijera':'Interior design'
-        },
-        footIntro:'Custom furniture for home and office — Novi Sad, Belgrade and nearby. Transparent quotes — realistic timelines — tidy assembly.'
-      },
-      de: {
-        nav:{services:'Leistungen',process:'Ablauf',projects:'Projekte',faq:'FAQ',contact:'Kontakt'},
-        head:'Projekte',
-        sub:'Unsere Arbeiten — wählen Sie eine Kategorie.',
-        cta:'Anfrage senden',
+        types:{'Kuhinje':'Kitchens','Plakari i garderoberi':'Wardrobes','Komode i police':'Sideboards & Shelves','TV zidovi':'TV walls','Kancelarije':'Offices','Uređenje enterijera':'Interior design'},
+        footIntro:'Custom furniture for home and office — Novi Sad, Belgrade and nearby. Transparent quotes — realistic timelines — tidy assembly.'},
+      de:{nav:{services:'Leistungen',process:'Ablauf',projects:'Projekte',faq:'FAQ',contact:'Kontakt'},head:'Projekte',sub:'Unsere Arbeiten — wählen Sie eine Kategorie.',cta:'Anfrage senden',
         cats:['Alle','Küchen','Schränke','Kommoden & Regale','TV‑Wände','Büros','Innenraumgestaltung'],
-        types:{
-          'Kuhinje':'Küchen','Plakari i garderoberi':'Schränke','Komode i police':'Kommoden & Regale',
-          'TV zidovi':'TV‑Wände','Kancelarije':'Büros','Uređenje enterijera':'Innenraumgestaltung'
-        },
-        footIntro:'Möbel nach Maß für Zuhause und Büro — Novi Sad, Belgrad und Umgebung. Transparente Angebote — realistische Fristen — saubere Montage.'
-      },
-      ru: {
-        nav:{services:'Услуги',process:'Процесс',projects:'Проекты',faq:'FAQ',contact:'Контакты'},
-        head:'Проекты',
-        sub:'Наши работы — выберите категорию.',
-        cta:'Отправить заявку',
+        types:{'Kuhinje':'Küchen','Plakari i garderoberi':'Schränke','Komode i police':'Kommoden & Regale','TV zidovi':'TV‑Wände','Kancelarije':'Büros','Uređenje enterijera':'Innenraumgestaltung'},
+        footIntro:'Möbel nach Maß für Zuhause und Büro — Novi Sad, Belgrad und Umgebung. Transparente Angebote — realistische Fristen — saubere Montage.'},
+      ru:{nav:{services:'Услуги',process:'Процесс',projects:'Проекты',faq:'FAQ',contact:'Контакты'},head:'Проекты',sub:'Наши работы — выберите категорию.',cta:'Отправить заявку',
         cats:['Все','Кухни','Шкафы','Комоды и полки','TV‑стены','Офисы','Дизайн интерьера'],
-        types:{
-          'Kuhinje':'Кухни','Plakari i garderoberi':'Шкафы','Komode i police':'Комоды и полки',
-          'TV zidovi':'TV‑стены','Kancelarije':'Офисы','Uređenje enterijera':'Дизайн интерьера'
-        },
-        footIntro:'Мебель на заказ для дома и офиса — Нови-Сад, Белград и окрестности. Прозрачные сметы — реальные сроки — аккуратный монтаж.'
-      }
+        types:{'Kuhinje':'Кухни','Plakari i garderoberi':'Шкафы','Komode i police':'Комоды и полки','TV zidovi':'TV‑стены','Kancelarije':'Офисы','Uređenje enterijera':'Дизайн интерьера'},
+        footIntro:'Мебель на заказ для дома и офиса — Нови-Сад, Белград и окрестности. Прозрачные сметы — реальные сроки — аккуратный монтаж.'}
     };
-
     const L = localStorage.getItem('lang') || 'sr';
     const T = I18N[L] || I18N.sr;
-    const cfg = window.APP_CONFIG || {};
-    const withBase = typeof cfg.withBase === 'function' ? cfg.withBase : (p)=>p;
-
-    function locText(val){
-      if (!val) return '';
-      if (typeof val === 'string') return val;
-      return val[L] || val.sr || '';
-    }
 
     function applyTheme(theme){
       document.documentElement.classList.toggle('theme-dark', theme==='dark');
@@ -258,16 +236,10 @@
     })();
 
     function initLangDropdownProj(){
-      const map = {
-        sr: { label:'Jezik', abbr:'srb', flag:'🇷🇸' },
-        en: { label:'Language', abbr:'eng', flag:'🇬🇧' },
-        de: { label:'Sprache', abbr:'deu', flag:'🇩🇪' },
-        ru: { label:'Язык', abbr:'рус', flag:'🇷🇺' }
-      };
+      const map = { sr:{label:'Jezik',abbr:'srb',flag:'🇷🇸'}, en:{label:'Language',abbr:'eng',flag:'🇬🇧'}, de:{label:'Sprache',abbr:'deu',flag:'🇩🇪'}, ru:{label:'Язык',abbr:'рус',flag:'🇷🇺'} };
       const cur = map[L] || map.sr;
       document.getElementById('langFlagProj').textContent = cur.flag;
       document.getElementById('langLabelProj').textContent = `${cur.label}: ${cur.abbr}`;
-
       const toggle = document.getElementById('langToggleProj');
       const menu = document.getElementById('langMenuProj');
       toggle.addEventListener('click', (e)=>{
@@ -318,7 +290,6 @@
       const filters = document.getElementById("filters");
       const grid = document.getElementById("grid");
 
-      // filters
       T.cats.forEach(c=>{
         const b = document.createElement("button");
         b.className = "btn " + (c===current?"btn-primary":"btn-secondary") + " text-sm";
@@ -327,12 +298,11 @@
       });
 
       function resolveImg(src){
-        if (!src) return withBase('images/ph3.svg');
+        if (!src) return '../images/ph3.svg';
         if (/^https?:\/\//i.test(src)) return src;
-        return withBase(src);
+        return src.startsWith('../') ? src : ('../' + src.replace(/^\.?\/*/,''));
       }
-
-      function loc(v){ return locText(v); }
+      function loc(val){ return (typeof val==='string') ? val : (val && (val[L] || val.sr)) || ''; }
 
       function render(){
         filters.querySelectorAll("button").forEach(b=>{
@@ -380,3 +350,4 @@
   </script>
 </body>
 </html>
+
