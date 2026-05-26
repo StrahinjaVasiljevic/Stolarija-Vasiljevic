@@ -21,14 +21,20 @@
     :root{
       --bg:#ffffff; --text:#0b0b0b; --card:#ffffff; --border:#f0f0f0;
       --muted:#6B7280; --secondary-bg:#E9E2D2; --text-on-primary:#ffffff;
-      /* nove promenljive */
       --surface-1:#ffffff; --surface-2:#FAFAF9; --ring:#0B3D3A;
+      /* toggle (day) */
+      --toggle-day-bg1:#F7F3EA; --toggle-day-bg2:#E9E2D2; --toggle-day-border:#E4DCCB;
+      /* computed (light default) */
+      --toggle-bg1:var(--toggle-day-bg1); --toggle-bg2:var(--toggle-day-bg2); --toggle-border-c:var(--toggle-day-border);
     }
     html.theme-dark{
       --bg:#0D1113; --text:#EDE7DD; --card:#121619; --border:#1E2326;
       --muted:#C8C3BB; --secondary-bg:#2B2F31; --text-on-primary:#EDE7DD;
-      /* nove promenljive */
       --surface-1:#121619; --surface-2:#171C1F; --ring:#5FB2AD;
+      /* toggle (night) */
+      --toggle-night-bg1:#0F1517; --toggle-night-bg2:#0B3D3A; --toggle-night-border:#1E2A2B;
+      /* computed (dark override) */
+      --toggle-bg1:var(--toggle-night-bg1); --toggle-bg2:var(--toggle-night-bg2); --toggle-border-c:var(--toggle-night-border);
     }
 
     .container{max-width:1200px;margin:0 auto;padding:0 16px}
@@ -90,6 +96,19 @@
       outline-offset: 2px;
       border-color: var(--ring);
     }
+
+    /* Theme toggle — dan/noć (vizuelni fill, mikrointerakcije) */
+    #themeToggle{
+      background: linear-gradient(180deg, var(--toggle-bg1), var(--toggle-bg2));
+      border-color: var(--toggle-border-c) !important;
+      min-width: 42px; min-height: 42px;
+      box-shadow: 0 2px 0 rgba(0,0,0,.04) inset, 0 1px 2px rgba(0,0,0,.08);
+      transition: background-color .2s, filter .2s, box-shadow .2s, transform .06s;
+    }
+    #themeToggle:hover{ filter: brightness(0.98) saturate(1.02); }
+    html.theme-dark #themeToggle:hover{ filter: brightness(1.05) saturate(1.02); }
+    #themeToggle:active{ transform: translateY(0.5px); }
+    #themeToggle svg{ display:block; }
   </style>
   <script src="../assets/config.js"></script>
 </head>
