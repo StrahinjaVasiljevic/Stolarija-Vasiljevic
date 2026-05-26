@@ -1,1 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Vasiljević logo">
+  <defs>
+    <style>
+      .s { stroke:#EDE7DD; stroke-width:3; stroke-linecap:round; stroke-linejoin:round; }
+      .o { stroke:#EDE7DD; stroke-width:2; opacity:.14; }
+    </style>
+  </defs>
+  <circle cx="32" cy="32" r="23" class="o" fill="none"/>
+  <path d="M16 22 L32 44 L48 22" class="s"/>
+  <path d="M24 28 L32 40 L40 28" class="s" opacity=".35"/>
+</svg>
 
