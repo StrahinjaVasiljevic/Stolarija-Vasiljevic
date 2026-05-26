@@ -20,22 +20,27 @@
   <style>
     :root{
       --bg:#ffffff; --text:#0b0b0b; --card:#ffffff; --border:#f0f0f0;
-      --muted:#6B7280; --secondary-bg:#E9E2D2; --text-on-primary:#ffffff
+      --muted:#6B7280; --secondary-bg:#E9E2D2; --text-on-primary:#ffffff;
+      /* nove promenljive */
+      --surface-1:#ffffff; --surface-2:#FAFAF9; --ring:#0B3D3A;
     }
     html.theme-dark{
       --bg:#0D1113; --text:#EDE7DD; --card:#121619; --border:#1E2326;
-      --muted:#C8C3BB; --secondary-bg:#2B2F31; --text-on-primary:#EDE7DD
+      --muted:#C8C3BB; --secondary-bg:#2B2F31; --text-on-primary:#EDE7DD;
+      /* nove promenljive */
+      --surface-1:#121619; --surface-2:#171C1F; --ring:#5FB2AD;
     }
 
     .container{max-width:1200px;margin:0 auto;padding:0 16px}
     body{background:var(--bg);color:var(--text)}
     .card{background:var(--card);border:1px solid var(--border);border-radius:16px;box-shadow:0 8px 30px rgba(0,0,0,0.08)}
+    html.theme-dark .card{ box-shadow: 0 16px 40px rgba(0,0,0,0.35); }
     .btn{display:inline-flex;align-items:center;justify-content:center;border-radius:12px;padding:10px 16px;font-weight:500;transition:all .2s}
     .btn-primary{background:#0B3D3A;color:var(--text-on-primary)}
     .btn-secondary{background:var(--secondary-bg);color:#000}
     html.theme-dark .btn-secondary{color:var(--text)}
 
-    /* Header kao na početnoj: adaptivna pozadina po temi */
+    /* Header kao na početnoj */
     .site-header{
       background: color-mix(in srgb, var(--bg) 85%, transparent);
       border-bottom: 1px solid var(--border);
@@ -55,11 +60,14 @@
     .flag{font-size:16px}
     .chev{transition:transform .2s}.open .chev{transform:rotate(180deg)}
 
-    /* Lightbox pozadina i max visina slike */
+    /* Lightbox */
     #lightbox{background:rgba(0,0,0,.7)} 
     #lightbox img{max-height:80vh}
 
-    /* Dark theme coverage za Tailwind util klase i sekcije */
+    /* Dark coverage */
+    html.theme-dark a{color:var(--text)}
+    html.theme-dark a:hover{color:#DAD3C7}
+
     html.theme-dark .bg-white { background: var(--card) !important; }
     html.theme-dark .bg-gray-50, 
     html.theme-dark .bg-gray-100, 
@@ -75,6 +83,13 @@
     html.theme-dark .text-gray-500 { color: var(--muted) !important; }
 
     html.theme-dark .bg-brand-light { background: var(--card) !important; }
+
+    /* Fokus pristupačnost (globalno) */
+    :where(a, button, input, select, textarea, [role="button"], .dropdown-btn):focus-visible{
+      outline: 2px solid var(--ring);
+      outline-offset: 2px;
+      border-color: var(--ring);
+    }
   </style>
   <script src="../assets/config.js"></script>
 </head>
@@ -108,18 +123,10 @@
         </div>
         <button id="themeToggle" class="p-2 rounded-xl border border-gray-200 hover:bg-gray-100" aria-label="Promeni temu">
           <span id="iconLight" class="block" aria-hidden="true">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-              <path d="M3 11l9-7 9 7" stroke="#0B3D3A" stroke-width="1.5" stroke-linecap="round"/>
-              <path d="M5 10.8V20h14v-9.2" stroke="#0B3D3A" stroke-width="1.5"/>
-              <circle cx="18.5" cy="5.5" r="2" fill="#E9E2D2" stroke="#0B3D3A" stroke-width="1"/>
-            </svg>
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M3 11l9-7 9 7" stroke="#0B3D3A" stroke-width="1.5" stroke-linecap="round"/><path d="M5 10.8V20h14v-9.2" stroke="#0B3D3A" stroke-width="1.5"/><circle cx="18.5" cy="5.5" r="2" fill="#E9E2D2" stroke="#0B3D3A" stroke-width="1"/></svg>
           </span>
           <span id="iconDark" class="hidden" aria-hidden="true">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-              <path d="M3 11l9-7 9 7" stroke="#EDE7DD" stroke-width="1.5" stroke-linecap="round"/>
-              <path d="M5 10.8V20h14v-9.2" stroke="#EDE7DD" stroke-width="1.5"/>
-              <path d="M19 3.5c-1.7.4-3 1.9-3 3.7 0 2.1 1.7 3.8 3.8 3.8 1.7 0 3.2-1.1 3.6-2.8-2.2.3-4.1-1.4-4.4-3.4z" fill="#EDE7DD"/>
-            </svg>
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M3 11l9-7 9 7" stroke="#EDE7DD" stroke-width="1.5" stroke-linecap="round"/><path d="M5 10.8V20h14v-9.2" stroke="#EDE7DD" stroke-width="1.5"/><path d="M19 3.5c-1.7.4-3 1.9-3 3.7 0 2.1 1.7 3.8 3.8 3.8 1.7 0 3.2-1.1 3.6-2.8-2.2.3-4.1-1.4-4.4-3.4z" fill="#EDE7DD"/></svg>
           </span>
         </button>
         <a id="headerPhone" href="#" class="hidden md:inline text-sm font-medium hover:text-brand-dark">+381 64 122 04 29</a>
@@ -140,14 +147,8 @@
   <footer class="bg-brand-light border-t border-gray-100">
     <div class="container py-12 grid md:grid-cols-3 gap-8">
       <div>
-        <div class="flex items-center gap-3 mb-4">
-          <img src="../logo.svg" alt="Stolarija Vasiljević" class="h-8 w-auto">
-          <span class="font-serif text-xl">Stolarija Vasiljević</span>
-        </div>
-        <p class="text-gray-700">
-          Nameštaj po meri za dom i kancelariju — NS, BG i okolina.
-          Jasan predračun — realni rokovi — uredna montaža.
-        </p>
+        <div class="flex items-center gap-3 mb-4"><img src="../logo.svg" alt="Stolarija Vasiljević" class="h-8 w-auto"><span class="font-serif text-xl">Stolarija Vasiljević</span></div>
+        <p class="text-gray-700">Nameštaj po meri za dom i kancelariju — NS, BG i okolina. Jasan predračun — realni rokovi — uredna montaža.</p>
       </div>
       <div>
         <h4 class="font-medium mb-3">Navigacija</h4>
