@@ -6,7 +6,9 @@
   const UI = {
     sr: {
       nav: { services:'Usluge', process:'Proces', projects:'Projekti', about:'O nama', faq:'FAQ', contact:'Kontakt' },
-      heads: { services:'Usluge', process:'Proces', about:'O nama', contact:'Kontakt', projects:'Projekti', testimonials:'Utisci', faq:'FAQ' },
+      heads: { services:'Usluge', process:'Proces', about:'O nama', contact:'Kontakt', projects:'Projekti', testimonials:'Utisci', faq:'FAQ', whyus:'Zašto mi' },
+      common: { viewAll:'Pogledaj sve' },
+      theme: { toggle:'Promeni temu' },
       contact: {
         reach:'Kontakt podaci', phone:'Telefon', email:'Email', area:'Područje — Novi Sad, Beograd i okolina', hint:'Upit šaljite mejlom ili ovde',
         fullName:'Ime i prezime *', phoneF:'Telefon *', emailF:'Email *', city:'Grad *', type:'Tip projekta *', measures:'Imam mere *',
@@ -14,34 +16,139 @@
         submit:'Pošalji upit', call:'Pozovi', successTitle:'Hvala! Upit je poslat', successText:'Javićemo se uskoro',
         errReq:'Popunite obavezna polja', errSend:'Došlo je do greške — molimo pokušajte ponovo', fallback:'Slike možete naknadno poslati kao odgovor na email'
       },
-      langLabel:'Jezik', langAbbrev:'srb', flag:'🇷🇸'
+      services: [
+        { title:'Kuhinje', text:'Dizajn i izrada po meri — jasno i funkcionalno' },
+        { title:'Plakari / Garderoberi', text:'Klizni ili klasični — maksimalno iskorišćen prostor' },
+        { title:'Komode / Police', text:'Za dnevne, hodnike i spavaće — čiste linije' },
+        { title:'Kancelarije', text:'Radni stolovi, police, ormari — uredno' },
+        { title:'TV zidovi', text:'Skriveni kablovi — čist izgled' },
+        { title:'Uređenje enterijera', text:'Pojedinačni komadi ili kompletno uređenje' }
+      ],
+      process: [
+        { t:'Upoznavanje sa projektom', d:'Pregled prostora (uživo ili putem upita) i prikupljanje informacija' },
+        { t:'Predlog rešenja', d:'Dizajn, izbor materijala i okvirna ideja projekta' },
+        { t:'Predračun', d:'Skica i transparentan pregled cene materijala i troškova' },
+        { t:'Finalizacija projekta', d:'Nakon odobrenja izrađujemo finalni model i definišemo rokove i ponudu' },
+        { t:'Avans i početak', d:'Plaćanje avansa (materijal + troškovi) i početak proizvodnje' },
+        { t:'Izrada i montaža', d:'Proizvodnja, isporuka i montaža na lokaciji' },
+        { t:'Završetak i primopredaja', d:'Završna provera i primopredaja' }
+      ],
+      types: {
+        'Kuhinje':'Kuhinje',
+        'Plakari i garderoberi':'Plakari i garderoberi',
+        'Komode i police':'Komode i police',
+        'TV zidovi':'TV zidovi',
+        'Kancelarije':'Kancelarije',
+        'Uređenje enterijera':'Uređenje enterijera'
+      }
     },
-    en: { nav:{services:'Services',process:'Process',projects:'Projects',about:'About',faq:'FAQ',contact:'Contact'},
-      heads:{services:'Services',process:'Process',about:'About',contact:'Contact',projects:'Projects',testimonials:'Testimonials',faq:'FAQ'},
+    en: {
+      nav:{services:'Services',process:'Process',projects:'Projects',about:'About',faq:'FAQ',contact:'Contact'},
+      heads:{services:'Services',process:'Process',about:'About',contact:'Contact',projects:'Projects',testimonials:'Testimonials',faq:'FAQ', whyus:'Why us'},
+      common:{ viewAll:'View all' },
+      theme:{ toggle:'Toggle theme' },
       contact:{reach:'Contact details',phone:'Phone',email:'Email',area:'Area — Novi Sad, Belgrade and nearby',hint:'Send inquiry by email or here',
         fullName:'Full name *',phoneF:'Phone *',emailF:'Email *',city:'City *',type:'Project type *',measures:'Have measurements *',
         dims:'Dimensions',desc:'Project description *',deadline:'Deadline',budget:'Budget',images:'Images — max 10 — up to 5MB each',consent:'I agree to be contacted',
         submit:'Send inquiry',call:'Call',successTitle:'Thank you! Inquiry sent',successText:'We will get back soon',
         errReq:'Please fill required fields',errSend:'Error — please try again',fallback:'You can send images later by replying to email'},
-      langLabel:'Language', langAbbrev:'eng', flag:'🇬🇧'
+      services: [
+        { title:'Kitchens', text:'Custom design and build — clear and functional' },
+        { title:'Wardrobes / Closets', text:'Sliding or hinged — space optimized' },
+        { title:'Sideboards / Shelves', text:'For living, halls and bedrooms — clean lines' },
+        { title:'Offices', text:'Desks, shelving, cabinets — tidy and efficient' },
+        { title:'TV walls', text:'Concealed cabling — clean look' },
+        { title:'Interior design', text:'Single pieces or full interior solutions' }
+      ],
+      process: [
+        { t:'Project briefing', d:'Space review (on-site or via inquiry) and information gathering' },
+        { t:'Design proposal', d:'Concept, material selection and initial direction' },
+        { t:'Quotation', d:'Sketch and transparent cost overview' },
+        { t:'Project finalization', d:'Approved model, timeline and offer definition' },
+        { t:'Advance & start', d:'Advance payment (materials + costs) and production start' },
+        { t:'Production & assembly', d:'Manufacturing, delivery and on-site assembly' },
+        { t:'Handover', d:'Final checks and handover' }
+      ],
+      types: {
+        'Kuhinje':'Kitchens',
+        'Plakari i garderoberi':'Wardrobes',
+        'Komode i police':'Sideboards & Shelves',
+        'TV zidovi':'TV walls',
+        'Kancelarije':'Offices',
+        'Uređenje enterijera':'Interior design'
+      }
     },
-    de: { nav:{services:'Leistungen',process:'Ablauf',projects:'Projekte',about:'Über uns',faq:'FAQ',contact:'Kontakt'},
-      heads:{services:'Leistungen',process:'Ablauf',about:'Über uns',contact:'Kontakt',projects:'Projekte',testimonials:'Stimmen',faq:'FAQ'},
+    de: {
+      nav:{services:'Leistungen',process:'Ablauf',projects:'Projekte',about:'Über uns',faq:'FAQ',contact:'Kontakt'},
+      heads:{services:'Leistungen',process:'Ablauf',about:'Über uns',contact:'Kontakt',projects:'Projekte',testimonials:'Stimmen',faq:'FAQ', whyus:'Warum wir'},
+      common:{ viewAll:'Alle ansehen' },
+      theme:{ toggle:'Thema wechseln' },
       contact:{reach:'Kontaktdaten',phone:'Telefon',email:'E‑Mail',area:'Gebiet — Novi Sad, Belgrad und Umgebung',hint:'Anfrage per E‑Mail oder hier',
         fullName:'Vollständiger Name *',phoneF:'Telefon *',emailF:'E‑Mail *',city:'Stadt *',type:'Projekttyp *',measures:'Maße vorhanden *',
         dims:'Maße',desc:'Projektbeschreibung *',deadline:'Frist',budget:'Budget',images:'Bilder — max. 10 — bis 5MB',consent:'Ich stimme der Kontaktaufnahme zu',
         submit:'Anfrage senden',call:'Anrufen',successTitle:'Danke! Anfrage gesendet',successText:'Wir melden uns bald',
         errReq:'Bitte Pflichtfelder ausfüllen',errSend:'Fehler — bitte erneut versuchen',fallback:'Bilder können später per E‑Mail geschickt werden'},
-      langLabel:'Sprache', langAbbrev:'deu', flag:'🇩🇪'
+      services: [
+        { title:'Küchen', text:'Individuelle Planung und Fertigung — klar und funktional' },
+        { title:'Schränke / Garderoben', text:'Schiebe- oder Drehtüren — Platz optimal genutzt' },
+        { title:'Kommoden / Regale', text:'Für Wohn-, Flur- und Schlafzimmer — klare Linien' },
+        { title:'Büros', text:'Schreibtische, Regale, Schränke — ordentlich' },
+        { title:'TV‑Wände', text:'Verdeckte Kabel — klares Erscheinungsbild' },
+        { title:'Innenraumgestaltung', text:'Einzelstücke oder komplette Einrichtung' }
+      ],
+      process: [
+        { t:'Projektaufnahme', d:'Raumanalyse (vor Ort oder per Anfrage) und Anforderungserhebung' },
+        { t:'Designvorschlag', d:'Konzept, Materialwahl und erste Richtung' },
+        { t:'Kostenvoranschlag', d:'Skizze und transparente Kostenübersicht' },
+        { t:'Finalisierung', d:'Freigegebenes Modell, Zeitplan und Angebot' },
+        { t:'Anzahlung & Start', d:'Anzahlung (Material + Kosten) und Produktionsbeginn' },
+        { t:'Produktion & Montage', d:'Fertigung, Lieferung und Montage vor Ort' },
+        { t:'Abnahme', d:'Abschließende Prüfung und Übergabe' }
+      ],
+      types: {
+        'Kuhinje':'Küchen',
+        'Plakari i garderoberi':'Schränke',
+        'Komode i police':'Kommoden & Regale',
+        'TV zidovi':'TV‑Wände',
+        'Kancelarije':'Büros',
+        'Uređenje enterijera':'Innenraumgestaltung'
+      }
     },
-    ru: { nav:{services:'Услуги',process:'Процесс',projects:'Проекты',about:'О нас',faq:'FAQ',contact:'Контакты'},
-      heads:{services:'Услуги',process:'Процесс',about:'О нас',contact:'Контакты',projects:'Проекты',testimonials:'Отзывы',faq:'FAQ'},
-      contact:{reach:'Контакты',phone:'Телефон',email:'Email',area:'Регион — Нови Сад, Белград и окрестности',hint:'Пишите на email или через форму',
+    ru: {
+      nav:{services:'Услуги',process:'Процесс',projects:'Проекты',about:'О нас',faq:'FAQ',contact:'Контакты'},
+      heads:{services:'Услуги',process:'Процесс',about:'О нас',contact:'Контакты',projects:'Проекты',testimonials:'Отзывы',faq:'FAQ', whyus:'Почему мы'},
+      common:{ viewAll:'Смотреть все' },
+      theme:{ toggle:'Сменить тему' },
+      contact:{reach:'Контакты',phone:'Телефон',email:'Email',area:'Регион — Нови-Сад, Белград и окрестности',hint:'Пишите на email или через форму',
         fullName:'Имя и фамилия *',phoneF:'Телефон *',emailF:'Email *',city:'Город *',type:'Тип проекта *',measures:'Есть размеры *',
         dims:'Размеры',desc:'Описание проекта *',deadline:'Срок',budget:'Бюджет',images:'Изображения — до 10 — по 5MB',consent:'Согласен на контакт',
         submit:'Отправить заявку',call:'Позвонить',successTitle:'Спасибо! Заявка отправлена',successText:'Мы свяжемся скоро',
         errReq:'Заполните обязательные поля',errSend:'Ошибка — попробуйте снова',fallback:'Изображения можно отправить позже ответом на письмо'},
-      langLabel:'Язык', langAbbrev:'рус', flag:'🇷🇺'
+      services: [
+        { title:'Кухни', text:'Индивидуальный дизайн и изготовление — ясно и функционально' },
+        { title:'Шкафы / Гардеробные', text:'Раздвижные или распашные — максимум пространства' },
+        { title:'Комоды / Полки', text:'Для гостиной, коридора и спальни — чистые линии' },
+        { title:'Офисы', text:'Столы, стеллажи, шкафы — аккуратно и удобно' },
+        { title:'TV‑стены', text:'Скрытая проводка — аккуратный вид' },
+        { title:'Дизайн интерьера', text:'Отдельные предметы или комплексные решения' }
+      ],
+      process: [
+        { t:'Знакомство с проектом', d:'Осмотр пространства (на месте или по заявке) и сбор информации' },
+        { t:'Предложение дизайна', d:'Концепция, выбор материалов и направление' },
+        { t:'Смета', d:'Эскиз и прозрачный расчёт стоимости' },
+        { t:'Финализация', d:'Утверждённая модель, сроки и предложение' },
+        { t:'Аванс и старт', d:'Авансовый платёж (материалы + расходы) и начало производства' },
+        { t:'Производство и монтаж', d:'Изготовление, доставка и монтаж на месте' },
+        { t:'Передача', d:'Финальные проверки и передача' }
+      ],
+      types: {
+        'Kuhinje':'Кухни',
+        'Plakari i garderoberi':'Шкафы',
+        'Komode i police':'Комоды и полки',
+        'TV zidovi':'TV‑стены',
+        'Kancelarije':'Офисы',
+        'Uređenje enterijera':'Дизайн интерьера'
+      }
     }
   };
 
@@ -54,8 +161,8 @@
       await safeLoadContent();
       renderHeader();
       renderHero();
-      renderServices();
-      renderProcess();
+      renderServices();       // NOVO: potpuno dinamički
+      renderProcess();        // iz i18n ili JSON
       renderWhyUs();
       renderPortfolioPreview();
       renderTestimonials();
@@ -72,8 +179,8 @@
 
   function getLang() {
     const stored = localStorage.getItem('lang');
-    const defaultLang = (cfg.DEFAULT_LANG || 'sr');
-    return (stored && UI[stored]) ? stored : defaultLang;
+    const def = (cfg.DEFAULT_LANG || 'sr');
+    return (stored && UI[stored]) ? stored : def;
   }
   function setLang(lang) {
     const next = UI[lang] ? lang : (cfg.DEFAULT_LANG || 'sr');
@@ -90,8 +197,8 @@
 
     const applyLabel = () => {
       const LUI = UI[state.lang];
-      if (flagEl) flagEl.textContent = LUI.flag;
-      if (labelEl) labelEl.textContent = `${LUI.langLabel}: ${LUI.langAbbrev}`;
+      if (flagEl) flagEl.textContent = ({sr:'🇷🇸',en:'🇬🇧',de:'🇩🇪',ru:'🇷🇺'})[state.lang] || '🇷🇸';
+      if (labelEl) labelEl.textContent = `${({sr:'Jezik',en:'Language',de:'Sprache',ru:'Язык'})[state.lang]}: ${({sr:'srb',en:'eng',de:'deu',ru:'рус'})[state.lang]}`;
     };
     applyLabel();
 
@@ -114,7 +221,6 @@
         item.addEventListener('click', ()=>{
           const lang = item.getAttribute('data-lang');
           setLang(lang || 'sr');
-          applyLabel();
           location.reload();
         });
       });
@@ -122,12 +228,12 @@
   }
 
   async function safeLoadContent() {
-    // pokušaj prevod → fallback na sr → fallback na ugrađene podrazumevane vrednosti
     const langFile = state.lang === 'sr' ? base('content/site.json') : base(`content/site.${state.lang}.json`);
     state.site = await tryFetchJson(langFile)
       || await tryFetchJson(base('content/site.json'))
       || defaultSite();
-    state.projects = (await tryFetchJson(base('content/projects.json'))?.projects) || [];
+    const pj = await tryFetchJson(base('content/projects.json'));
+    state.projects = (pj && pj.projects) || [];
   }
 
   async function tryFetchJson(url) {
@@ -151,6 +257,8 @@
           { title: "Kultura rada", text: "Uredna montaža i komunikacija." }
         ]
       },
+      services: [],    // opciono u JSON-u
+      process: [],     // opciono u JSON-u
       whyUs: [],
       testimonials: [],
       faq: []
@@ -189,6 +297,13 @@
       const el = qs('#nav'+k); if (el) el.textContent = nav[k.toLowerCase()];
       const fl = qs('#foot'+k); if (fl) fl.textContent = nav[k.toLowerCase()];
     });
+
+    const themeBtn = qs('#themeToggle');
+    if (themeBtn) {
+      themeBtn.setAttribute('aria-label', UI[state.lang].theme.toggle);
+      themeBtn.setAttribute('title', UI[state.lang].theme.toggle);
+    }
+
     const heads = UI[state.lang].heads;
     const ids = { labelServices:'services', labelProcess:'process', labelAbout:'about', labelContact:'contact' };
     Object.entries(ids).forEach(([id,key])=>{ const el2=qs('#'+id); if(el2) el2.textContent = heads[key]; });
@@ -205,8 +320,8 @@
             <h1 class="font-serif text-4xl md:text-5xl leading-tight mb-4">${esc(c.title || '')}</h1>
             <p class="text-lg text-gray-700 mb-6">${esc(c.subtitle || '')}</p>
             <div class="flex flex-wrap gap-3 mb-8">
-              <a href="#kontakt" class="btn btn-primary">${esc(c.ctaPrimary || 'Pošalji upit')}</a>
-              <a href="${base('projekti/')}" class="btn btn-secondary">${esc(c.ctaSecondary || 'Pogledaj projekte')}</a>
+              <a href="#kontakt" class="btn btn-primary">${esc(c.ctaPrimary || UI[state.lang].contact.submit)}</a>
+              <a href="${base('projekti/')}" class="btn btn-secondary">${esc(c.ctaSecondary || UI[state.lang].common.viewAll)}</a>
             </div>
             <div class="grid sm:grid-cols-3 gap-4">
               ${(c.benefits || []).slice(0,3).map(b => `
@@ -218,61 +333,83 @@
             </div>
           </div>
           <div class="card p-6 bg-brand-beige/30">
-            <img src="${base('images/ph1.svg')}" alt="Primer enterijera po meri" class="w-full h-auto rounded-xl" />
+            <img src="${base('images/ph1.svg')}" alt="${esc(UI[state.lang].heads.projects)}" class="w-full h-auto rounded-xl" />
           </div>
         </div>
       </div>
     `;
   }
 
-  function renderServices() { /* statički u HTML-u */ }
+  function renderServices() {
+    const el = qs('#usluge .container');
+    if (!el) return;
+    const list = (state.site?.services && state.site.services.length) ? state.site.services : UI[state.lang].services;
+    const head = UI[state.lang].heads.services;
+    el.innerHTML = `
+      <h2 class="section-title font-serif">${esc(head)}</h2>
+      <div class="grid md:grid-cols-3 gap-6">
+        ${list.slice(0,6).map(s => `
+          <div class="card p-6 hover:shadow-lg transition-shadow">
+            <div class="text-xl font-medium mb-2">${esc(s.title || '')}</div>
+            <div class="text-gray-700">${esc(s.text || '')}</div>
+          </div>
+        `).join('')}
+      </div>
+    `;
+  }
 
   function renderProcess() {
-    const steps = [
-      { t: "Upoznavanje sa projektom", d: "Pregled prostora (uživo ili putem upita) i prikupljanje informacija" },
-      { t: "Predlog rešenja", d: "Dizajn, izbor materijala i okvirna ideja projekta" },
-      { t: "Predračun", d: "Dostavljamo skicu i transparentan pregled cene materijala i troškova" },
-      { t: "Finalizacija projekta", d: "Nakon odobrenja izrađujemo finalni model i definišemo rokove i ponudu" },
-      { t: "Avans i početak izrade", d: "Plaćanje avansa (materijal + troškovi) i početak proizvodnje" },
-      { t: "Izrada i montaža", d: "Proizvodnja, isporuka i montaža na lokaciji" },
-      { t: "Završetak projekta", d: "Primopredaja i isplata ostatka dogovorene cene" }
-    ];
-    const wrap = qs("#processList"); if (!wrap) return;
-    wrap.innerHTML = steps.map((s, i) => `
-      <div class="card process-tile tile-pattern">
-        <button class="w-full text-center process-toggle focus:outline-none focus:ring-2 focus:ring-brand-dark/30 rounded-xl"
-                data-i="${i}" aria-expanded="false">
-          <div class="tile-head">
-            <span class="chip">${i+1}</span>
-            <span class="tile-title">${esc(s.t)}</span>
-          </div>
-        </button>
-        <div class="tile-desc hidden process-desc" aria-hidden="true">${esc(s.d)}</div>
-      </div>
-      ${i<steps.length-1 ? `<div class="flex justify-center"><span class="flow-arrow" aria-hidden="true">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 4v16M12 20l-4-4M12 20l4-4" stroke="#0B3D3A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </span></div>` : '' }
-    `).join("");
-    wrap.querySelectorAll(".process-toggle").forEach(btn => {
-      btn.addEventListener("click", () => {
-        const desc = btn.parentElement.querySelector(".process-desc");
-        const isHidden = desc.classList.contains("hidden");
-        desc.classList.toggle("hidden");
-        btn.setAttribute("aria-expanded", String(isHidden));
-        desc.setAttribute("aria-hidden", String(!isHidden));
+    const steps = (state.site?.process && state.site.process.length) ? state.site.process
+                  : (UI[state.lang].process || []);
+    const wrapHost = qs("#processList"); // originalni kontejner iz index.html
+    const section = qs('#proces .container');
+    if (wrapHost) {
+      // Render u postojeći grid sa pločicama
+      wrapHost.innerHTML = steps.map((s, i) => `
+        <div class="card process-tile tile-pattern">
+          <button class="w-full text-center process-toggle focus:outline-none focus:ring-2 focus:ring-brand-dark/30 rounded-xl"
+                  data-i="${i}" aria-expanded="false">
+            <div class="tile-head">
+              <span class="chip">${i+1}</span>
+              <span class="tile-title">${esc(s.t)}</span>
+            </div>
+          </button>
+          <div class="tile-desc hidden process-desc" aria-hidden="true">${esc(s.d)}</div>
+        </div>
+        ${i<steps.length-1 ? `<div class="flex justify-center"><span class="flow-arrow" aria-hidden="true">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 4v16M12 20l-4-4M12 20l4-4" stroke="#0B3D3A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span></div>` : '' }
+      `).join("");
+      wrapHost.querySelectorAll(".process-toggle").forEach(btn => {
+        btn.addEventListener("click", () => {
+          const desc = btn.parentElement.querySelector(".process-desc");
+          const isHidden = desc.classList.contains("hidden");
+          // accordion: zatvori druge
+          wrapHost.querySelectorAll(".process-desc").forEach(d => { if (d!==desc) d.classList.add('hidden'); });
+          wrapHost.querySelectorAll(".process-toggle").forEach(b => b.setAttribute('aria-expanded','false'));
+          if (isHidden) { desc.classList.remove("hidden"); btn.setAttribute("aria-expanded","true"); }
+          else { desc.classList.add("hidden"); btn.setAttribute("aria-expanded","false"); }
+          desc.setAttribute("aria-hidden", String(!isHidden));
+        });
+        btn.addEventListener("keydown", (e) => {
+          if (e.key === "Enter" || e.key === " ") { e.preventDefault(); btn.click(); }
+        });
       });
-      btn.addEventListener("keydown", (e) => {
-        if (e.key === "Enter" || e.key === " ") { e.preventDefault(); btn.click(); }
-      });
-    });
+      // ažuriraj naslov
+      const headEl = qs('#labelProcess'); if (headEl) headEl.textContent = UI[state.lang].heads.process;
+      return;
+    }
+    // fallback: ako nema #processList, osveži samo naslov sekcije
+    const headEl = qs('#labelProcess'); if (headEl) headEl.textContent = UI[state.lang].heads.process;
   }
 
   function renderWhyUs() {
     const items = state.site?.whyUs || [];
     const el = qs("#whyus"); if (!el) return;
+    const head = UI[state.lang].heads.whyus;
     el.innerHTML = `
       <div class="container">
-        <h2 class="section-title font-serif">Zašto mi</h2>
+        <h2 class="section-title font-serif">${esc(head)}</h2>
         <div class="grid md:grid-cols-3 gap-6">
           ${items.map(it => `
             <div class="card p-6 hover:shadow-lg transition-shadow">
@@ -281,29 +418,35 @@
             </div>
           `).join("")}
         </div>
-        <p class="text-sm text-gray-600 mt-4">Radimo po procedurama. Zato su naše estimacije realne i rokovi dostižni</p>
+        <p class="text-sm text-gray-600 mt-4">${state.lang==='sr'
+          ? 'Radimo po procedurama. Zato su naše estimacije realne i rokovi dostižni'
+          : state.lang==='en' ? 'We follow procedures. That’s why our estimates are realistic and timelines achievable'
+          : state.lang==='de' ? 'Wir arbeiten prozessorientiert. Unsere Schätzungen sind realistisch und Fristen erreichbar'
+          : 'Мы работаем по процедурам. Оценки реалистичны, сроки достижимы'}</p>
       </div>`;
   }
 
   function renderPortfolioPreview() {
     const list = (state.projects || []).slice(0, 8);
     const el = qs("#portfolioPreview"); if (!el) return;
+    const typeMap = UI[state.lang].types || {};
     el.innerHTML = `
       <div class="container">
         <div class="flex items-center justify-between mb-6">
-          <h2 class="section-title font-serif">${UI[state.lang].heads.projects || 'Projekti'}</h2>
-          <a href="${base('projekti/')}" class="text-brand-dark font-medium hover:underline">Pogledaj sve</a>
+          <h2 class="section-title font-serif">${esc(UI[state.lang].heads.projects || 'Projekti')}</h2>
+          <a href="${base('projekti/')}" class="text-brand-dark font-medium hover:underline">${esc(UI[state.lang].common.viewAll)}</a>
         </div>
         <div class="grid md:grid-cols-4 gap-6">
           ${list.map(p => {
             const img = (p.images && p.images[0]) ? p.images[0] : base('images/ph2.svg');
+            const typeTxt = typeMap[p.type] || p.type || '';
             return `
             <button class="card overflow-hidden text-left preview-btn" data-img="${esc(img)}">
               <div class="relative w-full h-40 bg-brand-light">
-                <img src="${esc(img)}" alt="${esc((p.title||'') + ' — ' + (p.type||''))}" class="w-full h-40 object-cover" />
+                <img src="${esc(img)}" alt="${esc((p.title||'') + ' — ' + (typeTxt||''))}" class="w-full h-40 object-cover" />
               </div>
               <div class="p-4">
-                <div class="text-sm text-gray-500">${esc(p.type || '')} · ${esc(p.location || '')}</div>
+                <div class="text-sm text-gray-500">${esc(typeTxt)} · ${esc(p.location || '')}</div>
                 <div class="font-medium">${esc(p.title || '')}</div>
               </div>
             </button>`;
@@ -365,6 +508,8 @@
         const a = btn.parentElement.querySelector(".faq-a");
         const sym = btn.querySelector("span.text-gray-500");
         const isHidden = a.classList.contains("hidden");
+        el.querySelectorAll('.faq-a').forEach(x=>{ if(x!==a) x.classList.add('hidden'); });
+        el.querySelectorAll('.faq-toggle span.text-gray-500').forEach(x=>{ if(x!==sym) x.textContent='+'; });
         a.classList.toggle("hidden");
         sym.textContent = isHidden ? "−" : "+";
       });
@@ -405,6 +550,7 @@
     if (footPhone){ footPhone.textContent=phone; footPhone.href=telHref(phone); }
     if (footEmail && email){ footEmail.textContent=email; footEmail.href="mailto:"+email; }
 
+    // Form handlers (kao pre)
     const form = qs("#contactForm");
     const filesInput = qs("#filesInput");
     const filesList = qs("#filesList");
@@ -512,11 +658,11 @@
     }
 
     function showError(msg) {
-      const alertBox = qs("#formAlert");
-      if (!alertBox) return;
-      alertBox.textContent = msg;
-      alertBox.classList.remove("hidden");
-      setTimeout(() => alertBox.classList.add("hidden"), 4000);
+      const a = qs("#formAlert");
+      if (!a) return;
+      a.textContent = msg;
+      a.classList.remove("hidden");
+      setTimeout(() => a.classList.add("hidden"), 4000);
     }
 
     function uploadOne(formData, index, cloud) {
