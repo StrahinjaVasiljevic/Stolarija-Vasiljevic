@@ -1,141 +1,153 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="440" height="160" viewBox="0 0 440 160" role="img" aria-label="VASILJEVIĆ — Stolarija &amp; Dizajn enterijera">
   <defs>
-    <!-- Palette -->
-    <!-- graphite #1E1F22 | milk #FAFAF7 | oak #C9A77D | oak2 #B79267 | ink #0D0D0D -->
+    <!-- Background: deep graphite / navy with subtle vignette -->
+    <radialGradient id="bgGrad" cx="50%" cy="35%" r="80%">
+      <stop offset="0%" stop-color="#141b26"/>
+      <stop offset="55%" stop-color="#0e1420"/>
+      <stop offset="100%" stop-color="#0a0f18"/>
+    </radialGradient>
 
-    <linearGradient id="oakGrad" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#C9A77D"/>
-      <stop offset="1" stop-color="#B79267"/>
+    <!-- Champagne-gold stroke for house outline -->
+    <linearGradient id="goldStroke" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#E9DCC6"/>
+      <stop offset="45%" stop-color="#CDBA9A"/>
+      <stop offset="100%" stop-color="#F4EBDD"/>
     </linearGradient>
 
-    <!-- Soft highlight (luxury sheen, subtle) -->
-    <linearGradient id="oakSheen" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="rgba(255,255,255,0.22)"/>
-      <stop offset="0.55" stop-color="rgba(255,255,255,0.02)"/>
-      <stop offset="1" stop-color="rgba(0,0,0,0.10)"/>
+    <!-- Wood gradient (warm oak) -->
+    <linearGradient id="woodGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#D1B082"/>
+      <stop offset="45%" stop-color="#B68954"/>
+      <stop offset="100%" stop-color="#E0C08E"/>
     </linearGradient>
 
-    <!-- House outline path (single continuous contour; fluid corners) -->
-    <path id="housePath"
-          d="M30 72
-             Q30 58 44 58
-             L92 58
-             L116 38
-             L140 58
-             L188 58
-             Q202 58 202 72
-             L202 128
-             Q202 142 188 142
-             L44 142
-             Q30 142 30 128
-             Z" />
+    <!-- Slight sheen to simulate premium finish -->
+    <linearGradient id="woodSheen" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="rgba(255,255,255,0.28)"/>
+      <stop offset="50%" stop-color="rgba(255,255,255,0.04)"/>
+      <stop offset="100%" stop-color="rgba(0,0,0,0.12)"/>
+    </linearGradient>
 
-    <!-- Blueprint grid clip (keeps it clean & premium) -->
+    <!-- House outline path (continuous, fluid joins) -->
+    <path id="housePath" d="
+      M 44 62
+      Q 44 52 54 52
+      L 102 52
+      L 122 38
+      L 142 52
+      L 190 52
+      Q 200 52 200 62
+      L 200 122
+      Q 200 132 190 132
+      L 54 132
+      Q 44 132 44 122
+      Z" />
+
+    <!-- Blueprint area clip behind V -->
     <clipPath id="bpClip">
-      <rect x="56" y="54" width="120" height="86" rx="8"/>
+      <rect x="68" y="50" width="108" height="86" rx="8"/>
     </clipPath>
 
-    <!-- Clip wood panels so grain never leaks -->
+    <!-- Panel clips keep grain inside -->
     <clipPath id="leftPanelClip">
-      <path d="M98 58 L122 58 L148 138 L124 138 Z"/>
+      <path d="M 98 56 L 121 56 L 146 136 L 123 136 Z" />
     </clipPath>
     <clipPath id="rightPanelClip">
-      <path d="M136 58 L160 58 L134 138 L110 138 Z"/>
+      <path d="M 132 56 L 155 56 L 132 136 L 109 136 Z" />
     </clipPath>
   </defs>
 
-  <!-- Background (ensures GitHub preview shows correct contrast) -->
-  <rect width="440" height="160" rx="14" fill="#1E1F22"/>
+  <!-- Background (so GitHub preview matches the website look) -->
+  <rect x="0" y="0" width="440" height="160" rx="14" fill="url(#bgGrad)"/>
 
-  <!-- ICON BLOCK -->
+  <!-- ICON (left) -->
   <g>
-    <!-- House contour in background (fluid, unbroken) -->
-    <use href="#housePath" fill="none" stroke="rgba(250,250,247,0.42)" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round"/>
+    <!-- House outline in the BACK (subtle, premium) -->
+    <use href="#housePath" fill="none" stroke="url(#goldStroke)" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round" opacity="0.65"/>
 
-    <!-- Blueprint grid behind the V -->
-    <g clip-path="url(#bpClip)" opacity="0.28">
+    <!-- Blueprint grid (behind V) -->
+    <g clip-path="url(#bpClip)" opacity="0.32">
       <!-- vertical -->
-      <path d="M68 54 V140" stroke="#FAFAF7" stroke-width="2" stroke-linecap="round"/>
-      <path d="M92 54 V140" stroke="#FAFAF7" stroke-width="2" stroke-linecap="round"/>
-      <path d="M116 54 V140" stroke="#FAFAF7" stroke-width="2" stroke-linecap="round"/>
-      <path d="M140 54 V140" stroke="#FAFAF7" stroke-width="2" stroke-linecap="round"/>
-      <path d="M164 54 V140" stroke="#FAFAF7" stroke-width="2" stroke-linecap="round"/>
+      <path d="M80 50 V136" stroke="rgba(244,235,221,0.55)" stroke-width="1.8" stroke-linecap="round"/>
+      <path d="M104 50 V136" stroke="rgba(244,235,221,0.45)" stroke-width="1.8" stroke-linecap="round"/>
+      <path d="M128 50 V136" stroke="rgba(244,235,221,0.45)" stroke-width="1.8" stroke-linecap="round"/>
+      <path d="M152 50 V136" stroke="rgba(244,235,221,0.55)" stroke-width="1.8" stroke-linecap="round"/>
       <!-- horizontal -->
-      <path d="M56 66 H176" stroke="#FAFAF7" stroke-width="2" stroke-linecap="round"/>
-      <path d="M56 88 H176" stroke="#FAFAF7" stroke-width="2" stroke-linecap="round"/>
-      <path d="M56 110 H176" stroke="#FAFAF7" stroke-width="2" stroke-linecap="round"/>
-      <path d="M56 132 H176" stroke="#FAFAF7" stroke-width="2" stroke-linecap="round"/>
+      <path d="M68 62 H176" stroke="rgba(244,235,221,0.45)" stroke-width="1.8" stroke-linecap="round"/>
+      <path d="M68 86 H176" stroke="rgba(244,235,221,0.35)" stroke-width="1.8" stroke-linecap="round"/>
+      <path d="M68 110 H176" stroke="rgba(244,235,221,0.35)" stroke-width="1.8" stroke-linecap="round"/>
+      <path d="M68 134 H176" stroke="rgba(244,235,221,0.45)" stroke-width="1.8" stroke-linecap="round"/>
     </g>
 
-    <!-- Architectural plan strokes (technical precision cue) -->
-    <g opacity="0.62">
-      <path d="M54 126 H88" fill="none" stroke="#FAFAF7" stroke-width="4" stroke-linecap="round"/>
-      <path d="M54 74 V126" fill="none" stroke="#FAFAF7" stroke-width="4" stroke-linecap="round"/>
-      <path d="M176 80 H204" fill="none" stroke="#FAFAF7" stroke-width="3.2" stroke-linecap="round" opacity="0.55"/>
-      <path d="M176 98 H204" fill="none" stroke="#FAFAF7" stroke-width="3.2" stroke-linecap="round" opacity="0.40"/>
-      <path d="M176 116 H204" fill="none" stroke="#FAFAF7" stroke-width="3.2" stroke-linecap="round" opacity="0.30"/>
+    <!-- Technical plan marks (adds precision cue) -->
+    <g opacity="0.55">
+      <path d="M64 124 H92" fill="none" stroke="rgba(244,235,221,0.70)" stroke-width="3.2" stroke-linecap="round"/>
+      <path d="M64 70 V124" fill="none" stroke="rgba(244,235,221,0.70)" stroke-width="3.2" stroke-linecap="round"/>
+      <path d="M172 76 H198" fill="none" stroke="rgba(244,235,221,0.55)" stroke-width="2.6" stroke-linecap="round"/>
+      <path d="M172 96 H198" fill="none" stroke="rgba(244,235,221,0.40)" stroke-width="2.6" stroke-linecap="round"/>
+      <path d="M172 116 H198" fill="none" stroke="rgba(244,235,221,0.30)" stroke-width="2.6" stroke-linecap="round"/>
     </g>
 
-    <!-- WOOD V (foreground; crisp; no ugly overlaps) -->
-    <!-- Left leg -->
-    <path d="M98 58 L122 58 L148 138 L124 138 Z"
-          fill="url(#oakGrad)"
-          stroke="#FAFAF7"
-          stroke-width="3.4"
+    <!-- WOOD V (foreground) -->
+    <!-- left leg -->
+    <path d="M 98 56 L 121 56 L 146 136 L 123 136 Z"
+          fill="url(#woodGrad)"
+          stroke="rgba(244,235,221,0.95)"
+          stroke-width="2.6"
           stroke-linejoin="round"/>
 
-    <!-- Right leg -->
-    <path d="M136 58 L160 58 L134 138 L110 138 Z"
-          fill="url(#oakGrad)"
-          opacity="0.97"
-          stroke="#FAFAF7"
-          stroke-width="3.4"
+    <!-- right leg -->
+    <path d="M 132 56 L 155 56 L 132 136 L 109 136 Z"
+          fill="url(#woodGrad)"
+          opacity="0.98"
+          stroke="rgba(244,235,221,0.95)"
+          stroke-width="2.6"
           stroke-linejoin="round"/>
 
-    <!-- Subtle sheen overlay (luxury depth, still flat-ish) -->
+    <!-- sheen overlay (luxury highlight) -->
     <g opacity="0.22">
-      <path d="M98 58 L122 58 L148 138 L124 138 Z" fill="url(#oakSheen)"/>
-      <path d="M136 58 L160 58 L134 138 L110 138 Z" fill="url(#oakSheen)"/>
+      <path d="M 98 56 L 121 56 L 146 136 L 123 136 Z" fill="url(#woodSheen)"/>
+      <path d="M 132 56 L 155 56 L 132 136 L 109 136 Z" fill="url(#woodSheen)"/>
     </g>
 
-    <!-- Grain lines (clipped inside panels; minimal) -->
-    <g stroke="#0D0D0D" stroke-width="2" stroke-linecap="round" opacity="0.12">
+    <!-- grain lines (very subtle, clipped) -->
+    <g stroke="rgba(10,15,24,0.60)" stroke-width="1.8" stroke-linecap="round" opacity="0.18">
       <g clip-path="url(#leftPanelClip)">
-        <path d="M90 78 H154"/>
-        <path d="M88 98 H156"/>
-        <path d="M86 118 H158"/>
+        <path d="M92 76 H152"/>
+        <path d="M90 96 H154"/>
+        <path d="M88 116 H156"/>
       </g>
       <g clip-path="url(#rightPanelClip)">
-        <path d="M104 78 H172"/>
-        <path d="M102 98 H174"/>
-        <path d="M100 118 H176"/>
+        <path d="M104 76 H164"/>
+        <path d="M102 96 H166"/>
+        <path d="M100 116 H168"/>
       </g>
     </g>
 
-    <!-- Foreground house contour (very faint, ties layers together; 'fluid' look) -->
-    <use href="#housePath" fill="none" stroke="rgba(250,250,247,0.18)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+    <!-- House outline again in front (very faint) to unify layers -->
+    <use href="#housePath" fill="none" stroke="rgba(244,235,221,0.28)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
   </g>
 
-  <!-- TYPE LOCKUP (foreground; high legibility + luxury) -->
-  <g transform="translate(224,64)">
-    <!-- Title with outline for readability on any renderer -->
+  <!-- TYPE (right) -->
+  <g transform="translate(224,70)">
+    <!-- Title: stronger readability via subtle outline against bg -->
     <text x="0" y="0"
-          fill="#FAFAF7"
-          stroke="rgba(30,31,34,0.95)"
+          fill="#F4EBDD"
+          stroke="rgba(10,15,24,0.75)"
           stroke-width="3"
           paint-order="stroke"
-          font-family="Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif"
-          font-weight="800"
-          font-size="30"
-          letter-spacing="0.18em">VASILJEVIĆ</text>
+          font-family="Cormorant Garamond, Georgia, serif"
+          font-weight="600"
+          font-size="34"
+          letter-spacing="0.08em">VASILJEVIĆ</text>
 
     <!-- Divider -->
-    <path d="M0 12 H200" stroke="rgba(250,250,247,0.58)" stroke-width="2" stroke-linecap="round"/>
+    <path d="M0 12 H200" stroke="rgba(244,235,221,0.48)" stroke-width="2" stroke-linecap="round"/>
 
     <!-- Subtitle -->
     <text x="0" y="34"
-          fill="rgba(250,250,247,0.94)"
-          stroke="rgba(30,31,34,0.85)"
+          fill="rgba(244,235,221,0.90)"
+          stroke="rgba(10,15,24,0.55)"
           stroke-width="2"
           paint-order="stroke"
           font-family="Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif"
