@@ -1,26 +1,67 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="440" height="160" viewBox="0 0 440 160" role="img" aria-label="VASILJEVIĆ — Stolarija &amp; Dizajn enterijera">
+  <defs>
+    <!-- House outline (used for clipping internal blueprint elements if needed) -->
+    <path id="housePath" d="M18 48 Q18 40 26 40 L70 40 L104 24 L138 40 L182 40 Q190 40 190 48 L190 120 Q190 128 182 128 L26 128 Q18 128 18 120 Z"/>
+
+    <clipPath id="clipHouse">
+      <use href="#housePath"/>
+    </clipPath>
+
+    <!-- Panel clips to keep grain inside wood shapes -->
+    <clipPath id="clipLeftPanel">
+      <path d="M86 56 L104 56 L118 116 L100 116 Z"/>
+    </clipPath>
+
+    <clipPath id="clipRightPanel">
+      <path d="M136 56 L154 56 L140 116 L122 116 Z"/>
+    </clipPath>
+  </defs>
+
+  <!-- ICON -->
   <g transform="translate(16,16)">
-    <path d="M18 48 Q18 40 26 40 L70 40 L104 24 L138 40 L182 40 Q190 40 190 48 L190 120 Q190 128 182 128 L26 128 Q18 128 18 120 Z"
-          fill="none" stroke="#FAFAF7" stroke-width="4" stroke-linecap="round" stroke-linejoin="miter"/>
+    <!-- subtle shadow (no filters; GitHub-safe) -->
+    <path d="M18 50 Q18 42 26 42 L70 42 L104 26 L138 42 L182 42 Q190 42 190 50 L190 122 Q190 130 182 130 L26 130 Q18 130 18 122 Z"
+          fill="none" stroke="rgba(0,0,0,0.22)" stroke-width="6" stroke-linecap="round" stroke-linejoin="miter" opacity="0.35"/>
 
-    <path d="M58 56 L58 112" fill="none" stroke="#FAFAF7" stroke-width="4" stroke-linecap="round" opacity="0.95"/>
-    <path d="M58 112 L98 112" fill="none" stroke="#FAFAF7" stroke-width="4" stroke-linecap="round" opacity="0.95"/>
-    <path d="M152 112 L124 112" fill="none" stroke="#FAFAF7" stroke-width="4" stroke-linecap="round" opacity="0.95"/>
+    <!-- House outline -->
+    <use href="#housePath" fill="none" stroke="#FAFAF7" stroke-width="4" stroke-linecap="round" stroke-linejoin="miter"/>
 
-    <path d="M88 56 L118 56 L136 116 L108 116 Z" fill="#C9A77D"/>
-    <path d="M122 56 L152 56 L122 116 L98 116 Z" fill="#B79267" opacity="0.85"/>
+    <!-- Blueprint / floor-plan lines (clipped inside house) -->
+    <g clip-path="url(#clipHouse)">
+      <!-- L walls -->
+      <path d="M58 56 L58 112" fill="none" stroke="#FAFAF7" stroke-width="4" stroke-linecap="round" opacity="0.95"/>
+      <path d="M58 112 L98 112" fill="none" stroke="#FAFAF7" stroke-width="4" stroke-linecap="round" opacity="0.95"/>
+      <path d="M152 112 L124 112" fill="none" stroke="#FAFAF7" stroke-width="4" stroke-linecap="round" opacity="0.95"/>
 
-    <path d="M92 70 L120 70" fill="none" stroke="#0D0D0D" stroke-width="2" stroke-linecap="round" opacity="0.12"/>
-    <path d="M94 84 L122 84" fill="none" stroke="#0D0D0D" stroke-width="2" stroke-linecap="round" opacity="0.12"/>
-    <path d="M98 98 L126 98" fill="none" stroke="#0D0D0D" stroke-width="2" stroke-linecap="round" opacity="0.12"/>
-    <path d="M102 112 L130 112" fill="none" stroke="#0D0D0D" stroke-width="2" stroke-linecap="round" opacity="0.12"/>
+      <!-- Sparse plan ticks (architectural feel, minimal) -->
+      <path d="M136 56 L176 56" fill="none" stroke="#FAFAF7" stroke-width="3" stroke-linecap="round" opacity="0.55"/>
+      <path d="M136 72 L176 72" fill="none" stroke="#FAFAF7" stroke-width="3" stroke-linecap="round" opacity="0.35"/>
+      <path d="M136 88 L176 88" fill="none" stroke="#FAFAF7" stroke-width="3" stroke-linecap="round" opacity="0.35"/>
+      <path d="M136 56 L136 104" fill="none" stroke="#FAFAF7" stroke-width="3" stroke-linecap="round" opacity="0.25"/>
+      <path d="M176 56 L176 104" fill="none" stroke="#FAFAF7" stroke-width="3" stroke-linecap="round" opacity="0.25"/>
+    </g>
 
-    <path d="M126 70 L150 70" fill="none" stroke="#0D0D0D" stroke-width="2" stroke-linecap="round" opacity="0.12"/>
-    <path d="M124 84 L148 84" fill="none" stroke="#0D0D0D" stroke-width="2" stroke-linecap="round" opacity="0.12"/>
-    <path d="M120 98 L144 98" fill="none" stroke="#0D0D0D" stroke-width="2" stroke-linecap="round" opacity="0.12"/>
-    <path d="M116 112 L140 112" fill="none" stroke="#0D0D0D" stroke-width="2" stroke-linecap="round" opacity="0.12"/>
+    <!-- WOOD V (no overlap; clean negative V gap) -->
+    <!-- Left leg -->
+    <path d="M86 56 L104 56 L118 116 L100 116 Z" fill="#C9A77D"/>
+    <!-- Right leg -->
+    <path d="M136 56 L154 56 L140 116 L122 116 Z" fill="#B79267"/>
+
+    <!-- Grain lines (clipped per panel; subtle) -->
+    <g clip-path="url(#clipLeftPanel)" opacity="0.16">
+      <path d="M82 70 L122 70" fill="none" stroke="#0D0D0D" stroke-width="2" stroke-linecap="round"/>
+      <path d="M82 88 L122 88" fill="none" stroke="#0D0D0D" stroke-width="2" stroke-linecap="round"/>
+      <path d="M82 106 L122 106" fill="none" stroke="#0D0D0D" stroke-width="2" stroke-linecap="round"/>
+    </g>
+
+    <g clip-path="url(#clipRightPanel)" opacity="0.16">
+      <path d="M118 70 L160 70" fill="none" stroke="#0D0D0D" stroke-width="2" stroke-linecap="round"/>
+      <path d="M118 88 L160 88" fill="none" stroke="#0D0D0D" stroke-width="2" stroke-linecap="round"/>
+      <path d="M118 106 L160 106" fill="none" stroke="#0D0D0D" stroke-width="2" stroke-linecap="round"/>
+    </g>
   </g>
 
+  <!-- TYPE -->
   <g transform="translate(220,62)">
     <text x="0" y="0"
           fill="#FAFAF7"
@@ -29,7 +70,10 @@
           font-size="28"
           letter-spacing="0.18em">VASILJEVIĆ</text>
 
-    <text x="0" y="24"
+    <!-- thin divider line for premium lockup -->
+    <path d="M0 10 L200 10" stroke="rgba(250,250,247,0.35)" stroke-width="2" stroke-linecap="round"/>
+
+    <text x="0" y="28"
           fill="rgba(250,250,247,0.90)"
           font-family="Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif"
           font-weight="500"
