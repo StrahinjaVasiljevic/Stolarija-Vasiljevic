@@ -8,12 +8,14 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
-    tailwind.config = { theme:{ extend:{
-      colors:{'brand-dark':'#0B3D3A','brand-beige':'#E9E2D2','brand-light':'#F7F7F5'},
-      borderRadius:{xl:'16px','2xl':'24px'},
-      boxShadow:{card:'0 8px 30px rgba(0,0,0,0.08)'},
-      fontFamily:{serif:['Cormorant Garamond','serif'],sans:['Inter','ui-sans-serif','system-ui']}
-    } } }
+    tailwind.config = {
+      theme: { extend: {
+        colors:{'brand-dark':'#0B3D3A','brand-beige':'#E9E2D2','brand-light':'#F7F7F5'},
+        borderRadius:{xl:'16px','2xl':'24px'},
+        boxShadow:{card:'0 8px 30px rgba(0,0,0,0.08)'},
+        fontFamily:{serif:['Cormorant Garamond','serif'],sans:['Inter','ui-sans-serif','system-ui']}
+      } }
+    }
   </script>
   <style>
     :root{
@@ -50,25 +52,18 @@
       html.theme-dark .site-header{ background: rgba(13,17,19,0.80); }
     }
 
+    /* Dropdown kompaktan */
     .dropdown{position:relative}
-    .dropdown-btn{display:flex;align-items:center;gap:8px;padding:8px 10px;border:1px solid var(--border);border-radius:10px;background:var(--card);color:var(--text)}
-    .dropdown-menu{position:absolute;right:0;top:calc(100% + 8px);min-width:180px;background:var(--card);border:1px solid var(--border);border-radius:12px;box-shadow:0 8px 30px rgba(0,0,0,0.08);padding:6px;z-index:50}
-    .dropdown-item{display:flex;align-items:center;gap:8px;width:100%;text-align:left;padding:8px 10px;border-radius:8px;color:var(--text)}
-    .dropdown-item:hover{background:var(--secondary-bg)}
-    .flag{font-size:16px}
-    .chev{transition:transform .2s}.open .chev{transform:rotate(180deg)}
+    #langToggleProj{ display:flex; align-items:center; gap:6px; padding:6px 10px; min-height:36px; border:1px solid var(--border); border-radius:9999px; background:var(--card); color:var(--text); }
+    @media (max-width: 767px){ #langToggleProj{ min-height:40px; padding:8px 12px; } }
+    .flag{ display:inline-block; font-size:16px; line-height:1; }
+    .chev{ transition:transform .2s; width:14px; height:14px; }
+    .open .chev{ transform:rotate(180deg); }
+    .dropdown-menu{ position:absolute; right:0; top:calc(100% + 6px); min-width:160px; background:var(--card); border:1px solid var(--border); border-radius:12px; box-shadow:0 8px 30px rgba(0,0,0,0.08); padding:4px; z-index:50 }
+    .dropdown-item{ display:flex; align-items:center; gap:8px; width:100%; text-align:left; padding:6px 8px; border-radius:10px; color:var(--text); min-height:34px; }
+    .dropdown-item:hover{ background:var(--secondary-bg) }
 
-    #lightbox{background:rgba(0,0,0,.7)} #lightbox img{max-height:80vh}
-
-    html.theme-dark a{color:var(--text)}
-    html.theme-dark a:hover{color:#DAD3C7}
-    html.theme-dark .bg-white { background: var(--card) !important; }
-    html.theme-dark .bg-gray-50, html.theme-dark .bg-gray-100, html.theme-dark .bg-gray-200 { background: var(--border) !important; }
-    html.theme-dark .border-gray-100, html.theme-dark .border-gray-200 { border-color: var(--border) !important; }
-    html.theme-dark .hover\:bg-gray-100:hover { background: var(--secondary-bg) !important; }
-    html.theme-dark .text-gray-900, html.theme-dark .text-gray-800, html.theme-dark .text-gray-700 { color: var(--text) !important; }
-    html.theme-dark .text-gray-600, html.theme-dark .text-gray-500 { color: var(--muted) !important; }
-
+    /* Theme toggle vizuelni */
     #themeToggle{
       background: linear-gradient(180deg, var(--toggle-bg1), var(--toggle-bg2));
       border-color: var(--toggle-border-c) !important;
@@ -86,6 +81,15 @@
       outline-offset: 2px;
       border-color: var(--ring);
     }
+
+    html.theme-dark a{color:var(--text)}
+    html.theme-dark a:hover{color:#DAD3C7}
+    html.theme-dark .bg-white { background: var(--card) !important; }
+    html.theme-dark .bg-gray-50, html.theme-dark .bg-gray-100, html.theme-dark .bg-gray-200 { background: var(--border) !important; }
+    html.theme-dark .border-gray-100, html.theme-dark .border-gray-200 { border-color: var(--border) !important; }
+    html.theme-dark .hover\:bg-gray-100:hover { background: var(--secondary-bg) !important; }
+    html.theme-dark .text-gray-900, html.theme-dark .text-gray-800, html.theme-dark .text-gray-700 { color: var(--text) !important; }
+    html.theme-dark .text-gray-600, html.theme-dark .text-gray-500 { color: var(--muted) !important; }
   </style>
   <script src="../assets/config.js"></script>
 </head>
@@ -103,12 +107,12 @@
         <a href="../#faq" class="hover:text-brand-dark" id="navFAQ">FAQ</a>
         <a href="../#kontakt" class="hover:text-brand-dark" id="navContact">Kontakt</a>
       </nav>
-      <div class="flex items-center gap-3">
+      <div class="flex items-center gap-2 md:gap-3">
         <div class="dropdown" id="langSelectProj">
           <button id="langToggleProj" class="dropdown-btn" aria-haspopup="true" aria-expanded="false">
             <span class="flag" id="langFlagProj">🇷🇸</span>
             <span id="langLabelProj">Jezik: srb</span>
-            <svg class="chev" width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            <svg class="chev" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
           </button>
           <div id="langMenuProj" class="dropdown-menu hidden" role="menu" aria-label="Izaberi jezik">
             <button class="dropdown-item" data-lang="sr"><span class="flag">🇷🇸</span><span>srb</span></button>
@@ -160,7 +164,6 @@
         <h4 class="font-medium mb-3" id="footContactTitle">Kontakt</h4>
         <ul class="space-y-2 text-gray-700">
           <li><span id="footPhoneLabel">Telefon</span> — <a id="footerPhone" href="#" class="hover:text-brand-dark">+381 64 122 04 29</a></li>
-        </ul>
       </div>
     </div>
   </footer>
@@ -329,6 +332,8 @@
         return withBase(src);
       }
 
+      function loc(v){ return locText(v); }
+
       function render(){
         filters.querySelectorAll("button").forEach(b=>{
           b.className = "btn " + (b.textContent===current?"btn-primary":"btn-secondary") + " text-sm";
@@ -340,16 +345,16 @@
         grid.innerHTML = items.map(p=>{
           const img = resolveImg((p.images && p.images[0]) || '');
           const typeTxt = T.types[p.type] || p.type || '';
-          const title = locText(p.title) || '';
-          const desc = locText(p.description) || '';
-          const loc = p.location || '';
+          const title = loc(p.title) || '';
+          const desc = loc(p.description) || '';
+          const locn = p.location || '';
           return `
           <button class="card overflow-hidden text-left preview-btn" data-img="${img}">
             <div class="w-full h-56 bg-white">
               <img src="${img}" alt="${title}" class="w-full h-56 object-cover">
             </div>
             <div class="p-4">
-              <div class="text-sm text-gray-600">${typeTxt} · ${loc}</div>
+              <div class="text-sm text-gray-600">${typeTxt} · ${locn}</div>
               <div class="font-medium mb-2">${title}</div>
               ${desc ? `<p class="text-sm text-gray-700">${desc}</p>` : ``}
             </div>
