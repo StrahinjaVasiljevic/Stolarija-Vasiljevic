@@ -77,7 +77,7 @@
     html.theme-dark .btn-secondary{color:var(--text)}
     .section{padding:64px 0}.section-title{font-size:32px;margin-bottom:24px}
 
-    /* Dekor i dark overrides */
+    /* Dark mode premium overrides */
     html.theme-dark body::before{
       content:"";position:fixed;inset:0;pointer-events:none;z-index:-1;
       background:
@@ -106,17 +106,17 @@
     .brand-logo--footer{ height:32px; }
     .brand-lockup{ display:flex; align-items:center; gap:12px; }
     .brand-name{ font-family:'Cormorant Garamond', serif; font-size:20px; line-height:1; }
-    .brand-subtle{ color: var(--muted); }
 
-    /* Language dropdown */
+    /* Language dropdown — kompaktan, flag vidljiv svuda */
     .dropdown{position:relative}
-    .dropdown-btn{display:flex;align-items:center;gap:8px;padding:8px 10px;border:1px solid var(--border);border-radius:10px;background:var(--card);color:var(--text)}
-    .dropdown-menu{position:absolute;right:0;top:calc(100% + 8px);min-width:180px;background:var(--card);border:1px solid var(--border);border-radius:12px;box-shadow:0 8px 30px rgba(0,0,0,0.08);padding:6px;z-index:50}
-    .dropdown-item{display:flex;align-items:center;gap:8px;width:100%;text-align:left;padding:8px 10px;border-radius:8px;color:var(--text)}
-    .dropdown-item:hover{background:var(--secondary-bg)}
-    .flag{font-size:16px}
-    .chev{transition:transform .2s}
-    .open .chev{transform:rotate(180deg)}
+    #langToggle{ display:flex; align-items:center; gap:6px; padding:6px 10px; min-height:36px; border:1px solid var(--border); border-radius:9999px; background:var(--card); color:var(--text); }
+    @media (max-width: 767px){ #langToggle{ min-height:40px; padding:8px 12px; } }
+    .flag{ display:inline-block; font-size:16px; line-height:1; }
+    .chev{ transition:transform .2s; width:14px; height:14px; }
+    .open .chev{ transform:rotate(180deg); }
+    .dropdown-menu{ position:absolute; right:0; top:calc(100% + 6px); min-width:160px; background:var(--card); border:1px solid var(--border); border-radius:12px; box-shadow:0 8px 30px rgba(0,0,0,0.08); padding:4px; z-index:50 }
+    .dropdown-item{ display:flex; align-items:center; gap:8px; width:100%; text-align:left; padding:6px 8px; border-radius:10px; color:var(--text); min-height:34px; }
+    .dropdown-item:hover{ background:var(--secondary-bg) }
 
     /* Theme toggle (vizuelni fill) */
     #themeToggle{
@@ -140,7 +140,7 @@
       border-color: var(--ring);
     }
 
-    /* ==== PROCES FLOW (wood theme) ==== */
+    /* ==== PROCES FLOW (wood theme, 2 reda) ==== */
     .process-flow .process-row{ display:grid; align-items:start; grid-auto-rows:1fr; gap:14px; margin-bottom:28px; }
     .process-flow .process-row--top{ grid-template-columns: 1fr auto 1fr auto 1fr auto 1fr; }
     .process-flow .process-row--bottom{ grid-template-columns: 1fr auto 1fr auto 1fr; }
@@ -162,7 +162,6 @@
     }
     .process-flow .process-card:hover{ filter:saturate(1.03) brightness(1.01); }
     .process-flow .process-card:active{ transform: translateY(0.5px); }
-
     .process-flow .process-chip{
       display:inline-flex; align-items:center; justify-content:center; min-width:28px; height:28px; padding:0 8px;
       border:1px solid var(--process-border); border-radius:8px;
@@ -183,7 +182,6 @@
         repeating-linear-gradient(20deg, rgba(255,255,255,0.03) 0px, rgba(255,255,255,0.03) 1px, rgba(0,0,0,0.04) 1px, rgba(0,0,0,0.04) 5px),
         radial-gradient(120% 60% at 70% 0%, rgba(255,255,255,0.06), transparent 60%);
     }
-
     .process-flow .process-connector{ display:flex; align-items:center; justify-content:center; color: var(--process-connector); }
     .process-flow .process-turn{ display:flex; align-items:center; justify-content:flex-end; margin: -6px 0 10px; color: var(--process-connector); }
     .process-flow .process-connector svg, .process-flow .process-turn svg{ display:block; }
@@ -211,13 +209,13 @@
         <a href="#kontakt" class="hover:text-brand-dark" id="navContact">Kontakt</a>
       </nav>
 
-      <div class="flex items-center gap-3">
-        <!-- Jezik dropdown -->
+      <div class="flex items-center gap-2 md:gap-3">
+        <!-- Jezik dropdown (kompaktan) -->
         <div class="dropdown" id="langSelect">
           <button id="langToggle" class="dropdown-btn" aria-haspopup="true" aria-expanded="false">
             <span class="flag" id="langFlag">🇷🇸</span>
             <span id="langLabel">Jezik: srb</span>
-            <svg class="chev" width="16" height="16" viewBox="0 0 24 24" fill="none">
+            <svg class="chev" viewBox="0 0 24 24" fill="none">
               <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
             </svg>
           </button>
@@ -230,7 +228,7 @@
         </div>
 
         <!-- Tema -->
-        <button id="themeToggle" class="p-2 rounded-xl border border-gray-200 hover:bg-gray-100 md:ml-2" aria-label="Promeni temu">
+        <button id="themeToggle" class="p-2 rounded-xl border border-gray-200 hover:bg-gray-100 md:ml-1" aria-label="Promeni temu">
           <span id="iconLight" class="block" aria-hidden="true">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
               <path d="M3 11l9-7 9 7" stroke="#0B3D3A" stroke-width="1.5" stroke-linecap="round"/>
@@ -289,135 +287,13 @@
       </div>
     </section>
 
-    <!-- SECTION: PROCES (novo, kompaktan flow u 2 reda) -->
+    <!-- SECTION: PROCES (novo — generiše site.js u #processMount) -->
     <section id="proces" class="process-flow section">
       <div class="container">
         <h2 class="section-title font-serif" id="labelProcess">Proces</h2>
-
-        <div class="process-row process-row--top" role="list">
-          <div class="process-item" role="listitem">
-            <button class="process-card" type="button" aria-expanded="false" aria-controls="process-panel-1" id="process-btn-1" data-process-toggle>
-              <span class="process-chip">1</span>
-              <span class="process-title">Pregled prostora</span>
-              <span class="process-sub">Analiza i razumevanje potreba</span>
-            </button>
-            <div class="process-panel" id="process-panel-1" role="region" aria-labelledby="process-btn-1">
-              <div class="process-panel-inner">
-                Obavljamo inicijalni razgovor i pregled raspoloživog prostora (uživo ili na osnovu fotografija i skica). Prikupljamo ključne informacije o navikama, stilu i budžetu kako bismo precizno definisali zahteve.
-              </div>
-            </div>
-          </div>
-
-          <div class="process-connector" aria-hidden="true">
-            <svg viewBox="0 0 24 24" width="24" height="24"><path d="M5 12h14m-4-4 4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </div>
-
-          <div class="process-item" role="listitem">
-            <button class="process-card" type="button" aria-expanded="false" aria-controls="process-panel-2" id="process-btn-2" data-process-toggle>
-              <span class="process-chip">2</span>
-              <span class="process-title">Predlog dizajna i materijala</span>
-              <span class="process-sub">Estetika i funkcionalnost</span>
-            </button>
-            <div class="process-panel" id="process-panel-2" role="region" aria-labelledby="process-btn-2">
-              <div class="process-panel-inner">
-                Predlažemo konceptualno rešenje sa odabranim materijalima i završnim obradama. Fokus je na ergonomiji, trajnosti i stilu koji odgovara prostoru i navikama korisnika.
-              </div>
-            </div>
-          </div>
-
-          <div class="process-connector" aria-hidden="true">
-            <svg viewBox="0 0 24 24" width="24" height="24"><path d="M5 12h14m-4-4 4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </div>
-
-          <div class="process-item" role="listitem">
-            <button class="process-card" type="button" aria-expanded="false" aria-controls="process-panel-3" id="process-btn-3" data-process-toggle>
-              <span class="process-chip">3</span>
-              <span class="process-title">Merenje i ponuda</span>
-              <span class="process-sub">Precizne mere i transparentna cena</span>
-            </button>
-            <div class="process-panel" id="process-panel-3" role="region" aria-labelledby="process-btn-3">
-              <div class="process-panel-inner">
-                Dolazimo na precizno merenje i izrađujemo detaljnu ponudu sa jasno iskazanim stavkama. Dobijate realnu procenu dinamike i rokova.
-              </div>
-            </div>
-          </div>
-
-          <div class="process-connector" aria-hidden="true">
-            <svg viewBox="0 0 24 24" width="24" height="24"><path d="M5 12h14m-4-4 4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </div>
-
-          <div class="process-item" role="listitem">
-            <button class="process-card" type="button" aria-expanded="false" aria-controls="process-panel-4" id="process-btn-4" data-process-toggle>
-              <span class="process-chip">4</span>
-              <span class="process-title">Izrada u radionici</span>
-              <span class="process-sub">Kontrolisana proizvodnja</span>
-            </button>
-            <div class="process-panel" id="process-panel-4" role="region" aria-labelledby="process-btn-4">
-              <div class="process-panel-inner">
-                Nakon potvrde, krećemo sa izradom. Pratimo standarde kvaliteta i radimo pažljivo završne obrade kako bi sve leglo precizno na montaži.
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="process-turn" aria-hidden="true">
-          <svg viewBox="0 0 200 80" width="200" height="80" preserveAspectRatio="xMidYMid meet">
-            <path d="M10,10 C120,10 120,70 190,70" fill="none" stroke="currentColor" stroke-width="2"/>
-            <path d="M180,62 L190,70 L180,78" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </div>
-
-        <div class="process-row process-row--bottom" role="list">
-          <div class="process-item" role="listitem">
-            <button class="process-card" type="button" aria-expanded="false" aria-controls="process-panel-5" id="process-btn-5" data-process-toggle>
-              <span class="process-chip">5</span>
-              <span class="process-title">Dostava</span>
-              <span class="process-sub">Bezbedan transport</span>
-            </button>
-            <div class="process-panel" id="process-panel-5" role="region" aria-labelledby="process-btn-5">
-              <div class="process-panel-inner">
-                Elemente pažljivo pakujemo i dostavljamo u dogovorenom terminu. Vodi se računa o zaštiti osetljivih površina i detalja.
-              </div>
-            </div>
-          </div>
-
-          <div class="process-connector" aria-hidden="true">
-            <svg viewBox="0 0 24 24" width="24" height="24"><path d="M5 12h14m-4-4 4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </div>
-
-          <div class="process-item" role="listitem">
-            <button class="process-card" type="button" aria-expanded="false" aria-controls="process-panel-6" id="process-btn-6" data-process-toggle>
-              <span class="process-chip">6</span>
-              <span class="process-title">Montaža</span>
-              <span class="process-sub">Uredno i precizno</span>
-            </button>
-            <div class="process-panel" id="process-panel-6" role="region" aria-labelledby="process-btn-6">
-              <div class="process-panel-inner">
-                Montažu obavljamo uredno i precizno, sa pažnjom na spojeve, nivelaciju i završne detalje. Prostor ostavljamo čistim.
-              </div>
-            </div>
-          </div>
-
-          <div class="process-connector" aria-hidden="true">
-            <svg viewBox="0 0 24 24" width="24" height="24"><path d="M5 12h14m-4-4 4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          </div>
-
-          <div class="process-item" role="listitem">
-            <button class="process-card" type="button" aria-expanded="false" aria-controls="process-panel-7" id="process-btn-7" data-process-toggle>
-              <span class="process-chip">7</span>
-              <span class="process-title">Kontrola kvaliteta i primopredaja</span>
-              <span class="process-sub">Završna provera i dogovor</span>
-            </button>
-            <div class="process-panel" id="process-panel-7" role="region" aria-labelledby="process-btn-7">
-              <div class="process-panel-inner">
-                Radimo završnu proveru funkcionalnosti i estetike zajedno sa vama. Beležimo eventualne finese i kompletiramo primopredaju.
-              </div>
-            </div>
-          </div>
-        </div>
+        <div id="processMount"></div>
       </div>
     </section>
-    <!-- /SECTION: PROCES -->
 
     <section class="section" id="whyus"></section>
     <section class="section bg-white" id="portfolioPreview"></section>
@@ -552,43 +428,6 @@
     </div>
   </footer>
 
-  <!-- Proces accordion JS (bez konflikta sa assets/site.js) -->
-  <script>
-    (function(){
-      const root = document.querySelector('.process-flow');
-      if (!root) return;
-      const buttons = Array.from(root.querySelectorAll('[data-process-toggle]'));
-      let openPanel = null, openBtn = null;
-
-      buttons.forEach(btn=>{
-        const panel = document.getElementById(btn.getAttribute('aria-controls'));
-        if (!panel) return;
-        btn.addEventListener('click', ()=>toggle(btn,panel));
-      });
-
-      function toggle(btn,panel){
-        const isOpen = btn.getAttribute('aria-expanded') === 'true';
-        if (openPanel && openPanel !== panel) collapse(openBtn, openPanel);
-        if (isOpen){ collapse(btn,panel); openPanel=null; openBtn=null; }
-        else { expand(btn,panel); openPanel=panel; openBtn=btn; }
-      }
-      function expand(btn,panel){
-        btn.setAttribute('aria-expanded','true');
-        panel.classList.add('open');
-        panel.style.maxHeight = '0px';
-        const h = panel.scrollHeight;
-        panel.style.maxHeight = h + 'px';
-        panel.addEventListener('transitionend', onEnd);
-        function onEnd(e){ if(e.propertyName==='max-height'){ panel.style.maxHeight='none'; panel.removeEventListener('transitionend', onEnd); } }
-      }
-      function collapse(btn,panel){
-        btn.setAttribute('aria-expanded','false');
-        const h = panel.scrollHeight;
-        panel.style.maxHeight = h + 'px';
-        requestAnimationFrame(()=>{ panel.classList.remove('open'); panel.style.maxHeight='0px'; });
-      }
-    })();
-  </script>
+  <!-- (site.js već učitan defer u <head>) -->
 </body>
 </html>
-
