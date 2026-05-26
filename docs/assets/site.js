@@ -34,12 +34,8 @@
         { t:'Završetak i primopredaja', d:'Završna provera i primopredaja' }
       ],
       types: {
-        'Kuhinje':'Kuhinje',
-        'Plakari i garderoberi':'Plakari i garderoberi',
-        'Komode i police':'Komode i police',
-        'TV zidovi':'TV zidovi',
-        'Kancelarije':'Kancelarije',
-        'Uređenje enterijera':'Uređenje enterijera'
+        'Kuhinje':'Kuhinje','Plakari i garderoberi':'Plakari i garderoberi','Komode i police':'Komode i police',
+        'TV zidovi':'TV zidovi','Kancelarije':'Kancelarije','Uređenje enterijera':'Uređenje enterijera'
       }
     },
     en: {
@@ -70,12 +66,8 @@
         { t:'Handover', d:'Final checks and handover' }
       ],
       types: {
-        'Kuhinje':'Kitchens',
-        'Plakari i garderoberi':'Wardrobes',
-        'Komode i police':'Sideboards & Shelves',
-        'TV zidovi':'TV walls',
-        'Kancelarije':'Offices',
-        'Uređenje enterijera':'Interior design'
+        'Kuhinje':'Kitchens','Plakari i garderoberi':'Wardrobes','Komode i police':'Sideboards & Shelves',
+        'TV zidovi':'TV walls','Kancelarije':'Offices','Uređenje enterijera':'Interior design'
       }
     },
     de: {
@@ -106,12 +98,8 @@
         { t:'Abnahme', d:'Abschließende Prüfung und Übergabe' }
       ],
       types: {
-        'Kuhinje':'Küchen',
-        'Plakari i garderoberi':'Schränke',
-        'Komode i police':'Kommoden & Regale',
-        'TV zidovi':'TV‑Wände',
-        'Kancelarije':'Büros',
-        'Uređenje enterijera':'Innenraumgestaltung'
+        'Kuhinje':'Küchen','Plakari i garderoberi':'Schränke','Komode i police':'Kommoden & Regale',
+        'TV zidovi':'TV‑Wände','Kancelarije':'Büros','Uređenje enterijera':'Innenraumgestaltung'
       }
     },
     ru: {
@@ -142,12 +130,8 @@
         { t:'Передача', d:'Финальные проверки и передача' }
       ],
       types: {
-        'Kuhinje':'Кухни',
-        'Plakari i garderoberi':'Шкафы',
-        'Komode i police':'Комоды и полки',
-        'TV zidovi':'TV‑стены',
-        'Kancelarije':'Офисы',
-        'Uređenje enterijera':'Дизайн интерьера'
+        'Kuhinje':'Кухни','Plakari i garderoberi':'Шкафы','Komode i police':'Комоды и полки',
+        'TV zidovi':'TV‑стены','Kancelarije':'Офисы','Uređenje enterijera':'Дизайн интерьера'
       }
     }
   };
@@ -162,7 +146,7 @@
       renderHeader();
       renderHero();
       renderServices();
-      renderProcess();        // NOVO: generiše 2 reda + accordion
+      renderProcess();
       renderWhyUs();
       renderPortfolioPreview();
       renderTestimonials();
@@ -211,10 +195,10 @@
         toggle.setAttribute('aria-expanded', String(!open));
       });
       document.addEventListener('click', ()=>{
-        if (!menu.classList.contains('hidden')){
+        if (menu && !menu.classList.contains('hidden')){
           menu.classList.add('hidden');
-          toggle.parentElement.classList.remove('open');
-          toggle.setAttribute('aria-expanded', 'false');
+          if (toggle && toggle.parentElement) toggle.parentElement.classList.remove('open');
+          if (toggle) toggle.setAttribute('aria-expanded','false');
         }
       });
       menu.querySelectorAll('.dropdown-item').forEach(item=>{
@@ -278,13 +262,16 @@
         const next = document.documentElement.classList.contains('theme-dark') ? 'light' : 'dark';
         applyTheme(next);
         localStorage.setItem('theme', next);
-      });
+      }, { passive: true });
     }
   }
   function applyTheme(theme){
     document.documentElement.classList.toggle('theme-dark', theme==='dark');
     const light = qs('#iconLight'), dark = qs('#iconDark');
-    if (light && dark){ if(theme==='dark'){ light.classList.add('hidden'); dark.classList.remove('hidden'); } else { dark.classList.add('hidden'); light.classList.remove('hidden'); } }
+    if (light && dark){
+      if(theme==='dark'){ light.classList.add('hidden'); dark.classList.remove('hidden'); }
+      else { dark.classList.add('hidden'); light.classList.remove('hidden'); }
+    }
   }
 
   function renderHeader() {
@@ -302,7 +289,9 @@
     if (themeBtn) {
       themeBtn.setAttribute('aria-label', UI[state.lang].theme.toggle);
       themeBtn.setAttribute('title', UI[state.lang].theme.toggle);
+      themeBtn.type = 'button';
     }
+    const langBtn = qs('#langToggle'); if (langBtn) langBtn.type = 'button';
 
     const heads = UI[state.lang].heads;
     const ids = { labelServices:'services', labelProcess:'process', labelAbout:'about', labelContact:'contact' };
@@ -341,8 +330,7 @@
   }
 
   function renderServices() {
-    const el = qs('#usluge .container');
-    if (!el) return;
+    const el = qs('#usluge .container'); if (!el) return;
     const list = (state.site?.services && state.site.services.length) ? state.site.services : UI[state.lang].services;
     const head = UI[state.lang].heads.services;
     el.innerHTML = `
@@ -358,31 +346,27 @@
     `;
   }
 
-  // NOVO: dinamički 2 reda + zavijajuća strelica + accordion opis
   function renderProcess() {
     const steps = (state.site?.process && state.site.process.length) ? state.site.process
                   : (UI[state.lang].process || []);
     const mount = qs('#processMount');
     const headEl = qs('#labelProcess');
     if (headEl) headEl.textContent = UI[state.lang].heads.process;
-
-    if (!mount) return; // ako nema mount-a, samo naslov osveži
+    if (!mount) return;
 
     const top = steps.slice(0,4);
     const bottom = steps.slice(4);
 
-    const cardHtml = (s, i, idx) => `
+    const cardHtml = (s, n, id) => `
       <div class="process-item" role="listitem">
         <button class="process-card" type="button" aria-expanded="false"
-                aria-controls="process-panel-${idx}" id="process-btn-${idx}" data-process-toggle>
-          <span class="process-chip">${i}</span>
+                aria-controls="process-panel-${id}" id="process-btn-${id}" data-process-toggle>
+          <span class="process-chip">${n}</span>
           <span class="process-title">${esc(s.t)}</span>
-          <span class="process-sub">${esc(s.d.slice(0, 64))}${s.d.length>64?'…':''}</span>
+          <span class="process-sub">${esc(s.d)}</span>
         </button>
-        <div class="process-panel" id="process-panel-${idx}" role="region" aria-labelledby="process-btn-${idx}">
-          <div class="process-panel-inner">
-            ${esc(s.d)}
-          </div>
+        <div class="process-panel" id="process-panel-${id}" role="region" aria-labelledby="process-btn-${id}">
+          <div class="process-panel-inner">${esc(s.d)}</div>
         </div>
       </div>`;
 
@@ -393,10 +377,10 @@
         </svg>
       </div>`;
 
-    let idx = 1;
+    let id = 1;
     const topRow = `
       <div class="process-row process-row--top" role="list">
-        ${top.map((s,i)=> cardHtml(s, i+1, idx++) + (i<top.length-1?connector:'')).join('')}
+        ${top.map((s,i)=> cardHtml(s, i+1, id++) + (i<top.length-1?connector:'')).join('')}
       </div>`;
     const turn = `
       <div class="process-turn" aria-hidden="true">
@@ -407,12 +391,11 @@
       </div>`;
     const bottomRow = bottom.length ? `
       <div class="process-row process-row--bottom" role="list">
-        ${bottom.map((s,i)=> cardHtml(s, 4+i+1, idx++) + (i<bottom.length-1?connector:'')).join('')}
+        ${bottom.map((s,i)=> cardHtml(s, 4+i+1, id++) + (i<bottom.length-1?connector:'')).join('')}
       </div>` : '';
 
     mount.innerHTML = topRow + turn + bottomRow;
 
-    // accordion ponašanje
     const root = qs('.process-flow');
     const buttons = Array.from(root.querySelectorAll('[data-process-toggle]'));
     let openPanel = null, openBtn = null;
@@ -421,6 +404,7 @@
       const panel = qs('#'+btn.getAttribute('aria-controls'));
       if (!panel) return;
       btn.addEventListener('click', ()=> toggle(btn, panel));
+      btn.type = 'button';
     });
 
     function toggle(btn, panel){
@@ -435,8 +419,8 @@
       panel.style.maxHeight = '0px';
       const h = panel.scrollHeight;
       panel.style.maxHeight = h + 'px';
+      const onEnd = (e)=>{ if(e.propertyName==='max-height'){ panel.style.maxHeight='none'; panel.removeEventListener('transitionend', onEnd); } };
       panel.addEventListener('transitionend', onEnd);
-      function onEnd(e){ if(e.propertyName==='max-height'){ panel.style.maxHeight='none'; panel.removeEventListener('transitionend', onEnd); } }
     }
     function collapse(btn,panel){
       btn.setAttribute('aria-expanded','false');
@@ -483,28 +467,23 @@
           ${list.map(p => {
             const img = (p.images && p.images[0]) ? p.images[0] : base('images/ph2.svg');
             const typeTxt = typeMap[p.type] || p.type || '';
-            const titleTxt = esc(localize(p.title));
-            const descTxt = esc(localize(p.description));
+            const t = localize(p.title);
+            const d = localize(p.description);
             return `
             <button class="card overflow-hidden text-left preview-btn" data-img="${img}">
               <div class="relative w-full h-40 bg-brand-light">
-                <img src="${img}" alt="${titleTxt}" class="w-full h-40 object-cover" />
+                <img src="${img}" alt="${esc(t)}" class="w-full h-40 object-cover" />
               </div>
               <div class="p-4">
                 <div class="text-sm text-gray-500">${esc(typeTxt)} · ${esc(p.location || '')}</div>
-                <div class="font-medium">${titleTxt}</div>
-                ${descTxt ? `<p class="text-sm text-gray-600 mt-1">${descTxt}</p>` : ``}
+                <div class="font-medium">${esc(t)}</div>
+                ${d ? `<p class="text-sm text-gray-600 mt-1">${esc(d)}</p>` : ``}
               </div>
             </button>`;
           }).join("")}
         </div>
       </div>`;
-
-    function localize(val){
-      if (!val) return '';
-      if (typeof val === 'string') return val;
-      return val[state.lang] || val.sr || '';
-    }
+    function localize(val){ return typeof val==='string' ? val : (val && (val[state.lang] || val.sr)) || ''; }
   }
 
   function renderTestimonials() {
@@ -546,7 +525,7 @@
         <div class="space-y-3">
           ${items.map((it, i) => `
             <div class="card">
-              <button data-i="${i}" class="w-full text-left px-5 py-4 flex justify-between items-center faq-toggle">
+              <button data-i="${i}" class="w-full text-left px-5 py-4 flex justify-between items-center faq-toggle" type="button">
                 <span class="font-medium">${esc(it.q || '')}</span>
                 <span class="text-gray-500">+</span>
               </button>
@@ -672,4 +651,3 @@
     document.head.appendChild(s);
   }
 })();
-
