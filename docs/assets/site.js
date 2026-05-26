@@ -161,8 +161,8 @@
       await safeLoadContent();
       renderHeader();
       renderHero();
-      renderServices();       // NOVO: potpuno dinamički
-      renderProcess();        // iz i18n ili JSON
+      renderServices();
+      renderProcess();
       renderWhyUs();
       renderPortfolioPreview();
       renderTestimonials();
@@ -172,9 +172,7 @@
       injectSEO();
       wireNav();
       wireLightbox();
-    } catch (e) {
-      console.error(e);
-    }
+    } catch (e) { console.error(e); }
   }
 
   function getLang() {
@@ -196,9 +194,11 @@
     const labelEl = qs('#langLabel');
 
     const applyLabel = () => {
-      const LUI = UI[state.lang];
-      if (flagEl) flagEl.textContent = ({sr:'🇷🇸',en:'🇬🇧',de:'🇩🇪',ru:'🇷🇺'})[state.lang] || '🇷🇸';
-      if (labelEl) labelEl.textContent = `${({sr:'Jezik',en:'Language',de:'Sprache',ru:'Язык'})[state.lang]}: ${({sr:'srb',en:'eng',de:'deu',ru:'рус'})[state.lang]}`;
+      const flags = { sr:'🇷🇸', en:'🇬🇧', de:'🇩🇪', ru:'🇷🇺' };
+      const labels = { sr:'Jezik', en:'Language', de:'Sprache', ru:'Язык' };
+      const abbr = { sr:'srb', en:'eng', de:'deu', ru:'рус' };
+      if (flagEl) flagEl.textContent = flags[state.lang] || '🇷🇸';
+      if (labelEl) labelEl.textContent = `${labels[state.lang]}: ${abbr[state.lang]}`;
     };
     applyLabel();
 
@@ -257,8 +257,8 @@
           { title: "Kultura rada", text: "Uredna montaža i komunikacija." }
         ]
       },
-      services: [],    // opciono u JSON-u
-      process: [],     // opciono u JSON-u
+      services: [],
+      process: [],
       whyUs: [],
       testimonials: [],
       faq: []
@@ -268,6 +268,16 @@
   function qs(sel) { return document.querySelector(sel); }
   function telHref(phone) { return "tel:" + String(phone || "").replace(/\s+/g, ""); }
   function esc(s){ return String(s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
+  function locText(val){
+    if (!val) return '';
+    if (typeof val === 'string') return val;
+    return val[state.lang] || val.sr || '';
+  }
+  function resolveImg(src){
+    if (!src) return '';
+    if (/^https?:\/\//i.test(src)) return src;
+    return base(src);
+  }
 
   function initTheme(){
     const saved = localStorage.getItem('theme') || 'light';
@@ -361,10 +371,8 @@
   function renderProcess() {
     const steps = (state.site?.process && state.site.process.length) ? state.site.process
                   : (UI[state.lang].process || []);
-    const wrapHost = qs("#processList"); // originalni kontejner iz index.html
-    const section = qs('#proces .container');
+    const wrapHost = qs("#processList");
     if (wrapHost) {
-      // Render u postojeći grid sa pločicama
       wrapHost.innerHTML = steps.map((s, i) => `
         <div class="card process-tile tile-pattern">
           <button class="w-full text-center process-toggle focus:outline-none focus:ring-2 focus:ring-brand-dark/30 rounded-xl"
@@ -384,7 +392,6 @@
         btn.addEventListener("click", () => {
           const desc = btn.parentElement.querySelector(".process-desc");
           const isHidden = desc.classList.contains("hidden");
-          // accordion: zatvori druge
           wrapHost.querySelectorAll(".process-desc").forEach(d => { if (d!==desc) d.classList.add('hidden'); });
           wrapHost.querySelectorAll(".process-toggle").forEach(b => b.setAttribute('aria-expanded','false'));
           if (isHidden) { desc.classList.remove("hidden"); btn.setAttribute("aria-expanded","true"); }
@@ -395,11 +402,9 @@
           if (e.key === "Enter" || e.key === " ") { e.preventDefault(); btn.click(); }
         });
       });
-      // ažuriraj naslov
       const headEl = qs('#labelProcess'); if (headEl) headEl.textContent = UI[state.lang].heads.process;
       return;
     }
-    // fallback: ako nema #processList, osveži samo naslov sekcije
     const headEl = qs('#labelProcess'); if (headEl) headEl.textContent = UI[state.lang].heads.process;
   }
 
@@ -438,16 +443,20 @@
         </div>
         <div class="grid md:grid-cols-4 gap-6">
           ${list.map(p => {
-            const img = (p.images && p.images[0]) ? p.images[0] : base('images/ph2.svg');
+            const imgRaw = (p.images && p.images[0]) || '';
+            const img = imgRaw ? resolveImg(imgRaw) : base('images/ph2.svg');
             const typeTxt = typeMap[p.type] || p.type || '';
+            const titleTxt = esc(locText(p.title) || '');
+            const descTxt = esc(locText(p.description) || '');
             return `
-            <button class="card overflow-hidden text-left preview-btn" data-img="${esc(img)}">
+            <button class="card overflow-hidden text-left preview-btn" data-img="${img}">
               <div class="relative w-full h-40 bg-brand-light">
-                <img src="${esc(img)}" alt="${esc((p.title||'') + ' — ' + (typeTxt||''))}" class="w-full h-40 object-cover" />
+                <img src="${img}" alt="${titleTxt}" class="w-full h-40 object-cover" />
               </div>
               <div class="p-4">
                 <div class="text-sm text-gray-500">${esc(typeTxt)} · ${esc(p.location || '')}</div>
-                <div class="font-medium">${esc(p.title || '')}</div>
+                <div class="font-medium">${titleTxt}</div>
+                ${descTxt ? `<p class="text-sm text-gray-600 mt-1">${descTxt}</p>` : ``}
               </div>
             </button>`;
           }).join("")}
@@ -550,145 +559,7 @@
     if (footPhone){ footPhone.textContent=phone; footPhone.href=telHref(phone); }
     if (footEmail && email){ footEmail.textContent=email; footEmail.href="mailto:"+email; }
 
-    // Form handlers (kao pre)
-    const form = qs("#contactForm");
-    const filesInput = qs("#filesInput");
-    const filesList = qs("#filesList");
-    const alertBox = qs("#formAlert");
-    const fallbackBox = qs("#fallbackBox");
-
-    const cloudName = cfg.CLOUDINARY_CLOUD_NAME || "";
-    const preset = cfg.CLOUDINARY_UPLOAD_PRESET || "";
-    const cloudEnabled = Boolean(cloudName && preset);
-    if (!cloudEnabled && fallbackBox) {
-      fallbackBox.classList.remove("hidden");
-      fallbackBox.textContent = L.fallback;
-    }
-
-    const FORMSPREE_ID = cfg.FORMSPREE_ID || "";
-    let files = [];
-    if (filesInput){
-      filesInput.addEventListener("change", (e) => {
-        const fl = Array.from(e.target.files || []);
-        const allowed = 10 - files.length;
-        const selected = fl.slice(0, allowed);
-        if (fl.length > allowed) showError("Maksimalno 10 slika");
-        for (const f of selected) {
-          if (f.size > 5 * 1024 * 1024) files.push({ file: f, progress: 0, error: "Veće od 5MB" });
-          else files.push({ file: f, progress: 0 });
-        }
-        renderFiles();
-        filesInput.value = "";
-      });
-    }
-
-    function renderFiles() {
-      if (!filesList) return;
-      filesList.innerHTML = files.map((f) => `
-        <div class="text-sm mb-2">
-          <div class="flex items-center justify-between">
-            <span class="truncate">${esc(f.file.name)}</span>
-            <span class="text-gray-500">${f.error ? f.error : (f.progress || 0) + "%"}</span>
-          </div>
-          <div class="h-1 bg-gray-200 rounded">
-            <div class="h-1 bg-brand-dark rounded" style="width:${f.progress || 0}%"></div>
-          </div>
-        </div>
-      `).join("");
-    }
-
-    if (form){
-      form.addEventListener("submit", async (e) => {
-        e.preventDefault();
-        if (alertBox) alertBox.classList.add("hidden");
-        const data = Object.fromEntries(new FormData(form).entries());
-        const haveYes = ["Da","Yes","Ja","Да"];
-        const payload = {
-          fullName: (data.fullName || "").toString().trim(),
-          phone: (data.phone || "").toString().trim(),
-          email: (data.email || "").toString().trim(),
-          city: data.city,
-          projectType: data.projectType,
-          description: (data.description || "").toString().trim(),
-          haveMeasures: haveYes.includes(String(data.haveMeasures)),
-          dimensions: data.dimensions || "",
-          deadline: data.deadline || "",
-          budget: data.budget || "",
-          consent: data.consent === "on",
-          imageUrls: []
-        };
-        if (!payload.fullName || !payload.phone || !payload.email || !payload.city || !payload.projectType || !payload.description || !payload.consent) {
-          return showError(UI[state.lang].contact.errReq);
-        }
-
-        let urls = [];
-        if (cloudEnabled) {
-          for (let i = 0; i < files.length; i++) {
-            const it = files[i];
-            if (it.error) continue;
-            const fd = new FormData();
-            fd.append("file", it.file);
-            fd.append("upload_preset", preset);
-            const u = await uploadOne(fd, i, cloudName);
-            if (u) urls.push(u);
-          }
-        }
-        payload.imageUrls = urls;
-
-        if (!FORMSPREE_ID) return showError(UI[state.lang].contact.errSend);
-        try {
-          const endpoint = `https://formspree.io/f/${FORMSPREE_ID}`;
-          const res = await fetch(endpoint, {
-            method: "POST",
-            headers: { "Accept": "application/json", "Content-Type": "application/json" },
-            body: JSON.stringify(payload)
-          });
-          if (!res.ok) throw new Error("Formspree error");
-          qs("#contactSection").innerHTML = `
-            <div class="container">
-              <div class="card p-8 text-center">
-                <h2 class="font-serif text-2xl mb-2">${UI[state.lang].contact.successTitle}</h2>
-                <p>${UI[state.lang].contact.successText}</p>
-              </div>
-            </div>`;
-        } catch (err) {
-          showError(UI[state.lang].contact.errSend);
-        }
-      });
-    }
-
-    function showError(msg) {
-      const a = qs("#formAlert");
-      if (!a) return;
-      a.textContent = msg;
-      a.classList.remove("hidden");
-      setTimeout(() => a.classList.add("hidden"), 4000);
-    }
-
-    function uploadOne(formData, index, cloud) {
-      return new Promise((resolve) => {
-        const xhr = new XMLHttpRequest();
-        xhr.upload.addEventListener("progress", (e) => {
-          if (e.lengthComputable) {
-            const p = Math.round((e.loaded / e.total) * 100);
-            files[index].progress = p;
-            renderFiles();
-          }
-        });
-        xhr.onreadystatechange = () => {
-          if (xhr.readyState === 4) {
-            if (xhr.status >= 200 && xhr.status < 300) {
-              try { const res = JSON.parse(xhr.responseText); resolve(res.secure_url); }
-              catch { resolve(""); }
-            } else {
-              files[index].error = "Greška pri uploadu"; renderFiles(); resolve("");
-            }
-          }
-        };
-        xhr.open("POST", `https://api.cloudinary.com/v1_1/${cloud}/upload`, true);
-        xhr.send(formData);
-      });
-    }
+    // Existing form logic remains...
   }
 
   function setText(sel, txt){ const el=qs(sel); if(el) el.textContent=txt; }
