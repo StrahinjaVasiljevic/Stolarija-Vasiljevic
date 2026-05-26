@@ -162,7 +162,7 @@
       renderHeader();
       renderHero();
       renderServices();
-      renderProcess();
+      renderProcess();        // NOVO: generiše 2 reda + accordion
       renderWhyUs();
       renderPortfolioPreview();
       renderTestimonials();
@@ -268,16 +268,6 @@
   function qs(sel) { return document.querySelector(sel); }
   function telHref(phone) { return "tel:" + String(phone || "").replace(/\s+/g, ""); }
   function esc(s){ return String(s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
-  function locText(val){
-    if (!val) return '';
-    if (typeof val === 'string') return val;
-    return val[state.lang] || val.sr || '';
-  }
-  function resolveImg(src){
-    if (!src) return '';
-    if (/^https?:\/\//i.test(src)) return src;
-    return base(src);
-  }
 
   function initTheme(){
     const saved = localStorage.getItem('theme') || 'light';
@@ -368,44 +358,92 @@
     `;
   }
 
+  // NOVO: dinamički 2 reda + zavijajuća strelica + accordion opis
   function renderProcess() {
     const steps = (state.site?.process && state.site.process.length) ? state.site.process
                   : (UI[state.lang].process || []);
-    const wrapHost = qs("#processList");
-    if (wrapHost) {
-      wrapHost.innerHTML = steps.map((s, i) => `
-        <div class="card process-tile tile-pattern">
-          <button class="w-full text-center process-toggle focus:outline-none focus:ring-2 focus:ring-brand-dark/30 rounded-xl"
-                  data-i="${i}" aria-expanded="false">
-            <div class="tile-head">
-              <span class="chip">${i+1}</span>
-              <span class="tile-title">${esc(s.t)}</span>
-            </div>
-          </button>
-          <div class="tile-desc hidden process-desc" aria-hidden="true">${esc(s.d)}</div>
+    const mount = qs('#processMount');
+    const headEl = qs('#labelProcess');
+    if (headEl) headEl.textContent = UI[state.lang].heads.process;
+
+    if (!mount) return; // ako nema mount-a, samo naslov osveži
+
+    const top = steps.slice(0,4);
+    const bottom = steps.slice(4);
+
+    const cardHtml = (s, i, idx) => `
+      <div class="process-item" role="listitem">
+        <button class="process-card" type="button" aria-expanded="false"
+                aria-controls="process-panel-${idx}" id="process-btn-${idx}" data-process-toggle>
+          <span class="process-chip">${i}</span>
+          <span class="process-title">${esc(s.t)}</span>
+          <span class="process-sub">${esc(s.d.slice(0, 64))}${s.d.length>64?'…':''}</span>
+        </button>
+        <div class="process-panel" id="process-panel-${idx}" role="region" aria-labelledby="process-btn-${idx}">
+          <div class="process-panel-inner">
+            ${esc(s.d)}
+          </div>
         </div>
-        ${i<steps.length-1 ? `<div class="flex justify-center"><span class="flow-arrow" aria-hidden="true">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 4v16M12 20l-4-4M12 20l4-4" stroke="#0B3D3A" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </span></div>` : '' }
-      `).join("");
-      wrapHost.querySelectorAll(".process-toggle").forEach(btn => {
-        btn.addEventListener("click", () => {
-          const desc = btn.parentElement.querySelector(".process-desc");
-          const isHidden = desc.classList.contains("hidden");
-          wrapHost.querySelectorAll(".process-desc").forEach(d => { if (d!==desc) d.classList.add('hidden'); });
-          wrapHost.querySelectorAll(".process-toggle").forEach(b => b.setAttribute('aria-expanded','false'));
-          if (isHidden) { desc.classList.remove("hidden"); btn.setAttribute("aria-expanded","true"); }
-          else { desc.classList.add("hidden"); btn.setAttribute("aria-expanded","false"); }
-          desc.setAttribute("aria-hidden", String(!isHidden));
-        });
-        btn.addEventListener("keydown", (e) => {
-          if (e.key === "Enter" || e.key === " ") { e.preventDefault(); btn.click(); }
-        });
-      });
-      const headEl = qs('#labelProcess'); if (headEl) headEl.textContent = UI[state.lang].heads.process;
-      return;
+      </div>`;
+
+    const connector = `
+      <div class="process-connector" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="24" height="24">
+          <path d="M5 12h14m-4-4 4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>`;
+
+    let idx = 1;
+    const topRow = `
+      <div class="process-row process-row--top" role="list">
+        ${top.map((s,i)=> cardHtml(s, i+1, idx++) + (i<top.length-1?connector:'')).join('')}
+      </div>`;
+    const turn = `
+      <div class="process-turn" aria-hidden="true">
+        <svg viewBox="0 0 200 80" width="200" height="80" preserveAspectRatio="xMidYMid meet">
+          <path d="M10,10 C120,10 120,70 190,70" fill="none" stroke="currentColor" stroke-width="2"/>
+          <path d="M180,62 L190,70 L180,78" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>`;
+    const bottomRow = bottom.length ? `
+      <div class="process-row process-row--bottom" role="list">
+        ${bottom.map((s,i)=> cardHtml(s, 4+i+1, idx++) + (i<bottom.length-1?connector:'')).join('')}
+      </div>` : '';
+
+    mount.innerHTML = topRow + turn + bottomRow;
+
+    // accordion ponašanje
+    const root = qs('.process-flow');
+    const buttons = Array.from(root.querySelectorAll('[data-process-toggle]'));
+    let openPanel = null, openBtn = null;
+
+    buttons.forEach(btn=>{
+      const panel = qs('#'+btn.getAttribute('aria-controls'));
+      if (!panel) return;
+      btn.addEventListener('click', ()=> toggle(btn, panel));
+    });
+
+    function toggle(btn, panel){
+      const isOpen = btn.getAttribute('aria-expanded') === 'true';
+      if (openPanel && openPanel !== panel) collapse(openBtn, openPanel);
+      if (isOpen){ collapse(btn, panel); openPanel=null; openBtn=null; }
+      else { expand(btn, panel); openPanel=panel; openBtn=btn; }
     }
-    const headEl = qs('#labelProcess'); if (headEl) headEl.textContent = UI[state.lang].heads.process;
+    function expand(btn,panel){
+      btn.setAttribute('aria-expanded','true');
+      panel.classList.add('open');
+      panel.style.maxHeight = '0px';
+      const h = panel.scrollHeight;
+      panel.style.maxHeight = h + 'px';
+      panel.addEventListener('transitionend', onEnd);
+      function onEnd(e){ if(e.propertyName==='max-height'){ panel.style.maxHeight='none'; panel.removeEventListener('transitionend', onEnd); } }
+    }
+    function collapse(btn,panel){
+      btn.setAttribute('aria-expanded','false');
+      const h = panel.scrollHeight;
+      panel.style.maxHeight = h + 'px';
+      requestAnimationFrame(()=>{ panel.classList.remove('open'); panel.style.maxHeight='0px'; });
+    }
   }
 
   function renderWhyUs() {
@@ -443,11 +481,10 @@
         </div>
         <div class="grid md:grid-cols-4 gap-6">
           ${list.map(p => {
-            const imgRaw = (p.images && p.images[0]) || '';
-            const img = imgRaw ? resolveImg(imgRaw) : base('images/ph2.svg');
+            const img = (p.images && p.images[0]) ? p.images[0] : base('images/ph2.svg');
             const typeTxt = typeMap[p.type] || p.type || '';
-            const titleTxt = esc(locText(p.title) || '');
-            const descTxt = esc(locText(p.description) || '');
+            const titleTxt = esc(localize(p.title));
+            const descTxt = esc(localize(p.description));
             return `
             <button class="card overflow-hidden text-left preview-btn" data-img="${img}">
               <div class="relative w-full h-40 bg-brand-light">
@@ -462,6 +499,12 @@
           }).join("")}
         </div>
       </div>`;
+
+    function localize(val){
+      if (!val) return '';
+      if (typeof val === 'string') return val;
+      return val[state.lang] || val.sr || '';
+    }
   }
 
   function renderTestimonials() {
@@ -558,8 +601,6 @@
     if (emailEl && email){ emailEl.textContent=email; emailEl.href="mailto:"+email; }
     if (footPhone){ footPhone.textContent=phone; footPhone.href=telHref(phone); }
     if (footEmail && email){ footEmail.textContent=email; footEmail.href="mailto:"+email; }
-
-    // Existing form logic remains...
   }
 
   function setText(sel, txt){ const el=qs(sel); if(el) el.textContent=txt; }
@@ -631,3 +672,4 @@
     document.head.appendChild(s);
   }
 })();
+
