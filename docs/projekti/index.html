@@ -8,45 +8,38 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
-    tailwind.config = {
-      theme: { extend: {
-        colors: {'brand-dark':'#0B3D3A','brand-beige':'#E9E2D2','brand-light':'#F7F7F5'},
-        borderRadius:{xl:'16px','2xl':'24px'},
-        boxShadow:{card:'0 8px 30px rgba(0,0,0,0.08)'},
-        fontFamily:{serif:['Cormorant Garamond','serif'],sans:['Inter','ui-sans-serif','system-ui']}
-      } }
-    }
+    tailwind.config = { theme:{ extend:{
+      colors:{'brand-dark':'#0B3D3A','brand-beige':'#E9E2D2','brand-light':'#F7F7F5'},
+      borderRadius:{xl:'16px','2xl':'24px'},
+      boxShadow:{card:'0 8px 30px rgba(0,0,0,0.08)'},
+      fontFamily:{serif:['Cormorant Garamond','serif'],sans:['Inter','ui-sans-serif','system-ui']}
+    } } }
   </script>
   <style>
     :root{
       --bg:#ffffff; --text:#0b0b0b; --card:#ffffff; --border:#f0f0f0;
       --muted:#6B7280; --secondary-bg:#E9E2D2; --text-on-primary:#ffffff;
       --surface-1:#ffffff; --surface-2:#FAFAF9; --ring:#0B3D3A;
-      /* toggle (day) */
       --toggle-day-bg1:#F7F3EA; --toggle-day-bg2:#E9E2D2; --toggle-day-border:#E4DCCB;
-      /* computed (light default) */
       --toggle-bg1:var(--toggle-day-bg1); --toggle-bg2:var(--toggle-day-bg2); --toggle-border-c:var(--toggle-day-border);
     }
     html.theme-dark{
       --bg:#0D1113; --text:#EDE7DD; --card:#121619; --border:#1E2326;
       --muted:#C8C3BB; --secondary-bg:#2B2F31; --text-on-primary:#EDE7DD;
       --surface-1:#121619; --surface-2:#171C1F; --ring:#5FB2AD;
-      /* toggle (night) */
       --toggle-night-bg1:#0F1517; --toggle-night-bg2:#0B3D3A; --toggle-night-border:#1E2A2B;
-      /* computed (dark override) */
       --toggle-bg1:var(--toggle-night-bg1); --toggle-bg2:var(--toggle-night-bg2); --toggle-border-c:var(--toggle-night-border);
     }
 
     .container{max-width:1200px;margin:0 auto;padding:0 16px}
     body{background:var(--bg);color:var(--text)}
     .card{background:var(--card);border:1px solid var(--border);border-radius:16px;box-shadow:0 8px 30px rgba(0,0,0,0.08)}
-    html.theme-dark .card{ box-shadow: 0 16px 40px rgba(0,0,0,0.35); }
+    html.theme-dark .card{ box-shadow:0 16px 40px rgba(0,0,0,.35); }
     .btn{display:inline-flex;align-items:center;justify-content:center;border-radius:12px;padding:10px 16px;font-weight:500;transition:all .2s}
     .btn-primary{background:#0B3D3A;color:var(--text-on-primary)}
     .btn-secondary{background:var(--secondary-bg);color:#000}
     html.theme-dark .btn-secondary{color:var(--text)}
 
-    /* Header kao na početnoj */
     .site-header{
       background: color-mix(in srgb, var(--bg) 85%, transparent);
       border-bottom: 1px solid var(--border);
@@ -57,7 +50,6 @@
       html.theme-dark .site-header{ background: rgba(13,17,19,0.80); }
     }
 
-    /* Dropdown */
     .dropdown{position:relative}
     .dropdown-btn{display:flex;align-items:center;gap:8px;padding:8px 10px;border:1px solid var(--border);border-radius:10px;background:var(--card);color:var(--text)}
     .dropdown-menu{position:absolute;right:0;top:calc(100% + 8px);min-width:180px;background:var(--card);border:1px solid var(--border);border-radius:12px;box-shadow:0 8px 30px rgba(0,0,0,0.08);padding:6px;z-index:50}
@@ -66,38 +58,17 @@
     .flag{font-size:16px}
     .chev{transition:transform .2s}.open .chev{transform:rotate(180deg)}
 
-    /* Lightbox */
-    #lightbox{background:rgba(0,0,0,.7)} 
-    #lightbox img{max-height:80vh}
+    #lightbox{background:rgba(0,0,0,.7)} #lightbox img{max-height:80vh}
 
-    /* Dark coverage */
     html.theme-dark a{color:var(--text)}
     html.theme-dark a:hover{color:#DAD3C7}
-
     html.theme-dark .bg-white { background: var(--card) !important; }
-    html.theme-dark .bg-gray-50, 
-    html.theme-dark .bg-gray-100, 
-    html.theme-dark .bg-gray-200 { background: var(--border) !important; }
-    html.theme-dark .border-gray-100, 
-    html.theme-dark .border-gray-200 { border-color: var(--border) !important; }
+    html.theme-dark .bg-gray-50, html.theme-dark .bg-gray-100, html.theme-dark .bg-gray-200 { background: var(--border) !important; }
+    html.theme-dark .border-gray-100, html.theme-dark .border-gray-200 { border-color: var(--border) !important; }
     html.theme-dark .hover\:bg-gray-100:hover { background: var(--secondary-bg) !important; }
+    html.theme-dark .text-gray-900, html.theme-dark .text-gray-800, html.theme-dark .text-gray-700 { color: var(--text) !important; }
+    html.theme-dark .text-gray-600, html.theme-dark .text-gray-500 { color: var(--muted) !important; }
 
-    html.theme-dark .text-gray-900, 
-    html.theme-dark .text-gray-800,
-    html.theme-dark .text-gray-700 { color: var(--text) !important; }
-    html.theme-dark .text-gray-600, 
-    html.theme-dark .text-gray-500 { color: var(--muted) !important; }
-
-    html.theme-dark .bg-brand-light { background: var(--card) !important; }
-
-    /* Fokus pristupačnost (globalno) */
-    :where(a, button, input, select, textarea, [role="button"], .dropdown-btn):focus-visible{
-      outline: 2px solid var(--ring);
-      outline-offset: 2px;
-      border-color: var(--ring);
-    }
-
-    /* Theme toggle — dan/noć (vizuelni fill, mikrointerakcije) */
     #themeToggle{
       background: linear-gradient(180deg, var(--toggle-bg1), var(--toggle-bg2));
       border-color: var(--toggle-border-c) !important;
@@ -109,6 +80,12 @@
     html.theme-dark #themeToggle:hover{ filter: brightness(1.05) saturate(1.02); }
     #themeToggle:active{ transform: translateY(0.5px); }
     #themeToggle svg{ display:block; }
+
+    :where(a, button, input, select, textarea, [role="button"], .dropdown-btn):focus-visible{
+      outline: 2px solid var(--ring);
+      outline-offset: 2px;
+      border-color: var(--ring);
+    }
   </style>
   <script src="../assets/config.js"></script>
 </head>
@@ -117,14 +94,14 @@
     <div class="container h-16 flex items-center justify-between">
       <a href="../" class="flex items-center gap-3">
         <img src="../logo.svg" alt="Stolarija Vasiljević" class="h-8 w-auto">
-        <span class="font-serif text-xl">Stolarija Vasiljević</span>
+        <span class="font-serif text-xl" id="navBrand">Stolarija Vasiljević</span>
       </a>
       <nav class="hidden md:flex items-center gap-6 text-sm">
-        <a href="../#usluge" class="hover:text-brand-dark">Usluge</a>
-        <a href="../#proces" class="hover:text-brand-dark">Proces</a>
-        <a href="./" class="hover:text-brand-dark">Projekti</a>
-        <a href="../#faq" class="hover:text-brand-dark">FAQ</a>
-        <a href="../#kontakt" class="hover:text-brand-dark">Kontakt</a>
+        <a href="../#usluge" class="hover:text-brand-dark" id="navServices">Usluge</a>
+        <a href="../#proces" class="hover:text-brand-dark" id="navProcess">Proces</a>
+        <a href="./" class="hover:text-brand-dark" id="navProjects">Projekti</a>
+        <a href="../#faq" class="hover:text-brand-dark" id="navFAQ">FAQ</a>
+        <a href="../#kontakt" class="hover:text-brand-dark" id="navContact">Kontakt</a>
       </nav>
       <div class="flex items-center gap-3">
         <div class="dropdown" id="langSelectProj">
@@ -140,7 +117,7 @@
             <button class="dropdown-item" data-lang="ru"><span class="flag">🇷🇺</span><span>rus</span></button>
           </div>
         </div>
-        <button id="themeToggle" class="p-2 rounded-xl border border-gray-200 hover:bg-gray-100" aria-label="Promeni temu">
+        <button id="themeToggle" class="p-2 rounded-xl border border-gray-200 hover:bg-gray-100" aria-label="Promeni temu" title="Promeni temu">
           <span id="iconLight" class="block" aria-hidden="true">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M3 11l9-7 9 7" stroke="#0B3D3A" stroke-width="1.5" stroke-linecap="round"/><path d="M5 10.8V20h14v-9.2" stroke="#0B3D3A" stroke-width="1.5"/><circle cx="18.5" cy="5.5" r="2" fill="#E9E2D2" stroke="#0B3D3A" stroke-width="1"/></svg>
           </span>
@@ -149,15 +126,15 @@
           </span>
         </button>
         <a id="headerPhone" href="#" class="hidden md:inline text-sm font-medium hover:text-brand-dark">+381 64 122 04 29</a>
-        <a href="../#kontakt" class="hidden md:inline btn btn-primary text-sm">Pošalji upit</a>
+        <a href="../#kontakt" class="hidden md:inline btn btn-primary text-sm" id="headerCTA">Pošalji upit</a>
       </div>
     </div>
   </header>
 
   <main class="py-16">
     <div class="container">
-      <h1 class="font-serif text-4xl mb-2">Projekti</h1>
-      <p class="mb-8 text-gray-600">Naši radovi — izaberite kategoriju.</p>
+      <h1 class="font-serif text-4xl mb-2" id="pageTitle">Projekti</h1>
+      <p class="mb-8 text-gray-600" id="pageSub">Naši radovi — izaberite kategoriju.</p>
       <div id="filters" class="flex flex-wrap gap-2 mb-6"></div>
       <div id="grid" class="grid md:grid-cols-3 gap-6"></div>
     </div>
@@ -167,22 +144,22 @@
     <div class="container py-12 grid md:grid-cols-3 gap-8">
       <div>
         <div class="flex items-center gap-3 mb-4"><img src="../logo.svg" alt="Stolarija Vasiljević" class="h-8 w-auto"><span class="font-serif text-xl">Stolarija Vasiljević</span></div>
-        <p class="text-gray-700">Nameštaj po meri za dom i kancelariju — NS, BG i okolina. Jasan predračun — realni rokovi — uredna montaža.</p>
+        <p class="text-gray-700" id="footIntro">Nameštaj po meri za dom i kancelariju — NS, BG i okolina. Jasan predračun — realni rokovi — uredna montaža.</p>
       </div>
       <div>
-        <h4 class="font-medium mb-3">Navigacija</h4>
+        <h4 class="font-medium mb-3" id="footNavTitle">Navigacija</h4>
         <ul class="space-y-2 text-gray-700">
-          <li><a href="../#usluge" class="hover:text-brand-dark">Usluge</a></li>
-          <li><a href="../#proces" class="hover:text-brand-dark">Proces</a></li>
-          <li><a href="./" class="hover:text-brand-dark">Projekti</a></li>
-          <li><a href="../#faq" class="hover:text-brand-dark">FAQ</a></li>
-          <li><a href="../#kontakt" class="hover:text-brand-dark">Kontakt</a></li>
+          <li><a href="../#usluge" class="hover:text-brand-dark" id="footServices">Usluge</a></li>
+          <li><a href="../#proces" class="hover:text-brand-dark" id="footProcess">Proces</a></li>
+          <li><a href="./" class="hover:text-brand-dark" id="footProjects">Projekti</a></li>
+          <li><a href="../#faq" class="hover:text-brand-dark" id="footFAQ">FAQ</a></li>
+          <li><a href="../#kontakt" class="hover:text-brand-dark" id="footContact">Kontakt</a></li>
         </ul>
       </div>
       <div>
-        <h4 class="font-medium mb-3">Kontakt</h4>
+        <h4 class="font-medium mb-3" id="footContactTitle">Kontakt</h4>
         <ul class="space-y-2 text-gray-700">
-          <li>Telefon — <a id="footerPhone" href="#" class="hover:text-brand-dark">+381 64 122 04 29</a></li>
+          <li><span id="footPhoneLabel">Telefon</span> — <a id="footerPhone" href="#" class="hover:text-brand-dark">+381 64 122 04 29</a></li>
         </ul>
       </div>
     </div>
@@ -196,8 +173,60 @@
   </div>
 
   <script>
-    const CATS = ['Sve','Kuhinje','Plakari i garderoberi','Komode i police','TV zidovi','Kancelarije','Uređenje enterijera'];
+    const I18N = {
+      sr: {
+        nav:{services:'Usluge',process:'Proces',projects:'Projekti',faq:'FAQ',contact:'Kontakt'},
+        head:'Projekti',
+        sub:'Naši radovi — izaberite kategoriju.',
+        cta:'Pošalji upit',
+        cats:['Sve','Kuhinje','Plakari i garderoberi','Komode i police','TV zidovi','Kancelarije','Uređenje enterijera'],
+        types:{
+          'Kuhinje':'Kuhinje','Plakari i garderoberi':'Plakari i garderoberi','Komode i police':'Komode i police',
+          'TV zidovi':'TV zidovi','Kancelarije':'Kancelarije','Uređenje enterijera':'Uređenje enterijera'
+        },
+        footIntro:'Nameštaj po meri za dom i kancelariju — NS, BG i okolina. Jasan predračun — realni rokovi — uredna montaža.'
+      },
+      en: {
+        nav:{services:'Services',process:'Process',projects:'Projects',faq:'FAQ',contact:'Contact'},
+        head:'Projects',
+        sub:'Our work — choose a category.',
+        cta:'Send inquiry',
+        cats:['All','Kitchens','Wardrobes','Sideboards & Shelves','TV walls','Offices','Interior design'],
+        types:{
+          'Kuhinje':'Kitchens','Plakari i garderoberi':'Wardrobes','Komode i police':'Sideboards & Shelves',
+          'TV zidovi':'TV walls','Kancelarije':'Offices','Uređenje enterijera':'Interior design'
+        },
+        footIntro:'Custom furniture for home and office — Novi Sad, Belgrade and nearby. Transparent quotes — realistic timelines — tidy assembly.'
+      },
+      de: {
+        nav:{services:'Leistungen',process:'Ablauf',projects:'Projekte',faq:'FAQ',contact:'Kontakt'},
+        head:'Projekte',
+        sub:'Unsere Arbeiten — wählen Sie eine Kategorie.',
+        cta:'Anfrage senden',
+        cats:['Alle','Küchen','Schränke','Kommoden & Regale','TV‑Wände','Büros','Innenraumgestaltung'],
+        types:{
+          'Kuhinje':'Küchen','Plakari i garderoberi':'Schränke','Komode i police':'Kommoden & Regale',
+          'TV zidovi':'TV‑Wände','Kancelarije':'Büros','Uređenje enterijera':'Innenraumgestaltung'
+        },
+        footIntro:'Möbel nach Maß für Zuhause und Büro — Novi Sad, Belgrad und Umgebung. Transparente Angebote — realistische Fristen — saubere Montage.'
+      },
+      ru: {
+        nav:{services:'Услуги',process:'Процесс',projects:'Проекты',faq:'FAQ',contact:'Контакты'},
+        head:'Проекты',
+        sub:'Наши работы — выберите категорию.',
+        cta:'Отправить заявку',
+        cats:['Все','Кухни','Шкафы','Комоды и полки','TV‑стены','Офисы','Дизайн интерьера'],
+        types:{
+          'Kuhinje':'Кухни','Plakari i garderoberi':'Шкафы','Komode i police':'Комоды и полки',
+          'TV zidovi':'TV‑стены','Kancelarije':'Офисы','Uređenje enterijera':'Дизайн интерьера'
+        },
+        footIntro:'Мебель на заказ для дома и офиса — Нови-Сад, Белград и окрестности. Прозрачные сметы — реальные сроки — аккуратный монтаж.'
+      }
+    };
+
     const phoneDefault = "+381 64 122 04 29";
+    const L = localStorage.getItem('lang') || 'sr';
+    const T = I18N[L] || I18N.sr;
 
     function applyTheme(theme){
       document.documentElement.classList.toggle('theme-dark', theme==='dark');
@@ -207,21 +236,25 @@
     (function initTheme(){
       const saved = localStorage.getItem('theme') || 'light';
       applyTheme(saved);
-      document.getElementById('themeToggle').addEventListener('click', ()=>{
-        const next = document.documentElement.classList.contains('theme-dark') ? 'light' : 'dark';
-        applyTheme(next); localStorage.setItem('theme', next);
-      });
+      const tg = document.getElementById('themeToggle');
+      if (tg){
+        tg.setAttribute('title', L==='sr'?'Promeni temu': L==='en'?'Toggle theme': L==='de'?'Thema wechseln':'Сменить тему');
+        tg.setAttribute('aria-label', tg.getAttribute('title'));
+        tg.addEventListener('click', ()=>{
+          const next = document.documentElement.classList.contains('theme-dark') ? 'light' : 'dark';
+          applyTheme(next); localStorage.setItem('theme', next);
+        });
+      }
     })();
 
     function initLangDropdownProj(){
-      const stored = localStorage.getItem('lang') || 'sr';
       const map = {
         sr: { label:'Jezik', abbr:'srb', flag:'🇷🇸' },
         en: { label:'Language', abbr:'eng', flag:'🇬🇧' },
         de: { label:'Sprache', abbr:'deu', flag:'🇩🇪' },
         ru: { label:'Язык', abbr:'рус', flag:'🇷🇺' }
       };
-      const cur = map[stored] || map.sr;
+      const cur = map[L] || map.sr;
       document.getElementById('langFlagProj').textContent = cur.flag;
       document.getElementById('langLabelProj').textContent = `${cur.label}: ${cur.abbr}`;
 
@@ -251,7 +284,21 @@
     }
     initLangDropdownProj();
 
-    (async function(){
+    (function initStaticTexts(){
+      // Header nav
+      const n = T.nav;
+      const set = (id, text) => { const el=document.getElementById(id); if(el) el.textContent=text; };
+      set('navServices', n.services); set('navProcess', n.process); set('navProjects', n.projects); set('navFAQ', n.faq); set('navContact', n.contact);
+      set('footServices', n.services); set('footProcess', n.process); set('footProjects', n.projects); set('footFAQ', n.faq); set('footContact', n.contact);
+      // Page head/sub
+      const h=document.getElementById('pageTitle'); if(h) h.textContent=T.head;
+      const s=document.getElementById('pageSub'); if(s) s.textContent=T.sub;
+      const cta=document.getElementById('headerCTA'); if(cta) cta.textContent=T.cta;
+      const fi=document.getElementById('footIntro'); if(fi) fi.textContent=T.footIntro;
+      document.title = `${T.head} — Stolarija Vasiljević`;
+    })();
+
+    (async function phoneInit(){
       try {
         const phone = (window.APP_CONFIG && window.APP_CONFIG.CONTACT_PHONE) || phoneDefault;
         document.querySelectorAll("#headerPhone,#footerPhone").forEach(a => { a.textContent=phone; a.href="tel:"+phone.replace(/\s+/g,""); });
@@ -262,32 +309,45 @@
 
     document.addEventListener("DOMContentLoaded", async () => {
       const list = (await fetch("../content/projects.json", { cache: "no-store" }).then(r=>r.json())).projects || [];
-      let current = 'Sve';
+      let current = T.cats[0];
       const filters = document.getElementById("filters");
       const grid = document.getElementById("grid");
-      CATS.forEach(c=>{
+
+      // build filters
+      T.cats.forEach(c=>{
         const b = document.createElement("button");
         b.className = "btn " + (c===current?"btn-primary":"btn-secondary") + " text-sm";
         b.textContent = c; b.addEventListener("click",()=>{ current=c; render(); });
         filters.appendChild(b);
       });
+
       function render(){
         filters.querySelectorAll("button").forEach(b=>{
           b.className = "btn " + (b.textContent===current?"btn-primary":"btn-secondary") + " text-sm";
         });
-        const items = current==='Sve' ? list : list.filter(p=>p.type===current);
-        grid.innerHTML = items.map(p=>`
-          <button class="card overflow-hidden text-left preview-btn" data-img="${(p.images&&p.images[0]) || '../images/ph3.svg'}">
+        const items = current===T.cats[0] ? list : list.filter(p=>{
+          // map stored SR type to localized filter label
+          const t = T.types[p.type] || p.type || '';
+          return t === current;
+        });
+        grid.innerHTML = items.map(p=>{
+          const img = (p.images && p.images[0]) || '../images/ph3.svg';
+          const typeTxt = T.types[p.type] || p.type || '';
+          const title = p.title || '';
+          const desc = p.description || '';
+          const loc = p.location || '';
+          return `
+          <button class="card overflow-hidden text-left preview-btn" data-img="${img}">
             <div class="w-full h-56 bg-white">
-              <img src="${(p.images&&p.images[0]) || '../images/ph3.svg'}" alt="${p.title || 'Projekat'}" class="w-full h-56 object-cover">
+              <img src="${img}" alt="${title}" class="w-full h-56 object-cover">
             </div>
             <div class="p-4">
-              <div class="text-sm text-gray-600">${p.type || ''} · ${p.location || ''}</div>
-              <div class="font-medium mb-2">${p.title || ''}</div>
-              <p class="text-sm text-gray-700">${p.description || ''}</p>
+              <div class="text-sm text-gray-600">${typeTxt} · ${loc}</div>
+              <div class="font-medium mb-2">${title}</div>
+              <p class="text-sm text-gray-700">${desc}</p>
             </div>
-          </button>
-        `).join("");
+          </button>`;
+        }).join("");
       }
       render();
 
@@ -308,3 +368,4 @@
   </script>
 </body>
 </html>
+
