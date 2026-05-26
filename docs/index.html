@@ -82,7 +82,7 @@
 
     /* PREMIUM REALISTIC LOGO */
     .brand-logo{
-      height: 32px;           /* header size */
+      height: 32px;
       width: auto;
       display: block;
       filter: drop-shadow(0 10px 18px rgba(0,0,0,.35));
@@ -113,6 +113,30 @@
     .flag{font-size:16px}
     .chev{transition:transform .2s}
     .open .chev{transform:rotate(180deg)}
+
+    /* Dark theme coverage for Tailwind utility classes and gradients */
+    html.theme-dark .bg-white { background: var(--card) !important; }
+    html.theme-dark .bg-gray-100, html.theme-dark .bg-gray-200 { background: var(--border) !important; }
+    html.theme-dark .border-gray-100, html.theme-dark .border-gray-200 { border-color: var(--border) !important; }
+    html.theme-dark .hover\:bg-gray-100:hover { background: var(--secondary-bg) !important; }
+
+    html.theme-dark .text-gray-900, 
+    html.theme-dark .text-gray-800 { color: var(--text) !important; }
+    html.theme-dark .text-gray-700 { color: var(--text) !important; }
+    html.theme-dark .text-gray-600, 
+    html.theme-dark .text-gray-500 { color: var(--muted) !important; }
+
+    /* Gradients on hero: from-white -> var(--bg), to-brand-light -> var(--card) */
+    html.theme-dark .from-white { 
+      --tw-gradient-from: var(--bg) !important; 
+      --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(0,0,0,0)); 
+    }
+    html.theme-dark .to-brand-light { --tw-gradient-to: var(--card) !important; }
+
+    /* Soften beige highlight in dark mode */
+    html.theme-dark .bg-brand-beige\/30 { 
+      background-color: color-mix(in srgb, var(--secondary-bg) 70%, transparent) !important; 
+    }
   </style>
 
   <link rel="icon" href="./favicon.ico">
@@ -124,17 +148,10 @@
   <header class="site-header sticky top-0 z-50">
     <div class="container h-16 flex items-center justify-between">
       <a href="./" class="brand-lockup">
-        <!-- Realističan logo: WEBP -> PNG fallback -> (opciono SVG fallback) -->
         <picture>
           <source srcset="./logo.webp?v=4" type="image/webp">
           <source srcset="./logo.png?v=4" type="image/png">
-         
-<picture>
-  <source srcset="./logo.webp?v=4" type="image/webp">
-  <source srcset="./logo.png?v=4" type="image/png">
-  <img src="./logo.png?v=4" alt="Stolarija Vasiljević" class="brand-logo" loading="eager" decoding="async">
-</picture>
-
+          <img src="./logo.png?v=4" alt="Stolarija Vasiljević" class="brand-logo" loading="eager" decoding="async">
         </picture>
         <span class="brand-name">Stolarija Vasiljević</span>
       </a>
@@ -335,13 +352,7 @@
           <picture>
             <source srcset="./logo.webp?v=4" type="image/webp">
             <source srcset="./logo.png?v=4" type="image/png">
-            
-<picture>
-  <source srcset="./logo.webp?v=4" type="image/webp">
-  <source srcset="./logo.png?v=4" type="image/png">
-  <img src="./logo.png?v=4" alt="Stolarija Vasiljević" class="brand-logo brand-logo--footer" loading="lazy" decoding="async">
-</picture>
-
+            <img src="./logo.png?v=4" alt="Stolarija Vasiljević" class="brand-logo brand-logo--footer" loading="lazy" decoding="async">
           </picture>
           <span class="brand-name">Stolarija Vasiljević</span>
         </div>
