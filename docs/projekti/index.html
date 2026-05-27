@@ -1,165 +1,216 @@
 <!doctype html>
 <html lang="sr">
-<head>
-  <meta charset="utf-8">
+<head="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><head>
+  <meta name="theme-color" content="#0B3D3A">
   <title>Projekti — Stolarija Vasiljević</title>
-  <meta name="description" content="Naši radovi — izaberite kategoriju. Kuhinje, plakari, komode, police, TV zidovi i kancelarije.">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Portfolio projekata: kuhinje, plakari, TV zidovi, kancelarije i uređenje enterijera. Skica/3D + finalne slike.">
+
+  <link rel="icon" href="../favicon.ico">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
-    tailwind.config = { theme:{ extend:{
-      colors:{'brand-dark':'#0B3D3A','brand-beige':'#E9E2D2','brand-light':'#F7F7F5'},
-      borderRadius:{xl:'16px','2xl':'24px'}, boxShadow:{card:'0 8px 30px rgba(0,0,0,0.08)'},
+    tailwind.config = { theme: { extend: {
+      colors: {'brand-dark':'#0B3D3A','brand-beige':'#E9E2D2','brand-light':'#F7F7F5'},
+      boxShadow:{card:'0 8px 30px rgba(0,0,0,0.08)'},
+      borderRadius:{xl:'16px','2xl':'24px'},
       fontFamily:{serif:['Cormorant Garamond','serif'],sans:['Inter','ui-sans-serif','system-ui']}
-    } } }
+    } } };
   </script>
+
   <style>
-    /* … (isti CSS za dropdown/tema/logo kao u glavnoj strani, prilagođen putanjama) … */
+    :root{
+      --bg:#ffffff; --text:#0b0b0b; --brand:#0B3D3A;
+      --card:#ffffff; --border:#f0f0f0; --muted:#6B7280;
+      --secondary-bg:#E9E2D2; --text-on-primary:#ffffff;
+      --ring:#0B3D3A;
+
+      --toggle-day-bg1:#F7F3EA; --toggle-day-bg2:#E9E2D2; --toggle-day-border:#E4DCCB;
+      --toggle-bg1:var(--toggle-day-bg1); --toggle-bg2:var(--toggle-day-bg2); --toggle-border-c:var(--toggle-day-border);
+    }
+    html.theme-dark{
+      --bg:#0D1113; --text:#EDE7DD; --card:#121619; --border:#1E2326;
+      --muted:#C8C3BB; --secondary-bg:#2B2F31; --text-on-primary:#EDE7DD;
+      --ring:#5FB2AD;
+
+      --toggle-night-bg1:#0F1517; --toggle-night-bg2:#0B3D3A; --toggle-night-border:#1E2A2B;
+      --toggle-bg1:var(--toggle-night-bg1); --toggle-bg2:var(--toggle-night-bg2); --toggle-border-c:var(--toggle-night-border);
+    }
+
+    body{ background:var(--bg); color:var(--text); }
+    .container{max-width:1200px;margin:0 auto;padding:0 16px}
+    .card{background:var(--card);border:1px solid var(--border);border-radius:16px;box-shadow:0 8px 30px rgba(0,0,0,0.08)}
+    html.theme-dark .card{ box-shadow: 0 16px 40px rgba(0,0,0,0.35); }
+    .btn{display:inline-flex;align-items:center;justify-content:center;border-radius:12px;padding:12px 20px;font-weight:500;transition:all .2s}
+    .btn-primary{background:var(--brand);color:var(--text-on-primary)} .btn-primary:hover{filter:brightness(.95)}
+    .btn-secondary{background:var(--secondary-bg);color:#000} .btn-secondary:hover{filter:brightness(.97)}
+    html.theme-dark .btn-secondary{color:var(--text)}
+
+    .site-header{
+      background: color-mix(in srgb, var(--bg) 85%, transparent);
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(10px);
+    }
+    @supports not (background: color-mix(in srgb, white 50%, transparent)){
+      .site-header{ background: rgba(255,255,255,0.80); }
+      html.theme-dark .site-header{ background: rgba(13,17,19,0.80); }
+    }
+
+    .logo { display:inline-flex; align-items:center; justify-content:center; }
+    .logo-img { display:block; height:auto; image-rendering: -webkit-optimize-contrast; }
+    .logo--header .logo-img { height: 36px; }
+    @media (min-width:1024px){ .logo--header .logo-img { height: 40px; } }
+    .logo-dark { display:none; }
+    html.theme-dark .logo-light { display:none; }
+    html.theme-dark .logo-dark { display:block; }
+
+    /* Jezik dropdown — kompaktan */
+    .dropdown{position:relative}
+    #langToggle{ display:flex; align-items:center; gap:6px; padding:6px 10px; min-height:36px; border:1px solid var(--border); border-radius:9999px; background:var(--card); color:var(--text); }
+    .flag{ display:inline-block; font-size:16px; line-height:1; }
+    .chev{ transition:transform .2s; width:14px; height:14px; }
+    .open .chev{ transform:rotate(180deg); }
+    .dropdown-menu{ position:absolute; right:0; top:calc(100% + 6px); min-width:160px; background:var(--card); border:1px solid var(--border); border-radius:12px; box-shadow:0 8px 30px rgba(0,0,0,0.08); padding:4px; z-index:50 }
+    .dropdown-item{ display:flex; align-items:center; gap:8px; width:100%; text-align:left; padding:6px 8px; border-radius:10px; color:var(--text); min-height:34px; }
+    .dropdown-item:hover{ background:var(--secondary-bg) }
+
+    /* Theme toggle */
+    #themeToggle{
+      background: linear-gradient(180deg, var(--toggle-bg1), var(--toggle-bg2));
+      border-color: var(--toggle-border-c) !important;
+      min-width: 42px; min-height: 42px;
+      box-shadow: 0 2px 0 rgba(0,0,0,.04) inset, 0 1px 2px rgba(0,0,0,.08);
+      transition: background-color .2s, filter .2s, box-shadow .2s, transform .06s;
+    }
+
+    :where(a, button, input, select, textarea):focus-visible{
+      outline: 2px solid var(--ring);
+      outline-offset: 2px;
+      border-color: var(--ring);
+    }
+
+    .lightbox-backdrop{ background: rgba(0,0,0,0.75); backdrop-filter: blur(6px); }
+    html.theme-dark #projectModalCard{ background: var(--card); border-color: var(--border); }
   </style>
+
   <script src="../assets/config.js"></script>
+  <script src="../assets/site.js" defer></script>
 </head>
-<body class="font-sans">
-  <header class="site-header border-b border-gray-100 bg-white/80 backdrop-blur sticky top-0 z-50">
+
+<body class="font-sans" data-page="projects">
+  <header class="site-header sticky top-0 z-50">
     <div class="container h-16 flex items-center justify-between">
-      <a href="../" class="flex items-center gap-3" aria-label="Početna">
+      <a href="../" class="brand-lockup" aria-label="Početna">
         <span class="logo logo--header">
-          <img src="../assets/img/logo-light.svg" alt="Vasiljević" class="logo-img logo-light">
-          <img src="../assets/img/logo-dark.svg" alt="Vasiljević" class="logo-img logo-dark">
+          <img src="../assets/img/logo-light.svg" alt="Vasiljević" class="logo-img logo-light" decoding="async">
+          <img src="../assets/img/logo-dark.svg" alt="Vasiljević" class="logo-img logo-dark" decoding="async">
         </span>
       </a>
-      <nav class="hidden md:flex items-center gap-6 text-sm">
-        <a href="../#usluge" class="hover:text-brand-dark" id="navServices">Usluge</a>
-        <a href="../#proces" class="hover:text-brand-dark" id="navProcess">Proces</a>
-        <a href="./" class="hover:text-brand-dark" id="navProjects">Projekti</a>
-        <a href="../#faq" class="hover:text-brand-dark" id="navFAQ">FAQ</a>
-        <a href="../#kontakt" class="hover:text-brand-dark" id="navContact">Kontakt</a>
-      </nav>
+
       <div class="flex items-center gap-2 md:gap-3">
-        <div class="dropdown" id="langSelectProj">
-          <button id="langToggleProj" class="dropdown-btn" aria-haspopup="true" aria-expanded="false" type="button">
-            <span class="flag" id="langFlagProj">🇷🇸</span>
-            <span id="langLabelProj">Jezik: srb</span>
-            <svg class="chev" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        <!-- Jezik -->
+        <div class="dropdown" id="langSelect">
+          <button id="langToggle" class="dropdown-btn" aria-haspopup="true" aria-expanded="false" type="button">
+            <span class="flag" id="langFlag">🇷🇸</span>
+            <span id="langLabel">Jezik: srb</span>
+            <svg class="chev" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
           </button>
-          <div id="langMenuProj" class="dropdown-menu hidden" role="menu" aria-label="Izaberi jezik">
+          <div id="langMenu" class="dropdown-menu hidden" role="menu" aria-label="Izaberi jezik">
             <button class="dropdown-item" data-lang="sr" type="button"><span class="flag">🇷🇸</span><span>srb</span></button>
             <button class="dropdown-item" data-lang="en" type="button"><span class="flag">🇬🇧</span><span>eng</span></button>
             <button class="dropdown-item" data-lang="de" type="button"><span class="flag">🇩🇪</span><span>deu</span></button>
             <button class="dropdown-item" data-lang="ru" type="button"><span class="flag">🇷🇺</span><span>rus</span></button>
           </div>
         </div>
-        <button id="themeToggle" class="p-2 rounded-xl border border-gray-200 hover:bg-gray-100" aria-label="Promeni temu" title="Promeni temu" type="button">
-          <span id="iconLight" class="block" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M3 11l9-7 9 7" stroke="#0B3D3A" stroke-width="1.5" stroke-linecap="round"/><path d="M5 10.8V20h14v-9.2" stroke="#0B3D3A" stroke-width="1.5"/><circle cx="18.5" cy="5.5" r="2" fill="#E9E2D2" stroke="#0B3D3A" stroke-width="1"/></svg></span>
-          <span id="iconDark" class="hidden" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M3 11l9-7 9 7" stroke="#EDE7DD" stroke-width="1.5" stroke-linecap="round"/><path d="M5 10.8V20h14v-9.2" stroke="#EDE7DD" stroke-width="1.5"/><path d="M19 3.5c-1.7.4-3 1.9-3 3.7 0 2.1 1.7 3.8 3.8 3.8 1.7 0 3.2-1.1 3.6-2.8-2.2.3-4.1-1.4-4.4-3.4z" fill="#EDE7DD"/></svg></span>
+
+        <!-- Tema -->
+        <button id="themeToggle" class="p-2 rounded-xl border border-gray-200 hover:bg-gray-100 md:ml-1" aria-label="Promeni temu" type="button">
+          <span id="iconLight" class="block" aria-hidden="true">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+              <path d="M3 11l9-7 9 7" stroke="#0B3D3A" stroke-width="1.5" stroke-linecap="round"/>
+              <path d="M5 10.8V20h14v-9.2" stroke="#0B3D3A" stroke-width="1.5"/>
+              <circle cx="18.5" cy="5.5" r="2" fill="#E9E2D2" stroke="#0B3D3A" stroke-width="1"/>
+            </svg>
+          </span>
+          <span id="iconDark" class="hidden" aria-hidden="true">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+              <path d="M3 11l9-7 9 7" stroke="#EDE7DD" stroke-width="1.5" stroke-linecap="round"/>
+              <path d="M5 10.8V20h14v-9.2" stroke="#EDE7DD" stroke-width="1.5"/>
+              <path d="M19 3.5c-1.7.4-3 1.9-3 3.7 0 2.1 1.7 3.8 3.8 3.8 1.7 0 3.2-1.1 3.6-2.8-2.2.3-4.1-1.4-4.4-3.4z" fill="#EDE7DD"/>
+            </svg>
+          </span>
         </button>
-        <a id="headerPhone" href="#" class="hidden md:inline text-sm font-medium hover:text-brand-dark">+381 64 122 04 29</a>
-        <a href="../#kontakt" class="hidden md:inline btn btn-primary text-sm" id="headerCTA">Pošalji upit</a>
+
+        <a id="headerPhone" href="tel:+381641220429" class="hidden md:inline text-sm font-medium hover:text-brand-dark">+381 64 122 04 29</a>
+        <a href="../#kontakt" class="hidden md:inline btn btn-primary text-sm" id="ctaHeader">Pošalji upit</a>
+        <a id="headerPhoneMobile" href="tel:+381641220429" class="md:hidden btn btn-primary text-sm">Pozovi</a>
       </div>
     </div>
   </header>
 
-  <main class="py-16">
-    <div class="container">
-      <h1 class="font-serif text-4xl mb-2" id="pageTitle">Projekti</h1>
-      <p class="mb-8 text-gray-600" id="pageSub">Naši radovi — izaberite kategoriju.</p>
-      <div id="filters" class="flex flex-wrap gap-2 mb-6"></div>
-      <div id="grid" class="grid md:grid-cols-3 gap-6"></div>
-    </div>
+  <main class="py-10">
+    <section class="container">
+      <div class="flex flex-col gap-2 md:flex-row md:items-end md:justify-between mb-6">
+        <div>
+          <h1 class="font-serif text-4xl md:text-5xl leading-tight" id="projectsPageTitle">Projekti</h1>
+          <p class="text-gray-600 mt-2" id="projectsPageSubtitle">Skica/3D + 1–2 finalne slike. Filtriraj po tipu i lokaciji.</p>
+        </div>
+        <a href="../#kontakt" class="btn btn-secondary" id="projectsPageCTA">Pošalji upit</a>
+      </div>
+
+      <!-- site.js ovde renderuje filtere + grid -->
+      <div id="projectsPageMount"></div>
+    </section>
   </main>
 
-  <footer class="bg-brand-light border-t border-gray-100">
-    <div class="container py-12 grid md:grid-cols-3 gap-8">
-      <div>
-        <div class="flex items-center gap-3 mb-4">
-          <span class="logo logo--header">
-            <img src="../assets/img/logo-light.svg" alt="Vasiljević" class="logo-img logo-light">
-            <img src="../assets/img/logo-dark.svg" alt="Vasiljević" class="logo-img logo-dark">
-          </span>
-        </div>
-        <p class="text-gray-700" id="footIntro">Nameštaj po meri za dom i kancelariju — NS, BG i okolina. Jasan predračun — realni rokovi — uredna montaža.</p>
-      </div>
-      <div>
-        <h4 class="font-medium mb-3" id="footNavTitle">Navigacija</h4>
-        <ul class="space-y-2 text-gray-700">
-          <li><a href="../#usluge" class="hover:text-brand-dark" id="footServices">Usluge</a></li>
-          <li><a href="../#proces" class="hover:text-brand-dark" id="footProcess">Proces</a></li>
-          <li><a href="./" class="hover:text-brand-dark" id="footProjects">Projekti</a></li>
-          <li><a href="../#faq" class="hover:text-brand-dark" id="footFAQ">FAQ</a></li>
-          <li><a href="../#kontakt" class="hover:text-brand-dark" id="footContact">Kontakt</a></li>
-        </ul>
-      </div>
-      <div>
-        <h4 class="font-medium mb-3" id="footContactTitle">Kontakt</h4>
-        <ul class="space-y-2 text-gray-700">
-          <li><span id="footPhoneLabel">Telefon</span> — <a id="footerPhone" href="#" class="hover:text-brand-dark">+381 64 122 04 29</a></li>
-      </div>
-    </div>
-  </footer>
+  <!-- Modal / Lightbox + info panel -->
+  <div id="projectModal" class="hidden fixed inset-0 z-[70] items-center justify-center lightbox-backdrop">
+    <div id="projectModalCard" class="w-[94vw] max-w-6xl max-h-[90vh] overflow-hidden rounded-2xl bg-white card border border-gray-200 flex flex-col md:flex-row">
+      <!-- Image side -->
+      <div class="relative md:w-[62%] bg-gray-100">
+        <img id="projectModalImg" src="" alt="" class="w-full h-[52vh] md:h-[90vh] object-contain bg-gray-100" decoding="async">
 
-  <div id="lightbox" class="fixed inset-0 hidden items-center justify-center z-50 px-4">
-    <div class="card p-2 max-w-4xl w-full bg-white relative">
-      <button id="lightboxClose" class="absolute -top-10 right-0 text-white text-lg" type="button">Zatvori</button>
-      <img id="lightboxImg" src="" alt="Pregled projekta" class="w-full h-auto rounded-xl">
+        <button id="projectPrev" type="button"
+                class="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/90 hover:bg-white shadow border border-gray-200 flex items-center justify-center"
+                aria-label="Prethodni projekat">‹</button>
+        <button id="projectNext" type="button"
+                class="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/90 hover:bg-white shadow border border-gray-200 flex items-center justify-center"
+                aria-label="Sledeći projekat">›</button>
+      </div>
+
+      <!-- Info side -->
+      <aside class="md:w-[38%] p-6 overflow-auto">
+        <div class="flex items-start justify-between gap-3">
+          <div>
+            <div id="projectModalMeta" class="text-sm text-gray-500"></div>
+            <h2 id="projectModalTitle" class="font-serif text-3xl mt-1"></h2>
+          </div>
+          <button id="projectClose" type="button"
+                  class="w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center"
+                  aria-label="Zatvori">✕</button>
+        </div>
+
+        <p id="projectModalDesc" class="text-gray-700 mt-4"></p>
+
+        <div id="projectModalThumbs" class="mt-6 grid grid-cols-3 gap-3"></div>
+
+        <div class="mt-8 flex gap-3 flex-wrap">
+          <a href="../#kontakt" class="btn btn-primary" id="projectModalCTA">Pošalji upit</a>
+          <button id="projectCopyLink" type="button" class="btn btn-secondary">Kopiraj link</button>
+        </div>
+
+        <p class="text-xs text-gray-500 mt-4">
+          Standard: 1 skica/3D + 1–2 final fotografije nakon montaže.
+        </p>
+      </aside>
     </div>
   </div>
-
-  <script>
-    // Tema
-    function applyTheme(theme){
-      document.documentElement.classList.toggle('theme-dark', theme==='dark');
-      const light = document.getElementById('iconLight'), dark = document.getElementById('iconDark');
-      if (light && dark){ if(theme==='dark'){ light.classList.add('hidden'); dark.classList.remove('hidden'); } else { dark.classList.add('hidden'); light.classList.remove('hidden'); } }
-    }
-    (function initTheme(){
-      const saved = localStorage.getItem('theme') || 'light';
-      applyTheme(saved);
-      const tg = document.getElementById('themeToggle');
-      if (tg){
-        tg.addEventListener('click', ()=>{
-          const next = document.documentElement.classList.contains('theme-dark') ? 'light' : 'dark';
-          applyTheme(next); localStorage.setItem('theme', next);
-        }, { passive: true });
-      }
-    })();
-
-    // Jezik
-    (function initLang(){
-      const L = localStorage.getItem('lang') || 'sr';
-      const map = { sr:{ label:'Jezik', abbr:'srb', flag:'🇷🇸' }, en:{ label:'Language', abbr:'eng', flag:'🇬🇧' },
-                    de:{ label:'Sprache', abbr:'deu', flag:'🇩🇪' }, ru:{ label:'Язык', abbr:'рус', flag:'🇷🇺' } };
-      const cur = map[L] || map.sr;
-      const flag = document.getElementById('langFlagProj'); const lab = document.getElementById('langLabelProj');
-      if (flag) flag.textContent = cur.flag; if (lab) lab.textContent = `${cur.label}: ${cur.abbr}`;
-
-      const toggle = document.getElementById('langToggleProj');
-      const menu = document.getElementById('langMenuProj');
-      if (toggle && menu){
-        toggle.addEventListener('click', (e)=>{
-          e.stopPropagation();
-          const open = !menu.classList.contains('hidden');
-          menu.classList.toggle('hidden', open);
-          toggle.parentElement.classList.toggle('open', !open);
-          toggle.setAttribute('aria-expanded', String(!open));
-        });
-        document.addEventListener('click', ()=>{
-          if (!menu.classList.contains('hidden')){
-            menu.classList.add('hidden');
-            toggle.parentElement.classList.remove('open');
-            toggle.setAttribute('aria-expanded','false');
-          }
-        });
-        menu.querySelectorAll('.dropdown-item').forEach(b=>{
-          b.addEventListener('click', ()=>{
-            const lang = b.getAttribute('data-lang');
-            localStorage.setItem('lang', lang || 'sr');
-            location.reload();
-          });
-        });
-      }
-    })();
-
-    // Tekstovi i projekti (isti kao prethodno rješenje) …
-  </script>
 </body>
 </html>
+  <meta charset="utf-8">
+
