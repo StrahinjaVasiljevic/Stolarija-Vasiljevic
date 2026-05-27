@@ -15,7 +15,11 @@
         "de": "Lineares Layout mit cleverem Stauraum und Soft‑Close Beschlägen.",
         "ru": "Линейная планировка с удобным хранением и доводчиками."
       },
-      "images": ["images/ph2.svg"]
+      "images": [
+        "images/projects/kuhinja-m/01-skica.webp",
+        "images/projects/kuhinja-m/02-final.webp",
+        "images/projects/kuhinja-m/03-final.webp"
+      ]
     },
     {
       "type": "Plakari i garderoberi",
@@ -32,7 +36,10 @@
         "de": "Schiebetüren, Stauraum bis zur Decke.",
         "ru": "Раздвижные двери, хранение до потолка."
       },
-      "images": ["images/ph3.svg"]
+      "images": [
+        "images/projects/ugradni-plakar-s/01-skica.webp",
+        "images/projects/ugradni-plakar-s/02-final.webp"
+      ]
     },
     {
       "type": "Komode i police",
@@ -49,7 +56,10 @@
         "de": "Diskrete Kabelführung und klare Linien.",
         "ru": "Скрытая проводка кабелей и чистые линии."
       },
-      "images": ["images/ph2.svg"]
+      "images": [
+        "images/projects/tv-komoda-police/01-skica.webp",
+        "images/projects/tv-komoda-police/02-final.webp"
+      ]
     },
     {
       "type": "TV zidovi",
@@ -66,7 +76,11 @@
         "de": "Holzstruktur‑Paneele mit verdeckten Kanälen.",
         "ru": "Панели с текстурой дерева и скрытыми каналами."
       },
-      "images": ["images/ph3.svg"]
+      "images": [
+        "images/projects/tv-zid-paneli/01-skica.webp",
+        "images/projects/tv-zid-paneli/02-final.webp",
+        "images/projects/tv-zid-paneli/03-final.webp"
+      ]
     },
     {
       "type": "Kancelarije",
@@ -83,7 +97,10 @@
         "de": "Kompakter Tisch mit Regalen und verdeckter Stromführung.",
         "ru": "Компактный стол с полками и скрытым питанием."
       },
-      "images": ["images/ph2.svg"]
+      "images": [
+        "images/projects/radni-kutak-compact/01-skica.webp",
+        "images/projects/radni-kutak-compact/02-final.webp"
+      ]
     },
     {
       "type": "Uređenje enterijera",
@@ -100,7 +117,11 @@
         "de": "Harmonisierte Elemente: Lowboard, Regale und Paneele im gleichen Ton.",
         "ru": "Согласованные элементы: тумба, полки и панели в едином тоне."
       },
-      "images": ["images/ph3.svg"]
+      "images": [
+        "images/projects/dnevna-balance/01-skica.webp",
+        "images/projects/dnevna-balance/02-final.webp",
+        "images/projects/dnevna-balance/03-final.webp"
+      ]
     }
   ]
 }
