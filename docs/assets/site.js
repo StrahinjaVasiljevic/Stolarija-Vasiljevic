@@ -451,36 +451,43 @@
 
   // ---------- render: hero ----------
   function renderHero() {
-    const c = state.site && state.site.hero;
-    const el = qs("#hero");
-    if (!c || !el) return;
+  const c = state");  const c = state.site && state.site.hero;
+  if (!c || !el) return;
 
-    el.innerHTML = `
-      <div class="container mx-auto px-4">
-        <div class="grid md:grid-cols-2 gap-8 items-center">
-          <div>
-            <h1 class="font-serif text-4xl md:text-5xl leading-tight mb-4">${esc(c.title || "")}</h1>
-            <p class="text-lg text-gray-700 mb-6">${esc(c.subtitle || "")}</p>
-            <div class="flex flex-wrap gap-3 mb-8">
-              <a href="#kontakt" class="btn btn-primary">${esc(c.ctaPrimary || UI[state.lang].contact.submit)}</a>
-              ${asset(}" class="btn btn-secondary">${esc(c.ctaSecondary || UI[state.lang].common.viewAll)}</a>
-            </div>
-            <div class="grid sm:grid-cols-3 gap-4">
-              ${(c.benefits || []).slice(0, 3).map((b) => `
-                <div class="card p-4">
-                  <div class="font-medium mb-1">${esc(b.title || "")}</div>
-                  <div class="text-sm text-gray-600">${esc(b.text || "")}</div>
-                </div>
-              `).join("")}
-            </div>
+  const projectsUrl = base("projekti/");
+  const heroImg = asset((c.image || cfg.HERO_IMAGE || "assets/img/cover-logo.png"));
+
+  el.innerHTML = `
+    <div class="container mx-auto px-4">
+      <div class="grid md:grid-cols-2 gap-8 items-center">
+        <div>
+          <h1 class="font-serif text-4xl md:text-5xl leading-tight mb-4">${esc(c.title || "")}</h1>
+          <p class="text-lg text-gray-700 mb-6">${esc(c.subtitle || "")}</p>
+
+          <div class="flex flex-wrap gap-3 mb-8">
+            <a href="#kontakt" class="btn btn-primary">${esc(c.ctaPrimary || UI[state.lang].contact.submit)}</a>
+            <a href="${projectsUrl}" class="btn btn-secondary">${esc(c.ctaSecondary || UI[state.lang].common.viewAll)}</a>
           </div>
-          <div class="card p-6 bg-brand-beige/30">
-            ${asset(}" alt="${esc(UI[state.lang].heads.projects)}" class="w-full h-auto rounded-xl" />
+
+          <div class="grid sm:grid-cols-3 gap-4">
+            ${(c.benefits || []).slice(0, 3).map((b) => `
+              <div class="card p-4">
+                <div class="font-medium mb-1">${esc(b.title || "")}</div>
+                <div class="text-sm text-gray-600">${esc(b.text || "")}</div>
+              </div>
+            `).join("")}
           </div>
         </div>
+
+        <div class="card p-6 bg-brand-beige/30">
+          <img src="${heroImg}" alt="${esc(UI[state.lang].heads.projects || "Projekti")}"
+               class="w-full h-auto rounded-xl" loading="eager" decoding="async" />
+        </div>
       </div>
-    `;
-  }
+    </div>
+  `;
+}
+
 
   // ---------- render: services ----------
   function renderServices() {
