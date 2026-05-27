@@ -1,185 +1,6 @@
 (function() {
   const cfg = window.APP_CONFIG || {};
-  const base title:'Plakari / Garderoberi', text:'Klizni ili klasični — maksimalno iskorišćen prostor' },  const base = typeof cfg.withBase === 'function' ? cfg.withBase : (p)=>p;
-        { title:'Komode / Police', text:'Za dnevne, hodnike i spavaće — čiste linije' },
-        { title:'Kancelarije', text:'Radni stolovi, police, ormari — uredno' },
-        { title:'TV zidovi', text:'Skriveni kablovi — čist izgled' },
-        { title:'Uređenje enterijera', text:'Pojedinačni komadi ili kompletno uređenje' }
-      ],
-      process: [
-        { t:'Upoznavanje sa projektom', d:'Pregled prostora (uživo ili putem upita) i prikupljanje informacija' },
-        { t:'Predlog rešenja', d:'Dizajn, izbor materijala i okvirna ideja projekta' },
-        { t:'Predračun', d:'Skica i transparentan pregled cene materijala i troškova' },
-        { t:'Finalizacija projekta', d:'Nakon odobrenja izrađujemo finalni model i definišemo rokove i ponudu' },
-        { t:'Avans i početak', d:'Plaćanje avansa (materijal + troškovi) i početak proizvodnje' },
-        { t:'Izrada i montaža', d:'Proizvodnja, isporuka i montaža na lokaciji' },
-        { t:'Završetak i primopredaja', d:'Završna provera i primopredaja' }
-      ],
-      types: {
-        'Kuhinje':'Kuhinje','Plakari i garderoberi':'Plakari i garderoberi','Komode i police':'Komode i police',
-        'TV zidovi':'TV zidovi','Kancelarije':'Kancelarije','Uređenje enterijera':'Uređenje enterijera'
-      }
-    },
-    en: {
-      nav:{services:'Services',process:'Process',projects:'Projects',about:'About',faq:'FAQ',contact:'Contact'},
-      heads:{services:'Services',process:'Process',about:'About',contact:'Contact',projects:'Projects',testimonials:'Testimonials',faq:'FAQ', whyus:'Why us'},
-      common:{ viewAll:'View all' },
-      theme:{ toggle:'Toggle theme' },
-      contact:{reach:'Contact details',phone:'Phone',email:'Email',area:'Area — Novi Sad, Belgrade and nearby',hint:'Send inquiry by email or here',
-        fullName:'Full name *',phoneF:'Phone *',emailF:'Email *',city:'City *',type:'Project type *',measures:'Have measurements *',
-        dims:'Dimensions',desc:'Project description *',deadline:'Deadline',budget:'Budget',images:'Images — max 10 — up to 5MB each',consent:'I agree to be contacted',
-        submit:'Send inquiry',call:'Call',successTitle:'Thank you! Inquiry sent',successText:'We will get back soon',
-        errReq:'Please fill required fields',errSend:'Error — please try again',fallback:'You can send images later by replying to email'},
-      services: [
-        { title:'Kitchens', text:'Custom design and build — clear and functional' },
-        { title:'Wardrobes / Closets', text:'Sliding or hinged — space optimized' },
-        { title:'Sideboards / Shelves', text:'For living, halls and bedrooms — clean lines' },
-        { title:'Offices', text:'Desks, shelving, cabinets — tidy and efficient' },
-        { title:'TV walls', text:'Concealed cabling — clean look' },
-        { title:'Interior design', text:'Single pieces or full interior solutions' }
-      ],
-      process: [
-        { t:'Project briefing', d:'Space review (on-site or via inquiry) and information gathering' },
-        { t:'Design proposal', d:'Concept, material selection and initial direction' },
-        { t:'Quotation', d:'Sketch and transparent cost overview' },
-        { t:'Project finalization', d:'Approved model, timeline and offer definition' },
-        { t:'Advance & start', d:'Advance payment (materials + costs) and production start' },
-        { t:'Production & assembly', d:'Manufacturing, delivery and on-site assembly' },
-        { t:'Handover', d:'Final checks and handover' }
-      ],
-      types: {
-        'Kuhinje':'Kitchens','Plakari i garderoberi':'Wardrobes','Komode i police':'Sideboards & Shelves',
-        'TV zidovi':'TV walls','Kancelarije':'Offices','Uređenje enterijera':'Interior design'
-      }
-    },
-    de: {
-      nav:{services:'Leistungen',process:'Ablauf',projects:'Projekte',about:'Über uns',faq:'FAQ',contact:'Kontakt'},
-      heads:{services:'Leistungen',process:'Ablauf',about:'Über uns',contact:'Kontakt',projects:'Projekte',testimonials:'Stimmen',faq:'FAQ', whyus:'Warum wir'},
-      common:{ viewAll:'Alle ansehen' },
-      theme:{ toggle:'Thema wechseln' },
-      contact:{reach:'Kontaktdaten',phone:'Telefon',email:'E‑Mail',area:'Gebiet — Novi Sad, Belgrad und Umgebung',hint:'Anfrage per E‑Mail oder hier',
-        fullName:'Vollständiger Name *',phoneF:'Telefon *',emailF:'E‑Mail *',city:'Stadt *',type:'Projekttyp *',measures:'Maße vorhanden *',
-        dims:'Maße',desc:'Projektbeschreibung *',deadline:'Frist',budget:'Budget',images:'Bilder — max. 10 — bis 5MB',consent:'Ich stimme der Kontaktaufnahme zu',
-        submit:'Anfrage senden',call:'Anrufen',successTitle:'Danke! Anfrage gesendet',successText:'Wir melden uns bald',
-        errReq:'Bitte Pflichtfelder ausfüllen',errSend:'Fehler — bitte erneut versuchen',fallback:'Bilder können später per E‑Mail geschickt werden'},
-      services: [
-        { title:'Küchen', text:'Individuelle Planung und Fertigung — klar und funktional' },
-        { title:'Schränke / Garderoben', text:'Schiebe- oder Drehtüren — Platz optimal genutzt' },
-        { title:'Kommoden / Regale', text:'Für Wohn-, Flur- und Schlafzimmer — klare Linien' },
-        { title:'Büros', text:'Schreibtische, Regale, Schränke — ordentlich' },
-        { title:'TV‑Wände', text:'Verdeckte Kabel — klares Erscheinungsbild' },
-        { title:'Innenraumgestaltung', text:'Einzelstücke oder komplette Einrichtung' }
-      ],
-      process: [
-        { t:'Projektaufnahme', d:'Raumanalyse (vor Ort oder per Anfrage) und Anforderungserhebung' },
-        { t:'Designvorschlag', d:'Konzept, Materialwahl und erste Richtung' },
-        { t:'Kostenvoranschlag', d:'Skizze und transparente Kostenübersicht' },
-        { t:'Finalisierung', d:'Freigegebenes Modell, Zeitplan und Angebot' },
-        { t:'Anzahlung & Start', d:'Anzahlung (Material + Kosten) und Produktionsbeginn' },
-        { t:'Produktion & Montage', d:'Fertigung, Lieferung und Montage vor Ort' },
-        { t:'Abnahme', d:'Abschließende Prüfung und Übergabe' }
-      ],
-      types: {
-        'Kuhinje':'Küchen','Plakari i garderoberi':'Schränke','Komode i police':'Kommoden & Regale',
-        'TV zidovi':'TV‑Wände','Kancelarije':'Büros','Uređenje enterijera':'Innenraumgestaltung'
-      }
-    },
-    ru: {
-      nav:{services:'Услуги',process:'Процесс',projects:'Проекты',about:'О нас',faq:'FAQ',contact:'Контакты'},
-      heads:{services:'Услуги',process:'Процесс',about:'О нас',contact:'Контакты',projects:'Проекты',testimonials:'Отзывы',faq:'FAQ', whyus:'Почему мы'},
-      common:{ viewAll:'Смотреть все' },
-      theme:{ toggle:'Сменить тему' },
-      contact:{reach:'Контакты',phone:'Телефон',email:'Email',area:'Регион — Нови-Сад, Белград и окрестности',hint:'Пишите на email или через форму',
-        fullName:'Имя и фамилия *',phoneF:'Телефон *',emailF:'Email *',city:'Город *',type:'Тип проекта *',measures:'Есть размеры *',
-        dims:'Размеры',desc:'Описание проекта *',deadline:'Срок',budget:'Бюджет',images:'Изображения — до 10 — по 5MB',consent:'Согласен на контакт',
-        submit:'Отправить заявку',call:'Позвонить',successTitle:'Спасибо! Заявка отправлена',successText:'Мы свяжемся скоро',
-        errReq:'Заполните обязательные поля',errSend:'Ошибка — попробуйте снова',fallback:'Изображения можно отправить позже ответом на письмо'},
-      services: [
-        { title:'Кухни', text:'Индивидуальный дизайн и изготовление — ясно и функционально' },
-        { title:'Шкафы / Гардеробные', text:'Раздвижные или распашные — максимум пространства' },
-        { title:'Комоды / Полки', text:'Для гостиной, коридора и спальни — чистые линии' },
-        { title:'Офисы', text:'Столы, стеллажи, шкафы — аккуратно и удобно' },
-        { title:'TV‑стены', text:'Скрытая проводка — аккуратный вид' },
-        { title:'Дизайн интерьера', text:'Отдельные предметы или комплексные решения' }
-      ],
-      process: [
-        { t:'Знакомство с проектом', d:'Осмотр пространства (на месте или по заявке) и сбор информации' },
-        { t:'Предложение дизайна', d:'Концепция, выбор материалов и направление' },
-        { t:'Смета', d:'Эскиз и прозрачный расчёт стоимости' },
-        { t:'Финализация', d:'Утверждённая модель, сроки и предложение' },
-        { t:'Аванс и старт', d:'Авансовый платёж (материалы + расходы) и начало производства' },
-        { t:'Производство и монтаж', d:'Изготовление, доставка и монтаж на месте' },
-        { t:'Передача', d:'Финальные проверки и передача' }
-      ],
-      types: {
-        'Kuhinje':'Кухни','Plakari i garderoberi':'Шкафы','Komode i police':'Комоды и полки',
-        'TV zidovi':'TV‑стены','Kancelarije':'Офисы','Uređenje enterijera':'Дизайн интерьера'
-      }
-    }
-  };
-
-  document.addEventListener("DOMContentLoaded", init);
-
-  async function init() {
-    try {
-      initTheme();
-      initLangDropdown();
-      await safeLoadContent();
-
-      renderHeader();
-      renderHero();
-      renderServices();
-      renderProcess();
-      renderWhyUs();
-      renderPortfolioPreview();
-      renderTestimonials();
-      renderFAQ();
-      renderContact();
-      renderFooter();
-
-      // Projects page (/projekti/)
-      renderProjectsPage();
-      wireProjectsModal();
-
-      injectSEO();
-      wireNav();
-      wireLightbox();
-    } catch (e) { console.error(e); }
-  }
-
-  function getLang() {
-    const stored = localStorage.getItem('lang');
-    const def = (cfg.DEFAULT_LANG || 'sr');
-    return (stored && UI[stored]) ? stored : def;
-  }
-  function setLang(lang) {
-    const next = UI[lang] ? lang : (cfg.DEFAULT_LANG || 'sr');
-    localStorage.setItem('lang', next);
-    state.lang = next;
-  }
-
-  function initLangDropdown(){
-    setLang(getLang());
-    const toggle = qs('#langToggle');
-    const menu = qs('#langMenu');
-    const flagEl = qs('#langFlag');
-    const labelEl = qs('#langLabel');
-
-    const applyLabel = () => {
-      const flags = { sr:'🇷🇸', en:'🇬🇧', de:'🇩🇪', ru:'🇷🇺' };
-      const labels = { sr:'Jezik', en:'Language', de:'Sprache', ru:'Язык' };
-      const abbr = { sr:'srb', en:'eng', de:'deu', ru:'рус' };
-      if (flagEl) flagEl.textContent = flags[state.lang] || '🇷🇸';
-      if (labelEl) labelEl.textContent = `${labels[state.lang]}: ${abbr[state.lang]}`;
-    };
-    applyLabel();
-
-    if (toggle && menu){
-      toggle.addEventListener('click', (e)=>{
-        e.stopPropagation();
-        const open = !menu.classList.contains('hidden');
-        menu.classList.toggle('hidden', open);
-        toggle.parentElement.classList.toggle('open', !open);
+  const base.classList.toggle('open', !open);  const base = typeof cfg.withBase === 'function' ? cfg.withBase : (p)=>p;
         toggle.setAttribute('aria-expanded', String(!open));
       });
       document.addEventListener('click', ()=>{
@@ -238,10 +59,8 @@
     };
   }
 
-  function qs(sel) { return document.querySelector(sel); }
   function telHref(phone) { return "tel:" + String(phone || "").replace(/\s+/g, ""); }
 
-  // Asset helper: radi i na repo pages i na custom domenu
   function asset(p){
     const s = String(p || "");
     if (!s) return "";
@@ -250,7 +69,7 @@
     return base(clean);
   }
 
-  // Proper HTML escape (bez double-escape)
+  // Proper HTML escape
   function esc(s){
     return String(s || "")
       .replace(/&/g, "&amp;")
@@ -461,11 +280,19 @@
       </div>`;
   }
 
-  // Landing: 8 kartica + CTA (bez filtera) + OPCIJA A: cover = final slika ako postoji
+  // Landing: 8 kartica + CTA (bez filtera) + OPCIJA A: cover = final (images[1]) ako postoji
   function renderPortfolioPreview() {
     const list = (state.projects || []).slice(0, 8);
     const el = qs("#portfolioPreview"); if (!el) return;
     const typeMap = UI[state.lang].types || {};
+
+    const localize = (val)=> typeof val==='string' ? val : (val && (val[state.lang] || val.sr)) || '';
+    const coverImg = (p)=>{
+      const imgs = (p && Array.isArray(p.images)) ? p.images : [];
+      const cover = (imgs.length > 1 && imgs[1]) ? imgs[1] : (imgs[0] || null);
+      return cover ? asset(cover) : asset('images/ph2.svg');
+    };
+
     el.innerHTML = `
       <div class="container">
         <div class="flex items-center justify-between mb-6">
@@ -474,31 +301,25 @@
         </div>
         <div class="grid md:grid-cols-4 gap-6">
           ${list.map(p => {
-            const cover = coverImg(p); // opcija A
+            const img = coverImg(p);
             const typeTxt = typeMap[p.type] || p.type || '';
             const t = localize(p.title);
             const d = localize(p.description);
             return `
-            <button class="card overflow-hidden text-left preview-btn" data-img="${cover}" type="button">
-              <div class="relative w-full h-40 bg-brand-light">
-                <img src="${cover}" alt="${esc(t)}" class="w-full h-40 object-cover" loading="lazy" decoding="async" />
-              </div>
-              <div class="p-4">
-                <div class="text-sm text-gray-500">${esc(typeTxt)} · ${esc(p.location || '')}</div>
-                <div class="font-medium">${esc(t)}</div>
-                ${d ? `<p class="text-sm text-gray-600 mt-1">${esc(d)}</p>` : ``}
-              </div>
-            </button>`;
+              <button class="card overflow-hidden text-left preview-btn" data-img="${img}" type="button">
+                <div class="relative w-full h-40 bg-brand-light">
+                  <img src="${img}" alt="${esc(t)}" class="w-full h-40 object-cover" loading="lazy" decoding="async" />
+                </div>
+                <div class="p-4">
+                  <div class="text-sm text-gray-500">${esc(typeTxt)} · ${esc(p.location || '')}</div>
+                  <div class="font-medium">${esc(t)}</div>
+                  ${d ? `<p class="text-sm text-gray-600 mt-1">${esc(d)}</p>` : ``}
+                </div>
+              </button>
+            `;
           }).join("")}
         </div>
       </div>`;
-
-    function localize(val){ return typeof val==='string' ? val : (val && (val[state.lang] || val.sr)) || ''; }
-    function coverImg(p){
-      const imgs = (p && p.images) ? p.images : [];
-      const final = imgs && imgs.length > 1 ? imgs[1] : (imgs && imgs[0] ? imgs[0] : null);
-      return final ? asset(final) : asset('images/ph2.svg');
-    }
   }
 
   function renderTestimonials() {
@@ -677,17 +498,14 @@
 
     const projects = Array.isArray(state.projects) ? state.projects.slice() : [];
     const typeMap = UI[state.lang].types || {};
-
     const uniq = (arr) => Array.from(new Set(arr.filter(Boolean)));
     const types = uniq(projects.map(p => p.type));
     const locs  = uniq(projects.map(p => p.location));
+    const localize = (val)=> typeof val==='string' ? val : (val && (val[state.lang] || val.sr)) || '';
 
-    // Filters from URL
     const url = new URL(location.href);
     let fType = url.searchParams.get('type') || '';
     let fLoc  = url.searchParams.get('loc') || '';
-
-    const localize = (val) => typeof val==='string' ? val : (val && (val[state.lang] || val.sr)) || '';
 
     const labelType = state.lang === 'sr' ? 'Tip' : state.lang === 'en' ? 'Type' : state.lang === 'de' ? 'Typ' : 'Тип';
     const labelLoc  = state.lang === 'sr' ? 'Lokacija' : state.lang === 'en' ? 'Location' : state.lang === 'de' ? 'Ort' : 'Локация';
@@ -748,9 +566,8 @@
     };
 
     const cover = (p) => {
-      const imgs = (p && p.images) ? p.images : [];
-      // OPCIJA A: cover = final (images[1]) ako postoji, else images[0]
-      const coverPath = (imgs && imgs.length > 1 && imgs[1]) ? imgs[1] : (imgs && imgs[0] ? imgs[0] : null);
+      const imgs = (p && Array.isArray(p.images)) ? p.images : [];
+      const coverPath = (imgs.length > 1 && imgs[1]) ? imgs[1] : (imgs[0] || null); // Opcija A
       return coverPath ? asset(coverPath) : asset('images/ph2.svg');
     };
 
@@ -764,8 +581,6 @@
         const typeTxt = typeMap[p.type] || p.type || '';
         const t = localize(p.title);
         const d = localize(p.description);
-
-        // index u okviru FILTERED liste
         return `
           <button class="card overflow-hidden text-left project-card"
                   data-filtered-index="${idx}"
@@ -805,7 +620,6 @@
 
     renderGrid();
 
-    // Klik na karticu otvara modal
     mount.addEventListener('click', (e) => {
       const card = e.target.closest('.project-card');
       if (!card) return;
@@ -814,24 +628,8 @@
       if (!list[i]) return;
       openProjectModal(list, i);
     });
-
-    // Ako dođe linkom sa #p=..., pokušaj da ga otvoriš iz FILTERED ili ALL
-    if (location.hash && location.hash.includes('#p=')){
-      const key = decodeURIComponent((location.hash.split('#p=')[1] || '').trim());
-      if (key){
-        // prvo pokušaj u filtriranoj listi, pa u all
-        const filtered = applyFilters();
-        let i = filtered.findIndex(p => projectKey(p) === key);
-        if (i >= 0) openProjectModal(filtered, i);
-        else {
-          i = projects.findIndex(p => projectKey(p) === key);
-          if (i >= 0) openProjectModal(projects, i);
-        }
-      }
-    }
   }
 
-  // Modal state
   const modalState = { list: [], index: 0, imgIndex: 0 };
 
   function wireProjectsModal(){
@@ -884,7 +682,7 @@
       if (nextIndex < 0) nextIndex = list.length - 1;
       if (nextIndex >= list.length) nextIndex = 0;
       modalState.index = nextIndex;
-      modalState.imgIndex = 0; // uvek krećemo od skice/3D (images[0])
+      modalState.imgIndex = 0; // skica/3D
       renderProjectModal();
     }
   }
@@ -894,7 +692,7 @@
     if (!modal) return;
     modalState.list = Array.isArray(list) ? list : [];
     modalState.index = typeof index === 'number' ? index : 0;
-    modalState.imgIndex = 0; // skica/3D prva
+    modalState.imgIndex = 0; // skica/3D
 
     renderProjectModal();
 
@@ -903,9 +701,6 @@
   }
 
   function renderProjectModal(){
-    const modal = qs('#projectModal');
-    if (!modal) return;
-
     const imgEl  = qs('#projectModalImg');
     const metaEl = qs('#projectModalMeta');
     const titleEl= qs('#projectModalTitle');
@@ -913,7 +708,7 @@
     const thumbs = qs('#projectModalThumbs');
 
     const typeMap = UI[state.lang].types || {};
-    const localize = (val) => typeof val==='string' ? val : (val && (val[state.lang] || val.sr)) || '';
+    const localize = (val)=> typeof val==='string' ? val : (val && (val[state.lang] || val.sr)) || '';
 
     const project = modalState.list[modalState.index];
     if (!project) return;
@@ -927,8 +722,7 @@
     if (titleEl) titleEl.textContent = title;
     if (descEl) descEl.textContent = desc;
 
-    const imgsRaw = (project.images || []).slice(0, 3);
-    const imgs = imgsRaw.map(asset);
+    const imgs = (project.images || []).slice(0, 3).map(asset);
     const main = imgs[modalState.imgIndex] || asset('images/ph2.svg');
 
     if (imgEl){
@@ -937,7 +731,6 @@
     }
 
     if (thumbs){
-      // prikaz thumbnails ako ima 2 ili 3 slike (max 3 po projektu)
       if (imgs.length <= 1){
         thumbs.innerHTML = '';
         thumbs.style.display = 'none';
@@ -947,7 +740,7 @@
           <button type="button"
                   class="card overflow-hidden border ${i===modalState.imgIndex ? 'ring-2 ring-brand-dark' : ''}"
                   data-thumb-index="${i}">
-            <img src="${src}" alt="${esc(title)}" class="w-full h-20 object-cover" loading="lazy" decoding="async" />
+            <img src="${src}" alt="" class="w-full h-20 object-cover" loading="lazy" decoding="async" />
           </button>
         `).join('');
 
@@ -984,3 +777,185 @@
       },
       services: [
         { title:'Kuhinje', text:'Dizajn i izrada po meri — jasno i funkcionalno' },
+        { title:'Plakari / Garderoberi', text:'Klizni ili klasični — maksimalno iskorišćen prostor' },
+        { title:'Komode / Police', text:'Za dnevne, hodnike i spavaće — čiste linije' },
+        { title:'Kancelarije', text:'Radni stolovi, police, ormari — uredno' },
+        { title:'TV zidovi', text:'Skriveni kablovi — čist izgled' },
+        { title:'Uređenje enterijera', text:'Pojedinačni komadi ili kompletno uređenje' }
+      ],
+      process: [
+        { t:'Upoznavanje sa projektom', d:'Pregled prostora (uživo ili putem upita) i prikupljanje informacija' },
+        { t:'Predlog rešenja', d:'Dizajn, izbor materijala i okvirna ideja projekta' },
+        { t:'Predračun', d:'Skica i transparentan pregled cene materijala i troškova' },
+        { t:'Finalizacija projekta', d:'Nakon odobrenja izrađujemo finalni model i definišemo rokove i ponudu' },
+        { t:'Avans i početak', d:'Plaćanje avansa (materijal + troškovi) i početak proizvodnje' },
+        { t:'Izrada i montaža', d:'Proizvodnja, isporuka i montaža na lokaciji' },
+        { t:'Završetak i primopredaja', d:'Završna provera i primopredaja' }
+      ],
+      types: {
+        'Kuhinje':'Kuhinje','Plakari i garderoberi':'Plakari i garderoberi','Komode i police':'Komode i police',
+        'TV zidovi':'TV zidovi','Kancelarije':'Kancelarije','Uređenje enterijera':'Uređenje enterijera'
+      }
+    },
+    en: {
+      nav:{services:'Services',process:'Process',projects:'Projects',about:'About',faq:'FAQ',contact:'Contact'},
+      heads:{services:'Services',process:'Process',about:'About',contact:'Contact',projects:'Projects',testimonials:'Testimonials',faq:'FAQ', whyus:'Why us'},
+      common:{ viewAll:'View all' },
+      theme:{ toggle:'Toggle theme' },
+      contact:{reach:'Contact details',phone:'Phone',email:'Email',area:'Area — Novi Sad, Belgrade and nearby',hint:'Send inquiry by email or here',
+        fullName:'Full name *',phoneF:'Phone *',emailF:'Email *',city:'City *',type:'Project type *',measures:'Have measurements *',
+        dims:'Dimensions',desc:'Project description *',deadline:'Deadline',budget:'Budget',images:'Images — max 10 — up to 5MB each',consent:'I agree to be contacted',
+        submit:'Send inquiry',call:'Call',successTitle:'Thank you! Inquiry sent',successText:'We will get back soon',
+        errReq:'Please fill required fields',errSend:'Error — please try again',fallback:'You can send images later by replying to email'},
+      services: [
+        { title:'Kitchens', text:'Custom design and build — clear and functional' },
+        { title:'Wardrobes / Closets', text:'Sliding or hinged — space optimized' },
+        { title:'Sideboards / Shelves', text:'For living, halls and bedrooms — clean lines' },
+        { title:'Offices', text:'Desks, shelving, cabinets — tidy and efficient' },
+        { title:'TV walls', text:'Concealed cabling — clean look' },
+        { title:'Interior design', text:'Single pieces or full interior solutions' }
+      ],
+      process: [
+        { t:'Project briefing', d:'Space review (on-site or via inquiry) and information gathering' },
+        { t:'Design proposal', d:'Concept, material selection and initial direction' },
+        { t:'Quotation', d:'Sketch and transparent cost overview' },
+        { t:'Project finalization', d:'Approved model, timeline and offer definition' },
+        { t:'Advance & start', d:'Advance payment (materials + costs) and production start' },
+        { t:'Production & assembly', d:'Manufacturing, delivery and on-site assembly' },
+        { t:'Handover', d:'Final checks and handover' }
+      ],
+      types: {
+        'Kuhinje':'Kitchens','Plakari i garderoberi':'Wardrobes','Komode i police':'Sideboards & Shelves',
+        'TV zidovi':'TV walls','Kancelarije':'Offices','Uređenje enterijera':'Interior design'
+      }
+    },
+    de: {
+      nav:{services:'Leistungen',process:'Ablauf',projects:'Projekte',about:'Über uns',faq:'FAQ',contact:'Kontakt'},
+      heads:{services:'Leistungen',process:'Ablauf',about:'Über uns',contact:'Kontakt',projects:'Projekte',testimonials:'Stimmen',faq:'FAQ', whyus:'Warum wir'},
+      common:{ viewAll:'Alle ansehen' },
+      theme:{ toggle:'Thema wechseln' },
+      contact:{reach:'Kontaktdaten',phone:'Telefon',email:'E‑Mail',area:'Gebiet — Novi Sad, Belgrad und Umgebung',hint:'Anfrage per E‑Mail oder hier',
+        fullName:'Vollständiger Name *',phoneF:'Telefon *',emailF:'E‑Mail *',city:'Stadt *',type:'Projekttyp *',measures:'Maße vorhanden *',
+        dims:'Maße',desc:'Projektbeschreibung *',deadline:'Frist',budget:'Budget',images:'Bilder — max. 10 — bis 5MB',consent:'Ich stimme der Kontaktaufnahme zu',
+        submit:'Anfrage senden',call:'Anrufen',successTitle:'Danke! Anfrage gesendet',successText:'Wir melden uns bald',
+        errReq:'Bitte Pflichtfelder ausfüllen',errSend:'Fehler — bitte erneut versuchen',fallback:'Bilder können später per E‑Mail geschickt werden'},
+      services: [
+        { title:'Küchen', text:'Individuelle Planung und Fertigung — klar und funktional' },
+        { title:'Schränke / Garderoben', text:'Schiebe- oder Drehtüren — Platz optimal genutzt' },
+        { title:'Kommoden / Regale', text:'Für Wohn-, Flur- und Schlafzimmer — klare Linien' },
+        { title:'Büros', text:'Schreibtische, Regale, Schränke — ordentlich' },
+        { title:'TV‑Wände', text:'Verdeckte Kabel — klares Erscheinungsbild' },
+        { title:'Innenraumgestaltung', text:'Einzelstücke oder komplette Einrichtung' }
+      ],
+      process: [
+        { t:'Projektaufnahme', d:'Raumanalyse (vor Ort oder per Anfrage) und Anforderungserhebung' },
+        { t:'Designvorschlag', d:'Konzept, Materialwahl und erste Richtung' },
+        { t:'Kostenvoranschlag', d:'Skizze und transparente Kostenübersicht' },
+        { t:'Finalisierung', d:'Freigegebenes Modell, Zeitplan und Angebot' },
+        { t:'Anzahlung & Start', d:'Anzahlung (Material + Kosten) und Produktionsbeginn' },
+        { t:'Produktion & Montage', d:'Fertigung, Lieferung und Montage vor Ort' },
+        { t:'Abnahme', d:'Abschließende Prüfung und Übergabe' }
+      ],
+      types: {
+        'Kuhinje':'Küchen','Plakari i garderoberi':'Schränke','Komode i police':'Kommoden & Regale',
+        'TV zidovi':'TV‑Wände','Kancelarije':'Büros','Uređenje enterijera':'Innenraumgestaltung'
+      }
+    },
+    ru: {
+      nav:{services:'Услуги',process:'Процесс',projects:'Проекты',about:'О нас',faq:'FAQ',contact:'Контакты'},
+      heads:{services:'Услуги',process:'Процесс',about:'О нас',contact:'Контакты',projects:'Проекты',testimonials:'Отзывы',faq:'FAQ', whyus:'Почему мы'},
+      common:{ viewAll:'Смотреть все' },
+      theme:{ toggle:'Сменить тему' },
+      contact:{reach:'Контакты',phone:'Телефон',email:'Email',area:'Регион — Нови-Сад, Белград и окрестности',hint:'Пишите на email или через форму',
+        fullName:'Имя и фамилия *',phoneF:'Телефон *',emailF:'Email *',city:'Город *',type:'Тип проекта *',measures:'Есть размеры *',
+        dims:'Размеры',desc:'Описание проекта *',deadline:'Срок',budget:'Бюджет',images:'Изображения — до 10 — по 5MB',consent:'Согласен на контакт',
+        submit:'Отправить заявку',call:'Позвонить',successTitle:'Спасибо! Заявка отправлена',successText:'Мы свяжемся скоро',
+        errReq:'Заполните обязательные поля',errSend:'Ошибка — попробуйте снова',fallback:'Изображения можно отправить позже ответом на письмо'},
+      services: [
+        { title:'Кухни', text:'Индивидуальный дизайн и изготовление — ясно и функционально' },
+        { title:'Шкафы / Гардеробные', text:'Раздвижные или распашные — максимум пространства' },
+        { title:'Комоды / Полки', text:'Для гостиной, коридора и спальни — чистые линии' },
+        { title:'Офисы', text:'Столы, стеллажи, шкафы — аккуратно и удобно' },
+        { title:'TV‑стены', text:'Скрытая проводка — аккуратный вид' },
+        { title:'Дизайн интерьера', text:'Отдельные предметы или комплексные решения' }
+      ],
+      process: [
+        { t:'Знакомство с проектом', d:'Осмотр пространства (на месте или по заявке) и сбор информации' },
+        { t:'Предложение дизайна', d:'Концепция, выбор материалов и направление' },
+        { t:'Смета', d:'Эскиз и прозрачный расчёт стоимости' },
+        { t:'Финализация', d:'Утверждённая модель, сроки и предложение' },
+        { t:'Аванс и старт', d:'Авансовый платёж (материалы + расходы) и начало производства' },
+        { t:'Производство и монтаж', d:'Изготовление, доставка и монтаж на месте' },
+        { t:'Передача', d:'Финальные проверки и передача' }
+      ],
+      types: {
+        'Kuhinje':'Кухни','Plakari i garderoberi':'Шкафы','Komode i police':'Комоды и полки',
+        'TV zidovi':'TV‑стены','Kancelarije':'Офисы','Uređenje enterijera':'Дизайн интерьера'
+      }
+    }
+  };
+
+  document.addEventListener("DOMContentLoaded", init);
+
+  async function init() {
+    try {
+      initTheme();
+      initLangDropdown();
+      await safeLoadContent();
+
+      // Landing-only renders (no harm if sections missing)
+      renderHeader();
+      renderHero();
+      renderServices();
+      renderProcess();
+      renderWhyUs();
+      renderPortfolioPreview();
+      renderTestimonials();
+      renderFAQ();
+      renderContact();
+      renderFooter();
+
+      // Projects page (/projekti/)
+      renderProjectsPage();
+      wireProjectsModal();
+
+      injectSEO();
+      wireNav();
+      wireLightbox();
+    } catch (e) { console.error(e); }
+  }
+
+  function qs(sel) { return document.querySelector(sel); }
+
+  function getLang() {
+    const stored = localStorage.getItem('lang');
+    const def = (cfg.DEFAULT_LANG || 'sr');
+    return (stored && UI[stored]) ? stored : def;
+  }
+  function setLang(lang) {
+    const next = UI[lang] ? lang : (cfg.DEFAULT_LANG || 'sr');
+    localStorage.setItem('lang', next);
+    state.lang = next;
+  }
+
+  function initLangDropdown(){
+    setLang(getLang());
+    const toggle = qs('#langToggle');
+    const menu = qs('#langMenu');
+    const flagEl = qs('#langFlag');
+    const labelEl = qs('#langLabel');
+
+    const applyLabel = () => {
+      const flags = { sr:'🇷🇸', en:'🇬🇧', de:'🇩🇪', ru:'🇷🇺' };
+      const labels = { sr:'Jezik', en:'Language', de:'Sprache', ru:'Язык' };
+      const abbr = { sr:'srb', en:'eng', de:'deu', ru:'рус' };
+      if (flagEl) flagEl.textContent = flags[state.lang] || '🇷🇸';
+      if (labelEl) labelEl.textContent = `${labels[state.lang]}: ${abbr[state.lang]}`;
+    };
+    applyLabel();
+
+    if (toggle && menu){
+      toggle.addEventListener('click', (e)=>{
+        e.stopPropagation();
+        const open = !menu.classList.contains('hidden');
+        menu.classList.toggle('hidden', open);
