@@ -2,9 +2,19 @@
 <html lang="sr">
 <head>
   <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
   <title>Dizajn enterijera &amp; Stolarija Vasiljević - Nameštaj po meri (Novi Sad / Beograd)</title>
   <meta name="description" content="Nameštaj po meri: kuhinje, plakari, TV komode, police, zidni paneli i kancelarijski nameštaj. Jasan predračun, realni rokovi i uredna montaža. Novi Sad, Beograd i okolina">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0B3D3A">
+
+  <!-- Open Graph (osnovno) -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Stolarija Vasiljević — Nameštaj po meri (Novi Sad / Beograd)">
+  <meta property="og:description" content="Kuhinje, plakari, komode, police, TV zidovi, kancelarije. Jasan predračun — realni rokovi — uredna montaža.">
+  <meta property="og:image" content="./images/ph1.svg">
+
+  <link rel="icon" href="./favicon.ico">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,12 +22,23 @@
 
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
-    tailwind.config = { theme: { extend: {
-      colors: {'brand-dark':'#0B3D3A','brand-beige':'#E9E2D2','brand-light':'#F7F7F5'},
-      boxShadow:{card:'0 8px 30px rgba(0,0,0,0.08)'},
-      borderRadius:{xl:'16px','2xl':'24px'},
-      fontFamily:{serif:['Cormorant Garamond','serif'],sans:['Inter','ui-sans-serif','system-ui']}
-    } } };
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'brand-dark': '#0B3D3A',
+            'brand-beige': '#E9E2D2',
+            'brand-light': '#F7F7F5'
+          },
+          boxShadow: { card: '0 8px 30px rgba(0,0,0,0.08)' },
+          borderRadius: { xl: '16px', '2xl': '24px' },
+          fontFamily: {
+            serif: ['Cormorant Garamond', 'serif'],
+            sans: ['Inter', 'ui-sans-serif', 'system-ui']
+          }
+        }
+      }
+    };
   </script>
 
   <style>
@@ -186,14 +207,26 @@
     .process-flow .process-connector{ display:flex; align-items:center; justify-content:center; color: var(--process-connector); }
     .process-flow .process-turn{ display:flex; align-items:center; justify-content:flex-end; margin: -6px 0 10px; color: var(--process-connector); }
     .process-flow .process-connector svg, .process-flow .process-turn svg{ display:block; }
+
+    /* Lightbox */
+    .lightbox-backdrop{
+      background: rgba(0,0,0,0.75);
+      backdrop-filter: blur(6px);
+    }
   </style>
 
-  <link rel="icon" href="./favicon.ico">
+  <!-- Config + main script (učitava se samo jednom) -->
   <script src="./assets/config.js"></script>
   <script src="./assets/site.js" defer></script>
 </head>
 
 <body class="font-sans">
+  <noscript>
+    <div style="padding:12px 16px;background:#fff3cd;color:#664d03;border-bottom:1px solid #ffe69c;">
+      Ovaj sajt koristi JavaScript za prikaz sadržaja (projekti, prevod, forma). Molimo uključite JavaScript.
+    </div>
+  </noscript>
+
   <header class="site-header sticky top-0 z-50">
     <div class="container h-16 flex items-center justify-between">
       <a href="./" class="brand-lockup" aria-label="Početna">
@@ -214,20 +247,22 @@
 
       <div class="flex items-center gap-2 md:gap-3">
         <div class="dropdown" id="langSelect">
-          <button id="langToggle" class="dropdown-btn" aria-haspopup="true" aria-expanded="false">
+          <button id="langToggle" class="dropdown-btn" aria-haspopup="true" aria-expanded="false" type="button">
             <span class="flag" id="langFlag">🇷🇸</span>
             <span id="langLabel">Jezik: srb</span>
-            <svg class="chev" viewBox="0 0 24 24" fill="none"><path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+            <svg class="chev" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+            </svg>
           </button>
           <div id="langMenu" class="dropdown-menu hidden" role="menu" aria-label="Izaberi jezik">
-            <button class="dropdown-item" data-lang="sr"><span class="flag">🇷🇸</span><span>srb</span></button>
-            <button class="dropdown-item" data-lang="en"><span class="flag">🇬🇧</span><span>eng</span></button>
-            <button class="dropdown-item" data-lang="de"><span class="flag">🇩🇪</span><span>deu</span></button>
-            <button class="dropdown-item" data-lang="ru"><span class="flag">🇷🇺</span><span>rus</span></button>
+            <button class="dropdown-item" data-lang="sr" type="button"><span class="flag">🇷🇸</span><span>srb</span></button>
+            <button class="dropdown-item" data-lang="en" type="button"><span class="flag">🇬🇧</span><span>eng</span></button>
+            <button class="dropdown-item" data-lang="de" type="button"><span class="flag">🇩🇪</span><span>deu</span></button>
+            <button class="dropdown-item" data-lang="ru" type="button"><span class="flag">🇷🇺</span><span>rus</span></button>
           </div>
         </div>
 
-        <button id="themeToggle" class="p-2 rounded-xl border border-gray-200 hover:bg-gray-100 md:ml-1" aria-label="Promeni temu">
+        <button id="themeToggle" class="p-2 rounded-xl border border-gray-200 hover:bg-gray-100 md:ml-1" aria-label="Promeni temu" type="button">
           <span id="iconLight" class="block" aria-hidden="true">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
               <path d="M3 11l9-7 9 7" stroke="#0B3D3A" stroke-width="1.5" stroke-linecap="round"/>
@@ -252,40 +287,23 @@
   </header>
 
   <main>
+    <!-- HERO (site.js ga renderuje) -->
     <section class="section bg-gradient-to-b from-white to-brand-light" id="hero"></section>
 
+    <!-- USLUGE (site.js renderuje sadržaj u #usluge .container) -->
     <section id="usluge" class="section">
       <div class="container">
         <h2 class="section-title font-serif" id="labelServices">Usluge</h2>
         <div class="grid md:grid-cols-3 gap-6">
-          <div class="card p-6 hover:shadow-lg transition-shadow">
-            <div class="text-xl font-medium mb-2">Kuhinje</div>
-            <div class="text-gray-700">Dizajn i izrada po meri — jasno i funkcionalno</div>
-          </div>
-          <div class="card p-6 hover:shadow-lg transition-shadow">
-            <div class="text-xl font-medium mb-2">Plakari / Garderoberi</div>
-            <div class="text-gray-700">Klizni ili klasični — maksimalno iskorišćen prostor</div>
-          </div>
-          <div class="card p-6 hover:shadow-lg transition-shadow">
-            <div class="text-xl font-medium mb-2">Komode / Police</div>
-            <div class="text-gray-700">Za dnevne, hodnike i spavaće — čiste linije</div>
-          </div>
-          <div class="card p-6 hover:shadow-lg transition-shadow">
-            <div class="text-xl font-medium mb-2">Kancelarije</div>
-            <div class="text-gray-700">Radni stolovi, police, ormari — uredno</div>
-          </div>
-          <div class="card p-6 hover:shadow-lg transition-shadow">
-            <div class="text-xl font-medium mb-2">TV zidovi</div>
-            <div class="text-gray-700">Skriveni kablovi — čist izgled</div>
-          </div>
-          <div class="card p-6 hover:shadow-lg transition-shadow">
-            <div class="text-xl font-medium mb-2">Uređenje enterijera</div>
-            <div class="text-gray-700">Pojedinačni komadi ili kompletno uređenje</div>
-          </div>
+          <!-- fallback (ako JS ne radi) -->
+          <div class="card p-6"><div class="text-xl font-medium mb-2">Kuhinje</div><div class="text-gray-700">Dizajn i izrada po meri — jasno i funkcionalno</div></div>
+          <div class="card p-6"><div class="text-xl font-medium mb-2">Plakari / Garderoberi</div><div class="text-gray-700">Klizni ili klasični — maksimalno iskorišćen prostor</div></div>
+          <div class="card p-6"><div class="text-xl font-medium mb-2">Komode / Police</div><div class="text-gray-700">Za dnevne, hodnike i spavaće — čiste linije</div></div>
         </div>
       </div>
     </section>
 
+    <!-- PROCES -->
     <section id="proces" class="process-flow section">
       <div class="container">
         <h2 class="section-title font-serif" id="labelProcess">Proces</h2>
@@ -293,26 +311,32 @@
       </div>
     </section>
 
+    <!-- OVE SEKCIJE site.js generiše -->
     <section class="section" id="whyus"></section>
     <section class="section bg-white" id="portfolioPreview"></section>
     <section class="section bg-brand-light" id="testimonials"></section>
     <section class="section" id="faq"></section>
 
+    <!-- O NAMA (ostaje statično; site.js menja samo naslov) -->
     <section id="onama" class="section">
       <div class="container">
         <h2 class="section-title font-serif" id="labelAbout">O nama</h2>
-        <p class="text-gray-700">Stolarija Vasiljević — Strahinja i Nemanja. Nameštaj po meri za dom i kancelariju. Procedura jasna, predračun transparentan, rokovi realni. Kulturna saradnja i uredna montaža.</p>
+        <p class="text-gray-700">
+          Stolarija Vasiljević — Strahinja i Nemanja. Nameštaj po meri za dom i kancelariju.
+          Procedura jasna, predračun transparentan, rokovi realni. Kulturna saradnja i uredna montaža.
+        </p>
       </div>
     </section>
 
+    <!-- KONTAKT (site.js popunjava label-e + mail/tel) -->
     <section id="kontakt" class="section bg-brand-light">
       <div class="container" id="contactSection">
         <h2 class="section-title font-serif" id="labelContact">Kontakt</h2>
         <div class="grid md:grid-cols-3 gap-8">
           <aside class="card p-6 contact-aside">
             <div class="logo logo--contact" aria-hidden="true">
-              <img src="./assets/img/logo-light.svg" alt="" class="logo-img logo-light">
-              <img src="./assets/img/logo-dark.svg" alt="" class="logo-img logo-dark">
+              <img src="./assets/img/logo-light.svg" alt="" class="logo-img logo-light" decoding="async">
+              <img src="./assets/img/logo-dark.svg" alt="" class="logo-img logo-dark" decoding="async">
             </div>
             <h4 id="labelReachUs" class="mt-3">Kontakt podaci</h4>
             <div class="space-y-2 text-gray-700">
@@ -329,12 +353,21 @@
             <div id="fallbackBox" class="bg-yellow-50 text-yellow-800 p-3 rounded-xl hidden"></div>
 
             <div class="grid md:grid-cols-2 gap-4">
-              <div><label class="block text-sm font-medium mb-1" id="labelFullName">Ime i prezime *</label><input name="fullName" class="w-full border rounded-xl px-3 py-2" required></div>
-              <div><label class="block text-sm font-medium mb-1" id="labelPhoneField">Telefon *</label><input name="phone" class="w-full border rounded-xl px-3 py-2" required></div>
+              <div>
+                <label class="block text-sm font-medium mb-1" id="labelFullName">Ime i prezime *</label>
+                <input name="fullName" class="w-full border rounded-xl px-3 py-2" required>
+              </div>
+              <div>
+                <label class="block text-sm font-medium mb-1" id="labelPhoneField">Telefon *</label>
+                <input name="phone" class="w-full border rounded-xl px-3 py-2" required>
+              </div>
             </div>
 
             <div class="grid md:grid-cols-2 gap-4">
-              <div><label class="block text-sm font-medium mb-1" id="labelEmailField">Email *</label><input type="email" name="email" class="w-full border rounded-xl px-3 py-2" required></div>
+              <div>
+                <label class="block text-sm font-medium mb-1" id="labelEmailField">Email *</label>
+                <input type="email" name="email" class="w-full border rounded-xl px-3 py-2" required>
+              </div>
               <div>
                 <label class="block text-sm font-medium mb-1" id="labelCity">Grad *</label>
                 <select name="city" class="w-full border rounded-xl px-3 py-2" required>
@@ -363,12 +396,25 @@
               </div>
             </div>
 
-            <div><label class="block text-sm font-medium mb-1" id="labelDims">Dimenzije</label><input name="dimensions" class="w-full border rounded-xl px-3 py-2" placeholder="npr 240x60x220 cm"></div>
-            <div><label class="block text-sm font-medium mb-1" id="labelDesc">Opis projekta *</label><textarea name="description" class="w-full border rounded-xl px-3 py-2 min-h-[120px]" required></textarea></div>
+            <div>
+              <label class="block text-sm font-medium mb-1" id="labelDims">Dimenzije</label>
+              <input name="dimensions" class="w-full border rounded-xl px-3 py-2" placeholder="npr 240x60x220 cm">
+            </div>
+
+            <div>
+              <label class="block text-sm font-medium mb-1" id="labelDesc">Opis projekta *</label>
+              <textarea name="description" class="w-full border rounded-xl px-3 py-2 min-h-[120px]" required></textarea>
+            </div>
 
             <div class="grid md:grid-cols-2 gap-4">
-              <div><label class="block text-sm font-medium mb-1" id="labelDeadline">Rok</label><input name="deadline" class="w-full border rounded-xl px-3 py-2" placeholder="npr kraj jula"></div>
-              <div><label class="block text-sm font-medium mb-1" id="labelBudget">Budžet</label><input name="budget" class="w-full border rounded-xl px-3 py-2" placeholder="npr 1500–2500€"></div>
+              <div>
+                <label class="block text-sm font-medium mb-1" id="labelDeadline">Rok</label>
+                <input name="deadline" class="w-full border rounded-xl px-3 py-2" placeholder="npr kraj jula">
+              </div>
+              <div>
+                <label class="block text-sm font-medium mb-1" id="labelBudget">Budžet</label>
+                <input name="budget" class="w-full border rounded-xl px-3 py-2" placeholder="npr 1500–2500€">
+              </div>
             </div>
 
             <div>
@@ -397,12 +443,12 @@
       <div>
         <div class="brand-lockup mb-4">
           <span class="logo logo--header">
-            <img src="./assets/img/logo-light.svg" alt="Vasiljević" class="logo-img logo-light">
-            <img src="./assets/img/logo-dark.svg" alt="Vasiljević" class="logo-img logo-dark">
+            <img src="./assets/img/logo-light.svg" alt="Vasiljević" class="logo-img logo-light" decoding="async">
+            <img src="./assets/img/logo-dark.svg" alt="Vasiljević" class="logo-img logo-dark" decoding="async">
           </span>
         </div>
         <p class="text-gray-700">
-          Nameštaj po meri za dom i kancelariju — Novi Sad, Beograd i okolina
+          Nameštaj po meri za dom i kancelariju — Novi Sad, Beograd i okolina<br>
           Jasan predračun — realni rokovi — uredna montaža
         </p>
       </div>
@@ -432,6 +478,16 @@
     </div>
   </footer>
 
-  <script src="./assets/site.js" defer></script>
+  <!-- LIGHTBOX (site.js očekuje ove ID-jeve) -->
+  <div id="lightbox" class="hidden fixed inset-0 z-[60] items-center justify-center lightbox-backdrop">
+    <div class="relative max-w-[92vw] max-h-[88vh]">
+      <button id="lightboxClose" type="button"
+              class="absolute -top-4 -right-4 w-10 h-10 rounded-full bg-white text-gray-900 shadow flex items-center justify-center border border-gray-200"
+              aria-label="Zatvori">
+        ✕
+      </button>
+      <img id="lightboxImg" src="" alt="" class="block max-w-[92vw] max-h-[88vh] rounded-2xl shadow-2xl">
+    </div>
+  </div>
 </body>
 </html>
