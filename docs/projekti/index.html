@@ -1,6 +1,8 @@
 <!doctype html>
 <html lang="sr">
-<head="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><head>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#0B3D3A">
   <title>Projekti — Stolarija Vasiljević</title>
   <meta name="description" content="Portfolio projekata: kuhinje, plakari, TV zidovi, kancelarije i uređenje enterijera. Skica/3D + finalne slike.">
@@ -13,12 +15,16 @@
 
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
-    tailwind.config = { theme: { extend: {
-      colors: {'brand-dark':'#0B3D3A','brand-beige':'#E9E2D2','brand-light':'#F7F7F5'},
-      boxShadow:{card:'0 8px 30px rgba(0,0,0,0.08)'},
-      borderRadius:{xl:'16px','2xl':'24px'},
-      fontFamily:{serif:['Cormorant Garamond','serif'],sans:['Inter','ui-sans-serif','system-ui']}
-    } } };
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: { 'brand-dark':'#0B3D3A','brand-beige':'#E9E2D2','brand-light':'#F7F7F5' },
+          boxShadow: { card:'0 8px 30px rgba(0,0,0,0.08)' },
+          borderRadius: { xl:'16px', '2xl':'24px' },
+          fontFamily: { serif:['Cormorant Garamond','serif'], sans:['Inter','ui-sans-serif','system-ui'] }
+        }
+      }
+    };
   </script>
 
   <style>
@@ -42,12 +48,6 @@
 
     body{ background:var(--bg); color:var(--text); }
     .container{max-width:1200px;margin:0 auto;padding:0 16px}
-    .card{background:var(--card);border:1px solid var(--border);border-radius:16px;box-shadow:0 8px 30px rgba(0,0,0,0.08)}
-    html.theme-dark .card{ box-shadow: 0 16px 40px rgba(0,0,0,0.35); }
-    .btn{display:inline-flex;align-items:center;justify-content:center;border-radius:12px;padding:12px 20px;font-weight:500;transition:all .2s}
-    .btn-primary{background:var(--brand);color:var(--text-on-primary)} .btn-primary:hover{filter:brightness(.95)}
-    .btn-secondary{background:var(--secondary-bg);color:#000} .btn-secondary:hover{filter:brightness(.97)}
-    html.theme-dark .btn-secondary{color:var(--text)}
 
     .site-header{
       background: color-mix(in srgb, var(--bg) 85%, transparent);
@@ -59,9 +59,19 @@
       html.theme-dark .site-header{ background: rgba(13,17,19,0.80); }
     }
 
+    .card{background:var(--card);border:1px solid var(--border);border-radius:16px;box-shadow:0 8px 30px rgba(0,0,0,0.08)}
+    html.theme-dark .card{ box-shadow: 0 16px 40px rgba(0,0,0,0.35); }
+
+    .btn{display:inline-flex;align-items:center;justify-content:center;border-radius:12px;padding:12px 20px;font-weight:500;transition:all .2s}
+    .btn-primary{background:var(--brand);color:var(--text-on-primary)} .btn-primary:hover{filter:brightness(.95)}
+    .btn-secondary{background:var(--secondary-bg);color:#000} .btn-secondary:hover{filter:brightness(.97)}
+    html.theme-dark .btn-secondary{color:var(--text)}
+
+    /* Logo */
     .logo { display:inline-flex; align-items:center; justify-content:center; }
-    .logo-img { display:block; height:auto; image-rendering: -webkit-optimize-contrast; }
-    .logo--header .logo-img { height: 36px; }
+    .logo-img { display:block; height:auto; image-rendering:-webkit-optimize-contrast; }
+    .logo--header .logo-img { height: 34px; }
+    @media (min-width:768px){ .logo--header .logo-img { height: 38px; } }
     @media (min-width:1024px){ .logo--header .logo-img { height: 40px; } }
     .logo-dark { display:none; }
     html.theme-dark .logo-light { display:none; }
@@ -70,6 +80,7 @@
     /* Jezik dropdown — kompaktan */
     .dropdown{position:relative}
     #langToggle{ display:flex; align-items:center; gap:6px; padding:6px 10px; min-height:36px; border:1px solid var(--border); border-radius:9999px; background:var(--card); color:var(--text); }
+    @media (max-width: 767px){ #langToggle{ min-height:40px; padding:8px 12px; } }
     .flag{ display:inline-block; font-size:16px; line-height:1; }
     .chev{ transition:transform .2s; width:14px; height:14px; }
     .open .chev{ transform:rotate(180deg); }
@@ -85,6 +96,8 @@
       box-shadow: 0 2px 0 rgba(0,0,0,.04) inset, 0 1px 2px rgba(0,0,0,.08);
       transition: background-color .2s, filter .2s, box-shadow .2s, transform .06s;
     }
+    #themeToggle:hover{ filter: brightness(0.98) saturate(1.02); }
+    html.theme-dark #themeToggle:hover{ filter: brightness(1.05) saturate(1.02); }
 
     :where(a, button, input, select, textarea):focus-visible{
       outline: 2px solid var(--ring);
@@ -92,10 +105,11 @@
       border-color: var(--ring);
     }
 
+    /* Modal backdrop */
     .lightbox-backdrop{ background: rgba(0,0,0,0.75); backdrop-filter: blur(6px); }
-    html.theme-dark #projectModalCard{ background: var(--card); border-color: var(--border); }
   </style>
 
+  <!-- Config + main JS -->
   <script src="../assets/config.js"></script>
   <script src="../assets/site.js" defer></script>
 </head>
@@ -109,6 +123,15 @@
           <img src="../assets/img/logo-dark.svg" alt="Vasiljević" class="logo-img logo-dark" decoding="async">
         </span>
       </a>
+
+      <nav class="hidden md:flex items-center gap-6 text-sm">
+        <a href="../#usluge" class="hover:text-brand-dark" id="navServices">Usluge</a>
+        <a href="../#proces" class="hover:text-brand-dark" id="navProcess">Proces</a>
+        <a href="./" class="hover:text-brand-dark" id="navProjects">Projekti</a>
+        <a href="../#onama" class="hover:text-brand-dark" id="navAbout">O nama</a>
+        <a href="../#faq" class="hover:text-brand-dark" id="navFAQ">FAQ</a>
+        <a href="../#kontakt" class="hover:text-brand-dark" id="navContact">Kontakt</a>
+      </nav>
 
       <div class="flex items-center gap-2 md:gap-3">
         <!-- Jezik -->
@@ -158,26 +181,29 @@
       <div class="flex flex-col gap-2 md:flex-row md:items-end md:justify-between mb-6">
         <div>
           <h1 class="font-serif text-4xl md:text-5xl leading-tight" id="projectsPageTitle">Projekti</h1>
-          <p class="text-gray-600 mt-2" id="projectsPageSubtitle">Skica/3D + 1–2 finalne slike. Filtriraj po tipu i lokaciji.</p>
+          <p class="text-gray-600 mt-2" id="projectsPageSubtitle">
+            Skica/3D + 1–2 finalne slike. Filtriraj po tipu i lokaciji.
+          </p>
         </div>
-        <a href="../#kontakt" class="btn btn-secondary" id="projectsPageCTA">Pošalji upit</a>
+        <a href="../#kontakt" class="btn btn-primary">Pošalji upit</a>
       </div>
 
-      <!-- site.js ovde renderuje filtere + grid -->
+      <!-- site.js renderuje filtere + grid -->
       <div id="projectsPageMount"></div>
     </section>
   </main>
 
-  <!-- Modal / Lightbox + info panel -->
+  <!-- Modal / Lightbox + info panel (site.js očekuje ove ID-jeve) -->
   <div id="projectModal" class="hidden fixed inset-0 z-[70] items-center justify-center lightbox-backdrop">
     <div id="projectModalCard" class="w-[94vw] max-w-6xl max-h-[90vh] overflow-hidden rounded-2xl bg-white card border border-gray-200 flex flex-col md:flex-row">
       <!-- Image side -->
       <div class="relative md:w-[62%] bg-gray-100">
-        <img id="projectModalImg" src="" alt="" class="w-full h-[52vh] md:h-[90vh] object-contain bg-gray-100" decoding="async">
+        <img id="projectModalImg" src="" alt="" class="w-full h-[52vh] md:h-[90vh] object-contain bg-gray-100">
 
         <button id="projectPrev" type="button"
                 class="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/90 hover:bg-white shadow border border-gray-200 flex items-center justify-center"
                 aria-label="Prethodni projekat">‹</button>
+
         <button id="projectNext" type="button"
                 class="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/90 hover:bg-white shadow border border-gray-200 flex items-center justify-center"
                 aria-label="Sledeći projekat">›</button>
@@ -200,7 +226,7 @@
         <div id="projectModalThumbs" class="mt-6 grid grid-cols-3 gap-3"></div>
 
         <div class="mt-8 flex gap-3 flex-wrap">
-          <a href="../#kontakt" class="btn btn-primary" id="projectModalCTA">Pošalji upit</a>
+          <a href="../#kontakt" class="btn btn-primary">Pošalji upit</a>
           <button id="projectCopyLink" type="button" class="btn btn-secondary">Kopiraj link</button>
         </div>
 
@@ -212,5 +238,3 @@
   </div>
 </body>
 </html>
-  <meta charset="utf-8">
-
