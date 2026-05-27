@@ -1,24 +1,6 @@
 (function() {
   const cfg = window.APP_CONFIG || {};
-  const base = typeof cfg.withBase === 'function' ? cfg.withBase : (p)=>p;
-  const state = { site: null, projects: [], lang: 'sr' };
-
-  const UI = {
-    sr: {
-      nav: { services:'Usluge', process:'Proces', projects:'Projekti', about:'O nama', faq:'FAQ', contact:'Kontakt' },
-      heads: { services:'Usluge', process:'Proces', about:'O nama', contact:'Kontakt', projects:'Projekti', testimonials:'Utisci', faq:'FAQ', whyus:'Zašto mi' },
-      common: { viewAll:'Pogledaj sve' },
-      theme: { toggle:'Promeni temu' },
-      contact: {
-        reach:'Kontakt podaci', phone:'Telefon', email:'Email', area:'Područje — Novi Sad, Beograd i okolina', hint:'Upit šaljite mejlom ili ovde',
-        fullName:'Ime i prezime *', phoneF:'Telefon *', emailF:'Email *', city:'Grad *', type:'Tip projekta *', measures:'Imam mere *',
-        dims:'Dimenzije', desc:'Opis projekta *', deadline:'Rok', budget:'Budžet', images:'Slike — max 10 — do 5MB po slici', consent:'Slažem se da budem kontaktiran',
-        submit:'Pošalji upit', call:'Pozovi', successTitle:'Hvala! Upit je poslat', successText:'Javićemo se uskoro',
-        errReq:'Popunite obavezna polja', errSend:'Došlo je do greške — molimo pokušajte ponovo', fallback:'Slike možete naknadno poslati kao odgovor na email'
-      },
-      services: [
-        { title:'Kuhinje', text:'Dizajn i izrada po meri — jasno i funkcionalno' },
-        { title:'Plakari / Garderoberi', text:'Klizni ili klasični — maksimalno iskorišćen prostor' },
+  const base title:'Plakari / Garderoberi', text:'Klizni ili klasični — maksimalno iskorišćen prostor' },  const base = typeof cfg.withBase === 'function' ? cfg.withBase : (p)=>p;
         { title:'Komode / Police', text:'Za dnevne, hodnike i spavaće — čiste linije' },
         { title:'Kancelarije', text:'Radni stolovi, police, ormari — uredno' },
         { title:'TV zidovi', text:'Skriveni kablovi — čist izgled' },
@@ -143,6 +125,7 @@
       initTheme();
       initLangDropdown();
       await safeLoadContent();
+
       renderHeader();
       renderHero();
       renderServices();
@@ -153,6 +136,11 @@
       renderFAQ();
       renderContact();
       renderFooter();
+
+      // Projects page (/projekti/)
+      renderProjectsPage();
+      wireProjectsModal();
+
       injectSEO();
       wireNav();
       wireLightbox();
@@ -216,6 +204,7 @@
     state.site = await tryFetchJson(langFile)
       || await tryFetchJson(base('content/site.json'))
       || defaultSite();
+
     const pj = await tryFetchJson(base('content/projects.json'));
     state.projects = (pj && pj.projects) || [];
   }
@@ -251,14 +240,25 @@
 
   function qs(sel) { return document.querySelector(sel); }
   function telHref(phone) { return "tel:" + String(phone || "").replace(/\s+/g, ""); }
+
+  // Asset helper: radi i na repo pages i na custom domenu
+  function asset(p){
+    const s = String(p || "");
+    if (!s) return "";
+    if (/^https?:\/\//i.test(s)) return s;
+    const clean = s.replace(/^\.?\//, "").replace(/^\/+/, "");
+    return base(clean);
+  }
+
+  // Proper HTML escape (bez double-escape)
   function esc(s){
-  return String(s || "")
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#39;");
-}
+    return String(s || "")
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#39;");
+  }
 
   function initTheme(){
     const saved = localStorage.getItem('theme') || 'light';
@@ -303,6 +303,7 @@
     const heads = UI[state.lang].heads;
     const ids = { labelServices:'services', labelProcess:'process', labelAbout:'about', labelContact:'contact' };
     Object.entries(ids).forEach(([id,key])=>{ const el2=qs('#'+id); if(el2) el2.textContent = heads[key]; });
+
     const cta = qs('#ctaHeader'); if (cta && state.lang!=='sr') cta.textContent = UI[state.lang].contact.submit;
   }
 
@@ -317,7 +318,7 @@
             <p class="text-lg text-gray-700 mb-6">${esc(c.subtitle || '')}</p>
             <div class="flex flex-wrap gap-3 mb-8">
               <a href="#kontakt" class="btn btn-primary">${esc(c.ctaPrimary || UI[state.lang].contact.submit)}</a>
-              <a href="${base('projekti/')}" class="btn btn-secondary">${esc(c.ctaSecondary || UI[state.lang].common.viewAll)}</a>
+              <a href="${asset('projekti/')}" class="btn btn-secondary">${esc(c.ctaSecondary || UI[state.lang].common.viewAll)}</a>
             </div>
             <div class="grid sm:grid-cols-3 gap-4">
               ${(c.benefits || []).slice(0,3).map(b => `
@@ -329,7 +330,7 @@
             </div>
           </div>
           <div class="card p-6 bg-brand-beige/30">
-            <img src="${base('images/ph1.svg')}" alt="${esc(UI[state.lang].heads.projects)}" class="w-full h-auto rounded-xl" />
+            <img src="${asset('images/ph1.svg')}" alt="${esc(UI[state.lang].heads.projects)}" class="w-full h-auto rounded-xl" />
           </div>
         </div>
       </div>
@@ -404,7 +405,7 @@
     mount.innerHTML = topRow + turn + bottomRow;
 
     const root = qs('.process-flow');
-    const buttons = Array.from(root.querySelectorAll('[data-process-toggle]'));
+    const buttons = root ? Array.from(root.querySelectorAll('[data-process-toggle]')) : [];
     let openPanel = null, openBtn = null;
 
     buttons.forEach(btn=>{
@@ -460,6 +461,7 @@
       </div>`;
   }
 
+  // Landing: 8 kartica + CTA (bez filtera) + OPCIJA A: cover = final slika ako postoji
   function renderPortfolioPreview() {
     const list = (state.projects || []).slice(0, 8);
     const el = qs("#portfolioPreview"); if (!el) return;
@@ -468,18 +470,18 @@
       <div class="container">
         <div class="flex items-center justify-between mb-6">
           <h2 class="section-title font-serif">${esc(UI[state.lang].heads.projects || 'Projekti')}</h2>
-          <a href="${base('projekti/')}" class="text-brand-dark font-medium hover:underline">${esc(UI[state.lang].common.viewAll)}</a>
+          <a href="${asset('projekti/')}" class="text-brand-dark font-medium hover:underline">${esc(UI[state.lang].common.viewAll)}</a>
         </div>
         <div class="grid md:grid-cols-4 gap-6">
           ${list.map(p => {
-            const img = (p.images && p.images[0]) ? p.images[0] : base('images/ph2.svg');
+            const cover = coverImg(p); // opcija A
             const typeTxt = typeMap[p.type] || p.type || '';
             const t = localize(p.title);
             const d = localize(p.description);
             return `
-            <button class="card overflow-hidden text-left preview-btn" data-img="${img}">
+            <button class="card overflow-hidden text-left preview-btn" data-img="${cover}" type="button">
               <div class="relative w-full h-40 bg-brand-light">
-                <img src="${img}" alt="${esc(t)}" class="w-full h-40 object-cover" />
+                <img src="${cover}" alt="${esc(t)}" class="w-full h-40 object-cover" loading="lazy" decoding="async" />
               </div>
               <div class="p-4">
                 <div class="text-sm text-gray-500">${esc(typeTxt)} · ${esc(p.location || '')}</div>
@@ -490,7 +492,13 @@
           }).join("")}
         </div>
       </div>`;
+
     function localize(val){ return typeof val==='string' ? val : (val && (val[state.lang] || val.sr)) || ''; }
+    function coverImg(p){
+      const imgs = (p && p.images) ? p.images : [];
+      const final = imgs && imgs.length > 1 ? imgs[1] : (imgs && imgs[0] ? imgs[0] : null);
+      return final ? asset(final) : asset('images/ph2.svg');
+    }
   }
 
   function renderTestimonials() {
@@ -499,7 +507,7 @@
     const el = qs("#testimonials"); if (!el) return;
     el.innerHTML = `
       <div class="container">
-        <h2 class="section-title font-serif">${head}</h2>
+        <h2 class="section-title font-serif">${esc(head)}</h2>
         <div class="grid md:grid-cols-3 gap-6">
           ${items.map(t => `
             <div class="card p-6">
@@ -528,7 +536,7 @@
     const el = qs("#faq"); if (!el) return;
     el.innerHTML = `
       <div class="container">
-        <h2 class="section-title font-serif">${head}</h2>
+        <h2 class="section-title font-serif">${esc(head)}</h2>
         <div class="space-y-3">
           ${items.map((it, i) => `
             <div class="card">
@@ -618,6 +626,7 @@
     });
   }
 
+  // Landing lightbox (za preview kartice)
   function wireLightbox(){
     const box = qs('#lightbox'); const img = qs('#lightboxImg'); const close = qs('#lightboxClose');
     if (!box || !img || !close) return;
@@ -649,7 +658,7 @@
         { "@type": "Person", "name": "Strahinja Vasiljević" },
         { "@type": "Person", "name": "Nemanja Vasiljević" }
       ],
-      "image": siteUrl ? `${siteUrl}/images/ph1.svg` : base('images/ph1.svg'),
+      "image": siteUrl ? `${siteUrl}/images/ph1.svg` : asset('images/ph1.svg'),
       "sameAs": []
     };
     const s = document.createElement("script");
@@ -657,4 +666,321 @@
     s.text = JSON.stringify(jsonLd);
     document.head.appendChild(s);
   }
+
+  // ==========================================================
+  // /projekti/ PAGE: filteri + grid + modal (Opcija A)
+  // ==========================================================
+
+  function renderProjectsPage(){
+    const mount = qs('#projectsPageMount');
+    if (!mount) return; // samo na /projekti/
+
+    const projects = Array.isArray(state.projects) ? state.projects.slice() : [];
+    const typeMap = UI[state.lang].types || {};
+
+    const uniq = (arr) => Array.from(new Set(arr.filter(Boolean)));
+    const types = uniq(projects.map(p => p.type));
+    const locs  = uniq(projects.map(p => p.location));
+
+    // Filters from URL
+    const url = new URL(location.href);
+    let fType = url.searchParams.get('type') || '';
+    let fLoc  = url.searchParams.get('loc') || '';
+
+    const localize = (val) => typeof val==='string' ? val : (val && (val[state.lang] || val.sr)) || '';
+
+    const labelType = state.lang === 'sr' ? 'Tip' : state.lang === 'en' ? 'Type' : state.lang === 'de' ? 'Typ' : 'Тип';
+    const labelLoc  = state.lang === 'sr' ? 'Lokacija' : state.lang === 'en' ? 'Location' : state.lang === 'de' ? 'Ort' : 'Локация';
+    const labelAll  = state.lang === 'sr' ? 'Sve' : state.lang === 'en' ? 'All' : state.lang === 'de' ? 'Alle' : 'Все';
+    const labelReset= state.lang === 'sr' ? 'Reset' : state.lang === 'en' ? 'Reset' : state.lang === 'de' ? 'Zurücksetzen' : 'Сброс';
+    const labelCount= state.lang === 'sr' ? 'projekata' : state.lang === 'en' ? 'projects' : state.lang === 'de' ? 'Projekte' : 'проектов';
+
+    mount.innerHTML = `
+      <div class="card p-5 mb-6">
+        <div class="grid md:grid-cols-3 gap-4 items-end">
+          <div>
+            <label class="block text-sm font-medium mb-1">${esc(labelType)}</label>
+            <select id="filterType" class="w-full border rounded-xl px-3 py-2">
+              <option value="">${esc(labelAll)}</option>
+              ${types.map(t => `<option value="${esc(t)}">${esc(typeMap[t] || t)}</option>`).join('')}
+            </select>
+          </div>
+          <div>
+            <label class="block text-sm font-medium mb-1">${esc(labelLoc)}</label>
+            <select id="filterLoc" class="w-full border rounded-xl px-3 py-2">
+              <option value="">${esc(labelAll)}</option>
+              ${locs.map(l => `<option value="${esc(l)}">${esc(l)}</option>`).join('')}
+            </select>
+          </div>
+          <div class="flex gap-3 md:justify-end flex-wrap">
+            <button id="filterReset" class="btn btn-secondary" type="button">${esc(labelReset)}</button>
+            <div class="text-sm text-gray-600 flex items-center">
+              <span id="filterCount"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="projectsGrid" class="grid md:grid-cols-3 gap-6"></div>
+    `;
+
+    const selType = qs('#filterType');
+    const selLoc  = qs('#filterLoc');
+    const btnReset= qs('#filterReset');
+    const countEl = qs('#filterCount');
+    const grid    = qs('#projectsGrid');
+
+    if (selType) selType.value = fType;
+    if (selLoc)  selLoc.value  = fLoc;
+
+    const applyFilters = () => {
+      let list = projects.slice();
+      if (fType) list = list.filter(p => p.type === fType);
+      if (fLoc)  list = list.filter(p => p.location === fLoc);
+      return list;
+    };
+
+    const syncUrl = () => {
+      const u = new URL(location.href);
+      if (fType) u.searchParams.set('type', fType); else u.searchParams.delete('type');
+      if (fLoc)  u.searchParams.set('loc', fLoc);  else u.searchParams.delete('loc');
+      history.replaceState(null, '', u.toString());
+    };
+
+    const cover = (p) => {
+      const imgs = (p && p.images) ? p.images : [];
+      // OPCIJA A: cover = final (images[1]) ako postoji, else images[0]
+      const coverPath = (imgs && imgs.length > 1 && imgs[1]) ? imgs[1] : (imgs && imgs[0] ? imgs[0] : null);
+      return coverPath ? asset(coverPath) : asset('images/ph2.svg');
+    };
+
+    const renderGrid = () => {
+      const list = applyFilters();
+      if (countEl) countEl.textContent = `${list.length} ${labelCount}`;
+      if (!grid) return;
+
+      grid.innerHTML = list.map((p, idx) => {
+        const img0 = cover(p);
+        const typeTxt = typeMap[p.type] || p.type || '';
+        const t = localize(p.title);
+        const d = localize(p.description);
+
+        // index u okviru FILTERED liste
+        return `
+          <button class="card overflow-hidden text-left project-card"
+                  data-filtered-index="${idx}"
+                  type="button">
+            <div class="relative w-full h-52 bg-brand-light">
+              <img src="${img0}" alt="${esc(t)}" class="w-full h-52 object-cover" loading="lazy" decoding="async" />
+            </div>
+            <div class="p-4">
+              <div class="text-sm text-gray-500">${esc(typeTxt)} · ${esc(p.location || '')}</div>
+              <div class="font-medium">${esc(t)}</div>
+              ${d ? `<p class="text-sm text-gray-600 mt-1">${esc(d)}</p>` : ``}
+            </div>
+          </button>
+        `;
+      }).join('');
+    };
+
+    if (selType) selType.addEventListener('change', () => {
+      fType = selType.value || '';
+      syncUrl();
+      renderGrid();
+    });
+
+    if (selLoc) selLoc.addEventListener('change', () => {
+      fLoc = selLoc.value || '';
+      syncUrl();
+      renderGrid();
+    });
+
+    if (btnReset) btnReset.addEventListener('click', () => {
+      fType = ''; fLoc = '';
+      if (selType) selType.value = '';
+      if (selLoc)  selLoc.value  = '';
+      syncUrl();
+      renderGrid();
+    });
+
+    renderGrid();
+
+    // Klik na karticu otvara modal
+    mount.addEventListener('click', (e) => {
+      const card = e.target.closest('.project-card');
+      if (!card) return;
+      const list = applyFilters();
+      const i = Number(card.getAttribute('data-filtered-index') || 0);
+      if (!list[i]) return;
+      openProjectModal(list, i);
+    });
+
+    // Ako dođe linkom sa #p=..., pokušaj da ga otvoriš iz FILTERED ili ALL
+    if (location.hash && location.hash.includes('#p=')){
+      const key = decodeURIComponent((location.hash.split('#p=')[1] || '').trim());
+      if (key){
+        // prvo pokušaj u filtriranoj listi, pa u all
+        const filtered = applyFilters();
+        let i = filtered.findIndex(p => projectKey(p) === key);
+        if (i >= 0) openProjectModal(filtered, i);
+        else {
+          i = projects.findIndex(p => projectKey(p) === key);
+          if (i >= 0) openProjectModal(projects, i);
+        }
+      }
+    }
+  }
+
+  // Modal state
+  const modalState = { list: [], index: 0, imgIndex: 0 };
+
+  function wireProjectsModal(){
+    const modal = qs('#projectModal');
+    if (!modal) return;
+
+    const close = qs('#projectClose');
+    const prev  = qs('#projectPrev');
+    const next  = qs('#projectNext');
+    const copy  = qs('#projectCopyLink');
+
+    const doClose = () => {
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+      const img = qs('#projectModalImg');
+      if (img) img.src = '';
+    };
+
+    if (close) close.addEventListener('click', doClose);
+    modal.addEventListener('click', (e) => { if (e.target === modal) doClose(); });
+
+    document.addEventListener('keydown', (e) => {
+      if (modal.classList.contains('hidden')) return;
+      if (e.key === 'Escape') doClose();
+      if (e.key === 'ArrowLeft') stepProject(-1);
+      if (e.key === 'ArrowRight') stepProject(+1);
+    });
+
+    if (prev) prev.addEventListener('click', () => stepProject(-1));
+    if (next) next.addEventListener('click', () => stepProject(+1));
+
+    if (copy) copy.addEventListener('click', async () => {
+      const proj = modalState.list[modalState.index];
+      if (!proj) return;
+      const u = new URL(location.href);
+      u.hash = `#p=${encodeURIComponent(projectKey(proj))}`;
+      const labelCopied = state.lang === 'sr' ? 'Kopirano' : state.lang === 'de' ? 'Kopiert' : state.lang === 'ru' ? 'Скопировано' : 'Copied';
+      const labelCopy   = state.lang === 'sr' ? 'Kopiraj link' : state.lang === 'de' ? 'Link kopieren' : state.lang === 'ru' ? 'Копировать' : 'Copy link';
+      try {
+        await navigator.clipboard.writeText(u.toString());
+        copy.textContent = labelCopied;
+        setTimeout(() => copy.textContent = labelCopy, 1200);
+      } catch {}
+    });
+
+    function stepProject(dir){
+      const list = modalState.list || [];
+      if (!list.length) return;
+      let nextIndex = modalState.index + dir;
+      if (nextIndex < 0) nextIndex = list.length - 1;
+      if (nextIndex >= list.length) nextIndex = 0;
+      modalState.index = nextIndex;
+      modalState.imgIndex = 0; // uvek krećemo od skice/3D (images[0])
+      renderProjectModal();
+    }
+  }
+
+  function openProjectModal(list, index){
+    const modal = qs('#projectModal');
+    if (!modal) return;
+    modalState.list = Array.isArray(list) ? list : [];
+    modalState.index = typeof index === 'number' ? index : 0;
+    modalState.imgIndex = 0; // skica/3D prva
+
+    renderProjectModal();
+
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+  }
+
+  function renderProjectModal(){
+    const modal = qs('#projectModal');
+    if (!modal) return;
+
+    const imgEl  = qs('#projectModalImg');
+    const metaEl = qs('#projectModalMeta');
+    const titleEl= qs('#projectModalTitle');
+    const descEl = qs('#projectModalDesc');
+    const thumbs = qs('#projectModalThumbs');
+
+    const typeMap = UI[state.lang].types || {};
+    const localize = (val) => typeof val==='string' ? val : (val && (val[state.lang] || val.sr)) || '';
+
+    const project = modalState.list[modalState.index];
+    if (!project) return;
+
+    const title = localize(project.title);
+    const desc  = localize(project.description);
+    const type  = typeMap[project.type] || project.type || '';
+    const loc   = project.location || '';
+
+    if (metaEl) metaEl.textContent = `${type} · ${loc}`;
+    if (titleEl) titleEl.textContent = title;
+    if (descEl) descEl.textContent = desc;
+
+    const imgsRaw = (project.images || []).slice(0, 3);
+    const imgs = imgsRaw.map(asset);
+    const main = imgs[modalState.imgIndex] || asset('images/ph2.svg');
+
+    if (imgEl){
+      imgEl.src = main;
+      imgEl.alt = title;
+    }
+
+    if (thumbs){
+      // prikaz thumbnails ako ima 2 ili 3 slike (max 3 po projektu)
+      if (imgs.length <= 1){
+        thumbs.innerHTML = '';
+        thumbs.style.display = 'none';
+      } else {
+        thumbs.style.display = '';
+        thumbs.innerHTML = imgs.map((src, i) => `
+          <button type="button"
+                  class="card overflow-hidden border ${i===modalState.imgIndex ? 'ring-2 ring-brand-dark' : ''}"
+                  data-thumb-index="${i}">
+            <img src="${src}" alt="${esc(title)}" class="w-full h-20 object-cover" loading="lazy" decoding="async" />
+          </button>
+        `).join('');
+
+        thumbs.querySelectorAll('[data-thumb-index]').forEach(btn => {
+          btn.addEventListener('click', () => {
+            modalState.imgIndex = Number(btn.getAttribute('data-thumb-index') || 0);
+            renderProjectModal();
+          });
+        });
+      }
+    }
+  }
+
+  function projectKey(p){
+    const t = (p && p.title && (p.title.sr || p.title.en || '')) || '';
+    return [p.type, p.location, t].join('|').toLowerCase().replace(/\s+/g,'-');
+  }
+
 })();
+  const state = { site: null, projects: [], lang: 'sr' };
+
+  const UI = {
+    sr: {
+      nav: { services:'Usluge', process:'Proces', projects:'Projekti', about:'O nama', faq:'FAQ', contact:'Kontakt' },
+      heads: { services:'Usluge', process:'Proces', about:'O nama', contact:'Kontakt', projects:'Projekti', testimonials:'Utisci', faq:'FAQ', whyus:'Zašto mi' },
+      common: { viewAll:'Pogledaj sve' },
+      theme: { toggle:'Promeni temu' },
+      contact: {
+        reach:'Kontakt podaci', phone:'Telefon', email:'Email', area:'Područje — Novi Sad, Beograd i okolina', hint:'Upit šaljite mejlom ili ovde',
+        fullName:'Ime i prezime *', phoneF:'Telefon *', emailF:'Email *', city:'Grad *', type:'Tip projekta *', measures:'Imam mere *',
+        dims:'Dimenzije', desc:'Opis projekta *', deadline:'Rok', budget:'Budžet', images:'Slike — max 10 — do 5MB po slici', consent:'Slažem se da budem kontaktiran',
+        submit:'Pošalji upit', call:'Pozovi', successTitle:'Hvala! Upit je poslat', successText:'Javićemo se uskoro',
+        errReq:'Popunite obavezna polja', errSend:'Došlo je do greške — molimo pokušajte ponovo', fallback:'Slike možete naknadno poslati kao odgovor na email'
+      },
+      services: [
+        { title:'Kuhinje', text:'Dizajn i izrada po meri — jasno i funkcionalno' },
