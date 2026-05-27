@@ -652,7 +652,7 @@
       <div class="container">
         <div class="flex items-center justify-between mb-6">
           <h2 class="section-title font-serif">${esc(UI[state.lang].heads.projects || "Projekti")}</h2>
-          ${asset(}" class="text-brand-dark font-medium hover:underline">${esc(UI[state.lang].common.viewAll)}</a>
+          <a href="${base("projekti/")}" class="text-brand-dark font-medium hover:underline[state.lang].common.viewAll)}</a>
         </div>
         <div class="grid md:grid-cols-4 gap-6">
           ${list.map((p) => {
