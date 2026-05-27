@@ -854,7 +854,8 @@
         { "@type": "Person", "name": "Strahinja Vasiljević" },
         { "@type": "Person", "name": "Nemanja Vasiljević" }
       ],
-      "image": siteUrl ? `${siteUrl}/images/ph1.svg` : asset("images/ph1.svg"),
+     "image": siteUrl ? `${siteUrl}/assets/img/cover-logo.png` : asset("assets/img/cover-logo.png"),
+``
       "sameAs": []
     };
     const s = document.createElement("script");
