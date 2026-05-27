@@ -208,10 +208,17 @@
     .process-flow .process-turn{ display:flex; align-items:center; justify-content:flex-end; margin: -6px 0 10px; color: var(--process-connector); }
     .process-flow .process-connector svg, .process-flow .process-turn svg{ display:block; }
 
-    /* Lightbox */
-    .lightbox-backdrop{
-      background: rgba(0,0,0,0.75);
-      backdrop-filter: blur(6px);
+   <!-- LIGHTBOX (site.js očekuje ove ID-jeve) -->
+<div id="lightbox" class="hidden fixed inset-0 z-[60] items-center justify-center lightbox-backdrop">
+  <div class="relative max-w-[92vw] max-h-[88vh]">
+    <button id="lightboxClose" type="button"
+            class="absolute -top-4 -right-4 w-10 h-10 rounded-full bg-white text-gray-900 shadow flex items-center justify-center border border-gray-200"
+            aria-label="Zatvori">
+      ✕
+    </button>
+    <img id="lightboxImg" src="" alt="" class="block max-w-[92vw] max-h-[88vh] rounded-2xl shadow-2xl">
+  </div>
+</div>
     }
   </style>
 
