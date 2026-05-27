@@ -116,7 +116,7 @@
     html.theme-dark .to-brand-light { --tw-gradient-to: var(--card) !important; }
     html.theme-dark .bg-brand-beige\/30 { background-color: color-mix(in srgb, var(--secondary-bg) 70%, transparent) !important; }
 
-    /* LOGO: samo simbol, tema-aware */
+    /* LOGO: tema-aware */
     .logo { display:inline-flex; align-items:center; justify-content:center; }
     .logo-img { display:block; height:auto; image-rendering: -webkit-optimize-contrast; }
     .logo--header .logo-img { height: 32px; }
@@ -128,9 +128,8 @@
     .logo-dark { display:none; }
     html.theme-dark .logo-light { display:none; }
     html.theme-dark .logo-dark { display:block; }
-    .logo img[src$=".svg"] { shape-rendering: geometricPrecision; text-rendering: geometricPrecision; }
 
-    /* Jezik dropdown — kompaktan, flag vidljiv */
+    /* Jezik dropdown */
     .dropdown{position:relative}
     #langToggle{ display:flex; align-items:center; gap:6px; padding:6px 10px; min-height:36px; border:1px solid var(--border); border-radius:9999px; background:var(--card); color:var(--text); }
     @media (max-width: 767px){ #langToggle{ min-height:40px; padding:8px 12px; } }
@@ -141,7 +140,7 @@
     .dropdown-item{ display:flex; align-items:center; gap:8px; width:100%; text-align:left; padding:6px 8px; border-radius:10px; color:var(--text); min-height:34px; }
     .dropdown-item:hover{ background:var(--secondary-bg) }
 
-    /* Theme toggle (fill) */
+    /* Theme toggle */
     #themeToggle{
       background: linear-gradient(180deg, var(--toggle-bg1), var(--toggle-bg2));
       border-color: var(--toggle-border-c) !important;
@@ -162,7 +161,7 @@
       border-color: var(--ring);
     }
 
-    /* ==== PROCES FLOW (wood theme, 2 reda) ==== */
+    /* ==== PROCES FLOW ==== */
     .process-flow .process-row{ display:grid; align-items:start; grid-auto-rows:1fr; gap:14px; margin-bottom:28px; }
     .process-flow .process-row--top{ grid-template-columns: 1fr auto 1fr auto 1fr auto 1fr; }
     .process-flow .process-row--bottom{ grid-template-columns: 1fr auto 1fr auto 1fr; }
@@ -193,8 +192,7 @@
     html.theme-dark .process-flow .process-chip{ background: rgba(255,255,255,0.06); }
     .process-flow .process-title{ font-weight:600; font-size:16px; }
     .process-flow .process-sub{ font-size:13px; color:var(--process-text-muted); }
-
-    .process-flow .process-panel{ overflow:hidden; max-height:0; opacity:.0; transform: translateY(-4px);
+    .process-flow .process-panel{ overflow:hidden; max-height:0; opacity:0; transform: translateY(-4px);
       transition: max-height 220ms ease, opacity 200ms ease, transform 200ms ease; }
     .process-flow .process-panel.open{ opacity:1; transform: translateY(0); }
     .process-flow .process-panel-inner{
@@ -208,6 +206,10 @@
     .process-flow .process-turn{ display:flex; align-items:center; justify-content:flex-end; margin: -6px 0 10px; color: var(--process-connector); }
     .process-flow .process-connector svg, .process-flow .process-turn svg{ display:block; }
 
+    /* Lightbox overlay (da uvek radi) */
+    .lightbox-backdrop{
+      background: rgba(0,0,0,0.75);
+      backdrop-filter: blur(6px);
     }
   </style>
 
@@ -283,15 +285,12 @@
   </header>
 
   <main>
-    <!-- HERO (site.js ga renderuje) -->
     <section class="section bg-gradient-to-b from-white to-brand-light" id="hero"></section>
 
-    <!-- USLUGE (site.js renderuje sadržaj u #usluge .container) -->
     <section id="usluge" class="section">
       <div class="container">
         <h2 class="section-title font-serif" id="labelServices">Usluge</h2>
         <div class="grid md:grid-cols-3 gap-6">
-          <!-- fallback (ako JS ne radi) -->
           <div class="card p-6"><div class="text-xl font-medium mb-2">Kuhinje</div><div class="text-gray-700">Dizajn i izrada po meri — jasno i funkcionalno</div></div>
           <div class="card p-6"><div class="text-xl font-medium mb-2">Plakari / Garderoberi</div><div class="text-gray-700">Klizni ili klasični — maksimalno iskorišćen prostor</div></div>
           <div class="card p-6"><div class="text-xl font-medium mb-2">Komode / Police</div><div class="text-gray-700">Za dnevne, hodnike i spavaće — čiste linije</div></div>
@@ -299,7 +298,6 @@
       </div>
     </section>
 
-    <!-- PROCES -->
     <section id="proces" class="process-flow section">
       <div class="container">
         <h2 class="section-title font-serif" id="labelProcess">Proces</h2>
@@ -307,13 +305,11 @@
       </div>
     </section>
 
-    <!-- OVE SEKCIJE site.js generiše -->
     <section class="section" id="whyus"></section>
     <section class="section bg-white" id="portfolioPreview"></section>
     <section class="section bg-brand-light" id="testimonials"></section>
     <section class="section" id="faq"></section>
 
-    <!-- O NAMA (ostaje statično; site.js menja samo naslov) -->
     <section id="onama" class="section">
       <div class="container">
         <h2 class="section-title font-serif" id="labelAbout">O nama</h2>
@@ -324,7 +320,6 @@
       </div>
     </section>
 
-    <!-- KONTAKT (site.js popunjava label-e + mail/tel) -->
     <section id="kontakt" class="section bg-brand-light">
       <div class="container" id="contactSection">
         <h2 class="section-title font-serif" id="labelContact">Kontakt</h2>
@@ -349,21 +344,12 @@
             <div id="fallbackBox" class="bg-yellow-50 text-yellow-800 p-3 rounded-xl hidden"></div>
 
             <div class="grid md:grid-cols-2 gap-4">
-              <div>
-                <label class="block text-sm font-medium mb-1" id="labelFullName">Ime i prezime *</label>
-                <input name="fullName" class="w-full border rounded-xl px-3 py-2" required>
-              </div>
-              <div>
-                <label class="block text-sm font-medium mb-1" id="labelPhoneField">Telefon *</label>
-                <input name="phone" class="w-full border rounded-xl px-3 py-2" required>
-              </div>
+              <div><label class="block text-sm font-medium mb-1" id="labelFullName">Ime i prezime *</label><input name="fullName" class="w-full border rounded-xl px-3 py-2" required></div>
+              <div><label class="block text-sm font-medium mb-1" id="labelPhoneField">Telefon *</label><input name="phone" class="w-full border rounded-xl px-3 py-2" required></div>
             </div>
 
             <div class="grid md:grid-cols-2 gap-4">
-              <div>
-                <label class="block text-sm font-medium mb-1" id="labelEmailField">Email *</label>
-                <input type="email" name="email" class="w-full border rounded-xl px-3 py-2" required>
-              </div>
+              <div><label class="block text-sm font-medium mb-1" id="labelEmailField">Email *</label><input type="email" name="email" class="w-full border rounded-xl px-3 py-2" required></div>
               <div>
                 <label class="block text-sm font-medium mb-1" id="labelCity">Grad *</label>
                 <select name="city" class="w-full border rounded-xl px-3 py-2" required>
@@ -392,25 +378,12 @@
               </div>
             </div>
 
-            <div>
-              <label class="block text-sm font-medium mb-1" id="labelDims">Dimenzije</label>
-              <input name="dimensions" class="w-full border rounded-xl px-3 py-2" placeholder="npr 240x60x220 cm">
-            </div>
-
-            <div>
-              <label class="block text-sm font-medium mb-1" id="labelDesc">Opis projekta *</label>
-              <textarea name="description" class="w-full border rounded-xl px-3 py-2 min-h-[120px]" required></textarea>
-            </div>
+            <div><label class="block text-sm font-medium mb-1" id="labelDims">Dimenzije</label><input name="dimensions" class="w-full border rounded-xl px-3 py-2" placeholder="npr 240x60x220 cm"></div>
+            <div><label class="block text-sm font-medium mb-1" id="labelDesc">Opis projekta *</label><textarea name="description" class="w-full border rounded-xl px-3 py-2 min-h-[120px]" required></textarea></div>
 
             <div class="grid md:grid-cols-2 gap-4">
-              <div>
-                <label class="block text-sm font-medium mb-1" id="labelDeadline">Rok</label>
-                <input name="deadline" class="w-full border rounded-xl px-3 py-2" placeholder="npr kraj jula">
-              </div>
-              <div>
-                <label class="block text-sm font-medium mb-1" id="labelBudget">Budžet</label>
-                <input name="budget" class="w-full border rounded-xl px-3 py-2" placeholder="npr 1500–2500€">
-              </div>
+              <div><label class="block text-sm font-medium mb-1" id="labelDeadline">Rok</label><input name="deadline" class="w-full border rounded-xl px-3 py-2" placeholder="npr kraj jula"></div>
+              <div><label class="block text-sm font-medium mb-1" id="labelBudget">Budžet</label><input name="budget" class="w-full border rounded-xl px-3 py-2" placeholder="npr 1500–2500€"></div>
             </div>
 
             <div>
@@ -479,9 +452,7 @@
     <div class="relative max-w-[92vw] max-h-[88vh]">
       <button id="lightboxClose" type="button"
               class="absolute -top-4 -right-4 w-10 h-10 rounded-full bg-white text-gray-900 shadow flex items-center justify-center border border-gray-200"
-              aria-label="Zatvori">
-        ✕
-      </button>
+              aria-label="Zatvori">✕</button>
       <img id="lightboxImg" src="" alt="" class="block max-w-[92vw] max-h-[88vh] rounded-2xl shadow-2xl">
     </div>
   </div>
