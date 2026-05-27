@@ -251,7 +251,14 @@
 
   function qs(sel) { return document.querySelector(sel); }
   function telHref(phone) { return "tel:" + String(phone || "").replace(/\s+/g, ""); }
-  function esc(s){ return String(s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
+  function esc(s){
+  return String(s || "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
 
   function initTheme(){
     const saved = localStorage.getItem('theme') || 'light';
