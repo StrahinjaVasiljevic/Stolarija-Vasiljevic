@@ -286,7 +286,7 @@ function esc(s) {
     .replace(/'/g, "&#39;");
 }
 
-  }
+  
 
   function localize(val) {
     return typeof val === "string" ? val : (val && (val[state.lang] || val.sr)) || "";
