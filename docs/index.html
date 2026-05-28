@@ -180,8 +180,22 @@ html.theme-dark .process-flow .process-chip{ background: rgba(255,255,255,0.06);
 }
 
 .process-flow .process-connector{ display:flex; align-items:center; justify-content:center; color: var(--muted); }
-.process-flow .process-turn{ display:flex; align-items:center; justify-content:flex-end; margin: -6px 0 10px; color: var(--muted); }
-.process-flow .process-connector svg, .process-flow .process-turn svg{ display:block; }
+/* Turn arrow: fino pozicioniranje između reda 1 i reda 2 */
+.process-flow .process-turn{
+  display:flex;
+  justify-content:flex-end;   /* drži polaznu tačku sa desne strane */
+  margin: -8px 0 8px;         /* približi 4. kartici i spusti ka 5. */
+  color: var(--process-connector, var(--muted));
+}
+.process-flow .process-turn-svg{
+  width: 560px;
+  height: 110px;
+  max-width: 100%;
+  opacity: 0.95;
+}
+@media (max-width: 1023px){
+  .process-flow .process-turn{ display:none; } /* na mobilnom se ne koristi */
+}
     /* LOGO */
     .logo { display:inline-flex; align-items:center; justify-content:center; }
     .logo-img { display:block; height:auto; image-rendering: -webkit-optimize-contrast; }
