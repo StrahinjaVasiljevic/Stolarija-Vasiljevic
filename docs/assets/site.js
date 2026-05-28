@@ -451,11 +451,12 @@
 
   // ---------- render: hero ----------
   function renderHero() {
-  const c = state");  const c = state.site && state.site.hero;
+  const c = state.site && state.site.hero;
+  const el = qs("#hero");
   if (!c || !el) return;
 
   const projectsUrl = base("projekti/");
-  const heroImg = asset((c.image || cfg.HERO_IMAGE || "assets/img/cover-logo.png"));
+  const heroImg = asset(c.image || cfg.HERO_IMAGE || "assets/img/cover-logo.png");
 
   el.innerHTML = `
     <div class="container mx-auto px-4">
