@@ -293,83 +293,134 @@ function esc(s) {
   }
 
   // ---------- lang ----------
-  function getLang() {
-    const stored = localStorage.getItem("lang");
-    const def = cfg.DEFAULT_LANG || "sr";
-    return stored && UI[stored] ? stored : def;
+ function getLang() {
+  const stored = localStorage.getItem("lang");
+  const def = cfg.DEFAULT_LANG || "sr";
+  return stored && UI[stored] ? stored : def;
+}
+
+function setLang(lang) {
+  const next = UI[lang] ? lang : (cfg.DEFAULT_LANG || "sr");
+  localStorage.setItem("lang", next);
+  state.lang = next;
+}
+
+function initLangDropdown() {
+  setLang(getLang());
+
+  const toggle = qs("#langToggle");
+  const menu = qs("#langMenu");
+  const flagEl = qs("#langFlag");
+  const labelEl = qs("#langLabel");
+
+  const flags = { sr: "🇷🇸", en: "🇬🇧", de: "🇩🇪", ru: "🇷🇺" };
+  const labels = { sr: "Jezik", en: "Language", de: "Sprache", ru: "Язык" };
+  const abbr = { sr: "srb", en: "eng", de: "deu", ru: "рус" };
+
+  function applyLabel() {
+    if (flagEl) flagEl.textContent = flags[state.lang] || "🇷🇸";
+    if (labelEl) labelEl.textContent = `${labels[state.lang] || "Jezik"}: ${abbr[state.lang] || "srb"}`;
   }
 
-  function setLang(lang) {
-    const next = UI[lang] ? lang : (cfg.DEFAULT_LANG || "sr");
-    localStorage.setItem("lang", next);
-    state.lang = next;
+  function openMenu() {
+    if (!menu || !toggle) return;
+    menu.classList.remove("hidden");
+    if (toggle.parentElement) toggle.parentElement.classList.add("open");
+    toggle.setAttribute("aria-expanded", "true");
   }
 
-  function initLangDropdown() {
-    setLang(getLang());
-    const toggle = qs("#langToggle");
-    const menu = qs("#langMenu");
-    const flagEl = qs("#langFlag");
-    const labelEl = qs("#langLabel");
-
-    const applyLabel = () => {
-      const flags = { sr: "🇷🇸", en: "🇬🇧", de: "🇩🇪", ru: "🇷🇺" };
-      const labels = { sr: "Jezik", en: "Language", de: "Sprache", ru: "Язык" };
-      const abbr = { sr: "srb", en: "eng", de: "deu", ru: "рус" };
-      if (flagEl) flagEl.textContent = flags[state.lang] || "🇷🇸";
-      if (labelEl) labelEl.textContent = `${labels[state.lang]}: ${abbr[state.lang]}`;
-    };
-    applyLabel();
-
-    if (toggle && menu) {
-      toggle.addEventListener("click", (e) => {
-        e.stopPropagation();
-        const open = !menu.classList.contains("hidden");
-        menu.classList.toggle("hidden", open);
-        if (toggle.parentElement) toggle.parentElement.classList.toggle("open", !open);
-        toggle.setAttribute("aria-expanded", String(!open));
-      });
-
-      document.addEventListener("click", () => {
-        if (!menu.classList.contains("hidden")) {
-          menu.classList.add("hidden");
-          if (toggle.parentElement) toggle.parentElement.classList.remove("open");
-          toggle.setAttribute("aria-expanded", "false");
-        }
-      });
-
-      menu.querySelectorAll(".dropdown-item").forEach((item) => {
-        item.addEventListener("click", () => {
-          const lang = item.getAttribute("data-lang");
-          setLang(lang || "sr");
-          location.reload();
-        });
-      });
-    }
+  function closeMenu() {
+    if (!menu || !toggle) return;
+    menu.classList.add("hidden");
+    if (toggle.parentElement) toggle.parentElement.classList.remove("open");
+    toggle.setAttribute("aria-expanded", "false");
   }
 
+  function isOpen() {
+    return menu && !menu.classList.contains("hidden");
+  }
+
+  applyLabel();
+
+  if (!toggle || !menu) return;
+
+  // Tip dugmeta (da ne submituje formu slučajno)
+  toggle.type = "button";
+
+  toggle.addEventListener("click", (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (isOpen()) closeMenu();
+    else openMenu();
+  });
+
+  // Klik van menija zatvara
+  document.addEventListener("click", (e) => {
+    const t = e.target;
+    if (!isOpen()) return;
+    if (toggle.contains(t) || menu.contains(t)) return;
+    closeMenu();
+  });
+
+  // ESC zatvara
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && isOpen()) closeMenu();
+  });
+
+  // Klik na stavku jezika
+  menu.querySelectorAll(".dropdown-item").forEach((item) => {
+    item.addEventListener("click", (e) => {
+      e.preventDefault();
+      const lang = item.getAttribute("data-lang") || "sr";
+      if (lang === state.lang) {
+        closeMenu();
+        return;
+      }
+      setLang(lang);
+
+      // Najstabilnije: reload, jer ti ceo content loader koristi state.lang pri init-u.
+      // (Ako kasnije hoćeš "bez reload", mogu ti dati varijantu sa re-renderom svega.)
+      location.reload();
+    });
+  });
+}
   // ---------- theme ----------
-  function initTheme() {
-    const saved = localStorage.getItem("theme") || "light";
-    applyTheme(saved);
-    const btn = qs("#themeToggle");
-    if (btn) {
-      btn.addEventListener("click", () => {
-        const next = document.documentElement.classList.contains("theme-dark") ? "light" : "dark";
-        applyTheme(next);
-        localStorage.setItem("theme", next);
-      }, { passive: true });
-    }
-  }
+function initTheme() {
+  // Ako nema ručno setovano, uzmi OS preferencu
+  const saved = localStorage.getItem("theme");
+  const prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+  const initial = saved ? saved : (prefersDark ? "dark" : "light");
 
-  function applyTheme(theme) {
-    document.documentElement.classList.toggle("theme-dark", theme === "dark");
-    const light = qs("#iconLight"), dark = qs("#iconDark");
-    if (light && dark) {
-      if (theme === "dark") { light.classList.add("hidden"); dark.classList.remove("hidden"); }
-      else { dark.classList.add("hidden"); light.classList.remove("hidden"); }
+  applyTheme(initial);
+
+  const btn = qs("#themeToggle");
+  if (!btn) return;
+
+  btn.type = "button";
+  btn.addEventListener("click", () => {
+    const next = document.documentElement.classList.contains("theme-dark") ? "light" : "dark";
+    applyTheme(next);
+    localStorage.setItem("theme", next);
+  }, { passive: true });
+}
+
+function applyTheme(theme) {
+  const isDark = theme === "dark";
+  document.documentElement.classList.toggle("theme-dark", isDark);
+
+  const light = qs("#iconLight");
+  const dark = qs("#iconDark");
+
+  if (light && dark) {
+    if (isDark) {
+      light.classList.add("hidden");
+      dark.classList.remove("hidden");
+    } else {
+      dark.classList.add("hidden");
+      light.classList.remove("hidden");
     }
   }
+}
 
   // ---------- content ----------
   async function safeLoadContent() {
