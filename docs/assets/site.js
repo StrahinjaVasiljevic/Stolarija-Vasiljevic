@@ -600,12 +600,28 @@ function applyTheme(theme) {
       </div>`;
 
     const turn = `
-      <div class="process-turn" aria-hidden="true">
-        <svg viewBox="0 0 200 80" width="200" height="80" preserveAspectRatio="xMidYMid meet">
-          <path d="M10,10 C120,10 120,70 190,70" fill="none" stroke="currentColor" stroke-width="2"/>
-          <path d="M180,62 L190,70 L180,78" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </div>`;
+  <div class="process-turn" aria-hidden="true">
+    <svg viewBox="0 0 560 120" width="560" height="120" preserveAspectRatio="none" class="process-turn-svg">
+      <!-- Putanja: iz desne ivice 4. kartice -> puni zavoj -> ulazak u 5. karticu -->
+      <path d="M540,22
+               C380,22 360,22 300,22
+               C210,22 210,98 120,98
+               C70,98 45,98 20,98"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="3"
+            stroke-linecap="round"
+            stroke-linejoin="round"/>
+      <!-- strelica (pointing right-to-left, uliva se u 5. karticu sa leve strane) -->
+      <path d="M34,88 L20,98 L34,108"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="3"
+            stroke-linecap="round"
+            stroke-linejoin="round"/>
+    </svg>
+  </div>
+`;
 
     const bottomRow = bottom.length ? `
       <div class="process-row process-row--bottom" role="list">
