@@ -150,18 +150,39 @@
 
 .process-flow .process-item{ min-width:0; }
 .process-flow .process-card{
-  width:100%;
+  rgba(255,255,255,0.2));  width:100%;
+  border-radius: 16px;
+  padding: 16px 16px 14px;
+  text-align: left;
+
+  /* Sonoma oak texture */
+  background:
+    /* shine */
+    radial-gradient(120% 70% at 20% 0%, var(--oak-shine), transparent 60%),
+    /* subtle grain lines */
+    repeating-linear-gradient(
+      25deg,
+      var(--oak-grain) 0px,
+      var(--oak-grain) 1px,
+      var(--oak-grain-2) 1px,
+      var(--oak-grain-2) 5px
+    ),
+    /* base wood tones */
+    linear-gradient(180deg, var(--oak-1), var(--oak-2));
+
+  box-shadow: 0 10px 28px var(--oak-shadow);
+  color: var(--process-text-strong, var(--text));
+  transition: transform .12s ease, filter .15s ease;
+}
+
+.process-flow .process-card:hover{ filter:saturate(1.05) contrast(1.02); }
+.process-flow .process-card:active{ transform: translateY(0.5px); }
   display:flex;
   flex-direction:column;
   align-items:flex-start;
   gap:6px;
-  border:1px solid var(--border);
-  border-radius:16px;
-  padding:16px 16px 14px;
-  background:var(--card);
-  box-shadow:0 6px 24px rgba(0,0,0,.10);
-  text-align:left;
-}
+
+
 
 .process-flow .process-chip{
   display:inline-flex;
