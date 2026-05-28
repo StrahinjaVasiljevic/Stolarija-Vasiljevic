@@ -898,32 +898,38 @@ function renderPortfolioPreview() {
     });
   }
 
-  // ---------- SEO ----------
-  function injectSEO() {
-    const siteUrl = (window.APP_CONFIG && window.APP_CONFIG.SITE_URL) || "";
-    const phone = (window.APP_CONFIG && window.APP_CONFIG.CONTACT_PHONE) || "+381 64 122 04 29";
-    const jsonLd = {
-      "@context": "https://schema.org",
-      "@type": "LocalBusiness",
-      "name": "Stolarija Vasiljević",
-      "url": siteUrl,
-      "telephone": phone,
-      "areaServed": ["Novi Sad", "Beograd", "Ostala mesta"],
-      "address": { "@type": "PostalAddress", "addressLocality": "Novi Sad / Beograd", "addressCountry": "RS" },
-      "founder": [
-        { "@type": "Person", "name": "Strahinja Vasiljević" },
-        { "@type": "Person", "name": "Nemanja Vasiljević" }
-      ],
-     "image": siteUrl ? `${siteUrl}/assets/img/cover-logo.png` : asset("assets/img/cover-logo.png"),
-``
-      "sameAs": []
-    };
-    const s = document.createElement("script");
-    s.type = "application/ld+json";
-    s.text = JSON.stringify(jsonLd);
-    document.head.appendChild(s);
-  }
+ // ---------- SEO ----------
+function injectSEO() {
+  const siteUrl = (window.APP_CONFIG && window.APP_CONFIG.SITE_URL) || "";
+  const phone = (window.APP_CONFIG && window.APP_CONFIG.CONTACT_PHONE) || "+381 64 122 04 29";
 
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "name": "Stolarija Vasiljević",
+    "url": siteUrl,
+    "telephone": phone,
+    "areaServed": ["Novi Sad", "Beograd", "Ostala mesta"],
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Novi Sad / Beograd",
+      "addressCountry": "RS"
+    },
+    "founder": [
+      { "@type": "Person", "name": "Strahinja Vasiljević" },
+      { "@type": "Person", "name": "Nemanja Vasiljević" }
+    ],
+    "image": siteUrl
+      ? `${siteUrl}/assets/img/cover-logo.png`
+      : asset("assets/img/cover-logo.png"),
+    "sameAs": []
+  };
+
+  const s = document.createElement("script");
+  s.type = "application/ld+json";
+  s.text = JSON.stringify(jsonLd);
+  document.head.appendChild(s);
+}
   // ==========================================================
   // /projekti/ PAGE: filteri + grid + modal (info panel)
   // ==========================================================
