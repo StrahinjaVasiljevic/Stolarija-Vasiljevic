@@ -635,48 +635,55 @@
   }
 
   // ---------- landing preview (8 cards + CTA) ----------
-  function renderPortfolioPreview() {
-    const el = qs("#portfolioPreview");
-    if (!el) return;
+function renderPortfolioPreview() {
+  const el = qs("#portfolioPreview");
+  if (!el) return;
 
-    const list = (state.projects || []).slice(0, 8);
-    const typeMap = UI[state.lang].types || {};
+  const list = (state.projects || []).slice(0, 8);
+  const typeMap = UI[state.lang].types || {};
 
-    // Opcija A: cover na kartici = final (images[1]) ako postoji
-    const cover = (p) => {
-      const imgs = Array.isArray(p.images) ? p.images : [];
-      const path = imgs.length > 1 && imgs[1] ? imgs[1] : (imgs[0] || "images/ph2.svg");
-      return asset(path);
-    };
+  // Opcija A: cover na kartici = final (images[1]) ako postoji, inače images[0]
+  const cover = (p) => {
+    const imgs = Array.isArray(p.images) ? p.images : [];
+    const path = (imgs.length > 1 && imgs[1]) ? imgs[1] : (imgs[0] || "images/ph2.svg");
+    return asset(path);
+  };
 
-    el.innerHTML = `
-      <div class="container">
-        <div class="flex items-center justify-between mb-6">
-          <h2 class="section-title font-serif">${esc(UI[state.lang].heads.projects || "Projekti")}</h2>
-          <a href="${base("projekti/")}" class="text-brand-dark font-medium hover:underline[state.lang].common.viewAll)}</a>
-        </div>
-        <div class="grid md:grid-cols-4 gap-6">
-          ${list.map((p) => {
-            const img = cover(p);
-            const typeTxt = typeMap[p.type] || p.type || "";
-            const t = localize(p.title);
-            const d = localize(p.description);
-            return `
-              <button class="card overflow-hidden text-left preview-btn" data-img="${img}" type="button">
-                <div class="relative w-full h-40 bg-brand-light">
-                  <img src="${img}" alt="${esc(t)}" class="w-full h-40 object-cover" loading="lazy" decoding="async" />
-                </div>
-                <div class="p-4">
-                  <div class="text-sm text-gray-500">${esc(typeTxt)} · ${esc(p.location || "")}</div>
-                  <div class="font-medium">${esc(t)}</div>
-                  ${d ? `<p class="text-sm text-gray-600 mt-1">${esc(d)}</p>` : ``}
-                </div>
-              </button>
-            `;
-          }).join("")}
-        </div>
-      </div>`;
-  }
+  const projectsUrl = base("projekti/");
+
+  el.innerHTML = `
+    <div class="container">
+      <div class="flex items-center justify-between mb-6">
+        <h2 class="section-title font-serif">${esc(UI[state.lang].heads.projects || "Projekti")}</h2>
+        <a href="${projectsUrl}" class="text-brand-dark font-medium hover:underline">
+          ${esc(UI[state.lang].common.viewAll)}
+        </a>
+      </div>
+
+      <div class="grid md:grid-cols-4 gap-6">
+        ${list.map((p) => {
+          const img = cover(p);
+          const typeTxt = typeMap[p.type] || p.type || "";
+          const t = localize(p.title);
+          const d = localize(p.description);
+
+          return `
+            <button class="card overflow-hidden text-left preview-btn" data-img="${img}" type="button">
+              <div class="relative w-full h-40 bg-brand-light">
+                <img src="${img}" alt="${esc(t)}" class="w-full h-40 object-cover" loading="lazy" decoding="async" />
+              </div>
+              <div class="p-4">
+                <div class="text-sm text-gray-500">${esc(typeTxt)} · ${esc(p.location || "")}</div>
+                <div class="font-medium">${esc(t)}</div>
+                ${d ? `<p class="text-sm text-gray-600 mt-1">${esc(d)}</p>` : ``}
+              </div>
+            </button>
+          `;
+        }).join("")}
+      </div>
+    </div>
+  `;
+}
 
   // ---------- testimonials ----------
   function renderTestimonials() {
