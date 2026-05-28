@@ -277,9 +277,10 @@
     return base(clean);
   }
 
- function esc(s) {
+function esc(s) {
   return String(s ?? "")
-    .replace;")    .replace(/&/g, "&amp;")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
     .replace(/>/g, "&gt;")
     .replace(/"/g, "&quot;")
     .replace(/'/g, "&#39;");
