@@ -4,13 +4,13 @@
       "type": "Kuhinje",
       "location": "Novi Sad",
       "title": {
-        "sr": "Kuhinja „M“ — mat lak",
-        "en": "Kitchen “M” — matte lacquer",
-        "de": "Küche „M“ — Mattlack",
-        "ru": "Кухня «M» — матовый лак"
+        "sr": "Kuhinja „M“ - mat lak",
+        "en": "Kitchen “M” - matte lacquer",
+        "de": "Küche „M“ - Mattlack",
+        "ru": "Кухня «M» - матовый лак"
       },
       "description": {
-        "sr": "Linearni raspored sa funkcionalnim skladištenjem i tihim zatvaranjem.",
+        "sr": "Linearni raspored kuhinje sa funkcionalnim prostorom za odlaganje i tihim zatvaranjem vrata",
         "en": "Linear layout with smart storage and soft-close hardware.",
         "de": "Lineares Layout mit cleverem Stauraum und Soft‑Close Beschlägen.",
         "ru": "Линейная планировка с удобным хранением и доводчиками."
@@ -31,7 +31,7 @@
         "ru": "Встроенный шкаф «S»"
       },
       "description": {
-        "sr": "Klizna vrata, maksimalno iskorišćen prostor do plafona.",
+        "sr": "Američki plakar, klizna vrata čine prostor maksimalno iskorišćenim",
         "en": "Sliding doors, full-height storage up to the ceiling.",
         "de": "Schiebetüren, Stauraum bis zur Decke.",
         "ru": "Раздвижные двери, хранение до потолка."
@@ -51,7 +51,7 @@
         "ru": "ТВ‑тумба и полки"
       },
       "description": {
-        "sr": "Diskretno vođenje kablova i čiste linije.",
+        "sr": "Sto za šminkanje bez šrafova",
         "en": "Discrete cable routing and clean lines.",
         "de": "Diskrete Kabelführung und klare Linien.",
         "ru": "Скрытая проводка кабелей и чистые линии."
@@ -62,16 +62,16 @@
       ]
     },
     {
-      "type": "TV zidovi",
+      "type": "TV komoda",
       "location": "Zemun",
       "title": {
-        "sr": "TV zid sa panelima",
-        "en": "TV wall with panels",
-        "de": "TV‑Wand mit Paneelen",
-        "ru": "TV‑стена с панелями"
+        "sr": "TV komoda",
+        "en": "TV furniture",
+        "de": "TV",
+        "ru": "TV"
       },
       "description": {
-        "sr": "Paneli sa teksturom drveta i skrivenim kanalima.",
+        "sr": "Zidni paneli sa teksturom drveta",
         "en": "Wood‑texture panels with concealed channels.",
         "de": "Holzstruktur‑Paneele mit verdeckten Kanälen.",
         "ru": "Панели с текстурой дерева и скрытыми каналами."
@@ -112,7 +112,7 @@
         "ru": "Гостиная «Balance»"
       },
       "description": {
-        "sr": "Usklađeni elementi: komoda, police i paneli u istom tonu.",
+        "sr": "Usklađeni elementi: TV komoda, police i zidni paneli u istom tonu.",
         "en": "Harmonized elements: sideboard, shelves and panels in matching tone.",
         "de": "Harmonisierte Elemente: Lowboard, Regale und Paneele im gleichen Ton.",
         "ru": "Согласованные элементы: тумба, полки и панели в едином тоне."
