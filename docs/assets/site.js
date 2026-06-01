@@ -386,7 +386,6 @@ function initLangDropdown() {
 }
   // ---------- theme ----------
 function initTheme() {
-  // Ako nema ručno setovano, uzmi OS preferencu
   const saved = localStorage.getItem("theme");
   const prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
   const initial = saved ? saved : (prefersDark ? "dark" : "light");
@@ -397,8 +396,10 @@ function initTheme() {
   if (!btn) return;
 
   btn.type = "button";
+
   btn.addEventListener("click", () => {
-    const next = document.documentElement.classList.contains("theme-dark") ? "light" : "dark";
+    const isDark = document.documentElement.classList.contains("theme-dark");
+    const next = isDark ? "light" : "dark";
     applyTheme(next);
     localStorage.setItem("theme", next);
   }, { passive: true });
@@ -406,10 +407,15 @@ function initTheme() {
 
 function applyTheme(theme) {
   const isDark = theme === "dark";
-  document.documentElement.classList.toggle("theme-dark", isDark);
+  const root = document.documentElement;
+
+  root.classList.toggle("theme-dark", isDark);
+  root.setAttribute("data-theme", isDark ? "dark" : "light");
 
   const light = qs("#iconLight");
   const dark = qs("#iconDark");
+  const btn = qs("#themeToggle");
+  const metaTheme = document.querySelector('meta[name="theme-color"]');
 
   if (light && dark) {
     if (isDark) {
@@ -420,8 +426,21 @@ function applyTheme(theme) {
       light.classList.remove("hidden");
     }
   }
-}
 
+  if (btn) {
+    const themeText = UI[state.lang] && UI[state.lang].theme && UI[state.lang].theme.toggle
+      ? UI[state.lang].theme.toggle
+      : "Promeni temu";
+
+    btn.setAttribute("aria-label", themeText);
+    btn.setAttribute("title", isDark ? `${themeText} — svetla tema` : `${themeText} — tamna tema`);
+    btn.setAttribute("aria-pressed", isDark ? "true" : "false");
+  }
+
+  if (metaTheme) {
+    metaTheme.setAttribute("content", isDark ? "#0D1113" : "#0B3D3A");
+  }
+}
   // ---------- content ----------
   async function safeLoadContent() {
     const langFile = state.lang === "sr" ? base("content/site.json") : base(`content/site.${state.lang}.json`);
