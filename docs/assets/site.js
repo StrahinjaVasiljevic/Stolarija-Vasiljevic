@@ -466,10 +466,10 @@ function applyTheme(theme) {
   function defaultSite() {
     return {
       hero: {
-        title: "Nameštaj po meri - uredno, tačno, po Vašoj meri i na vreme!",
-        subtitle: "Kuhinje, plakari, komode, police, zidni paneli, kancelarijski nameštaj. Od izrade projekta do montaže sa nama",
-        ctaPrimary: "Pošalji upit",
-        ctaSecondary: "Pogledaj projekte",
+  title: "Dizajn enterijera & Nameštaj po meri - Vasiljević",
+  subtitle: "Kuhinje, plakari, komode, police, zidni paneli, kancelarijski nameštaj",
+  ctaPrimary: "Pošalji upit",
+  ctaSecondary: "Pogledaj projekte",
         benefits: [
           { title: "Jasan predračun", text: "Sve stavke na jednom mestu." },
           { title: "Realni rokovi", text: "Klijent nam je na prvom mestu" },
