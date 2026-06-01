@@ -279,7 +279,7 @@
 
 function esc(s) {
   return String(s ?? "")
-    .replace(/&/g, "&amp;")
+    .replace(/&(?!(?:[a-z\d]+|#\d+|#x[a-f\d]+);)/gi, "&amp;")
     .replace(/</g, "&lt;")
     .replace(/>/g, "&gt;")
     .replace(/"/g, "&quot;")
