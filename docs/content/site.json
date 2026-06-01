@@ -1,13 +1,13 @@
 {
   "hero": {
-    "title": "Nameštaj po meri — uredno, tačno, na vreme",
-    "subtitle": "Kuhinje, plakari, komode, police, TV zidovi, kancelarije. Dogovor jasan — predračun transparentan — montaža uredna.",
+    "title": "Dizajn enterijera & Nameštaj po meri - Vasiljević",
+    "subtitle": "Kuhinje, plakari, komode, police, zidni paneli, kancelarijski nameštaj",
     "ctaPrimary": "Pošalji upit",
     "ctaSecondary": "Pogledaj projekte",
     "benefits": [
-      { "title": "Jasan predračun", "text": "Sve stavke na jednom mestu." },
-      { "title": "Realni rokovi", "text": "Plan i obaveštenja." },
-      { "title": "Kultura rada", "text": "Uredna montaža i komunikacija." }
+      { "title": "Jasan predračun", "text": "" },
+      { "title": "Realni rokovi", "text": "" },
+      { "title": "Kultura rada", "text": "" }
     ]
   },
   "whyUs": [
@@ -19,18 +19,18 @@
     { "title": "Tačnost", "text": "Poštujemo rokove" }
   ],
   "testimonials": [
-    { "name": "Maja — Novi Sad", "text": "Sve po dogovoru — uredno i korektno.", "date": "2024-05-10" },
-    { "name": "Stefan — Beograd", "text": "Precizne mere — dobra komunikacija — preporuka.", "date": "2024-06-02" },
-    { "name": "Ana — Beograd", "text": "Jasan predračun i rok — bez iznenađenja.", "date": "2024-07-18" }
+    { "name": "Marijana - Novi Sad", "text": "Sve po dogovoru, korektno urađen posao.", "date": "2025-05-10" },
+    { "name": "Stefan - Beograd", "text": "Momci su izveli sjajan projekat, svaka mera je tačna u milimetar. Preporuke!", "date": "2025-06-02" },
+    { "name": "Ana - Beograd", "text": "Fina saradnja, sve smo znali unapred i momci su ispoštovali svaki rok koji su dali!", "date": "2025-07-18" }
   ],
   "faq": [
-    { "q": "Kako do okvirne cene", "a": "Pošaljite opis, slike i mere ako ih imate — dobijate skicu i okvirnu cenu." },
-    { "q": "Da li izlazite na teren", "a": "Da — po potrebi u Novom Sadu, Beogradu i okolini." },
+    { "q": "Kako do okvirne cene", "a": "Pošaljite opis, slike i mere ako ih imate - dobijate skicu i okvirnu cenu." },
+    { "q": "Da li izlazite na teren", "a": "Da, po potrebi u Novom Sadu, Beogradu i okolini." },
     { "q": "Koje materijale koristite", "a": "MDF, univer i provereni okovi — izbor prolazimo transparentno uz cene." },
     { "q": "Kako ide avans i plaćanje", "a": "Avans pokriva materijal, transport i troškove — sve stavke su prikazane — ostatak po primopredaji." },
-    { "q": "Koliki su rokovi", "a": "Zavise od obima — dobijate plan: isporuka, izrada, montaža." },
-    { "q": "Radite li 3D prikaz", "a": "Po potrebi — uz skicu i detaljne crteže pre odluke." },
-    { "q": "Radite li van NS/BG", "a": "Primarno NS i BG — za udaljenije pišite — procenićemo." },
-    { "q": "Imate li minimalnu porudžbinu", "a": "Ne — ali mali zahtevi mogu imati duži rok zbog organizacije." }
+    { "q": "Koliki su rokovi", "a": "Zavise od obima - dobijate plan: isporuka, izrada, montaža." },
+    { "q": "Radite li 3D prikaz", "a": "Po potrebi radimo, uz skicu i detaljne crteže pre odluke." },
+    { "q": "Radite li van NS/BG", "a": "Primarno NS i BG - za udaljenije pišite, procenićemo." },
+    { "q": "Imate li minimalnu porudžbinu", "a": "Ne, ali mali zahtevi mogu imati duži rok zbog organizacije." }
   ]
 }
