@@ -1,36 +1,99 @@
 {
   "hero": {
     "title": "Dizajn enterijera & Nameštaj po meri - Vasiljević",
-    "subtitle": "Kuhinje, plakari, komode, police, zidni paneli, kancelarijski nameštaj",
+    "subtitle": "Kuhinje, plakari, komode, police, zidni paneli i kancelarijski nameštaj po meri.",
     "ctaPrimary": "Pošalji upit",
     "ctaSecondary": "Pogledaj projekte",
     "benefits": [
-      { "title": "Jasan predračun", "text": "" },
-      { "title": "Realni rokovi", "text": "" },
-      { "title": "Kultura rada", "text": "" }
+      {
+        "title": "Jasan predračun",
+        "text": "Transparentno prikazujemo stavke, materijale i okvirne troškove."
+      },
+      {
+        "title": "Realni rokovi",
+        "text": "Dogovaramo izvodljive rokove i poštujemo plan realizacije."
+      },
+      {
+        "title": "Kultura rada",
+        "text": "Profesionalna komunikacija, uredna montaža i čist prostor po završetku."
+      }
     ]
   },
   "whyUs": [
-    { "title": "Radimo zajedno sa Vama", "text": "Vodimo Vas kroz ceo proces kako bi se Vaše ideje što bolje izvele u stvarnosti" },
-    { "title": "Koristimo kvalitetne materijale", "text": "Kod proverenih partnera sa kojima već dugo sarađujemo" },
-    { "title": "Merimo precizno i kreiramo realne crteže", "text": "Znate unapred šta dobijate" },
-    { "title": "Otvorena komunikacija", "text": "Uvek smo dostupni" },
-    { "title": "Uredna montaža", "text": "Uvek očistimo prostor na kraju posla" },
-    { "title": "Tačnost", "text": "Poštujemo rokove" }
+    {
+      "title": "Radimo zajedno sa Vama",
+      "text": "Vodimo Vas kroz ceo proces kako bi Vaša ideja bila izvedena funkcionalno, estetski i precizno."
+    },
+    {
+      "title": "Koristimo kvalitetne materijale",
+      "text": "Saradjujemo sa proverenim partnerima i biramo materijale koji pružaju dugotrajnost i pouzdanost."
+    },
+    {
+      "title": "Precizno merimo i pripremamo realne crteže",
+      "text": "Unapred znate kako će rešenje izgledati i šta tačno dobijate."
+    },
+    {
+      "title": "Otvorena komunikacija",
+      "text": "Dostupni smo za pitanja, dogovore i izmene kroz sve faze projekta."
+    },
+    {
+      "title": "Uredna montaža",
+      "text": "Po završetku posla prostor ostavljamo čist, organizovan i spreman za korišćenje."
+    },
+    {
+      "title": "Tačnost",
+      "text": "Poštujemo dogovorene rokove i radimo odgovorno od početka do primopredaje."
+    }
   ],
   "testimonials": [
-    { "name": "Marijana - Novi Sad", "text": "Sve po dogovoru, korektno urađen posao.", "date": "2025-05-10" },
-    { "name": "Stefan - Beograd", "text": "Momci su izveli sjajan projekat, svaka mera je tačna u milimetar. Preporuke!", "date": "2025-06-02" },
-    { "name": "Ana - Beograd", "text": "Fina saradnja, sve smo znali unapred i momci su ispoštovali svaki rok koji su dali!", "date": "2025-07-18" }
+    {
+      "name": "Marijana - Novi Sad",
+      "text": "Sve je urađeno po dogovoru, precizno i korektno.",
+      "date": "2025-05-10"
+    },
+    {
+      "name": "Stefan - Beograd",
+      "text": "Sjajno izveden projekat, sve mere su pogođene u milimetar. Sve preporuke.",
+      "date": "2025-06-02"
+    },
+    {
+      "name": "Ana - Beograd",
+      "text": "Vrlo prijatna saradnja, sve smo znali unapred i svaki dogovoreni rok je ispoštovan.",
+      "date": "2025-07-18"
+    }
   ],
   "faq": [
-    { "q": "Kako do okvirne cene", "a": "Pošaljite opis, slike i mere ako ih imate - dobijate skicu i okvirnu cenu." },
-    { "q": "Da li izlazite na teren", "a": "Da, po potrebi u Novom Sadu, Beogradu i okolini." },
-    { "q": "Koje materijale koristite", "a": "MDF, univer i provereni okovi — izbor prolazimo transparentno uz cene." },
-    { "q": "Kako ide avans i plaćanje", "a": "Avans pokriva materijal, transport i troškove — sve stavke su prikazane — ostatak po primopredaji." },
-    { "q": "Koliki su rokovi", "a": "Zavise od obima - dobijate plan: isporuka, izrada, montaža." },
-    { "q": "Radite li 3D prikaz", "a": "Po potrebi radimo, uz skicu i detaljne crteže pre odluke." },
-    { "q": "Radite li van NS/BG", "a": "Primarno NS i BG - za udaljenije pišite, procenićemo." },
-    { "q": "Imate li minimalnu porudžbinu", "a": "Ne, ali mali zahtevi mogu imati duži rok zbog organizacije." }
+    {
+      "q": "Kako mogu da dobijem okvirnu cenu?",
+      "a": "Pošaljite opis projekta, fotografije prostora i mere ako ih imate. Na osnovu toga dobijate skicu i okvirnu procenu cene."
+    },
+    {
+      "q": "Da li izlazite na teren?",
+      "a": "Da, po potrebi izlazimo na teren u Novom Sadu, Beogradu i okolini."
+    },
+    {
+      "q": "Koje materijale koristite?",
+      "a": "Koristimo MDF, univer i proverene okove. Izbor materijala prolazimo transparentno, uz jasno objašnjenje cena i opcija."
+    },
+    {
+      "q": "Kako funkcionišu avans i plaćanje?",
+      "a": "Avans pokriva materijal, transport i početne troškove realizacije. Sve stavke su unapred jasno prikazane, a ostatak se plaća po završetku i primopredaji."
+    },
+    {
+      "q": "Koliki su rokovi izrade?",
+      "a": "Rok zavisi od obima i složenosti projekta. Nakon dogovora dobijate okviran plan izrade, isporuke i montaže."
+    },
+    {
+      "q": "Da li radite 3D prikaz?",
+      "a": "Po potrebi radimo 3D prikaz, skice i detaljne crteže pre konačne odluke."
+    },
+    {
+      "q": "Da li radite i van Novog Sada i Beograda?",
+      "a": "Primarno radimo u Novom Sadu, Beogradu i okolini, ali za udaljenije lokacije možete poslati upit pa ćemo proceniti mogućnosti realizacije."
+    },
+    {
+      "q": "Da li postoji minimalna vrednost porudžbine?",
+      "a": "Ne postoji strogo definisana minimalna porudžbina, ali manji zahtevi mogu imati duži rok zbog organizacije proizvodnje i montaže."
+    }
   ]
 }
