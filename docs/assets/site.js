@@ -154,7 +154,7 @@
         { title: "Schränke / Garderoben", text: "Schiebe- oder Drehtüren - Platz optimal genutzt" },
         { title: "Kommoden / Regale", text: "Für Wohn-, Flur- und Schlafzimmer - klare Linien" },
         { title: "Büros", text: "Schreibtische, Regale, Schränke — ordentlich" },
-        { title: "TV‑Wände", text: "Verdeckte Kabel — klares Erscheinungsbild" },
+        { title: "TV‑Wände", text: "Verdeckte Kabel - klares Erscheinungsbild" },
         { title: "Innenraumgestaltung", text: "Einzelstücke oder komplette Einrichtung" },
       ],
       process: [
@@ -447,14 +447,14 @@ function applyTheme(theme) {
   function defaultSite() {
     return {
       hero: {
-        title: "Nameštaj po meri — uredno, tačno, na vreme",
-        subtitle: "Kuhinje, plakari, komode, police, TV zidovi, kancelarije. Dogovor jasan — predračun transparentan — montaža uredna.",
+        title: "Nameštaj po meri - uredno, tačno, po Vašoj meri i na vreme!",
+        subtitle: "Kuhinje, plakari, komode, police, zidni paneli, kancelarijski nameštaj. Od izrade projekta do montaže sa nama",
         ctaPrimary: "Pošalji upit",
         ctaSecondary: "Pogledaj projekte",
         benefits: [
           { title: "Jasan predračun", text: "Sve stavke na jednom mestu." },
-          { title: "Realni rokovi", text: "Plan i obaveštenja." },
-          { title: "Kultura rada", text: "Uredna montaža i komunikacija." },
+          { title: "Realni rokovi", text: "Klijent nam je na prvom mestu" },
+          { title: "Kultura rada", text: "Uredna montaža i komunikacija, prostor ostavljamo u čistijem stanju nego kako smo ga zatekli" },
         ],
       },
       services: [],
@@ -693,12 +693,12 @@ function applyTheme(theme) {
           `).join("")}
         </div>
         <p class="text-sm text-gray-600 mt-4">${state.lang === "sr"
-          ? "Radimo po procedurama. Zato su naše estimacije realne i rokovi dostižni"
+          ? ""
           : state.lang === "en"
-            ? "We follow procedures. That’s why our estimates are realistic and timelines achievable"
+            ? ""
             : state.lang === "de"
-              ? "Wir arbeiten prozessorientiert. Unsere Schätzungen sind realistisch und Fristen erreichbar"
-              : "Мы работаем по процедурам. Оценки реалистичны, сроки достижимы"}</p>
+              ? ""
+              : ""}</p>
       </div>`;
   }
 
@@ -827,7 +827,7 @@ function renderPortfolioPreview() {
   function renderContact() {
     const L = UI[state.lang].contact;
     const phone = cfg.CONTACT_PHONE || "+381 64 122 04 29";
-    const email = cfg.CONTACT_EMAIL || "";
+    const email = cfg.CONTACT_EMAIL || "strahinjavasiljevic00@gmail.com";
 
     setText("#labelReachUs", L.reach);
     setText("#labelPhone", L.phone);
@@ -916,7 +916,7 @@ function renderPortfolioPreview() {
 
  // ---------- SEO ----------
 function injectSEO() {
-  const siteUrl = (window.APP_CONFIG && window.APP_CONFIG.SITE_URL) || "";
+  const siteUrl = (window.APP_CONFIG && window.APP_CONFIG.SITE_URL) || "https://strahinjavasiljevic.github.io/Stolarija-Vasiljevic/";
   const phone = (window.APP_CONFIG && window.APP_CONFIG.CONTACT_PHONE) || "+381 64 122 04 29";
 
   const jsonLd = {
