@@ -521,7 +521,7 @@ function applyTheme(theme) {
   }
 
   // ---------- render: hero ----------
-  function renderHero() {
+ function renderHero() {
   const c = state.site && state.site.hero;
   const el = qs("#hero");
   if (!c || !el) return;
@@ -529,16 +529,59 @@ function applyTheme(theme) {
   const projectsUrl = base("projekti/");
   const heroImg = asset(c.image || cfg.HERO_IMAGE || "assets/img/cover-logo.png");
 
+  const fallbackHero = {
+    sr: {
+      title: "Dizajn enterijera & Nameštaj po meri - Vasiljević",
+      subtitle: "Kuhinje, plakari, komode, police, zidni paneli, kancelarijski nameštaj."
+    },
+    en: {
+      title: "Interior design & Custom furniture - Vasiljević",
+      subtitle: "Kitchens, wardrobes, sideboards, shelves, wall panels and office furniture."
+    },
+    de: {
+      title: "Innenarchitektur & Maßmöbel - Vasiljević",
+      subtitle: "Küchen, Schränke, Kommoden, Regale, Wandpaneele und Büromöbel."
+    },
+    ru: {
+      title: "Дизайн интерьера и мебель на заказ - Vasiljević",
+      subtitle: "Кухни, шкафы, комоды, полки, стеновые панели и офисная мебель."
+    }
+  };
+
+  const heroCopy = fallbackHero[state.lang] || fallbackHero.sr;
+  const heroTitle = c.title || heroCopy.title;
+  const heroSubtitle = c.subtitle || heroCopy.subtitle;
+
   el.innerHTML = `
     <div class="container mx-auto px-4">
       <div class="grid md:grid-cols-2 gap-8 items-center">
-        <div>
-          <h1 class="font-serif text-4xl md:text-5xl leading-tight mb-4">${esc(c.title || "")}</h1>
-          <p class="text-lg text-gray-700 mb-6">${esc(c.subtitle || "")}</p>
+        <div class="hero-copy">
+          <div class="inline-flex items-center gap-2 mb-4 px-3 py-1.5 rounded-full border border-gray-200 bg-white/70 text-sm backdrop-blur-sm">
+            <span class="w-2 h-2 rounded-full bg-brand-dark"></span>
+            <span>${state.lang === "sr"
+              ? "Dizajn enterijera / Nameštaj po meri"
+              : state.lang === "en"
+                ? "Interior design / Custom furniture"
+                : state.lang === "de"
+                  ? "Innenarchitektur / Maßmöbel"
+                  : "Дизайн интерьера / Мебель на заказ"}</span>
+          </div>
+
+          <h1 class="font-serif text-4xl md:text-5xl lg:text-6xl leading-tight mb-4">
+            ${esc(heroTitle)}
+          </h1>
+
+          <p class="text-lg md:text-xl text-gray-700 mb-6 max-w-[60ch]">
+            ${esc(heroSubtitle)}
+          </p>
 
           <div class="flex flex-wrap gap-3 mb-8">
-            <a href="#kontakt" class="btn btn-primary">${esc(c.ctaPrimary || UI[state.lang].contact.submit)}</a>
-            <a href="${projectsUrl}" class="btn btn-secondary">${esc(c.ctaSecondary || UI[state.lang].common.viewAll)}</a>
+            <a href="#kontakt" class="btn btn-primary">
+              ${esc(c.ctaPrimary || UI[state.lang].contact.submit)}
+            </a>
+            <a href="${projectsUrl}" class="btn btn-secondary">
+              ${esc(c.ctaSecondary || UI[state.lang].common.viewAll)}
+            </a>
           </div>
 
           <div class="grid sm:grid-cols-3 gap-4">
@@ -551,15 +594,19 @@ function applyTheme(theme) {
           </div>
         </div>
 
-        <div class="card p-6 bg-brand-beige/30">
-          <img src="${heroImg}" alt="${esc(UI[state.lang].heads.projects || "Projekti")}"
-               class="w-full h-auto rounded-xl" loading="eager" decoding="async" />
+        <div class="card p-4 md:p-6 bg-brand-beige/30 hero-visual">
+          <img
+            src="${heroImg}"
+            alt="${esc(UI[state.lang].heads.projects || "Projekti")}"
+            class="w-full h-auto rounded-xl"
+            loading="eager"
+            decoding="async"
+          />
         </div>
       </div>
     </div>
   `;
 }
-
 
   // ---------- render: services ----------
   function renderServices() {
