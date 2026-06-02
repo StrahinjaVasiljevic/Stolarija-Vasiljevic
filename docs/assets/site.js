@@ -940,6 +940,17 @@ function renderPortfolioPreview() {
 
   function setText(sel, txt) { const el = qs(sel); if (el) el.textContent = txt; }
 
+  function formatEur(n) {
+  try {
+    return new Intl.NumberFormat(state.lang === "sr" ? "sr-RS" : "en-GB", {
+      style: "currency",
+      currency: "EUR",
+      maximumFractionDigits: 0
+    }).format(Number(n || 0));
+  } catch {
+    return `${Math.round(Number(n || 0))} €`;
+  }
+}
   function renderFooter() {
     const nav = UI[state.lang].nav;
     setText("#footContactTitle", nav.contact);
