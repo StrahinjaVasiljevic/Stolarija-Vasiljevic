@@ -618,7 +618,9 @@ if (calcHead) {
   `;
 }
   
- function renderConfigurator() {function;
+function renderConfigurator() {
+  const mount = qs("#configuratorMount");
+  if (!mount) return;
 
   const L = (UI[state.lang] && UI[state.lang].calculator) || {
     nav: "Kalkulator",
@@ -778,25 +780,33 @@ if (calcHead) {
       if (hEl) hEl.value = configState.heightCm;
       if (wEl) wEl.value = configState.widthCm;
 
-      typeEl && typeEl.addEventListener("change", () => {
-        configState.wardrobeType = typeEl.value || "sliding";
-        updateResult();
-      });
+      if (typeEl) {
+        typeEl.addEventListener("change", () => {
+          configState.wardrobeType = typeEl.value || "sliding";
+          updateResult();
+        });
+      }
 
-      materialEl && materialEl.addEventListener("change", () => {
-        configState.material = materialEl.value || "mdf";
-        updateResult();
-      });
+      if (materialEl) {
+        materialEl.addEventListener("change", () => {
+          configState.material = materialEl.value || "mdf";
+          updateResult();
+        });
+      }
 
-      hEl && hEl.addEventListener("input", () => {
-        configState.heightCm = hEl.value;
-        updateResult();
-      });
+      if (hEl) {
+        hEl.addEventListener("input", () => {
+          configState.heightCm = hEl.value;
+          updateResult();
+        });
+      }
 
-      wEl && wEl.addEventListener("input", () => {
-        configState.widthCm = wEl.value;
-        updateResult();
-      });
+      if (wEl) {
+        wEl.addEventListener("input", () => {
+          configState.widthCm = wEl.value;
+          updateResult();
+        });
+      }
     }
 
     if (configState.product === "kitchen") {
@@ -806,15 +816,19 @@ if (calcHead) {
       if (materialEl) materialEl.value = configState.material;
       if (lenEl) lenEl.value = configState.kitchenLengthM;
 
-      materialEl && materialEl.addEventListener("change", () => {
-        configState.material = materialEl.value || "mdf";
-        updateResult();
-      });
+      if (materialEl) {
+        materialEl.addEventListener("change", () => {
+          configState.material = materialEl.value || "mdf";
+          updateResult();
+        });
+      }
 
-      lenEl && lenEl.addEventListener("input", () => {
-        configState.kitchenLengthM = lenEl.value;
-        updateResult();
-      });
+      if (lenEl) {
+        lenEl.addEventListener("input", () => {
+          configState.kitchenLengthM = lenEl.value;
+          updateResult();
+        });
+      }
     }
 
     updateResult();
@@ -931,7 +945,9 @@ if (calcHead) {
       configState.heightCm = "";
       configState.widthCm = "";
       configState.kitchenLengthM = "";
-      productButtons.forEach((x) => x.classList.toggle("active", x.getAttribute("data-product") === "wardrobe"));
+      productButtons.forEach((x) =>
+        x.classList.toggle("active", x.getAttribute("data-product") === "wardrobe")
+      );
       renderFields();
     });
   }
@@ -939,183 +955,6 @@ if (calcHead) {
   renderFields();
 }
 
-  const mount = qs("#configuratorMount");
-
-  function renderFields() {
-    if (!fieldsMount) return;
-    fieldsMount.innerHTML = fieldTemplates[configState.product] || "";
-
-    if (configState.product === "wardrobe") {
-      const typeEl = qs("#cfgWardrobeType");
-      const materialEl = qs("#cfgMaterial");
-      const hEl = qs("#cfgHeight");
-      const wEl = qs("#cfgWidth");
-
-      if (typeEl) typeEl.value = configState.wardrobeType;
-      if (materialEl) materialEl.value = configState.material;
-      if (hEl) hEl.value = configState.heightCm;
-      if (wEl) wEl.value = configState.widthCm;
-
-      typeEl && typeEl.addEventListener("change", () => {
-        configState.wardrobeType = typeEl.value || "sliding";
-        updateResult();
-      });
-
-      materialEl && materialEl.addEventListener("change", () => {
-        configState.material = materialEl.value || "mdf";
-        updateResult();
-      });
-
-      hEl && hEl.addEventListener("input", () => {
-        configState.heightCm = hEl.value;
-        updateResult();
-      });
-
-      wEl && wEl.addEventListener("input", () => {
-        configState.widthCm = wEl.value;
-        updateResult();
-      });
-    }
-
-    if (configState.product === "kitchen") {
-      const materialEl = qs("#cfgKitchenMaterial");
-      const lenEl = qs("#cfgKitchenLength");
-
-      if (materialEl) materialEl.value = configState.material;
-      if (lenEl) lenEl.value = configState.kitchenLengthM;
-
-      materialEl && materialEl.addEventListener("change", () => {
-        configState.material = materialEl.value || "mdf";
-        updateResult();
-      });
-
-      lenEl && lenEl.addEventListener("input", () => {
-        configState.kitchenLengthM = lenEl.value;
-        updateResult();
-      });
-    }
-
-    updateResult();
-  }
-
-  function getWardrobeTypeLabel(v) {
-    if (v === "american") return L.typeAmerican;
-    if (v === "classic") return L.typeClassic;
-    return L.typeSliding;
-  }
-
-  function getMaterialLabel(v) {
-    return v === "univer" ? L.univer : L.mdf;
-  }
-
-  function updateResult() {
-    if (!rangeEl || !typeSummaryEl || !formulaEl) return;
-
-    if (configState.product === "wardrobe") {
-      const h = Number(configState.heightCm || 0);
-      const w = Number(configState.widthCm || 0);
-
-      const isValid = h > 0 && w > 0;
-      if (!isValid) {
-        rangeEl.textContent = "—";
-        typeSummaryEl.textContent = `${L.summaryWardrobe} · ${getWardrobeTypeLabel(configState.wardrobeType)} · ${getMaterialLabel(configState.material)}`;
-        formulaEl.textContent = L.calcHintWardrobe;
-        return;
-      }
-
-      const area = (h / 100) * (w / 100);
-      const min = area * 195;
-      const max = area * 270;
-
-      rangeEl.textContent = `${formatEur(min)} – ${formatEur(max)}`;
-      typeSummaryEl.textContent = `${L.summaryWardrobe} · ${getWardrobeTypeLabel(configState.wardrobeType)} · ${getMaterialLabel(configState.material)}`;
-      formulaEl.textContent = `${L.calcHintWardrobe} · ${area.toFixed(2)} m²`;
-      return;
-    }
-
-    const len = Number(configState.kitchenLengthM || 0);
-    const isValid = len > 0;
-
-    if (!isValid) {
-      rangeEl.textContent = "—";
-      typeSummaryEl.textContent = `${L.summaryKitchen} · ${getMaterialLabel(configState.material)}`;
-      formulaEl.textContent = L.calcHintKitchen;
-      return;
-    }
-
-    const min = len * 195;
-    const max = len * 280;
-
-    rangeEl.textContent = `${formatEur(min)} – ${formatEur(max)}`;
-    typeSummaryEl.textContent = `${L.summaryKitchen} · ${getMaterialLabel(configState.material)}`;
-    formulaEl.textContent = `${L.calcHintKitchen} · ${len.toFixed(2)} m`;
-  }
-
-  function fillContactFormFromConfigurator() {
-    const desc = qs('textarea[name="description"]');
-    const type = qs('select[name="projectType"]');
-    const measures = qs('select[name="haveMeasures"]');
-
-    let text = "";
-
-    if (configState.product === "wardrobe") {
-      text =
-        `Plakar — tip: ${getWardrobeTypeLabel(configState.wardrobeType)}, materijal: ${getMaterialLabel(configState.material)}, ` +
-        `visina: ${configState.heightCm || "—"} cm, širina: ${configState.widthCm || "—"} cm. ` +
-        `Želim okvirnu i finalnu ponudu za ovu konfiguraciju.`;
-
-      if (type) type.value = "Plakari i garderoberi";
-      if (measures) measures.value = "Da";
-    } else {
-      text =
-        `Kuhinja — materijal: ${getMaterialLabel(configState.material)}, dužina: ${configState.kitchenLengthM || "—"} m. ` +
-        `Želim okvirnu i finalnu ponudu za ovu konfiguraciju.`;
-
-      if (type) type.value = "Kuhinje";
-      if (measures) measures.value = "Da";
-    }
-
-    if (desc) {
-      desc.value = text;
-      desc.dispatchEvent(new Event("input", { bubbles: true }));
-    }
-
-    const contact = qs("#kontakt");
-    if (contact) {
-      contact.scrollIntoView({ behavior: "smooth", block: "start" });
-    }
-  }
-
-  productButtons.forEach((btn) => {
-    btn.addEventListener("click", () => {
-      const next = btn.getAttribute("data-product");
-      if (!next || next === configState.product) return;
-
-      configState.product = next;
-      productButtons.forEach((x) => x.classList.toggle("active", x === btn));
-      renderFields();
-    });
-  });
-
-  if (sendBtn) {
-    sendBtn.addEventListener("click", fillContactFormFromConfigurator);
-  }
-
-  if (resetBtn) {
-    resetBtn.addEventListener("click", () => {
-      configState.product = "wardrobe";
-      configState.wardrobeType = "sliding";
-      configState.material = "mdf";
-      configState.heightCm = "";
-      configState.widthCm = "";
-      configState.kitchenLengthM = "";
-      productButtons.forEach((x) => x.classList.toggle("active", x.getAttribute("data-product") === "wardrobe"));
-      renderFields();
-    });
-  }
-
-  renderFields();
-}
   // ---------- render: services ----------
   function renderServices() {
     const host = qs("#usluge .container");
