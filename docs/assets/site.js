@@ -523,12 +523,18 @@ function applyTheme(theme) {
     if (m) m.href = telHref(phone);
 
     const nav = UI[state.lang].nav;
-    ["Services", "Process", "Projects", "About", "FAQ", "Contact"].forEach((k) => {
-      const el = qs("#nav" + k);
-      if (el) el.textContent = nav[k.toLowerCase()];
-      const fl = qs("#foot" + k);
-      if (fl) fl.textContent = nav[k.toLowerCase()];
-    });
+   ["Services", "Process", "Projects", "About", "FAQ", "Contact"].forEach((k) => {
+  const el = qs("#nav" + k);
+  if (el) el.textContent = nav[k.toLowerCase()];
+  const fl = qs("#foot" + k);
+  if (fl) fl.textContent = nav[k.toLowerCase()];
+});
+
+const calcNav = qs("#navCalculator");
+if (calcNav) {
+  const calcText = (UI[state.lang] && UI[state.lang].calculator && UI[state.lang].calculator.nav) || "Kalkulator";
+  calcNav.textContent = calcText;
+}
 
     const themeBtn = qs("#themeToggle");
     if (themeBtn) {
