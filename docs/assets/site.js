@@ -618,9 +618,7 @@ if (calcHead) {
   `;
 }
 ``
-  function renderConfigurator() {
-  const mount = qs("#configuratorMount");
-  if (!mount) return;
+ function renderConfigurator() {function;
 
   const L = (UI[state.lang] && UI[state.lang].calculator) || {
     nav: "Kalkulator",
@@ -652,36 +650,52 @@ if (calcHead) {
   };
 
   mount.innerHTML = `
-    <div class="configurator-grid">
-      <div class="configurator-card">
-        <div class="configurator-form">
-          <div>
-            <div class="configurator-input-label">${esc(L.product)}</div>
-            <div class="configurator-switch" role="tablist" aria-label="${esc(L.product)}">
-              <button type="button" class="active" data-product="wardrobe">${esc(L.wardrobe)}</button>
-              <button type="button" data-product="kitchen">${esc(L.kitchen)}</button>
-            </div>
-          </div>
-
-          <div class="configurator-fields" id="configuratorFields"></div>
-
-          <div class="configurator-actions">
-            <button type="button" class="btn btn-primary" id="configuratorSend">${esc(L.send)}</button>
-            <button type="button" class="btn btn-secondary" id="configuratorReset">${esc(L.reset)}</button>
-          </div>
+    <div class="configurator-app">
+      <div class="configurator-app__bar">
+        <div class="configurator-app__dots" aria-hidden="true">
+          <span class="configurator-app__dot configurator-app__dot--1"></span>
+          <span class="configurator-app__dot configurator-app__dot--2"></span>
+          <span class="configurator-app__dot configurator-app__dot--3"></span>
         </div>
+        <div class="configurator-app__title">Estimator / Mini App</div>
       </div>
 
-      <div class="configurator-card configurator-result">
-        <div class="result-range">
-          <div class="result-range-label">${esc(L.range)}</div>
-          <div class="result-range-value" id="configuratorRange">—</div>
+      <div class="configurator-grid">
+        <div class="configurator-card">
+          <div class="configurator-app-badge">
+            <span class="configurator-app-badge__dot"></span>
+            <span>${esc(L.title)}</span>
+          </div>
+
+          <div class="configurator-form">
+            <div>
+              <div class="configurator-input-label">${esc(L.product)}</div>
+              <div class="configurator-switch" role="tablist" aria-label="${esc(L.product)}">
+                <button type="button" class="active" data-product="wardrobe">${esc(L.wardrobe)}</button>
+                <button type="button" data-product="kitchen">${esc(L.kitchen)}</button>
+              </div>
+            </div>
+
+            <div class="configurator-fields" id="configuratorFields"></div>
+
+            <div class="configurator-actions">
+              <button type="button" class="btn btn-primary" id="configuratorSend">${esc(L.send)}</button>
+              <button type="button" class="btn btn-secondary" id="configuratorReset">${esc(L.reset)}</button>
+            </div>
+          </div>
         </div>
 
-        <div class="result-meta">
-          <div class="result-pill" id="configuratorSummaryType">${esc(L.summaryWardrobe)}</div>
-          <div class="configurator-inline-note" id="configuratorFormula">${esc(L.calcHintWardrobe)}</div>
-          <div class="configurator-note">${esc(L.note)}</div>
+        <div class="configurator-card configurator-result">
+          <div class="result-range">
+            <div class="result-range-label">${esc(L.range)}</div>
+            <div class="result-range-value" id="configuratorRange">—</div>
+          </div>
+
+          <div class="result-meta">
+            <div class="result-pill" id="configuratorSummaryType">${esc(L.summaryWardrobe)}</div>
+            <div class="configurator-inline-note" id="configuratorFormula">${esc(L.calcHintWardrobe)}</div>
+            <div class="configurator-note">${esc(L.note)}</div>
+          </div>
         </div>
       </div>
     </div>
@@ -748,6 +762,184 @@ if (calcHead) {
       </div>
     `
   };
+
+  function renderFields() {
+    if (!fieldsMount) return;
+    fieldsMount.innerHTML = fieldTemplates[configState.product] || "";
+
+    if (configState.product === "wardrobe") {
+      const typeEl = qs("#cfgWardrobeType");
+      const materialEl = qs("#cfgMaterial");
+      const hEl = qs("#cfgHeight");
+      const wEl = qs("#cfgWidth");
+
+      if (typeEl) typeEl.value = configState.wardrobeType;
+      if (materialEl) materialEl.value = configState.material;
+      if (hEl) hEl.value = configState.heightCm;
+      if (wEl) wEl.value = configState.widthCm;
+
+      typeEl && typeEl.addEventListener("change", () => {
+        configState.wardrobeType = typeEl.value || "sliding";
+        updateResult();
+      });
+
+      materialEl && materialEl.addEventListener("change", () => {
+        configState.material = materialEl.value || "mdf";
+        updateResult();
+      });
+
+      hEl && hEl.addEventListener("input", () => {
+        configState.heightCm = hEl.value;
+        updateResult();
+      });
+
+      wEl && wEl.addEventListener("input", () => {
+        configState.widthCm = wEl.value;
+        updateResult();
+      });
+    }
+
+    if (configState.product === "kitchen") {
+      const materialEl = qs("#cfgKitchenMaterial");
+      const lenEl = qs("#cfgKitchenLength");
+
+      if (materialEl) materialEl.value = configState.material;
+      if (lenEl) lenEl.value = configState.kitchenLengthM;
+
+      materialEl && materialEl.addEventListener("change", () => {
+        configState.material = materialEl.value || "mdf";
+        updateResult();
+      });
+
+      lenEl && lenEl.addEventListener("input", () => {
+        configState.kitchenLengthM = lenEl.value;
+        updateResult();
+      });
+    }
+
+    updateResult();
+  }
+
+  function getWardrobeTypeLabel(v) {
+    if (v === "american") return L.typeAmerican;
+    if (v === "classic") return L.typeClassic;
+    return L.typeSliding;
+  }
+
+  function getMaterialLabel(v) {
+    return v === "univer" ? L.univer : L.mdf;
+  }
+
+  function updateResult() {
+    if (!rangeEl || !typeSummaryEl || !formulaEl) return;
+
+    if (configState.product === "wardrobe") {
+      const h = Number(configState.heightCm || 0);
+      const w = Number(configState.widthCm || 0);
+
+      const isValid = h > 0 && w > 0;
+      if (!isValid) {
+        rangeEl.textContent = "—";
+        typeSummaryEl.textContent = `${L.summaryWardrobe} · ${getWardrobeTypeLabel(configState.wardrobeType)} · ${getMaterialLabel(configState.material)}`;
+        formulaEl.textContent = L.calcHintWardrobe;
+        return;
+      }
+
+      const area = (h / 100) * (w / 100);
+      const min = area * 195;
+      const max = area * 270;
+
+      rangeEl.textContent = `${formatEur(min)} – ${formatEur(max)}`;
+      typeSummaryEl.textContent = `${L.summaryWardrobe} · ${getWardrobeTypeLabel(configState.wardrobeType)} · ${getMaterialLabel(configState.material)}`;
+      formulaEl.textContent = `${L.calcHintWardrobe} · ${area.toFixed(2)} m²`;
+      return;
+    }
+
+    const len = Number(configState.kitchenLengthM || 0);
+    const isValid = len > 0;
+
+    if (!isValid) {
+      rangeEl.textContent = "—";
+      typeSummaryEl.textContent = `${L.summaryKitchen} · ${getMaterialLabel(configState.material)}`;
+      formulaEl.textContent = L.calcHintKitchen;
+      return;
+    }
+
+    const min = len * 195;
+    const max = len * 280;
+
+    rangeEl.textContent = `${formatEur(min)} – ${formatEur(max)}`;
+    typeSummaryEl.textContent = `${L.summaryKitchen} · ${getMaterialLabel(configState.material)}`;
+    formulaEl.textContent = `${L.calcHintKitchen} · ${len.toFixed(2)} m`;
+  }
+
+  function fillContactFormFromConfigurator() {
+    const desc = qs('textarea[name="description"]');
+    const type = qs('select[name="projectType"]');
+    const measures = qs('select[name="haveMeasures"]');
+
+    let text = "";
+
+    if (configState.product === "wardrobe") {
+      text =
+        `Plakar — tip: ${getWardrobeTypeLabel(configState.wardrobeType)}, materijal: ${getMaterialLabel(configState.material)}, ` +
+        `visina: ${configState.heightCm || "—"} cm, širina: ${configState.widthCm || "—"} cm. ` +
+        `Želim okvirnu i finalnu ponudu za ovu konfiguraciju.`;
+
+      if (type) type.value = "Plakari i garderoberi";
+      if (measures) measures.value = "Da";
+    } else {
+      text =
+        `Kuhinja — materijal: ${getMaterialLabel(configState.material)}, dužina: ${configState.kitchenLengthM || "—"} m. ` +
+        `Želim okvirnu i finalnu ponudu za ovu konfiguraciju.`;
+
+      if (type) type.value = "Kuhinje";
+      if (measures) measures.value = "Da";
+    }
+
+    if (desc) {
+      desc.value = text;
+      desc.dispatchEvent(new Event("input", { bubbles: true }));
+    }
+
+    const contact = qs("#kontakt");
+    if (contact) {
+      contact.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  }
+
+  productButtons.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const next = btn.getAttribute("data-product");
+      if (!next || next === configState.product) return;
+
+      configState.product = next;
+      productButtons.forEach((x) => x.classList.toggle("active", x === btn));
+      renderFields();
+    });
+  });
+
+  if (sendBtn) {
+    sendBtn.addEventListener("click", fillContactFormFromConfigurator);
+  }
+
+  if (resetBtn) {
+    resetBtn.addEventListener("click", () => {
+      configState.product = "wardrobe";
+      configState.wardrobeType = "sliding";
+      configState.material = "mdf";
+      configState.heightCm = "";
+      configState.widthCm = "";
+      configState.kitchenLengthM = "";
+      productButtons.forEach((x) => x.classList.toggle("active", x.getAttribute("data-product") === "wardrobe"));
+      renderFields();
+    });
+  }
+
+  renderFields();
+}
+``
+  const mount = qs("#configuratorMount");
 
   function renderFields() {
     if (!fieldsMount) return;
