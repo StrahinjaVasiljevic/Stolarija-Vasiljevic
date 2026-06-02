@@ -1061,7 +1061,7 @@ html.theme-dark .configurator-app-badge{
   margin-bottom:8px;
 }
 
-    /* =========================================
+   /* =========================================
    PROCESS — COMPACT FLOW / ROADMAP
 ========================================= */
 
@@ -1083,98 +1083,41 @@ html.theme-dark #proces .section-panel{
 .process-roadmap-wrap{
   position:relative;
   overflow-x:auto;
-  padding:10px 4px 14px;
+  padding:8px 4px 14px;
   scrollbar-width:thin;
 }
 
 .process-roadmap{
-  position:relative;
   display:grid;
   grid-auto-flow:column;
-  grid-auto-columns:minmax(170px, 1fr);
+  grid-auto-columns:minmax(240px, 1fr);
   gap:16px;
   align-items:start;
   min-width:max-content;
-  padding:18px 6px 6px;
+  padding:8px 4px 6px;
 }
 
 .process-roadmap::before{
-  content:"";
-  position:absolute;
-  left:28px;
-  right:28px;
-  top:38px;
-  height:2px;
-  border-radius:999px;
-  background:
-    linear-gradient(90deg,
-      color-mix(in srgb, var(--brand) 46%, transparent),
-      color-mix(in srgb, var(--brand) 22%, transparent)
-    );
-  opacity:.9;
-  z-index:0;
-}
-
-html.theme-dark .process-roadmap::before{
-  background:
-    linear-gradient(90deg,
-      color-mix(in srgb, #8FD1CB 52%, transparent),
-      color-mix(in srgb, #8FD1CB 24%, transparent)
-    );
+  display:none;
 }
 
 .process-step{
-  position:relative;
-  z-index:1;
-  min-width:170px;
-  max-width:200px;
+  min-width:240px;
+  max-width:280px;
 }
 
 .process-step__card{
   width:100%;
-  display:grid;
-  gap:10px;
-  text-align:left;
+  display:block;
   padding:0;
   background:transparent;
   border:none;
-}
-
-.process-step__head{
-  display:grid;
-  gap:10px;
-}
-
-.process-step__node{
-  width:40px;
-  height:40px;
-  border-radius:999px;
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  background:
-    linear-gradient(135deg, var(--brand), color-mix(in srgb, var(--brand) 70%, #153d39));
-  color:#fff;
-  font-size:14px;
-  font-weight:800;
-  box-shadow:
-    0 10px 20px rgba(11,61,58,0.18),
-    0 0 0 8px rgba(11,61,58,0.06);
-}
-
-html.theme-dark .process-step__node{
-  color:#081311;
-  background:
-    linear-gradient(135deg, #A6E3DE, #76C9C0);
-  box-shadow:
-    0 10px 24px rgba(0,0,0,0.26),
-    0 0 0 8px rgba(118,201,192,0.08);
+  text-align:left;
 }
 
 .process-step__box{
-  display:grid;
-  gap:6px;
-  padding:14px 14px 12px;
+  display:block;
+  padding:16px 16px 15px;
   border-radius:18px;
   background:var(--card);
   border:1px solid var(--border);
@@ -1195,61 +1138,65 @@ html.theme-dark .process-step__box{
   border-color:color-mix(in srgb, var(--brand) 18%, var(--border));
 }
 
-.process-step__title{
-  font-size:15px;
-  line-height:1.35;
-  font-weight:700;
-}
-
-.process-step__sub{
-  font-size:12px;
-  line-height:1.55;
-  color:var(--muted);
-}
-
-html.theme-dark .process-step__sub{
-  color:#AFA89F;
-}
-
-.process-step__meta{
+.process-step__line{
   display:flex;
   align-items:center;
   justify-content:space-between;
-  gap:10px;
-  margin-top:2px;
+  gap:14px;
 }
 
-.process-step__tag{
-  display:inline-flex;
-  align-items:center;
-  min-height:26px;
-  padding:4px 9px;
-  border-radius:999px;
-  background:var(--secondary-bg);
-  color:#374151;
-  font-size:11px;
+.process-step__titlewrap{
+  min-width:0;
+  display:flex;
+  align-items:flex-start;
+  gap:8px;
+  line-height:1.35;
+}
+
+.process-step__index{
+  flex:0 0 auto;
+  font-size:14px;
+  font-weight:800;
+  letter-spacing:.08em;
+  color:var(--brand);
+  min-width:22px;
+}
+
+html.theme-dark .process-step__index{
+  color:#A6E3DE;
+}
+
+.process-step__divider{
+  flex:0 0 auto;
+  color:var(--muted);
+  font-weight:600;
+}
+
+.process-step__title{
+  min-width:0;
+  font-size:16px;
+  line-height:1.4;
   font-weight:700;
-  letter-spacing:.03em;
-  text-transform:uppercase;
+  color:var(--text);
 }
 
-html.theme-dark .process-step__tag{
-  background:#1A2024;
-  color:#E8E1D7;
+html.theme-dark .process-step__title{
+  color:#F5F0E8;
 }
 
 .process-step__chev{
-  width:28px;
-  height:28px;
+  width:32px;
+  height:32px;
   border-radius:999px;
   display:inline-flex;
   align-items:center;
   justify-content:center;
   background:rgba(11,61,58,0.06);
   color:var(--brand);
-  font-size:18px;
+  font-size:20px;
   font-weight:600;
   transition:transform .2s ease, background-color .2s ease;
+  flex:0 0 auto;
 }
 
 html.theme-dark .process-step__chev{
@@ -1276,14 +1223,14 @@ html.theme-dark .process-step__chev{
 
 .process-step__panel-inner{
   margin-top:10px;
-  padding:12px 13px;
+  padding:14px 15px;
   border-radius:14px;
   background:
     linear-gradient(180deg, rgba(11,61,58,0.05), rgba(11,61,58,0.02)),
     var(--card);
   border:1px solid color-mix(in srgb, var(--brand) 12%, var(--border));
-  font-size:13px;
-  line-height:1.6;
+  font-size:14px;
+  line-height:1.7;
   color:#4B5563;
 }
 
@@ -1307,20 +1254,28 @@ html.theme-dark .process-roadmap-hint{
 
 @media (max-width: 767px){
   .process-roadmap{
-    grid-auto-columns:minmax(150px, 76vw);
+    grid-auto-columns:minmax(220px, 82vw);
     gap:14px;
   }
 
   .process-step{
-    min-width:150px;
+    min-width:220px;
     max-width:none;
   }
 
   .process-step__title{
-    font-size:14px;
+    font-size:15px;
+  }
+
+  .process-step__box{
+    padding:14px 14px 13px;
+  }
+
+  .process-step__panel-inner{
+    font-size:13px;
+    line-height:1.65;
   }
 }
-
   </style>
 
   <!-- Config + main script -->
