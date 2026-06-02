@@ -138,16 +138,66 @@ html.theme-dark .text-brand-dark{
     .dropdown-item{ display:flex; align-items:center; gap:8px; width:100%; text-align:left; padding:6px 8px; border-radius:10px; color:var(--text); min-height:34px; }
     .dropdown-item:hover{ background:var(--secondary-bg) }
 
-    /* Theme toggle */
-    #themeToggle{
-      background: linear-gradient(180deg, var(--toggle-bg1), var(--toggle-bg2));
-      border-color: var(--toggle-border-c) !important;
-      min-width: 42px; min-height: 42px;
-      box-shadow: 0 2px 0 rgba(0,0,0,.04) inset, 0 1px 2px rgba(0,0,0,.08);
-      transition: background-color .2s, filter .2s, box-shadow .2s, transform .06s;
-    }
-    #themeToggle:hover{ filter: brightness(0.98) saturate(1.02); }
-    html.theme-dark #themeToggle:hover{ filter: brightness(1.05) saturate(1.02); }
+   /* Theme toggle — Sunce / Mesec */
+#themeToggle{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  width:58px;
+  height:42px;
+  padding:0;
+  border:1px solid var(--toggle-border-c) !important;
+  border-radius:999px;
+  background:linear-gradient(180deg, var(--toggle-bg1), var(--toggle-bg2));
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.22),
+    0 8px 18px rgba(0,0,0,0.08);
+  transition:
+    background-color .22s ease,
+    filter .22s ease,
+    box-shadow .22s ease,
+    transform .08s ease,
+    border-color .22s ease;
+}
+
+html.theme-dark #themeToggle{
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.05),
+    0 10px 22px rgba(0,0,0,0.30);
+}
+
+#themeToggle:hover{
+  filter:brightness(0.99) saturate(1.03);
+}
+
+html.theme-dark #themeToggle:hover{
+  filter:brightness(1.05) saturate(1.02);
+}
+
+#themeToggle:active{
+  transform:translateY(0.5px);
+}
+
+#themeToggle .theme-icon{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  width:26px;
+  height:26px;
+}
+
+#themeToggle svg{
+  display:block;
+}
+
+#iconLight svg{
+  filter:drop-shadow(0 1px 1px rgba(0,0,0,0.06));
+}
+
+#iconDark svg{
+  filter:drop-shadow(0 1px 1px rgba(0,0,0,0.18));
+}
+
 
     :where(a, button, input, select, textarea):focus-visible{
       outline: 2px solid var(--ring);
