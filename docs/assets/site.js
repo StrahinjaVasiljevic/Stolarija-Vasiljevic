@@ -264,36 +264,35 @@
 
   document.addEventListener("DOMContentLoaded", init);
 
-  async function init() {
-    try {
-      initTheme();
-      initLangDropdown();
-      await safeLoadContent();
+ async function init() {
+  try {
+    initTheme();
+    initLangDropdown();
+    await safeLoadContent();
 
-     renderHeader();
-renderHero();
-renderConfigurator();
-renderServices();
-renderPortfolioPreview();
-renderProcess();
-renderWhyUs();
-renderTestimonials();
-renderFAQ();
-renderContact();
-renderFooter();
-``
+    renderHeader();
+    renderHero();
+    renderConfigurator();
+    renderServices();
+    renderPortfolioPreview();
+    renderProcess();
+    renderWhyUs();
+    renderTestimonials();
+    renderFAQ();
+    renderContact();
+    renderFooter();
 
-      // /projekti/ page
-      renderProjectsPage();
-      wireProjectsModal();
+    // /projekti/ page
+    renderProjectsPage();
+    wireProjectsModal();
 
-      injectSEO();
-      wireNav();
-      wireLightbox();
-    } catch (e) {
-      console.error(e);
-    }
+    injectSEO();
+    wireNav();
+    wireLightbox();
+  } catch (e) {
+    console.error(e);
   }
+}
 
   // ---------- helpers ----------
   function qs(sel) { return document.querySelector(sel); }
