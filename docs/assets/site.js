@@ -1192,7 +1192,7 @@ function renderPortfolioPreview() {
   const el = qs("#portfolioPreview");
   if (!el) return;
 
-  const list = (state.projects || []).slice(0, 8);
+  const list = (state.projects || []).slice(0, 6);
   const typeMap = UI[state.lang].types || {};
   const projectsUrl = base("projekti/");
 
