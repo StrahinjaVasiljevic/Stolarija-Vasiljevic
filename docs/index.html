@@ -566,6 +566,189 @@ html.theme-dark :where(input, select, textarea)::placeholder{
       color: var(--text) !important;
       border-color: var(--border) !important;
     }
+    /* =========================================================
+   SIMPLIFIED HOME / SNAP SECTIONS
+========================================================= */
+
+html{
+  scroll-behavior:smooth;
+  scroll-padding-top:72px;
+}
+
+body.simplified-home{
+  scroll-snap-type:y mandatory;
+  overflow-y:auto;
+}
+
+main.snap-sections{
+  position:relative;
+}
+
+.snap-block{
+  min-height:calc(100svh - 64px);
+  display:flex;
+  align-items:center;
+  scroll-snap-align:start;
+  scroll-snap-stop:always;
+  padding:40px 0;
+}
+
+@media (max-width: 767px){
+  .snap-block{
+    min-height:auto;
+    padding:32px 0;
+  }
+
+  body.simplified-home{
+    scroll-snap-type:y proximity;
+  }
+}
+
+.section-shell{
+  width:min(1200px, 100%);
+  margin:0 auto;
+  padding:0 16px;
+}
+
+.solo-section .container{
+  width:100%;
+}
+
+.section-panel{
+  width:100%;
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:24px;
+  box-shadow:var(--shadow-card, 0 12px 28px rgba(0,0,0,0.08));
+  padding:clamp(24px, 3vw, 40px);
+}
+
+html.theme-dark .section-panel{
+  box-shadow:0 18px 42px rgba(0,0,0,0.36);
+}
+
+/* Hero */
+#hero.section-hero{
+  position:relative;
+  overflow:hidden;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.82) 0%, rgba(247,247,245,0.92) 100%),
+    radial-gradient(120% 100% at 50% 0%, rgba(11,61,58,0.08), transparent 60%);
+}
+
+html.theme-dark #hero.section-hero{
+  background:
+    linear-gradient(180deg, rgba(13,17,19,0.74) 0%, rgba(13,17,19,0.92) 100%),
+    radial-gradient(120% 100% at 50% 0%, rgba(95,178,173,0.12), transparent 60%);
+}
+
+.hero-shell{
+  display:grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(320px, 0.85fr);
+  gap:32px;
+  align-items:center;
+}
+
+@media (max-width: 960px){
+  .hero-shell{
+    grid-template-columns:1fr;
+  }
+}
+
+.hero-copy{
+  max-width:700px;
+}
+
+.hero-kicker{
+  display:inline-flex;
+  align-items:center;
+  min-height:38px;
+  padding:8px 14px;
+  margin-bottom:18px;
+  border:1px solid var(--border);
+  border-radius:999px;
+  background:rgba(255,255,255,0.68);
+  color:var(--brand);
+  font-size:14px;
+  font-weight:600;
+  letter-spacing:0.01em;
+  backdrop-filter:blur(8px);
+}
+
+html.theme-dark .hero-kicker{
+  background:rgba(23,29,33,0.76);
+  color:#A6E3DE;
+  border-color:#2A3034;
+}
+
+.hero-subtitle{
+  max-width:60ch;
+  color:#4B5563;
+}
+
+html.theme-dark .hero-subtitle{
+  color:#D5D0C8;
+}
+
+.hero-visual{
+  align-self:stretch;
+}
+
+/* Section identity */
+.section-intro{
+  max-width:760px;
+  margin-bottom:24px;
+}
+
+.section-intro p{
+  color:var(--muted);
+}
+
+html.theme-dark .section-intro p{
+  color:#C8C3BB;
+}
+
+/* Process block */
+#proces .section-panel{
+  background:
+    linear-gradient(180deg, color-mix(in srgb, var(--card) 94%, transparent), color-mix(in srgb, var(--card-2, var(--card)) 96%, transparent));
+}
+
+/* About block */
+.about-copy{
+  max-width:860px;
+}
+
+.about-copy p{
+  font-size:18px;
+  line-height:1.8;
+  color:#374151;
+}
+
+html.theme-dark .about-copy p{
+  color:#D6D0C6;
+}
+
+/* Contact block */
+#kontakt .section-panel{
+  background:
+    linear-gradient(180deg, color-mix(in srgb, var(--card) 96%, transparent), color-mix(in srgb, var(--bg-soft, var(--card)) 100%, transparent));
+}
+
+/* Hide sections removed in simplified concept */
+#usluge,
+#whyus,
+#portfolioPreview,
+#testimonials,
+#faq,
+footer{
+  display:none !important;
+}
+
+/* Header nav spacing in simplified mode */
+body.simplified-home .site-header nav{
+  gap:20px;
+}
   </style>
 
   <!-- Config + main script -->
