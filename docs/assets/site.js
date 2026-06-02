@@ -617,7 +617,7 @@ if (calcHead) {
     </div>
   `;
 }
-``
+  
  function renderConfigurator() {function;
 
   const L = (UI[state.lang] && UI[state.lang].calculator) || {
@@ -938,7 +938,7 @@ if (calcHead) {
 
   renderFields();
 }
-``
+
   const mount = qs("#configuratorMount");
 
   function renderFields() {
