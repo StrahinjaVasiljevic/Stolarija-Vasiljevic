@@ -137,35 +137,85 @@
     html.theme-dark .btn-secondary{color:var(--text)}
     .section{padding:64px 0}.section-title{font-size:32px;margin-bottom:24px}
     
-/* HERO — premium overlay i bolji kontrast za naslov */
+/* HERO — bukva / beech premium background */
 #hero{
   position:relative;
   overflow:hidden;
   background:
-    linear-gradient(180deg, rgba(255,255,255,0.82) 0%, rgba(247,247,245,0.90) 100%),
-    radial-gradient(120% 100% at 50% 0%, rgba(11,61,58,0.08), transparent 60%);
+    linear-gradient(180deg, rgba(255,250,244,0.88) 0%, rgba(244,236,225,0.94) 100%),
+    radial-gradient(120% 100% at 50% 0%, rgba(165,132,92,0.10), transparent 58%);
 }
 
-html.theme-dark #hero{
-  background:
-    linear-gradient(180deg, rgba(13,17,19,0.72) 0%, rgba(13,17,19,0.90) 100%),
-    radial-gradient(120% 100% at 50% 0%, rgba(95,178,173,0.12), transparent 60%);
-}
-
+/* Glatka bukva tekstura */
 #hero::before{
   content:"";
   position:absolute;
   inset:0;
   pointer-events:none;
   background:
-    linear-gradient(90deg, rgba(255,255,255,0.10), transparent 40%, rgba(255,255,255,0.06) 100%);
-  opacity:.75;
+    linear-gradient(115deg, rgba(255,255,255,0.20), rgba(255,255,255,0.03) 38%, rgba(120,82,38,0.04) 100%),
+    repeating-linear-gradient(
+      -12deg,
+      rgba(120,82,38,0.045) 0px,
+      rgba(120,82,38,0.045) 1px,
+      rgba(255,255,255,0.025) 1px,
+      rgba(255,255,255,0.025) 7px
+    ),
+    repeating-linear-gradient(
+      78deg,
+      rgba(160,120,78,0.018) 0px,
+      rgba(160,120,78,0.018) 2px,
+      rgba(255,255,255,0.00) 2px,
+      rgba(255,255,255,0.00) 18px
+    );
+  opacity:.82;
+}
+
+/* Dodatni mekani sloj da zadrži premium kontrast */
+#hero::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background:
+    radial-gradient(100% 80% at 15% 15%, rgba(255,255,255,0.16), transparent 52%),
+    radial-gradient(80% 70% at 85% 20%, rgba(255,255,255,0.08), transparent 50%),
+    linear-gradient(180deg, rgba(255,255,255,0.10), rgba(255,255,255,0.02));
+  mix-blend-mode:screen;
+  opacity:.65;
+}
+
+html.theme-dark #hero{
+  background:
+    linear-gradient(180deg, rgba(13,17,19,0.76) 0%, rgba(13,17,19,0.92) 100%),
+    radial-gradient(120% 100% at 50% 0%, rgba(95,178,173,0.10), transparent 60%);
 }
 
 html.theme-dark #hero::before{
   background:
-    linear-gradient(90deg, rgba(255,255,255,0.03), transparent 42%, rgba(255,255,255,0.02) 100%);
-  opacity:1;
+    linear-gradient(115deg, rgba(255,255,255,0.02), rgba(255,255,255,0.00) 42%, rgba(167,142,114,0.04) 100%),
+    repeating-linear-gradient(
+      -12deg,
+      rgba(210,184,140,0.028) 0px,
+      rgba(210,184,140,0.028) 1px,
+      rgba(255,255,255,0.00) 1px,
+      rgba(255,255,255,0.00) 8px
+    );
+  opacity:.55;
+}
+
+html.theme-dark #hero::after{
+  background:
+    radial-gradient(100% 80% at 15% 15%, rgba(255,255,255,0.02), transparent 52%),
+    linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.00));
+  mix-blend-mode:normal;
+  opacity:.55;
+}
+
+#hero .container,
+#hero .section-shell{
+  position:relative;
+  z-index:1;
 }
 
 #hero .container{
