@@ -552,6 +552,10 @@ if (calcNav) {
   labelAbout: "about",
   labelContact: "contact"
 };
+    const calcHead = qs("#labelCalculator");
+if (calcHead) {
+  calcHead.textContent = (UI[state.lang] && UI[state.lang].calculator && UI[state.lang].calculator.title) || "Okvirna cena";
+}
     Object.entries(ids).forEach(([id, key]) => {
       const el2 = qs("#" + id);
       if (el2) el2.textContent = heads[key];
