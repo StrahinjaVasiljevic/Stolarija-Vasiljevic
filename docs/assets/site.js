@@ -1035,12 +1035,12 @@ function renderProcess() {
 
   const hintText =
     state.lang === "sr"
-      ? "Na telefonu prevucite vodoravno kroz korake. Kliknite na korak za više detalja."
+      ? "Na telefonu prevucite vodoravno kroz korake. Kliknite na karticu za više detalja."
       : state.lang === "en"
-        ? "On mobile, swipe horizontally through the steps. Click a step for more detail."
+        ? "On mobile, swipe horizontally through the steps. Click a card for more detail."
         : state.lang === "de"
-          ? "Auf dem telefonu prevucite vodoravno kroz korake. Klicken Sie auf einen Schritt für mehr Details."
-          : "На телефоне пролистайте шаги по горизонтали. Нажмите на шаг для подробностей.";
+          ? "Auf dem Handy horizontal durch die Schritte wischen. Für mehr Details auf die Karte klicken."
+          : "На телефоне пролистайте шаги по горизонтали. Нажмите на карточку для подробностей.";
 
   const stepLabel =
     state.lang === "sr"
@@ -1054,43 +1054,43 @@ function renderProcess() {
   mount.innerHTML = `
     <div class="process-roadmap-wrap">
       <div class="process-roadmap" role="list">
-        ${steps.map((s, i) => `
-          <div class="process-step" role="listitem">
-            <button
-              class="process-step__card"
-              type="button"
-              aria-expanded="false"
-              aria-controls="process-panel-${i + 1}"
-              id="process-btn-${i + 1}"
-              data-process-toggle
-            >
-              <div class="process-step__head">
-                <span class="process-step__node">${i + 1}</span>
-
+        ${steps.map((s, i) => {
+          const num = String(i + 1).padStart(2, "0");
+          return `
+            <div class="process-step" role="listitem">
+              <button
+                class="process-step__card"
+                type="button"
+                aria-expanded="false"
+                aria-controls="process-panel-${i + 1}"
+                id="process-btn-${i + 1}"
+                data-process-toggle
+              >
                 <div class="process-step__box">
-                  <div class="process-step__title">${esc(s.t)}</div>
-                  <div class="process-step__sub">${esc(s.d)}</div>
-
-                  <div class="process-step__meta">
-                    <span class="process-step__tag">${esc(stepLabel)}</span>
+                  <div class="process-step__line">
+                    <div class="process-step__titlewrap">
+                      <span class="process-step__index">${num}</span>
+                      <span class="process-step__divider">—</span>
+                      <span class="process-step__title">${esc(s.t || `${stepLabel} ${i + 1}`)}</span>
+                    </div>
                     <span class="process-step__chev" aria-hidden="true">+</span>
                   </div>
                 </div>
-              </div>
-            </button>
+              </button>
 
-            <div
-              class="process-step__panel"
-              id="process-panel-${i + 1}"
-              role="region"
-              aria-labelledby="process-btn-${i + 1}"
-            >
-              <div class="process-step__panel-inner">
-                ${esc(s.d)}
+              <div
+                class="process-step__panel"
+                id="process-panel-${i + 1}"
+                role="region"
+                aria-labelledby="process-btn-${i + 1}"
+              >
+                <div class="process-step__panel-inner">
+                  ${esc(s.d)}
+                </div>
               </div>
             </div>
-          </div>
-        `).join("")}
+          `;
+        }).join("")}
       </div>
     </div>
 
