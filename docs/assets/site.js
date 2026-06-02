@@ -270,16 +270,18 @@
       initLangDropdown();
       await safeLoadContent();
 
-      renderHeader();
-      renderHero();
-      renderServices();
-      renderProcess();
-      renderWhyUs();
-      renderPortfolioPreview();
-      renderTestimonials();
-      renderFAQ();
-      renderContact();
-      renderFooter();
+     renderHeader();
+renderHero();
+renderConfigurator();
+renderServices();
+renderPortfolioPreview();
+renderProcess();
+renderWhyUs();
+renderTestimonials();
+renderFAQ();
+renderContact();
+renderFooter();
+``
 
       // /projekti/ page
       renderProjectsPage();
