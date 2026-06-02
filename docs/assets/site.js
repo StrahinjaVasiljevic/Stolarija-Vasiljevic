@@ -546,7 +546,12 @@ if (calcNav) {
     if (langBtn) langBtn.type = "button";
 
     const heads = UI[state.lang].heads;
-    const ids = { labelServices: "services", labelProcess: "process", labelAbout: "about", labelContact: "contact" };
+    const ids = {
+  labelServices: "services",
+  labelProcess: "process",
+  labelAbout: "about",
+  labelContact: "contact"
+};
     Object.entries(ids).forEach(([id, key]) => {
       const el2 = qs("#" + id);
       if (el2) el2.textContent = heads[key];
