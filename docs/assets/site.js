@@ -977,18 +977,60 @@ function renderConfigurator() {
   }
 
   // ---------- render: process ----------
- function renderProcess() {function renderProcess() i osnovni izgled.",
+function renderProcess() {
+  const rawSteps =
+    (state.site && state.site.process && state.site.process.length)
+      ? state.site.process
+      : (UI[state.lang].process || []);
+
+  const mount = qs("#processMount");
+  const headEl = qs("#labelProcess");
+
+  if (headEl) headEl.textContent = UI[state.lang].heads.process;
+  if (!mount) return;
+
+  const fallbackDescriptions = {
+    sr: [
+      "Pregled zahteva, prostora i definišemo pravac rešenja.",
+      "Predlažemo raspored, materijale i osnovni izgled.",
       "Dobijate okvirnu cenu i pregled ključnih stavki.",
       "Usaglašavamo detalje, materijale, rok i završnu varijantu.",
       "Nakon potvrde kreće priprema, nabavka i plan realizacije.",
       "Sledi proizvodnja, transport i uredna montaža na lokaciji.",
       "Prolazimo završne detalje i vršimo konačnu primopredaju."
+    ],
+    en: [
+      "We review the requirements, the space and define the direction of the solution.",
+      "We propose the layout, materials and the initial visual direction.",
+      "You receive an estimated price range and an overview of key items.",
+      "We align the details, materials, timeline and final version.",
+      "After confirmation, preparation, sourcing and execution planning begin.",
+      "Production, delivery and clean on-site installation follow.",
+      "We review the final details and complete the handover."
+    ],
+    de: [
+      "Wir prüfen Anforderungen und Raum und definieren die Lösungsrichtung.",
+      "Wir schlagen Aufteilung, Materialien und die Grundgestaltung vor.",
+      "Sie erhalten einen Kostenrahmen und die wichtigsten Positionen im Überblick.",
+      "Wir stimmen Details, Materialien, Zeitplan und Endvariante ab.",
+      "Nach der Bestätigung beginnen Vorbereitung, Beschaffung und Umsetzungsplanung.",
+      "Danach folgen Fertigung, Lieferung und saubere Montage vor Ort.",
+      "Zum Schluss prüfen wir alle Details und übergeben das Projekt."
+    ],
+    ru: [
+      "Изучаем требования и пространство, определяем направление решения.",
+      "Предлагаем планировку, материалы и базовый визуальный концепт.",
+      "Вы получаете ориентировочную стоимость и обзор ключевых позиций.",
+      "Согласовываем детали, материалы, сроки и финальный вариант.",
+      "После подтверждения начинаются подготовка, закупка и план реализации.",
+      "Далее идут производство, доставка и аккуратный монтаж на месте.",
+      "Проверяем финальные детали и передаём готовый проект."
     ]
   };
 
   const steps = rawSteps.map((step, idx) => ({
     t: step.t || "",
-    d: step.d || (fallbackDescriptions[state.lang] && fallbackDescriptions[state.lang][idx]) || ""
+    d: step.d || ((fallbackDescriptions[state.lang] && fallbackDescriptions[state.lang][idx]) || "")
   }));
 
   const hintText =
@@ -997,8 +1039,17 @@ function renderConfigurator() {
       : state.lang === "en"
         ? "On mobile, swipe horizontally through the steps. Click a step for more detail."
         : state.lang === "de"
-          ? "Auf dem Handy horizontal durch die Schritte wischen. Für mehr Details auf einen Schritt klicken."
-          : "На телефону пролистайте кораке хоризонтално. Кликните на корак за детаље.";
+          ? "Auf dem telefonu prevucite vodoravno kroz korake. Klicken Sie auf einen Schritt für mehr Details."
+          : "На телефоне пролистайте шаги по горизонтали. Нажмите на шаг для подробностей.";
+
+  const stepLabel =
+    state.lang === "sr"
+      ? "Korak"
+      : state.lang === "en"
+        ? "Step"
+        : state.lang === "de"
+          ? "Schritt"
+          : "Шаг";
 
   mount.innerHTML = `
     <div class="process-roadmap-wrap">
@@ -1021,7 +1072,7 @@ function renderConfigurator() {
                   <div class="process-step__sub">${esc(s.d)}</div>
 
                   <div class="process-step__meta">
-                    <span class="process-step__tag">${state.lang === "sr" ? "Korak" : "Step"}</span>
+                    <span class="process-step__tag">${esc(stepLabel)}</span>
                     <span class="process-step__chev" aria-hidden="true">+</span>
                   </div>
                 </div>
@@ -1046,8 +1097,7 @@ function renderConfigurator() {
     <div class="process-roadmap-hint">${esc(hintText)}</div>
   `;
 
-  const root = mount;
-  const buttons = Array.from(root.querySelectorAll("[data-process-toggle]"));
+  const buttons = Array.from(mount.querySelectorAll("[data-process-toggle]"));
   let openPanel = null;
   let openBtn = null;
 
@@ -1107,19 +1157,6 @@ function renderConfigurator() {
     });
   }
 }
-  const rawSteps =
-    (state.site && state.site.process && state.site.process.length)
-      ? state.site.process
-      : (UI[state.lang].process || []);
-
-  const mount = qs("#processMount");
-  const headEl = qs("#labelProcess");
-  if (headEl) headEl.textContent = UI[state.lang].heads.process;
-  if (!mount) return;
-
-  const fallbackDescriptions = {
-    sr: [
-      "Pregled zahteva, prostora i definišemo pravac rešenja.",
 
 
   // ---------- render: why us ----------
