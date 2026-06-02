@@ -1138,115 +1138,150 @@ if (calcHead) {
   }
 
   // ---------- render: process ----------
-  function renderProcess() {
-    const steps = (state.site && state.site.process && state.site.process.length) ? state.site.process : (UI[state.lang].process || []);
-    const mount = qs("#processMount");
-    const headEl = qs("#labelProcess");
-    if (headEl) headEl.textContent = UI[state.lang].heads.process;
-    if (!mount) return;
+ function renderProcess() {function renderProcess() i osnovni izgled.",
+      "Dobijate okvirnu cenu i pregled ključnih stavki.",
+      "Usaglašavamo detalje, materijale, rok i završnu varijantu.",
+      "Nakon potvrde kreće priprema, nabavka i plan realizacije.",
+      "Sledi proizvodnja, transport i uredna montaža na lokaciji.",
+      "Prolazimo završne detalje i vršimo konačnu primopredaju."
+    ]
+  };
 
-    const top = steps.slice(0, 4);
-    const bottom = steps.slice(4);
+  const steps = rawSteps.map((step, idx) => ({
+    t: step.t || "",
+    d: step.d || (fallbackDescriptions[state.lang] && fallbackDescriptions[state.lang][idx]) || ""
+  }));
 
-    const cardHtml = (s, n, id) => `
-      <div class="process-item" role="listitem">
-        <button class="process-card" type="button" aria-expanded="false" aria-controls="process-panel-${id}" id="process-btn-${id}" data-process-toggle>
-          <span class="process-chip">${n}</span>
-          <span class="process-title">${esc(s.t)}</span>
-          <span class="process-sub">${esc(s.d)}</span>
-        </button>
-        <div class="process-panel" id="process-panel-${id}" role="region" aria-labelledby="process-btn-${id}">
-          <div class="process-panel-inner">${esc(s.d)}</div>
-        </div>
-      </div>`;
+  const hintText =
+    state.lang === "sr"
+      ? "Na telefonu prevucite vodoravno kroz korake. Kliknite na korak za više detalja."
+      : state.lang === "en"
+        ? "On mobile, swipe horizontally through the steps. Click a step for more detail."
+        : state.lang === "de"
+          ? "Auf dem Handy horizontal durch die Schritte wischen. Für mehr Details auf einen Schritt klicken."
+          : "На телефону пролистайте кораке хоризонтално. Кликните на корак за детаље.";
 
-    const connector = `
-      <div class="process-connector" aria-hidden="true">
-        <svg viewBox="0 0 24 24" width="24" height="24">
-          <path d="M5 12h14m-4-4 4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </div>`;
+  mount.innerHTML = `
+    <div class="process-roadmap-wrap">
+      <div class="process-roadmap" role="list">
+        ${steps.map((s, i) => `
+          <div class="process-step" role="listitem">
+            <button
+              class="process-step__card"
+              type="button"
+              aria-expanded="false"
+              aria-controls="process-panel-${i + 1}"
+              id="process-btn-${i + 1}"
+              data-process-toggle
+            >
+              <div class="process-step__head">
+                <span class="process-step__node">${i + 1}</span>
 
-    let id = 1;
-    const topRow = `
-      <div class="process-row process-row--top" role="list">
-        ${top.map((s, i) => cardHtml(s, i + 1, id++) + (i < top.length - 1 ? connector : "")).join("")}
-      </div>`;
+                <div class="process-step__box">
+                  <div class="process-step__title">${esc(s.t)}</div>
+                  <div class="process-step__sub">${esc(s.d)}</div>
 
-    const turn = `
-  <div class="process-turn" aria-hidden="true">
-    <svg viewBox="0 0 560 120" width="560" height="120" preserveAspectRatio="none" class="process-turn-svg">
-      <!-- Putanja: iz desne ivice 4. kartice -> puni zavoj -> ulazak u 5. karticu -->
-      <path d="M540,22
-               C380,22 360,22 300,22
-               C210,22 210,98 120,98
-               C70,98 45,98 20,98"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="3"
-            stroke-linecap="round"
-            stroke-linejoin="round"/>
-      <!-- strelica (pointing right-to-left, uliva se u 5. karticu sa leve strane) -->
-      <path d="M34,88 L20,98 L34,108"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="3"
-            stroke-linecap="round"
-            stroke-linejoin="round"/>
-    </svg>
-  </div>
-`;
+                  <div class="process-step__meta">
+                    <span class="process-step__tag">${state.lang === "sr" ? "Korak" : "Step"}</span>
+                    <span class="process-step__chev" aria-hidden="true">+</span>
+                  </div>
+                </div>
+              </div>
+            </button>
 
-    const bottomRow = bottom.length ? `
-      <div class="process-row process-row--bottom" role="list">
-        ${bottom.map((s, i) => cardHtml(s, 4 + i + 1, id++) + (i < bottom.length - 1 ? connector : "")).join("")}
-      </div>` : "";
+            <div
+              class="process-step__panel"
+              id="process-panel-${i + 1}"
+              role="region"
+              aria-labelledby="process-btn-${i + 1}"
+            >
+              <div class="process-step__panel-inner">
+                ${esc(s.d)}
+              </div>
+            </div>
+          </div>
+        `).join("")}
+      </div>
+    </div>
 
-    mount.innerHTML = topRow + turn + bottomRow;
+    <div class="process-roadmap-hint">${esc(hintText)}</div>
+  `;
 
-    const root = qs(".process-flow");
-    if (!root) return;
-    const buttons = Array.from(root.querySelectorAll("[data-process-toggle]"));
-    let openPanel = null, openBtn = null;
+  const root = mount;
+  const buttons = Array.from(root.querySelectorAll("[data-process-toggle]"));
+  let openPanel = null;
+  let openBtn = null;
 
-    buttons.forEach((btn) => {
-      const panel = qs("#" + btn.getAttribute("aria-controls"));
-      if (!panel) return;
-      btn.addEventListener("click", () => toggle(btn, panel));
-    });
+  buttons.forEach((btn) => {
+    const panelId = btn.getAttribute("aria-controls");
+    const panel = panelId ? qs("#" + panelId) : null;
+    if (!panel) return;
 
-    function toggle(btn, panel) {
-      const isOpen = btn.getAttribute("aria-expanded") === "true";
-      if (openPanel && openPanel !== panel) collapse(openBtn, openPanel);
-      if (isOpen) { collapse(btn, panel); openPanel = null; openBtn = null; }
-      else { expand(btn, panel); openPanel = panel; openBtn = btn; }
+    btn.addEventListener("click", () => toggle(btn, panel));
+  });
+
+  function toggle(btn, panel) {
+    const isOpen = btn.getAttribute("aria-expanded") === "true";
+
+    if (openPanel && openPanel !== panel) {
+      collapse(openBtn, openPanel);
     }
 
-    function expand(btn, panel) {
-      btn.setAttribute("aria-expanded", "true");
-      panel.classList.add("open");
-      panel.style.maxHeight = "0px";
-      const h = panel.scrollHeight;
-      panel.style.maxHeight = h + "px";
-      const onEnd = (e) => {
-        if (e.propertyName === "max-height") {
-          panel.style.maxHeight = "none";
-          panel.removeEventListener("transitionend", onEnd);
-        }
-      };
-      panel.addEventListener("transitionend", onEnd);
-    }
-
-    function collapse(btn, panel) {
-      if (btn) btn.setAttribute("aria-expanded", "false");
-      const h = panel.scrollHeight;
-      panel.style.maxHeight = h + "px";
-      requestAnimationFrame(() => {
-        panel.classList.remove("open");
-        panel.style.maxHeight = "0px";
-      });
+    if (isOpen) {
+      collapse(btn, panel);
+      openPanel = null;
+      openBtn = null;
+    } else {
+      expand(btn, panel);
+      openPanel = panel;
+      openBtn = btn;
     }
   }
+
+  function expand(btn, panel) {
+    btn.setAttribute("aria-expanded", "true");
+    panel.classList.add("open");
+    panel.style.maxHeight = "0px";
+
+    const h = panel.scrollHeight;
+    panel.style.maxHeight = h + "px";
+
+    const onEnd = (e) => {
+      if (e.propertyName === "max-height") {
+        panel.style.maxHeight = "none";
+        panel.removeEventListener("transitionend", onEnd);
+      }
+    };
+
+    panel.addEventListener("transitionend", onEnd);
+  }
+
+  function collapse(btn, panel) {
+    if (btn) btn.setAttribute("aria-expanded", "false");
+
+    const h = panel.scrollHeight;
+    panel.style.maxHeight = h + "px";
+
+    requestAnimationFrame(() => {
+      panel.classList.remove("open");
+      panel.style.maxHeight = "0px";
+    });
+  }
+}
+  const rawSteps =
+    (state.site && state.site.process && state.site.process.length)
+      ? state.site.process
+      : (UI[state.lang].process || []);
+
+  const mount = qs("#processMount");
+  const headEl = qs("#labelProcess");
+  if (headEl) headEl.textContent = UI[state.lang].heads.process;
+  if (!mount) return;
+
+  const fallbackDescriptions = {
+    sr: [
+      "Pregled zahteva, prostora i definišemo pravac rešenja.",
+
 
   // ---------- render: why us ----------
   function renderWhyUs() {
