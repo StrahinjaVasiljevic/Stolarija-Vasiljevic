@@ -1194,15 +1194,19 @@ function renderPortfolioPreview() {
 
   const list = (state.projects || []).slice(0, 8);
   const typeMap = UI[state.lang].types || {};
+  const projectsUrl = base("projekti/");
 
-  // Opcija A: cover na kartici = final (images[1]) ako postoji, inače images[0]
   const cover = (p) => {
     const imgs = Array.isArray(p.images) ? p.images : [];
     const path = (imgs.length > 1 && imgs[1]) ? imgs[1] : (imgs[0] || "images/ph2.svg");
     return asset(path);
   };
 
-  const projectsUrl = base("projekti/");
+  const cardHref = (p) => {
+    const url = new URL(projectsUrl, window.location.origin + window.location.pathname);
+    const key = projectKey(p);
+    return `${projectsUrl}#p=${encodeURIComponent(key)}`;
+  };
 
   el.innerHTML = `
     <div class="container">
@@ -1219,9 +1223,10 @@ function renderPortfolioPreview() {
           const typeTxt = typeMap[p.type] || p.type || "";
           const t = localize(p.title);
           const d = localize(p.description);
+          const href = cardHref(p);
 
           return `
-            <button class="card overflow-hidden text-left preview-btn" data-img="${img}" type="button">
+            <a class="card overflow-hidden text-left block hover:shadow-lg transition-shadow" href="${href}">
               <div class="relative w-full h-40 bg-brand-light">
                 <img src="${img}" alt="${esc(t)}" class="w-full h-40 object-cover" loading="lazy" decoding="async" />
               </div>
@@ -1230,14 +1235,13 @@ function renderPortfolioPreview() {
                 <div class="font-medium">${esc(t)}</div>
                 ${d ? `<p class="text-sm text-gray-600 mt-1">${esc(d)}</p>` : ``}
               </div>
-            </button>
+            </a>
           `;
         }).join("")}
       </div>
     </div>
   `;
 }
-
   // ---------- testimonials ----------
   function renderTestimonials() {
     const items = (state.site && state.site.testimonials) ? state.site.testimonials : [];
