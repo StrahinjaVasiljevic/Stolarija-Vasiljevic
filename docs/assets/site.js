@@ -1014,9 +1014,9 @@ function renderProcess() {
 
   const hintText =
     state.lang === "sr"
-      ? "Na telefonu prevucite vodoravno kroz korake. Kliknite na karticu za više detalja."
+      ? "Prevucite levo/desno kroz korake"
       : state.lang === "en"
-        ? "On mobile, swipe horizontally through the steps. Click a card for more detail."
+        ? "On mobile, swipe left/right"
         : state.lang === "de"
           ? "Auf dem Handy horizontal durch die Schritte wischen. Für mehr Details auf die Karte klicken."
           : "На телефоне пролистайте шаги по горизонтали. Нажмите на карточку для подробностей.";
