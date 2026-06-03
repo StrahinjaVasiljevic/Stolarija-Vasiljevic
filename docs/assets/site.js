@@ -571,6 +571,8 @@ function renderHero() {
   const el = qs("#hero");
   if (!c || !el) return;
 
+  const projectsUrl = base("projekti/");
+
   el.innerHTML = `
     <div class="section-shell hero-shell hero-shell--single">
       <div class="hero-copy hero-copy--wide">
@@ -586,7 +588,7 @@ function renderHero() {
           <a href="#kontakt" class="btn btn-primary">
             ${esc(c.ctaPrimary || UI[state.lang].contact.submit)}
           </a>
-          ${base(}" class="btn btn-secondary">
+          <a href="${projectsUrl}" class="btn btn-secondary">
             ${esc(c.ctaSecondary || UI[state.lang].common.viewAll)}
           </a>
         </div>
@@ -594,6 +596,7 @@ function renderHero() {
     </div>
   `;
 }
+
 function renderConfigurator() {
   const mount = qs("#configuratorMount");
   if (!mount) return;
