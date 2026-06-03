@@ -1400,6 +1400,194 @@ html.theme-dark .process-roadmap-hint{
 html, body{
   overflow-x: hidden;
 }
+/* =========================================
+   MOBILE POLISH — Kontakt + app-like CTA
+========================================= */
+@media (max-width: 767px){
+
+  #kontakt .section-panel{
+    padding:18px;
+    border-radius:22px;
+  }
+
+  #kontakt .contact-aside{
+    background:
+      linear-gradient(180deg, rgba(255,255,255,0.90), rgba(247,247,245,0.98));
+    border:1px solid color-mix(in srgb, var(--brand) 10%, var(--border));
+    box-shadow:
+      0 18px 36px rgba(15,23,42,0.08),
+      inset 0 1px 0 rgba(255,255,255,0.55);
+    border-radius:20px;
+  }
+
+  html.theme-dark #kontakt .contact-aside{
+    background:
+      linear-gradient(180deg, rgba(22,28,32,0.96), rgba(15,19,22,0.98));
+    border-color:color-mix(in srgb, #8FD1CB 12%, var(--border));
+    box-shadow:
+      0 20px 40px rgba(0,0,0,0.34),
+      inset 0 1px 0 rgba(255,255,255,0.03);
+  }
+
+  #kontakt #contactForm{
+    background:
+      linear-gradient(180deg, rgba(255,255,255,0.94), rgba(248,247,244,0.98));
+    border:1px solid color-mix(in srgb, var(--brand) 10%, var(--border));
+    box-shadow:
+      0 20px 44px rgba(15,23,42,0.08),
+      inset 0 1px 0 rgba(255,255,255,0.55);
+    border-radius:20px;
+  }
+
+  html.theme-dark #kontakt #contactForm{
+    background:
+      linear-gradient(180deg, rgba(22,28,32,0.96), rgba(15,19,22,0.98));
+    border-color:color-mix(in srgb, #8FD1CB 12%, var(--border));
+    box-shadow:
+      0 22px 48px rgba(0,0,0,0.36),
+      inset 0 1px 0 rgba(255,255,255,0.03);
+  }
+
+  #kontakt .logo--contact .logo-img{
+    height:58px;
+  }
+
+  /* App-like CTA */
+  #kontakt #submitBtn,
+  #kontakt #contactPhoneBtn{
+    min-height:54px;
+    border-radius:16px;
+    font-size:16px;
+    font-weight:700;
+    box-shadow:
+      0 12px 26px rgba(11,61,58,0.16),
+      inset 0 1px 0 rgba(255,255,255,0.14);
+  }
+
+  #kontakt #submitBtn{
+    background:linear-gradient(135deg, var(--brand), color-mix(in srgb, var(--brand) 78%, #194a46));
+    color:var(--text-on-primary);
+    border:1px solid color-mix(in srgb, var(--brand) 86%, #123c39);
+  }
+
+  #kontakt #contactPhoneBtn{
+    background:linear-gradient(180deg, rgba(233,226,210,0.98), rgba(224,214,197,0.98));
+    color:#0b0b0b;
+    border:1px solid rgba(180,164,138,0.55);
+  }
+
+  html.theme-dark #kontakt #contactPhoneBtn{
+    background:linear-gradient(180deg, rgba(26,32,36,0.98), rgba(20,25,28,0.98));
+    color:#F0EADF;
+    border-color:#2A3034;
+    box-shadow:
+      0 12px 26px rgba(0,0,0,0.28),
+      inset 0 1px 0 rgba(255,255,255,0.03);
+  }
+
+  #kontakt #submitBtn:active,
+  #kontakt #contactPhoneBtn:active{
+    transform:translateY(1px);
+  }
+
+  #kontakt .flex.gap-3.flex-wrap{
+    gap:10px;
+  }
+}
+
+/* =========================================
+   HERO FIRST SCREEN + LOAD REVEAL
+========================================= */
+
+/* Hero neka bude prvi pun ekran */
+html.js #hero.snap-block{
+  min-height:100svh;
+  padding-top:0;
+  padding-bottom:0;
+}
+
+html.js .hero-shell{
+  min-height:calc(100svh - 64px);
+  display:flex;
+  align-items:center;
+}
+
+/* Header i hero sadržaj — početno skriveni */
+html.js body:not(.page-ready) .site-header{
+  opacity:0;
+  transform:translateY(-18px);
+}
+
+html.js body:not(.page-ready) #hero .hero-copy > *{
+  opacity:0;
+  transform:translateY(26px);
+}
+
+/* Kada stranica krene da se prikazuje */
+html.js body.page-ready .site-header{
+  opacity:1;
+  transform:translateY(0);
+  transition:
+    opacity .55s ease,
+    transform .55s ease;
+  transition-delay:.18s;
+}
+
+html.js body.page-ready #hero .hero-copy > *{
+  opacity:1;
+  transform:translateY(0);
+  transition:
+    opacity .65s ease,
+    transform .65s ease;
+}
+
+html.js body.page-ready #hero .hero-copy > *:nth-child(1){
+  transition-delay:.18s;
+}
+
+html.js body.page-ready #hero .hero-copy > *:nth-child(2){
+  transition-delay:.34s;
+}
+
+html.js body.page-ready #hero .hero-copy > *:nth-child(3){
+  transition-delay:.50s;
+}
+
+/* Sekcije ispod — otkrivaju se tek kada dođu u viewport */
+html.js .reveal-ready{
+  opacity:0;
+  transform:translateY(32px);
+  transition:
+    opacity .65s ease,
+    transform .65s ease;
+  will-change:opacity, transform;
+}
+
+html.js .reveal-ready.is-visible{
+  opacity:1;
+  transform:none;
+}
+
+/* Malo elegantniji osećaj na telefonu */
+@media (max-width: 767px){
+  html.js .hero-shell{
+    min-height:calc(100svh - 64px);
+    padding-top:20px;
+    padding-bottom:20px;
+  }
+
+  html.js body.page-ready #hero .hero-copy > *:nth-child(1){
+    transition-delay:.14s;
+  }
+
+  html.js body.page-ready #hero .hero-copy > *:nth-child(2){
+    transition-delay:.28s;
+  }
+
+  html.js body.page-ready #hero .hero-copy > *:nth-child(3){
+    transition-delay:.42s;
+  }
+}
 
   </style>
 
