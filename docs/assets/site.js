@@ -566,27 +566,14 @@ if (calcHead) {
   }
 
   // ---------- render: hero ----------
- function renderHero() {
+function renderHero() {
   const c = state.site && state.site.hero;
   const el = qs("#hero");
   if (!c || !el) return;
 
-  const projectsUrl = base("projekti/");
-  const heroImg = asset(c.image || cfg.HERO_IMAGE || "assets/img/cover-logo.png");
-
-  const kicker = state.lang === "sr"
-    ? "Dizajn enterijera / Nameštaj po meri"
-    : state.lang === "en"
-      ? "Interior design / Custom furniture"
-      : state.lang === "de"
-        ? "Innenarchitektur / Maßmöbel"
-        : "Дизайн интерьера / Мебель на заказ";
-
   el.innerHTML = `
-    <div class="section-shell hero-shell">
-      <div class="hero-copy">
-        <div class="hero-kicker">${esc(kicker)}</div>
-
+    <div class="section-shell hero-shell hero-shell--single">
+      <div class="hero-copy hero-copy--wide">
         <h1 class="font-serif text-4xl md:text-5xl lg:text-6xl leading-tight mb-5">
           ${esc(c.title || "")}
         </h1>
@@ -599,25 +586,14 @@ if (calcHead) {
           <a href="#kontakt" class="btn btn-primary">
             ${esc(c.ctaPrimary || UI[state.lang].contact.submit)}
           </a>
-          <a href="${projectsUrl}" class="btn btn-secondary">
+          ${base(}" class="btn btn-secondary">
             ${esc(c.ctaSecondary || UI[state.lang].common.viewAll)}
           </a>
         </div>
       </div>
-
-      <div class="hero-visual card p-4 md:p-6 bg-brand-beige/30">
-        <img
-          src="${heroImg}"
-          alt="${esc(UI[state.lang].heads.projects || "Projekti")}"
-          class="w-full h-auto rounded-xl"
-          loading="eager"
-          decoding="async"
-        />
-      </div>
     </div>
   `;
 }
-  
 function renderConfigurator() {
   const mount = qs("#configuratorMount");
   if (!mount) return;
