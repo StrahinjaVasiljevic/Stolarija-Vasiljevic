@@ -289,6 +289,7 @@
     injectSEO();
     wireNav();
     wireLightbox();
+    initMotion();
   } catch (e) {
     console.error(e);
   }
