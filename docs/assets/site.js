@@ -1394,6 +1394,40 @@ function renderPortfolioPreview() {
     });
   }
 
+  function initMotion() {
+  // Kada je DOM spreman i sadržaj renderovan — pusti hero/header animaciju
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      document.body.classList.add("page-ready");
+    });
+  });
+
+  // Sekcije ispod hero sekcije neka se otkrivaju tek pri scroll-u
+  const sections = Array.from(document.querySelectorAll('main.snap-sections > section.snap-block'));
+
+  sections.forEach((section) => {
+    if (section.id !== "hero") {
+      section.classList.add("reveal-ready");
+    }
+  });
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("is-visible");
+      }
+    });
+  }, {
+    threshold: 0.18,
+    rootMargin: "0px 0px -10% 0px"
+  });
+
+  sections.forEach((section) => {
+    if (section.id !== "hero") {
+      io.observe(section);
+    }
+  });
+}
  // ---------- SEO ----------
 function injectSEO() {
   const siteUrl = (window.APP_CONFIG && window.APP_CONFIG.SITE_URL) || "https://strahinjavasiljevic.github.io/Stolarija-Vasiljevic/";
