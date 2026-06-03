@@ -137,79 +137,95 @@
     html.theme-dark .btn-secondary{color:var(--text)}
     .section{padding:64px 0}.section-title{font-size:32px;margin-bottom:24px}
     
-/* HERO — bukva / beech premium background */
+/* HERO — jača bukva / beech wood background */
 #hero{
   position:relative;
   overflow:hidden;
   background:
-    linear-gradient(180deg, rgba(255,250,244,0.88) 0%, rgba(244,236,225,0.94) 100%),
-    radial-gradient(120% 100% at 50% 0%, rgba(165,132,92,0.10), transparent 58%);
+    linear-gradient(180deg, rgba(232,210,178,0.92) 0%, rgba(214,186,148,0.96) 100%),
+    radial-gradient(120% 100% at 50% 0%, rgba(148,104,56,0.24), transparent 58%);
 }
 
-/* Glatka bukva tekstura */
+/* Glavna tekstura drveta */
 #hero::before{
   content:"";
   position:absolute;
   inset:0;
   pointer-events:none;
   background:
-    linear-gradient(115deg, rgba(255,255,255,0.20), rgba(255,255,255,0.03) 38%, rgba(120,82,38,0.04) 100%),
+    linear-gradient(115deg, rgba(255,255,255,0.14), rgba(255,255,255,0.02) 32%, rgba(120,78,36,0.10) 100%),
     repeating-linear-gradient(
-      -12deg,
-      rgba(120,82,38,0.045) 0px,
-      rgba(120,82,38,0.045) 1px,
-      rgba(255,255,255,0.025) 1px,
-      rgba(255,255,255,0.025) 7px
+      -9deg,
+      rgba(109,74,40,0.095) 0px,
+      rgba(109,74,40,0.095) 1px,
+      rgba(255,255,255,0.018) 1px,
+      rgba(255,255,255,0.018) 5px
     ),
     repeating-linear-gradient(
-      78deg,
-      rgba(160,120,78,0.018) 0px,
-      rgba(160,120,78,0.018) 2px,
+      82deg,
+      rgba(132,92,52,0.050) 0px,
+      rgba(132,92,52,0.050) 2px,
       rgba(255,255,255,0.00) 2px,
-      rgba(255,255,255,0.00) 18px
+      rgba(255,255,255,0.00) 14px
+    ),
+    repeating-linear-gradient(
+      0deg,
+      rgba(92,60,28,0.018) 0px,
+      rgba(92,60,28,0.018) 1px,
+      rgba(255,255,255,0.00) 1px,
+      rgba(255,255,255,0.00) 16px
     );
-  opacity:.92;
+  opacity:1;
+  mix-blend-mode:multiply;
 }
 
-/* Dodatni mekani sloj da zadrži premium kontrast */
+/* Mekani highlight sloj da bukva ne uguši tekst */
 #hero::after{
   content:"";
   position:absolute;
   inset:0;
   pointer-events:none;
   background:
-    radial-gradient(100% 80% at 15% 15%, rgba(255,255,255,0.16), transparent 52%),
-    radial-gradient(80% 70% at 85% 20%, rgba(255,255,255,0.08), transparent 50%),
-    linear-gradient(180deg, rgba(255,255,255,0.10), rgba(255,255,255,0.02));
+    radial-gradient(88% 70% at 14% 18%, rgba(255,255,255,0.16), transparent 50%),
+    radial-gradient(72% 60% at 84% 18%, rgba(255,255,255,0.08), transparent 46%),
+    linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.01));
+  opacity:.72;
   mix-blend-mode:screen;
-  opacity:.65;
 }
 
 html.theme-dark #hero{
   background:
-    linear-gradient(180deg, rgba(13,17,19,0.76) 0%, rgba(13,17,19,0.92) 100%),
-    radial-gradient(120% 100% at 50% 0%, rgba(95,178,173,0.10), transparent 60%);
+    linear-gradient(180deg, rgba(22,18,15,0.94) 0%, rgba(16,14,12,0.98) 100%),
+    radial-gradient(120% 100% at 50% 0%, rgba(138,106,72,0.14), transparent 60%);
 }
 
 html.theme-dark #hero::before{
   background:
-    linear-gradient(115deg, rgba(255,255,255,0.02), rgba(255,255,255,0.00) 42%, rgba(167,142,114,0.04) 100%),
+    linear-gradient(115deg, rgba(255,255,255,0.02), rgba(255,255,255,0.00) 35%, rgba(176,145,108,0.07) 100%),
     repeating-linear-gradient(
-      -12deg,
-      rgba(210,184,140,0.028) 0px,
-      rgba(210,184,140,0.028) 1px,
+      -9deg,
+      rgba(214,187,145,0.040) 0px,
+      rgba(214,187,145,0.040) 1px,
       rgba(255,255,255,0.00) 1px,
-      rgba(255,255,255,0.00) 8px
+      rgba(255,255,255,0.00) 6px
+    ),
+    repeating-linear-gradient(
+      82deg,
+      rgba(214,187,145,0.018) 0px,
+      rgba(214,187,145,0.018) 2px,
+      rgba(255,255,255,0.00) 2px,
+      rgba(255,255,255,0.00) 18px
     );
-  opacity:.55;
+  opacity:.76;
+  mix-blend-mode:normal;
 }
 
 html.theme-dark #hero::after{
   background:
-    radial-gradient(100% 80% at 15% 15%, rgba(255,255,255,0.02), transparent 52%),
+    radial-gradient(88% 70% at 14% 18%, rgba(255,255,255,0.03), transparent 50%),
     linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.00));
+  opacity:.48;
   mix-blend-mode:normal;
-  opacity:.55;
 }
 
 #hero .container,
@@ -217,107 +233,6 @@ html.theme-dark #hero::after{
   position:relative;
   z-index:1;
 }
-
-#hero .container{
-  position:relative;
-  z-index:1;
-}
-
-#hero h1,
-#hero h2{
-  color:#0b0b0b;
-  text-wrap:balance;
-  letter-spacing:-0.02em;
-  text-shadow:0 1px 0 rgba(255,255,255,0.35);
-}
-
-html.theme-dark #hero h1,
-html.theme-dark #hero h2{
-  color:#F5F0E8;
-  text-shadow:
-    0 1px 0 rgba(0,0,0,0.24),
-    0 10px 24px rgba(0,0,0,0.22);
-}
-
-#hero p{
-  color:#374151;
-}
-
-html.theme-dark #hero p{
-  color:#D5D0C8;
-}
-
-/* Ako site.js ubacuje hero badge / subtitle / lead */
-#hero .text-gray-600,
-#hero .text-gray-700,
-#hero .text-slate-600,
-#hero .text-slate-700{
-  color:#4b5563 !important;
-}
-
-html.theme-dark #hero .text-gray-600,
-html.theme-dark #hero .text-gray-700,
-html.theme-dark #hero .text-slate-600,
-html.theme-dark #hero .text-slate-700{
-  color:#C8C3BB !important;
-}
-
-/* Sekcije u dark modu */
-html.theme-dark .bg-brand-light{
-  background:#141a1d !important;
-}
-
-html.theme-dark .bg-white{
-  background:#151b1f !important;
-}
-
-html.theme-dark .text-gray-700{
-  color:#C8C3BB !important;
-}
-
-html.theme-dark .text-gray-500{
-  color:#AFA89F !important;
-}
-
-html.theme-dark .bg-gray-100{
-  background:#20272b !important;
-}
-
-html.theme-dark .border-gray-100,
-html.theme-dark .border-gray-200{
-  border-color:var(--border) !important;
-}
-
-/* Linkovi koji su previše tamni u dark modu */
-html.theme-dark .text-brand-dark{
-  color:#8FD1CB !important;
-}
-
-html.theme-dark .hover\:text-brand-dark:hover{
-  color:#A6E3DE !important;
-}
-
-/* Footer tagline */
-.footer-tagline{
-  margin-top:6px;
-  color:rgba(11,11,11,0.62);
-  line-height:1.6;
-  letter-spacing:0.01em;
-}
-
-.footer-tagline strong{
-  font-weight:700;
-  color:rgba(11,11,11,0.74);
-}
-
-html.theme-dark .footer-tagline{
-  color:rgba(237,231,221,0.68);
-}
-
-html.theme-dark .footer-tagline strong{
-  color:rgba(245,240,232,0.82);
-}
-
    /* ==== PROCES FLOW ==== */
 .process-flow .process-row{
   display:grid;
