@@ -851,7 +851,24 @@ html.theme-dark .configurator-card{
     grid-template-columns:1fr;
   }
 }
+@media (max-width: 767px){
 
+  .configurator-card{
+    padding:18px;
+  }
+
+  .configurator-switch{
+    grid-template-columns:1fr;
+  }
+
+  .configurator-switch button{
+    min-height:52px;
+  }
+
+  .result-range-value{
+    font-size:28px;
+  }
+}
 .configurator-switch{
   display:grid;
   grid-template-columns:repeat(2, minmax(0, 1fr));
