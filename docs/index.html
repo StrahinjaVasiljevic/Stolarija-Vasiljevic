@@ -562,6 +562,11 @@ main.snap-sections{
   padding:40px 0;
 }
 
+body.simplified-home{
+  scroll-snap-type:y proximity;
+  overflow-y:auto;
+}
+
 @media (max-width: 767px){
   .snap-block{
     min-height:auto;
@@ -572,6 +577,11 @@ main.snap-sections{
 
   body.simplified-home{
     scroll-snap-type:none;
+  }
+
+  html, body{
+    overscroll-behavior-y:auto;
+    -webkit-overflow-scrolling:touch;
   }
 }
 
