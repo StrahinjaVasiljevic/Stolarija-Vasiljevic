@@ -1322,6 +1322,81 @@ html.theme-dark .process-roadmap-hint{
     gap:12px;
   }
 }
+    /* =========================================
+   MOBILE FIX — Kontakt sekcija overflow
+========================================= */
+@media (max-width: 767px){
+
+  /* Najvažnije: dozvoli grid item-ima da se skupe */
+  #kontakt .grid,
+  #kontakt .grid > *,
+  #kontakt .contact-aside,
+  #kontakt form,
+  #kontakt .card{
+    min-width: 0;
+  }
+
+  /* Kontakt layout u jednu kolonu */
+  #kontakt .grid.md\:grid-cols-3{
+    grid-template-columns: 1fr !important;
+  }
+
+  #kontakt .grid.md\:grid-cols-2{
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Kartice da stanu u širinu ekrana */
+  #kontakt .card{
+    width: 100%;
+    max-width: 100%;
+    padding: 18px;
+    overflow: hidden;
+  }
+
+  /* Svi inputi/select/textarea da ne probijaju širinu */
+  #kontakt input,
+  #kontakt select,
+  #kontakt textarea,
+  #kontakt button,
+  #kontakt a.btn{
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+  }
+
+  /* File input je čest krivac */
+  #kontakt input[type="file"]{
+    display:block;
+    width:100%;
+    min-width:0;
+  }
+
+  /* Dugmad jedno ispod drugog */
+  #kontakt .flex.gap-3.flex-wrap{
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  #kontakt .flex.gap-3.flex-wrap > *{
+    width: 100%;
+  }
+
+  /* Dugačak tekst / email / telefon da se prelomi */
+  #kontakt a,
+  #kontakt p,
+  #kontakt label,
+  #kontakt h2,
+  #kontakt h4{
+    overflow-wrap: anywhere;
+    word-break: break-word;
+  }
+}
+    
+html, body{
+  overflow-x: hidden;
+}
+
   </style>
 
   <!-- Config + main script -->
