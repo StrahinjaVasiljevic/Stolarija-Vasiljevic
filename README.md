@@ -1,6 +1,6 @@
 # Stolarija Vasiljević Website for Carpentry business
 
-This is my personal project where I built a website/landing page for a custom furniture/carpentry business – **Stolarija Vasiljević**
+This is my personal project where I built a website/landing page for a custom furniture/carpentry business: **Stolarija Vasiljević**
 
 👉 Live version:  
 https://strahinjavasiljevic.github.io/Stolarija-Vasiljevic/
