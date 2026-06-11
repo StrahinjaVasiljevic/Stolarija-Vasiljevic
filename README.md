@@ -1,26 +1,103 @@
-# Stolarija Vasiljević - statični sajt na GitHub Pages
+# 🪵 Stolarija Vasiljević – Custom Carpentry Website
 
-Ovaj repo je spreman za GitHub Pages (serving iz foldera /docs).
+This is my personal project where I built a website/landing page for a custom furniture/carpentry business – **Stolarija Vasiljević**
 
-Koraci:
-1) GitHub → Settings → Pages → Build and deployment:
-   - Source: Deploy from a branch
-   - Branch: main
-   - Folder: /docs
-   - Save
+👉 Live version:  
+https://strahinjavasiljevic.github.io/Stolarija-Vasiljevic/
 
-2) U docs/assets/config.js popunite:
-   - CONTACT_EMAIL (prima upite)
-   - CLOUDINARY_CLOUD_NAME i CLOUDINARY_UPLOAD_PRESET (ako želite upload slika)
-   - FORMSPREE_ID (za slanje forme bez servera)
-   - REPO_OWNER/REPO_NAME/BRANCH (za admin commit)
-   - SITE_URL (vaš public GitHub Pages URL)
+---
 
-3) (Opcionalno) Admin (docs/admin):
-   - Napravite GitHub Fine-grained PAT (repo contents: read/write samo za ovaj repo)
-   - Na /admin unesite PAT i uređujte sadržaj (site.json, projects.json)
+## 🚀 About the Project
 
-Napomena:
-- Forma koristi Formspree (free) za slanje emaila.
-- Upload slika ide na Cloudinary (unsigned preset).
-- Ako Cloudinary nije podešen, forma se šalje bez slika i prikazuje korisniku poruku (fallback).
+This project started as an attempt to combine two worlds I’m passionate about:
+
+- 🛠️ Real-world craftsmanship (custom furniture & interiors)
+- 💻 Software development (web apps & clean UI)
+
+The goal:
+> Build a website that *sells*
+
+So instead of a classic static portfolio, I focused on:
+- clear communication
+- user-friendly structure
+- conversion-oriented layout
+- interactive elements (like the calculator)
+
+---
+
+## 🧠 What I Learned
+
+While working on this project, I improved my understanding of:
+
+- structuring frontend apps in a **modular / component-like way**
+- organizing content via **JSON-based configuration**
+- writing cleaner, more reusable JS
+- designing UI with **user experience in mind (not just visuals)**
+- balancing **design + performance + clarity**
+
+Even though this is not a full OOP-heavy backend system,  
+I approached problems with an **object-oriented mindset**:
+- separation of concerns
+- reusable logic blocks
+- predictable structure
+
+---
+
+## 🧩 Key Features
+
+### ✨ 1. Modern Landing Page
+- Clean and minimal design
+- Strong headline and positioning
+- Focus on trust and clarity
+
+---
+
+### 🧮 2. Price Calculator (Core Feature)
+A simple but powerful tool that:
+- lets users estimate furniture cost
+- guides them through options
+- acts as a **lead filter**
+
+This was one of the most interesting parts to build — combining logic + UX.
+
+---
+
+### 📱 3. Responsive Design
+- optimized for mobile (important for real clients)
+- improved scroll behavior and layout
+- app-like CTA buttons
+
+---
+
+### 🌗 4. Light / Dark Mode
+- visually separates sections
+- highlights important parts like the calculator
+
+---
+
+### 📬 5. Conversion Elements
+- clear CTA buttons
+- contact section
+- structured offer presentation
+
+---
+
+## 🛠️ Tech Stack
+
+- HTML5
+- CSS3 (Tailwind via CDN)
+- JavaScript (vanilla)
+- JSON (content structure)
+- GitHub Pages (deployment)
+
+---
+
+## 📁 Project Structure
+
+```bash
+.
+├── index.html
+├── site.js
+├── site.json
+├── styles/
+└── assets/
