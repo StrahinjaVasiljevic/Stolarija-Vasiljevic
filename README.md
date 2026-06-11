@@ -1,4 +1,4 @@
-# 🪵 Stolarija Vasiljević – Custom Carpentry Website
+# Stolarija Vasiljević Website for Carpentry business
 
 This is my personal project where I built a website/landing page for a custom furniture/carpentry business – **Stolarija Vasiljević**
 
@@ -7,15 +7,15 @@ https://strahinjavasiljevic.github.io/Stolarija-Vasiljevic/
 
 ---
 
-## 🚀 About the Project
+##  The Project
 
 This project started as an attempt to combine two worlds I’m passionate about:
 
-- 🛠️ Real-world craftsmanship (custom furniture & interiors)
-- 💻 Software development (web apps & clean UI)
+- Small bussiness (custom furniture & interiors design)
+- Tech/IT (web apps & clean UI)
 
 The goal:
-> Build a website that *sells*
+> Build a website that *sells* craftmanship
 
 So instead of a classic static portfolio, I focused on:
 - clear communication
@@ -25,7 +25,7 @@ So instead of a classic static portfolio, I focused on:
 
 ---
 
-## 🧠 What I Learned
+## Lessions Learned
 
 While working on this project, I improved my understanding of:
 
@@ -43,16 +43,16 @@ I approached problems with an **object-oriented mindset**:
 
 ---
 
-## 🧩 Key Features
+## Key Features
 
-### ✨ 1. Modern Landing Page
+### 1. Modern Landing Page
 - Clean and minimal design
 - Strong headline and positioning
 - Focus on trust and clarity
 
 ---
 
-### 🧮 2. Price Calculator (Core Feature)
+### 2. Price Calculator (Core Feature)
 A simple but powerful tool that:
 - lets users estimate furniture cost
 - guides them through options
@@ -62,27 +62,27 @@ This was one of the most interesting parts to build — combining logic + UX.
 
 ---
 
-### 📱 3. Responsive Design
+### 3. Responsive Design
 - optimized for mobile (important for real clients)
 - improved scroll behavior and layout
 - app-like CTA buttons
 
 ---
 
-### 🌗 4. Light / Dark Mode
+### 4. Light / Dark Mode
 - visually separates sections
 - highlights important parts like the calculator
 
 ---
 
-### 📬 5. Conversion Elements
+### 5. Conversion Elements
 - clear CTA buttons
 - contact section
 - structured offer presentation
 
 ---
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 - HTML5
 - CSS3 (Tailwind via CDN)
