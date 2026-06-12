@@ -1245,11 +1245,12 @@ function renderPortfolioPreview() {
       });
     }
 
-    function syncCalculatorToContactForm(data) {
+   function syncCalculatorToContactForm(data) {
       const contactType = qs('select[name="projectType"]');
       const contactDims = qs('input[name="dimensions"]');
       const contactBudget = qs('input[name="budget"]');
       const contactDesc = qs('textarea[name="description"]');
+      const carryoverBox = qs("#calcCarryoverBox");
 
       if (contactType && projectTypeMapForContact[data.projectType]) {
         contactType.value = projectTypeMapForContact[data.projectType];
@@ -1266,12 +1267,26 @@ function renderPortfolioPreview() {
       if (contactDesc && !contactDesc.value.trim()) {
         contactDesc.value =
           state.lang === "en"
-            ? "Interested in a quote based on the online calculator estimate."
+            ? "Interested in a precise quote based on the online calculator estimate."
             : state.lang === "de"
-              ? "Zanima me precizna ponuda na osnovu online kalkulatora."
+              ? "Zainteresovan sam za preciznu ponudu na osnovu online kalkulator procene."
               : state.lang === "ru"
-                ? "Интересует точное предложение на основе онлайн-калькулятора."
-                : "Zanima me precizna ponuda na osnovu online kalkulatora.";
+                ? "Интересует точное предложение на основе расчета онлайн-калькулятора."
+                : "Zanima me precizna ponuda na osnovu procene iz online kalkulatora.";
+      }
+
+      if (carryoverBox) {
+        const msg =
+          state.lang === "en"
+            ? `Calculator estimate transferred: ${eur(data.low)} – ${eur(data.high)}. Complete the form for a more precise quote.`
+            : state.lang === "de"
+              ? `Schätzung aus dem Kalkulator übernommen: ${eur(data.low)} – ${eur(data.high)}. Füllen Sie das Formular für ein genaueres Angebot aus.`
+              : state.lang === "ru"
+                ? `Оценка из калькулятора перенесена: ${eur(data.low)} – ${eur(data.high)}. Заполните форму для более точного предложения.`
+                : `Procena iz kalkulatora je preneta: ${eur(data.low)} – ${eur(data.high)}. Popunite formu za precizniju ponudu.`;
+
+        carryoverBox.textContent = msg;
+        carryoverBox.classList.remove("hidden");
       }
     }
 
