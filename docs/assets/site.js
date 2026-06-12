@@ -940,6 +940,374 @@ function renderPortfolioPreview() {
     setText("#footArea", UI[state.lang].contact.area);
   }
 
+  // ---------- premium kalkulator ----------
+  function initPriceCalculator() {
+    const form = qs("#priceCalculator");
+    if (!form) return;
+
+    const btn = qs("#calcSubmitBtn");
+    const resetBtn = qs("#calcResetBtn");
+
+    const priceRangeEl = qs("#calcPriceRange");
+    const summaryEl = qs("#calcSummaryNote");
+    const areaEl = qs("#calcAreaValue");
+    const finishEl = qs("#calcFinishValue");
+    const recEl = qs("#calcRecommendation");
+
+    const projectTypeMapForContact = {
+      "kuhinja": "Kuhinje",
+      "plakar": "Plakari i garderoberi",
+      "tv-komoda": "Komode i police"
+    };
+
+    const texts = {
+      sr: {
+        emptyPrice: "Odaberite parametre",
+        emptySummary: "Izaberite tip projekta, dimenzije i nivo materijala kako biste dobili cenovni raspon.",
+        invalid: "Unesite realne dimenzije projekta kako bismo mogli da prikažemo okvirnu procenu.",
+        area: "m² fronta",
+        recommendationEmpty: "Nakon unosa podataka prikazaćemo preporuku",
+        finishBasic: "Ekonomična obrada",
+        finishStandard: "Standardna obrada",
+        finishPremium: "Premium obrada",
+        recUnder1000: "Najbolje je fokusirati se na kompaktnije i ekonomičnije rešenje.",
+        recMid: "Dobar balans cene, estetike i dugotrajnosti.",
+        recHigh: "Preporuka je premium rešenje sa boljim okovima i završnom obradom.",
+        recDefault: "Za preciznu ponudu pošaljite dimenzije i željeni izgled projekta.",
+        project: {
+          "kuhinja": "Kuhinja",
+          "plakar": "Plakar",
+          "tv-komoda": "TV komoda / komoda"
+        },
+        material: {
+          "basic": "bela iverica",
+          "standard": "dekor / Egger",
+          "premium": "MDF / lakirano / furnir"
+        },
+        hardware: {
+          "standard": "standard soft-close",
+          "premium": "premium okovi"
+        }
+      },
+      en: {
+        emptyPrice: "Select your parameters",
+        emptySummary: "Choose project type, dimensions and finish level to get an estimated range.",
+        invalid: "Please enter realistic project dimensions so we can show an estimate.",
+        area: "m² of front area",
+        recommendationEmpty: "A recommendation will appear after entering project details",
+        finishBasic: "Economy finish",
+        finishStandard: "Standard finish",
+        finishPremium: "Premium finish",
+        recUnder1000: "Focus on a more compact and cost-efficient solution.",
+        recMid: "A strong balance between price, aesthetics and durability.",
+        recHigh: "We recommend a premium solution with better hardware and finishing.",
+        recDefault: "For an exact quote, send dimensions and your preferred visual direction.",
+        project: {
+          "kuhinja": "Kitchen",
+          "plakar": "Wardrobe",
+          "tv-komoda": "TV sideboard / cabinet"
+        },
+        material: {
+          "basic": "white chipboard",
+          "standard": "decor / Egger",
+          "premium": "MDF / lacquered / veneer"
+        },
+        hardware: {
+          "standard": "standard soft-close",
+          "premium": "premium hardware"
+        }
+      },
+      de: {
+        emptyPrice: "Parameter auswählen",
+        emptySummary: "Wählen Sie Projekttyp, Maße und Materialniveau für eine Preisspanne.",
+        invalid: "Bitte geben Sie realistische Maße ein, damit wir eine Schätzung anzeigen können.",
+        area: "m² Frontfläche",
+        recommendationEmpty: "Nach Eingabe der Daten erscheint eine Empfehlung",
+        finishBasic: "Basis-Ausführung",
+        finishStandard: "Standard-Ausführung",
+        finishPremium: "Premium-Ausführung",
+        recUnder1000: "Konzentrieren Sie sich auf eine kompaktere und wirtschaftlichere Lösung.",
+        recMid: "Gute Balance aus Preis, Ästhetik und Langlebigkeit.",
+        recHigh: "Empfohlen ist eine Premium-Lösung mit besseren Beschlägen und Oberfläche.",
+        recDefault: "Für ein exaktes Angebot senden Sie Maße und gewünschte Optik.",
+        project: {
+          "kuhinja": "Küche",
+          "plakar": "Schrank",
+          "tv-komoda": "TV-Kommode / Kommode"
+        },
+        material: {
+          "basic": "weiße Spanplatte",
+          "standard": "Dekor / Egger",
+          "premium": "MDF / lackiert / Furnier"
+        },
+        hardware: {
+          "standard": "Standard Soft-Close",
+          "premium": "Premium-Beschläge"
+        }
+      },
+      ru: {
+        emptyPrice: "Выберите параметры",
+        emptySummary: "Выберите тип проекта, размеры и уровень материалов для оценки.",
+        invalid: "Введите реалистичные размеры проекта, чтобы получить оценку.",
+        area: "м² фасадной площади",
+        recommendationEmpty: "После ввода данных появится рекомендация",
+        finishBasic: "Базовый уровень",
+        finishStandard: "Стандартный уровень",
+        finishPremium: "Премиальный уровень",
+        recUnder1000: "Лучше ориентироваться на более компактное и экономичное решение.",
+        recMid: "Хороший баланс цены, эстетики и долговечности.",
+        recHigh: "Рекомендуется премиальное решение с лучшей фурнитурой и отделкой.",
+        recDefault: "Для точного расчета отправьте размеры и желаемый стиль.",
+        project: {
+          "kuhinja": "Кухня",
+          "plakar": "Шкаф",
+          "tv-komoda": "ТВ-комод / комод"
+        },
+        material: {
+          "basic": "белая ЛДСП",
+          "standard": "декор / Egger",
+          "premium": "MDF / эмаль / шпон"
+        },
+        hardware: {
+          "standard": "стандарт soft-close",
+          "premium": "премиальная фурнитура"
+        }
+      }
+    };
+
+    function t() {
+      return texts[state.lang] || texts.sr;
+    }
+
+    function eur(n) {
+      return new Intl.NumberFormat(
+        state.lang === "de" ? "de-DE" :
+        state.lang === "ru" ? "ru-RU" :
+        state.lang === "en" ? "en-GB" : "sr-RS",
+        { maximumFractionDigits: 0 }
+      ).format(Math.round(n)) + "€";
+    }
+
+    function setDefaultState() {
+      if (priceRangeEl) priceRangeEl.textContent = t().emptyPrice;
+      if (summaryEl) summaryEl.textContent = t().emptySummary;
+      if (areaEl) areaEl.textContent = "—";
+      if (finishEl) finishEl.textContent = "—";
+      if (recEl) recEl.textContent = t().recommendationEmpty;
+    }
+
+    function getSelectedProject() {
+      const checked = form.querySelector('input[name="calcProjectType"]:checked');
+      return checked ? checked.value : "plakar";
+    }
+
+    function getSelectedExtras() {
+      return Array.from(form.querySelectorAll('input[name="calcExtras"]:checked')).map((el) => el.value);
+    }
+
+    function calculate() {
+      const projectType = getSelectedProject();
+      const width = parseFloat(form.calcWidth.value || "0");
+      const height = parseFloat(form.calcHeight.value || "0");
+      const material = form.calcMaterial.value;
+      const hardware = form.calcHardware.value;
+      const budgetLevel = form.calcBudgetLevel.value;
+      const extras = getSelectedExtras();
+
+      if (!width || !height || width < 0.5 || height < 0.4) {
+        if (priceRangeEl) priceRangeEl.textContent = t().emptyPrice;
+        if (summaryEl) summaryEl.textContent = t().invalid;
+        if (areaEl) areaEl.textContent = "—";
+        if (finishEl) finishEl.textContent = "—";
+        if (recEl) recEl.textContent = t().recommendationEmpty;
+        return;
+      }
+
+      const area = width * height;
+
+      // Osnovna konkurentna tržišna logika:
+      // - baza po m² fronta
+      // - korekcija po tipu projekta
+      // - okovi i dodaci
+      // - minimum projekta da filtrira premale upite
+      const materialRates = {
+        basic: 130,
+        standard: 165,
+        premium: 230
+      };
+
+      const projectMultipliers = {
+        "kuhinja": 1.35,
+        "plakar": 1.00,
+        "tv-komoda": 0.92
+      };
+
+      const minimumProject = {
+        "kuhinja": 1200,
+        "plakar": 650,
+        "tv-komoda": 550
+      };
+
+      const hardwareMultiplier = {
+        standard: 1.00,
+        premium: 1.12
+      };
+
+      const extrasFlat = {
+        led: 120,
+        fioke: 180,
+        organizatori: 140,
+        klizni: 240
+      };
+
+      const extrasProjectAdjustments = {
+        led: { "kuhinja": 1.00, "plakar": 1.00, "tv-komoda": 1.00 },
+        fioke: { "kuhinja": 1.10, "plakar": 1.00, "tv-komoda": 0.90 },
+        organizatori: { "kuhinja": 1.00, "plakar": 1.10, "tv-komoda": 0.85 },
+        klizni: { "kuhinja": 0.70, "plakar": 1.00, "tv-komoda": 0.60 }
+      };
+
+      let subtotal =
+        area *
+        materialRates[material] *
+        (projectMultipliers[projectType] || 1);
+
+      subtotal *= hardwareMultiplier[hardware] || 1;
+
+      let extrasTotal = 0;
+      extras.forEach((extraKey) => {
+        const baseExtra = extrasFlat[extraKey] || 0;
+        const factor =
+          (extrasProjectAdjustments[extraKey] && extrasProjectAdjustments[extraKey][projectType]) || 1;
+        extrasTotal += baseExtra * factor;
+      });
+
+      subtotal += extrasTotal;
+
+      // complexity fee kad korisnik bira skuplju konfiguraciju
+      const premiumSignals =
+        (material === "premium" ? 1 : 0) +
+        (hardware === "premium" ? 1 : 0) +
+        (extras.length >= 2 ? 1 : 0);
+
+      if (premiumSignals >= 2) {
+        subtotal *= 1.08;
+      }
+
+      subtotal = Math.max(subtotal, minimumProject[projectType] || 500);
+
+      const low = subtotal * 0.93;
+      const high = subtotal * 1.12;
+
+      let finishText = t().finishStandard;
+      if (material === "basic") finishText = t().finishBasic;
+      if (material === "premium") finishText = t().finishPremium;
+
+      let recommendation = t().recDefault;
+      if (budgetLevel === "under-1000") recommendation = t().recUnder1000;
+      else if (budgetLevel === "1000-3000") recommendation = t().recMid;
+      else if (budgetLevel === "3000-plus") recommendation = t().recHigh;
+
+      const projectLabel = (t().project && t().project[projectType]) || projectType;
+      const materialLabel = (t().material && t().material[material]) || material;
+      const hardwareLabel = (t().hardware && t().hardware[hardware]) || hardware;
+
+      if (priceRangeEl) {
+        priceRangeEl.textContent = `${eur(low)} – ${eur(high)}`;
+      }
+
+      if (summaryEl) {
+        summaryEl.textContent =
+          `${projectLabel} dimenzija ${width.toFixed(1)} × ${height.toFixed(1)} m, ` +
+          `${materialLabel}, ${hardwareLabel}` +
+          `${extras.length ? `, dodatna oprema: ${extras.length}` : ""}.`;
+      }
+
+      if (areaEl) {
+        areaEl.textContent = `${area.toFixed(2)} ${t().area}`;
+      }
+
+      if (finishEl) {
+        finishEl.textContent = finishText;
+      }
+
+      if (recEl) {
+        recEl.textContent = recommendation;
+      }
+
+      syncCalculatorToContactForm({
+        projectType,
+        budgetLevel,
+        low,
+        high,
+        width,
+        height
+      });
+    }
+
+    function syncCalculatorToContactForm(data) {
+      const contactType = qs('select[name="projectType"]');
+      const contactDims = qs('input[name="dimensions"]');
+      const contactBudget = qs('input[name="budget"]');
+      const contactDesc = qs('textarea[name="description"]');
+
+      if (contactType && projectTypeMapForContact[data.projectType]) {
+        contactType.value = projectTypeMapForContact[data.projectType];
+      }
+
+      if (contactDims && !contactDims.value.trim()) {
+        contactDims.value = `${data.width.toFixed(1)} x ${data.height.toFixed(1)} m`;
+      }
+
+      if (contactBudget && !contactBudget.value.trim()) {
+        contactBudget.value = `${eur(data.low)} – ${eur(data.high)}`;
+      }
+
+      if (contactDesc && !contactDesc.value.trim()) {
+        contactDesc.value =
+          state.lang === "en"
+            ? "Interested in a quote based on the online calculator estimate."
+            : state.lang === "de"
+              ? "Zanima me precizna ponuda na osnovu online kalkulatora."
+              : state.lang === "ru"
+                ? "Интересует точное предложение на основе онлайн-калькулятора."
+                : "Zanima me precizna ponuda na osnovu online kalkulatora.";
+      }
+    }
+
+    if (btn) {
+      btn.addEventListener("click", calculate);
+    }
+
+    form.addEventListener("change", () => {
+      const hasAnyValue =
+        form.calcWidth.value ||
+        form.calcHeight.value ||
+        form.calcMaterial.value ||
+        form.calcHardware.value;
+      if (hasAnyValue) calculate();
+    });
+
+    form.addEventListener("input", (e) => {
+      if (e.target && (e.target.name === "calcWidth" || e.target.name === "calcHeight")) {
+        const ready = form.calcWidth.value && form.calcHeight.value;
+        if (ready) calculate();
+      }
+    });
+
+    form.addEventListener("reset", () => {
+      setTimeout(() => {
+        setDefaultState();
+      }, 0);
+    });
+
+    if (resetBtn) {
+      resetBtn.type = "reset";
+    }
+
+    setDefaultState();
+  }
+  
   // ---------- nav smooth scroll ----------
   function wireNav() {
     document.querySelectorAll('a[href^="#"]').forEach((a) => {
