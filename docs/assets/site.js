@@ -524,93 +524,113 @@ function applyTheme(theme) {
   }
 
   // ---------- render: hero ----------
- function renderHero() {
+function renderHero() {
   const c = state.site && state.site.hero;
   const el = qs("#hero");
   if (!c || !el) return;
 
-  const projectsUrl = base("projekti/");
-  const heroImg = asset(c.image || cfg.HERO_IMAGE || "assets/img/cover-logo.png");
+  const logoLight = asset("assets/img/logo-light.svg");
+  const logoDark = asset("assets/img/logo-dark.svg");
 
   const fallbackHero = {
     sr: {
       title: "Dizajn enterijera & Nameštaj po meri - Vasiljević",
-      subtitle: "Kuhinje, plakari, komode, police, zidni paneli, kancelarijski nameštaj."
+      subtitle: "Kuhinje, plakari, komode, police, zidni paneli i kancelarijski nameštaj.",
+      chip: "Dizajn enterijera / Nameštaj po meri",
+      note: "Jasan predračun, realni rokovi i uredna montaža — bez viška komplikacije.",
+      plaque: "Transparentan logo na izraženoj bukva teksturi"
     },
     en: {
       title: "Interior design & Custom furniture - Vasiljević",
-      subtitle: "Kitchens, wardrobes, sideboards, shelves, wall panels and office furniture."
+      subtitle: "Kitchens, wardrobes, sideboards, shelves, wall panels and office furniture.",
+      chip: "Interior design / Custom furniture",
+      note: "Clear quotation, realistic deadlines and clean installation — without unnecessary complexity.",
+      plaque: "Transparent logo over a pronounced beech texture"
     },
     de: {
       title: "Innenarchitektur & Maßmöbel - Vasiljević",
-      subtitle: "Küchen, Schränke, Kommoden, Regale, Wandpaneele und Büromöbel."
+      subtitle: "Küchen, Schränke, Kommoden, Regale, Wandpaneele und Büromöbel.",
+      chip: "Innenarchitektur / Maßmöbel",
+      note: "Klarer Kostenvoranschlag, realistische Termine und saubere Montage — ohne unnötige Komplikationen.",
+      plaque: "Transparentes Logo auf einer markanten Buchenstruktur"
     },
     ru: {
       title: "Дизайн интерьера и мебель на заказ - Vasiljević",
-      subtitle: "Кухни, шкафы, комоды, полки, стеновые панели и офисная мебель."
+      subtitle: "Кухни, шкафы, комоды, полки, стеновые панели и офисная мебель.",
+      chip: "Дизайн интерьера / Мебель на заказ",
+      note: "Понятный расчет, реальные сроки и аккуратный монтаж — без лишней сложности.",
+      plaque: "Прозрачный логотип на выразительной текстуре бука"
     }
   };
 
   const heroCopy = fallbackHero[state.lang] || fallbackHero.sr;
   const heroTitle = c.title || heroCopy.title;
   const heroSubtitle = c.subtitle || heroCopy.subtitle;
+  const primaryCta = c.ctaPrimary || UI[state.lang].contact.submit;
 
   el.innerHTML = `
     <div class="container mx-auto px-4">
-      <div class="grid md:grid-cols-2 gap-8 items-center">
+      <div class="grid lg:grid-cols-[minmax(0,1.05fr)_minmax(360px,0.95fr)] gap-10 items-center">
         <div class="hero-copy">
-          <div class="inline-flex items-center gap-2 mb-4 px-3 py-1.5 rounded-full border border-gray-200 bg-white/70 text-sm backdrop-blur-sm">
-            <span class="w-2 h-2 rounded-full bg-brand-dark"></span>
-            <span>${state.lang === "sr"
-              ? "Dizajn enterijera / Nameštaj po meri"
-              : state.lang === "en"
-                ? "Interior design / Custom furniture"
-                : state.lang === "de"
-                  ? "Innenarchitektur / Maßmöbel"
-                  : "Дизайн интерьера / Мебель на заказ"}</span>
+          <div class="hero-chip hero-reveal">
+            <span class="hero-chip-dot"></span>
+            <span>${esc(heroCopy.chip)}</span>
           </div>
 
-          <h1 class="font-serif text-4xl md:text-5xl lg:text-6xl leading-tight mb-4">
+          <h1 class="font-serif text-4xl md:text-5xl lg:text-6xl mb-4 hero-reveal hero-reveal-delay-1">
             ${esc(heroTitle)}
           </h1>
 
-          <p class="text-lg md:text-xl text-gray-700 mb-6 max-w-[60ch]">
+          <p class="text-lg md:text-xl mb-6 max-w-[60ch] hero-reveal hero-reveal-delay-2">
             ${esc(heroSubtitle)}
           </p>
 
-          <div class="flex flex-wrap gap-3 mb-8">
+          <div class="hero-actions hero-reveal hero-reveal-delay-3">
             <a href="#kontakt" class="btn btn-primary">
-              ${esc(c.ctaPrimary || UI[state.lang].contact.submit)}
-            </a>
-            <a href="${projectsUrl}" class="btn btn-secondary">
-              ${esc(c.ctaSecondary || UI[state.lang].common.viewAll)}
+              ${esc(primaryCta)}
             </a>
           </div>
 
-          <div class="grid sm:grid-cols-3 gap-4">
-            ${(c.benefits || []).slice(0, 3).map((b) => `
-              <div class="card p-4">
-                <div class="font-medium mb-1">${esc(b.title || "")}</div>
-                <div class="text-sm text-gray-600">${esc(b.text || "")}</div>
+          <p class="hero-note hero-reveal hero-reveal-delay-3">
+            ${esc(heroCopy.note)}
+          </p>
+
+          <div class="grid sm:grid-cols-3 gap-4 hero-metrics">
+            ${(c.benefits || []).slice(0, 3).map((b, i) => `
+              <div class="hero-metric-card hero-reveal hero-reveal-delay-${Math.min(i + 2, 4)}">
+                <div class="title">${esc(b.title || "")}</div>
+                <div class="text">${esc(b.text || "")}</div>
               </div>
             `).join("")}
           </div>
         </div>
 
-        <div class="card p-4 md:p-6 bg-brand-beige/30 hero-visual">
-          <img
-            src="${heroImg}"
-            alt="${esc(UI[state.lang].heads.projects || "Projekti")}"
-            class="w-full h-auto rounded-xl"
-            loading="eager"
-            decoding="async"
-          />
+        <div class="hero-logo-stage hero-reveal hero-reveal-delay-2" aria-hidden="true">
+          <div class="hero-logo-wrap">
+            <img
+              src="${logoLight}"
+              alt="Stolarija Vasiljević"
+              class="hero-logo hero-logo-light"
+              loading="eager"
+              decoding="async"
+            />
+            <img
+              src="${logoDark}"
+              alt="Stolarija Vasiljević"
+              class="hero-logo hero-logo-dark"
+              loading="eager"
+              decoding="async"
+            />
+          </div>
+
+          <div class="hero-plaque">
+            ${esc(heroCopy.plaque)}
+          </div>
         </div>
       </div>
     </div>
   `;
 }
-
   // ---------- render: services ----------
   function renderServices() {
     const host = qs("#usluge .container");
