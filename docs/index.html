@@ -1188,179 +1188,188 @@
       <div class="container"></div>
     </section>
 
-    <section id="kalkulator" class="section">
-      <div class="container">
-        <div class="calc-intro">
-          <span class="calc-kicker">Premium kalkulator cene</span>
-          <h2 class="section-title font-serif mb-3">Saznajte okvirnu cenu projekta za manje od 30 sekundi</h2>
-          <p>
-            Unesite osnovne podatke i dobićete realan cenovni raspon na osnovu tipa projekta,
-            materijala, okova i dodatne opreme. Kalkulator je namenjen okvirnoj proceni — tačna
-            cena zavisi od finalnih mera, izabranih detalja i montaže.
-          </p>
-        </div>
+  <section id="kalkulator" class="section">
+  <div class="container">
+    <div class="calc-intro">
+      <span class="calc-kicker" id="calcKicker">Premium kalkulator cene</span>
+      <h2 class="section-title font-serif mb-3" id="calcTitle">
+        Saznajte okvirnu cenu projekta za manje od 30 sekundi
+      </h2>
+      <p id="calcIntroText">
+        Unesite osnovne podatke i dobićete realan cenovni raspon na osnovu tipa projekta,
+        materijala, okova i dodatne opreme. Kalkulator je namenjen okvirnoj proceni - tačna
+        cena zavisi od finalnih mera, izabranih detalja i montaže
+      </p>
+    </div>
 
-        <div class="calc-shell">
-          <div class="calc-panel calc-panel-main">
-            <form id="priceCalculator" class="space-y-6" novalidate>
-              <div class="calc-field">
-                <label class="calc-label">1. Tip projekta</label>
-                <div class="calc-option-grid">
-                  <label class="calc-radio">
-                    <input type="radio" name="calcProjectType" value="kuhinja" checked>
-                    <span class="calc-radio-card">
-                      <span class="calc-radio-title">Kuhinja</span>
-                      <span class="calc-radio-sub">Najčešće viši nivo opreme i više detalja</span>
-                    </span>
-                  </label>
+    <div class="calc-shell">
+      <div class="calc-panel calc-panel-main">
+        <form id="priceCalculator" class="space-y-6" novalidate>
+          <div class="calc-field">
+            <label class="calc-label" id="calcLabelProject">1. Tip projekta</label>
+            <div class="calc-option-grid">
+              <label class="calc-radio">
+                <input type="radio" name="calcProjectType" value="kuhinja" checked>
+                <span class="calc-radio-card">
+                  <span class="calc-radio-title" id="calcProjectKitchenTitle">Kuhinja</span>
+                  <span class="calc-radio-sub" id="calcProjectKitchenSub">
+                    Najčešće viši nivo opreme i više detalja
+                  </span>
+                </span>
+              </label>
 
-                  <label class="calc-radio">
-                    <input type="radio" name="calcProjectType" value="plakar">
-                    <span class="calc-radio-card">
-                      <span class="calc-radio-title">Plakar</span>
-                      <span class="calc-radio-sub">Klizna ili krilna vrata, garderobni sistemi</span>
-                    </span>
-                  </label>
+              <label class="calc-radio">
+                <input type="radio" name="calcProjectType" value="plakar">
+                <span class="calc-radio-card">
+                  <span class="calc-radio-title" id="calcProjectWardrobeTitle">Plakar</span>
+                  <span class="calc-radio-sub" id="calcProjectWardrobeSub">
+                    Klizna ili krilna vrata, garderobni sistemi
+                  </span>
+                </span>
+              </label>
 
-                  <label class="calc-radio">
-                    <input type="radio" name="calcProjectType" value="tv-komoda">
-                    <span class="calc-radio-card">
-                      <span class="calc-radio-title">TV komoda / komoda</span>
-                      <span class="calc-radio-sub">Kompaktniji projekti sa manjom dubinom</span>
-                    </span>
-                  </label>
-                </div>
-              </div>
-
-              <div class="calc-grid">
-                <div class="calc-field">
-                  <label for="calcWidth" class="calc-label">2. Širina (m)</label>
-                  <input id="calcWidth" name="calcWidth" type="number" min="0.5" step="0.1" class="calc-input" placeholder="npr 2.4">
-                  <span class="calc-help">Unesite ukupnu širinu projekta u metrima.</span>
-                </div>
-
-                <div class="calc-field">
-                  <label for="calcHeight" class="calc-label">3. Visina (m)</label>
-                  <input id="calcHeight" name="calcHeight" type="number" min="0.5" step="0.1" class="calc-input" placeholder="npr 2.2">
-                  <span class="calc-help">Za komode možete uneti realnu visinu elementa.</span>
-                </div>
-              </div>
-
-              <div class="calc-field">
-                <label for="calcMaterial" class="calc-label">4. Materijal</label>
-                <select id="calcMaterial" name="calcMaterial" class="calc-select">
-                  <option value="basic">Bela iverica — ekonomično</option>
-                  <option value="standard" selected>Dekor / Egger — standard</option>
-                  <option value="premium">MDF / lakirano / furnir — premium</option>
-                </select>
-                <span class="calc-help">Materijal je glavni faktor formiranja cene.</span>
-              </div>
-
-              <div class="calc-field">
-                <label for="calcHardware" class="calc-label">5. Okovi</label>
-                <select id="calcHardware" name="calcHardware" class="calc-select">
-                  <option value="standard" selected>Standard soft-close</option>
-                  <option value="premium">Premium okovi (Blum / Hettich)</option>
-                </select>
-              </div>
-
-              <div class="calc-field">
-                <label class="calc-label">6. Dodatna oprema</label>
-                <div class="calc-check-grid">
-                  <label class="calc-check">
-                    <input type="checkbox" name="calcExtras" value="led">
-                    <span>
-                      <span class="calc-check-title">LED rasveta</span>
-                      <span class="calc-check-sub">Dodatni vizuelni efekat i funkcionalnost</span>
-                    </span>
-                  </label>
-
-                  <label class="calc-check">
-                    <input type="checkbox" name="calcExtras" value="fioke">
-                    <span>
-                      <span class="calc-check-title">Unutrašnje fioke</span>
-                      <span class="calc-check-sub">Bolja organizacija i veća vrednost projekta</span>
-                    </span>
-                  </label>
-
-                  <label class="calc-check">
-                    <input type="checkbox" name="calcExtras" value="organizatori">
-                    <span>
-                      <span class="calc-check-title">Organizatori / unutrašnja oprema</span>
-                      <span class="calc-check-sub">Premium osećaj i viši nivo završne obrade</span>
-                    </span>
-                  </label>
-
-                  <label class="calc-check">
-                    <input type="checkbox" name="calcExtras" value="klizni">
-                    <span>
-                      <span class="calc-check-title">Klizni sistem</span>
-                      <span class="calc-check-sub">Posebno relevantno za plakare i garderobere</span>
-                    </span>
-                  </label>
-                </div>
-              </div>
-
-              <div class="calc-field">
-                <label for="calcBudgetLevel" class="calc-label">7. Planirani budžet</label>
-                <select id="calcBudgetLevel" name="calcBudgetLevel" class="calc-select">
-                  <option value="not-sure" selected>Nisam siguran još</option>
-                  <option value="under-1000">Do 1000€</option>
-                  <option value="1000-3000">1000€ – 3000€</option>
-                  <option value="3000-plus">3000€+</option>
-                </select>
-              </div>
-
-              <div class="calc-actions">
-                <button type="button" id="calcSubmitBtn" class="btn btn-primary">Izračunaj okvirnu cenu</button>
-                <button type="reset" id="calcResetBtn" class="btn btn-secondary">Resetuj</button>
-              </div>
-            </form>
+              <label class="calc-radio">
+                <input type="radio" name="calcProjectType" value="tv-komoda">
+                <span class="calc-radio-card">
+                  <span class="calc-radio-title" id="calcProjectCommodeTitle">TV komoda / komoda</span>
+                  <span class="calc-radio-sub" id="calcProjectCommodeSub">
+                    Kompaktniji projekti sa manjom dubinom
+                  </span>
+                </span>
+              </label>
+            </div>
           </div>
 
-          <aside class="calc-result" id="calcResultCard">
-            <span class="calc-badge">Okvirna procena</span>
-            <div class="calc-result-title">Procena investicije</div>
-            <div class="calc-price" id="calcPriceRange">Odaberite parametre</div>
-
-            <p class="calc-note" id="calcSummaryNote">
-              Izaberite tip projekta, dimenzije i nivo materijala kako biste dobili cenovni raspon.
-            </p>
-
-            <div class="calc-list">
-              <div class="calc-list-item">
-                <span>Površina za obračun</span>
-                <strong id="calcAreaValue">—</strong>
-              </div>
-              <div class="calc-list-item">
-                <span>Nivo obrade</span>
-                <strong id="calcFinishValue">—</strong>
-              </div>
-              <div class="calc-list-item">
-                <span>Preporuka</span>
-                <strong id="calcRecommendation">—</strong>
-              </div>
+          <div class="calc-grid">
+            <div class="calc-field">
+              <label for="calcWidth" class="calc-label" id="calcLabelWidth">2. Širina (m)</label>
+              <input id="calcWidth" name="calcWidth" type="number" min="0.5" step="0.1" class="calc-input" placeholder="npr 2.4">
+              <span class="calc-help" id="calcWidthHelp">Unesite ukupnu širinu projekta u metrima</span>
             </div>
 
-            <div class="calc-anchor" id="calcAnchorBox">
-              <strong>Prosečna vrednost naših projekata</strong>
-              Najčešći projekti se kreću u rasponu od 1.500€ do 4.500€, u zavisnosti od materijala,
-              unutrašnje opreme i složenosti izrade.
+            <div class="calc-field">
+              <label for="calcHeight" class="calc-label" id="calcLabelHeight">3. Visina (m)</label>
+              <input id="calcHeight" name="calcHeight" type="number" min="0.5" step="0.1" class="calc-input" placeholder="npr 2.2">
+              <span class="calc-help" id="calcHeightHelp">Za komode možete uneti realnu visinu elementa.</span>
             </div>
+          </div>
 
-           <div class="calc-actions-secondary">
-  <a id="calcQuoteLink" href="#kontakt" class="btn btn-primary">Zatraži tačnu ponudu</a>
-  <a id="calcCallLink" href="tel:+381641220429" class="btn btn-secondary">Pozovi za konsultaciju</a>
-</div>
+          <div class="calc-field">
+            <label for="calcMaterial" class="calc-label" id="calcLabelMaterial">4. Materijal</label>
+            <select id="calcMaterial" name="calcMaterial" class="calc-select">
+              <option value="basic" id="calcMaterialBasic">Bela iverica - ekonomično rešenje</option>
+              <option value="standard" selected id="calcMaterialStandard">Dekor / Egger - standard</option>
+              <option value="premium" id="calcMaterialPremium">MDF / lakirano / furnir - premium</option>
+            </select>
+            <span class="calc-help" id="calcMaterialHelp">Materijal je glavni faktor formiranja cene</span>
+          </div>
 
-            <p class="calc-disclaimer">
-              Ovo je informativna procena. Konačna cena zavisi od preciznih mera, odabranih detalja,
-              završne obrade, transporta i montaže.
-            </p>
-          </aside>
-        </div>
+          <div class="calc-field">
+            <label for="calcHardware" class="calc-label" id="calcLabelHardware">5. Okovi</label>
+            <select id="calcHardware" name="calcHardware" class="calc-select">
+              <option value="standard" selected id="calcHardwareStandard">Standard soft-close</option>
+              <option value="premium" id="calcHardwarePremium">Premium okovi </option>
+            </select>
+          </div>
+
+          <div class="calc-field">
+            <label class="calc-label" id="calcLabelExtras">6. Dodatna oprema</label>
+            <div class="calc-check-grid">
+              <label class="calc-check">
+                <input type="checkbox" name="calcExtras" value="led">
+                <span>
+                  <span class="calc-check-title" id="calcExtraLedTitle">LED rasveta</span>
+                  <span class="calc-check-sub" id="calcExtraLedSub">Dodatni vizuelni efekat i funkcionalnost</span>
+                </span>
+              </label>
+
+              <label class="calc-check">
+                <input type="checkbox" name="calcExtras" value="fioke">
+                <span>
+                  <span class="calc-check-title" id="calcExtraDrawersTitle">Unutrašnje fioke</span>
+                  <span class="calc-check-sub" id="calcExtraDrawersSub">Bolja organizacija i veća vrednost projekta</span>
+                </span>
+              </label>
+
+              <label class="calc-check">
+                <input type="checkbox" name="calcExtras" value="organizatori">
+                <span>
+                  <span class="calc-check-title" id="calcExtraOrgTitle">Organizatori / unutrašnja oprema</span>
+                  <span class="calc-check-sub" id="calcExtraOrgSub">Premium osećaj i viši nivo završne obrade</span>
+                </span>
+              </label>
+
+              <label class="calc-check">
+                <input type="checkbox" name="calcExtras" value="klizni">
+                <span>
+                  <span class="calc-check-title" id="calcExtraSlidingTitle">Klizni sistem</span>
+                  <span class="calc-check-sub" id="calcExtraSlidingSub">Posebno relevantno za plakare i garderobere</span>
+                </span>
+              </label>
+            </div>
+          </div>
+
+          <div class="calc-field">
+            <label for="calcBudgetLevel" class="calc-label" id="calcLabelBudgetLevel">7. Planirani budžet</label>
+            <select id="calcBudgetLevel" name="calcBudgetLevel" class="calc-select">
+              <option value="not-sure" selected id="calcBudgetUnknown">Nisam siguran još</option>
+              <option value="under-1000" id="calcBudgetLow">Do 1000€</option>
+              <option value="1000-3000" id="calcBudgetMid">1000€ - 3000€</option>
+              <option value="3000-plus" id="calcBudgetHigh">3000€+</option>
+            </select>
+          </div>
+
+          <div class="calc-actions">
+            <button type="button" id="calcSubmitBtn" class="btn btn-primary">Izračunaj okvirnu cenu</button>
+            <button type="reset" id="calcResetBtn" class="btn btn-secondary">Resetuj</button>
+          </div>
+        </form>
       </div>
-    </section>
+
+      <aside class="calc-result" id="calcResultCard">
+        <span class="calc-badge" id="calcBadge">Okvirna procena</span>
+        <div class="calc-result-title" id="calcResultTitle">Procena investicije</div>
+        <div class="calc-price" id="calcPriceRange">Odaberite parametre</div>
+
+        <p class="calc-note" id="calcSummaryNote">
+          Izaberite tip projekta, dimenzije i nivo materijala kako biste dobili cenovni raspon
+        </p>
+
+        <div class="calc-list">
+          <div class="calc-list-item">
+            <span id="calcListAreaLabel">Površina za obračun</span>
+            <strong id="calcAreaValue">—</strong>
+          </div>
+          <div class="calc-list-item">
+            <span id="calcListFinishLabel">Nivo obrade</span>
+            <strong id="calcFinishValue">—</strong>
+          </div>
+          <div class="calc-list-item">
+            <span id="calcListRecommendationLabel">Preporuka</span>
+            <strong id="calcRecommendation">—</strong>
+          </div>
+        </div>
+
+        <div class="calc-anchor" id="calcAnchorBox">
+          <strong id="calcAnchorTitle">Prosečna vrednost naših projekata</strong>
+          <span id="calcAnchorText">
+            Najčešći projekti se kreću u rasponu od 1.100€ do 4.500€, u zavisnosti od materijala,
+            unutrašnje opreme i složenosti izrade.
+          </span>
+        </div>
+
+        <div class="calc-actions-secondary">
+          #kontaktZatraži tačnu ponudu</a>
+          tel:+381641220429Pozovi za konsultaciju</a>
+        </div>
+
+        <p class="calc-disclaimer" id="calcDisclaimer">
+          Ovo je informativna procena. Konačna cena se formira nakon konsultacija
+        </p>
+      </aside>
+    </div>
+  </div>
+</section>
 
     <section id="proces" class="process-flow section">
       
