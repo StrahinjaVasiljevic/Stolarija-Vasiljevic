@@ -1301,8 +1301,17 @@ function renderPortfolioPreview() {
       }, 0);
     });
 
-    if (resetBtn) {
+   if (resetBtn) {
       resetBtn.type = "reset";
+    }
+
+    const quoteLink = qs("#calcQuoteLink");
+    if (quoteLink) {
+      quoteLink.addEventListener("click", (e) => {
+        e.preventDefault();
+        const target = qs("#kontakt");
+        if (target) target.scrollIntoView({ behavior: "smooth", block: "start" });
+      });
     }
 
     setDefaultState();
