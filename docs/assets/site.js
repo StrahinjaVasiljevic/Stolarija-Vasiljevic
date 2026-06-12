@@ -529,60 +529,59 @@ function renderHero() {
   const el = qs("#hero");
   if (!c || !el) return;
 
-  const logoLight = asset("assets/img/logo-light.svg");
-  const logoDark = asset("assets/img/logo-dark.svg");
+  const logoLight = asset("assets/img/logo-stolarija-light.png");
+  const logoDark = asset("assets/img/logo-stolarija-dark.png");
 
   const fallbackHero = {
     sr: {
-      title: "Dizajn enterijera & Nameštaj po meri - Vasiljević",
-      subtitle: "Kuhinje, plakari, komode, police, zidni paneli i kancelarijski nameštaj.",
-      chip: "Dizajn enterijera / Nameštaj po meri",
-      note: "Jasan predračun, realni rokovi i uredna montaža — bez viška komplikacije.",
-      plaque: "Transparentan logo na izraženoj bukva teksturi"
+      chip: "Nameštaj & enterijer po meri",
+      brand: "Stolarija Vasiljević",
+      subtitle: "Kuhinje, plakari, komode i enterijerska rešenja po meri za dom i poslovni prostor.",
+      note: "Jasan predračun, realni rokovi i uredna montaža — bez komplikacije i bez iznenađenja."
     },
     en: {
-      title: "Interior design & Custom furniture - Vasiljević",
-      subtitle: "Kitchens, wardrobes, sideboards, shelves, wall panels and office furniture.",
-      chip: "Interior design / Custom furniture",
-      note: "Clear quotation, realistic deadlines and clean installation — without unnecessary complexity.",
-      plaque: "Transparent logo over a pronounced beech texture"
+      chip: "Custom furniture & interiors",
+      brand: "Stolarija Vasiljević",
+      subtitle: "Kitchens, wardrobes, sideboards and made-to-measure interior solutions for homes and business spaces.",
+      note: "Clear quotation, realistic deadlines and clean installation — without complications and without surprises."
     },
     de: {
-      title: "Innenarchitektur & Maßmöbel - Vasiljević",
-      subtitle: "Küchen, Schränke, Kommoden, Regale, Wandpaneele und Büromöbel.",
-      chip: "Innenarchitektur / Maßmöbel",
-      note: "Klarer Kostenvoranschlag, realistische Termine und saubere Montage — ohne unnötige Komplikationen.",
-      plaque: "Transparentes Logo auf einer markanten Buchenstruktur"
+      chip: "Maßmöbel & Innenraumlösungen",
+      brand: "Stolarija Vasiljević",
+      subtitle: "Küchen, Schränke, Kommoden und maßgefertigte Innenraumlösungen für Wohn- und Geschäftsräume.",
+      note: "Klarer Kostenvoranschlag, realistische Fristen und saubere Montage — ohne Komplikationen und ohne Überraschungen."
     },
     ru: {
-      title: "Дизайн интерьера и мебель на заказ - Vasiljević",
-      subtitle: "Кухни, шкафы, комоды, полки, стеновые панели и офисная мебель.",
-      chip: "Дизайн интерьера / Мебель на заказ",
-      note: "Понятный расчет, реальные сроки и аккуратный монтаж — без лишней сложности.",
-      plaque: "Прозрачный логотип на выразительной текстуре бука"
+      chip: "Мебель и интерьер на заказ",
+      brand: "Stolarija Vasiljević",
+      subtitle: "Кухни, шкафы, комоды и интерьерные решения по индивидуальным размерам для дома и коммерческих пространств.",
+      note: "Понятный расчет, реальные сроки и аккуратный монтаж — без лишней сложности и без сюрпризов."
     }
   };
 
   const heroCopy = fallbackHero[state.lang] || fallbackHero.sr;
-  const heroTitle = c.title || heroCopy.title;
-  const heroSubtitle = c.subtitle || heroCopy.subtitle;
+
+  const brand = (c.brand && localize(c.brand)) || heroCopy.brand;
+  const subtitle = c.subtitle || heroCopy.subtitle;
+  const chip = (c.kicker && localize(c.kicker)) || heroCopy.chip;
+  const note = (c.note && localize(c.note)) || heroCopy.note;
   const primaryCta = c.ctaPrimary || UI[state.lang].contact.submit;
 
   el.innerHTML = `
     <div class="container mx-auto px-4">
-      <div class="grid lg:grid-cols-[minmax(0,1.05fr)_minmax(360px,0.95fr)] gap-10 items-center">
+      <div class="hero-layout">
         <div class="hero-copy">
           <div class="hero-chip hero-reveal">
             <span class="hero-chip-dot"></span>
-            <span>${esc(heroCopy.chip)}</span>
+            <span>${esc(chip)}</span>
           </div>
 
-          <h1 class="font-serif text-4xl md:text-5xl lg:text-6xl mb-4 hero-reveal hero-reveal-delay-1">
-            ${esc(heroTitle)}
+          <h1 class="hero-brand font-serif hero-reveal hero-reveal-delay-1">
+            ${esc(brand)}
           </h1>
 
-          <p class="text-lg md:text-xl mb-6 max-w-[60ch] hero-reveal hero-reveal-delay-2">
-            ${esc(heroSubtitle)}
+          <p class="hero-subcopy hero-reveal hero-reveal-delay-2">
+            ${esc(subtitle)}
           </p>
 
           <div class="hero-actions hero-reveal hero-reveal-delay-3">
@@ -592,7 +591,7 @@ function renderHero() {
           </div>
 
           <p class="hero-note hero-reveal hero-reveal-delay-3">
-            ${esc(heroCopy.note)}
+            ${esc(note)}
           </p>
 
           <div class="grid sm:grid-cols-3 gap-4 hero-metrics">
@@ -605,32 +604,15 @@ function renderHero() {
           </div>
         </div>
 
-        <div class="hero-logo-stage hero-reveal hero-reveal-delay-2" aria-hidden="true">
-          <div class="hero-logo-wrap">
-            <img
-              src="${logoLight}"
-              alt="Stolarija Vasiljević"
-              class="hero-logo hero-logo-light"
-              loading="eager"
-              decoding="async"
-            />
-            <img
-              src="${logoDark}"
-              alt="Stolarija Vasiljević"
-              class="hero-logo hero-logo-dark"
-              loading="eager"
-              decoding="async"
-            />
-          </div>
-
-          <div class="hero-plaque">
-            ${esc(heroCopy.plaque)}
-          </div>
+        <div class="hero-logo-panel hero-reveal hero-reveal-delay-2" aria-hidden="true">
+          <img src="${logoLight}" alt="" class="hero-logo-image hero-logo-light" loading="eager" decoding="async">
+          <img src="${logoDark}" alt="" class="hero-logo-image hero-logo-dark" loading="eager" decoding="async">
         </div>
       </div>
     </div>
   `;
 }
+
   // ---------- render: services ----------
   function renderServices() {
     const host = qs("#usluge .container");
