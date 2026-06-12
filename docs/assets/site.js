@@ -252,9 +252,11 @@
       renderFAQ();
       renderContact();
       renderFooter();
+      initPriceCalculator();
 
       // /projekti/ page
       renderProjectsPage();
+
       wireProjectsModal();
 
       injectSEO();
