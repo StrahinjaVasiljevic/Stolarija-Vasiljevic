@@ -653,116 +653,256 @@ function renderHero() {
   }
 
   // ---------- render: process ----------
-  function renderProcess() {
-    const steps = (state.site && state.site.process && state.site.process.length) ? state.site.process : (UI[state.lang].process || []);
+ function renderProcess() {
     const mount = qs("#processMount");
     const headEl = qs("#labelProcess");
-    if (headEl) headEl.textContent = UI[state.lang].heads.process;
     if (!mount) return;
 
-    const top = steps.slice(0, 4);
-    const bottom = steps.slice(4);
+    if (headEl) headEl.textContent = "";
 
-    const cardHtml = (s, n, id) => `
-      <div class="process-item" role="listitem">
-        <button class="process-card" type="button" aria-expanded="false" aria-controls="process-panel-${id}" id="process-btn-${id}" data-process-toggle>
-          <span class="process-chip">${n}</span>
-          <span class="process-title">${esc(s.t)}</span>
-          <span class="process-sub">${esc(s.d)}</span>
-        </button>
-        <div class="process-panel" id="process-panel-${id}" role="region" aria-labelledby="process-btn-${id}">
-          <div class="process-panel-inner">${esc(s.d)}</div>
-        </div>
-      </div>`;
+    const copy = {
+      sr: {
+        kicker: "Kako radimo",
+        title: 'Radimo u 6 koraka, <span class="is-italic">bez iznenađenja.</span>',
+        subtitle: "Tok rada koji štiti vaše vreme i čini odluke jasnijim.",
+        steps: [
+          {
+            no: "01",
+            title: "Upit",
+            desc: "Osnovne informacije o prostoru i očekivanjima",
+            icon: "clipboard"
+          },
+          {
+            no: "02",
+            title: "Konsultacija",
+            desc: "Razgovor o funkciji, materijalima i budžetu",
+            icon: "chat"
+          },
+          {
+            no: "03",
+            title: "Procena",
+            desc: "Konkretno rešenje i ponuda sa cenom",
+            icon: "calculator"
+          },
+          {
+            no: "04",
+            title: "Merenje",
+            desc: "Uzimanje dimenzija na lokaciji",
+            icon: "ruler"
+          },
+          {
+            no: "05",
+            title: "Izrada",
+            desc: "Priprema materijala u radionici",
+            icon: "hammer"
+          },
+          {
+            no: "06",
+            title: "Montaža",
+            desc: "Ugradnja i predaja završenog projekta",
+            icon: "box"
+          }
+        ]
+      },
+      en: {
+        kicker: "How we work",
+        title: 'We work in 6 steps, <span class="is-italic">without surprises.</span>',
+        subtitle: "A workflow that protects your time and makes decisions clearer.",
+        steps: [
+          {
+            no: "01",
+            title: "Inquiry",
+            desc: "Basic information about the space and expectations",
+            icon: "clipboard"
+          },
+          {
+            no: "02",
+            title: "Consultation",
+            desc: "Discussion about function, materials and budget",
+            icon: "chat"
+          },
+          {
+            no: "03",
+            title: "Estimate",
+            desc: "A concrete solution and a quote with pricing",
+            icon: "calculator"
+          },
+          {
+            no: "04",
+            title: "Measurement",
+            desc: "Taking dimensions on site",
+            icon: "ruler"
+          },
+          {
+            no: "05",
+            title: "Production",
+            desc: "Material preparation in the workshop",
+            icon: "hammer"
+          },
+          {
+            no: "06",
+            title: "Installation",
+            desc: "Fitting and handover of the completed project",
+            icon: "box"
+          }
+        ]
+      },
+      de: {
+        kicker: "So arbeiten wir",
+        title: 'Wir arbeiten in 6 Schritten, <span class="is-italic">ohne Überraschungen.</span>',
+        subtitle: "Ein Ablauf, der Ihre Zeit schützt und Entscheidungen klarer macht.",
+        steps: [
+          {
+            no: "01",
+            title: "Anfrage",
+            desc: "Grundinformationen über Raum und Erwartungen",
+            icon: "clipboard"
+          },
+          {
+            no: "02",
+            title: "Beratung",
+            desc: "Gespräch über Funktion, Materialien und Budget",
+            icon: "chat"
+          },
+          {
+            no: "03",
+            title: "Einschätzung",
+            desc: "Konkrete Lösung und Angebot mit Preis",
+            icon: "calculator"
+          },
+          {
+            no: "04",
+            title: "Aufmaß",
+            desc: "Maßaufnahme vor Ort",
+            icon: "ruler"
+          },
+          {
+            no: "05",
+            title: "Fertigung",
+            desc: "Vorbereitung der Materialien in der Werkstatt",
+            icon: "hammer"
+          },
+          {
+            no: "06",
+            title: "Montage",
+            desc: "Einbau und Übergabe des fertigen Projekts",
+            icon: "box"
+          }
+        ]
+      },
+      ru: {
+        kicker: "Как мы работаем",
+        title: 'Работаем в 6 этапов, <span class="is-italic">без сюрпризов.</span>',
+        subtitle: "Понятный процесс, который экономит ваше время и упрощает решения.",
+        steps: [
+          {
+            no: "01",
+            title: "Запрос",
+            desc: "Основная информация о пространстве и ожиданиях",
+            icon: "clipboard"
+          },
+          {
+            no: "02",
+            title: "Консультация",
+            desc: "Обсуждение функции, материалов и бюджета",
+            icon: "chat"
+          },
+          {
+            no: "03",
+            title: "Оценка",
+            desc: "Конкретное решение и предложение с ценой",
+            icon: "calculator"
+          },
+          {
+            no: "04",
+            title: "Замер",
+            desc: "Снятие размеров на объекте",
+            icon: "ruler"
+          },
+          {
+            no: "05",
+            title: "Изготовление",
+            desc: "Подготовка материалов в мастерской",
+            icon: "hammer"
+          },
+          {
+            no: "06",
+            title: "Монтаж",
+            desc: "Установка и передача готового проекта",
+            icon: "box"
+          }
+        ]
+      }
+    };
 
-    const connector = `
-      <div class="process-connector" aria-hidden="true">
-        <svg viewBox="0 0 24 24" width="24" height="24">
-          <path d="M5 12h14m-4-4 4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </div>`;
+    const L = copy[state.lang] || copy.sr;
 
-    let id = 1;
-    const topRow = `
-      <div class="process-row process-row--top" role="list">
-        ${top.map((s, i) => cardHtml(s, i + 1, id++) + (i < top.length - 1 ? connector : "")).join("")}
-      </div>`;
+    mount.innerHTML = `
+      <div class="process-premium-head">
+        <div class="process-kicker process-reveal">${esc(L.kicker)}</div>
+        <h2 class="process-premium-title font-serif process-reveal process-reveal-delay-1">${L.title}</h2>
+        <p class="process-premium-subtitle process-reveal process-reveal-delay-2">${esc(L.subtitle)}</p>
+      </div>
 
-    const turn = `
-  <div class="process-turn" aria-hidden="true">
-    <svg viewBox="0 0 560 120" width="560" height="120" preserveAspectRatio="none" class="process-turn-svg">
-      <!-- Putanja: iz desne ivice 4. kartice -> puni zavoj -> ulazak u 5. karticu -->
-      <path d="M540,22
-               C380,22 360,22 300,22
-               C210,22 210,98 120,98
-               C70,98 45,98 20,98"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="3"
-            stroke-linecap="round"
-            stroke-linejoin="round"/>
-      <!-- strelica (pointing right-to-left, uliva se u 5. karticu sa leve strane) -->
-      <path d="M34,88 L20,98 L34,108"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="3"
-            stroke-linecap="round"
-            stroke-linejoin="round"/>
-    </svg>
-  </div>
-`;
-
-    const bottomRow = bottom.length ? `
-      <div class="process-row process-row--bottom" role="list">
-        ${bottom.map((s, i) => cardHtml(s, 4 + i + 1, id++) + (i < bottom.length - 1 ? connector : "")).join("")}
-      </div>` : "";
-
-    mount.innerHTML = topRow + turn + bottomRow;
-
-    const root = qs(".process-flow");
-    if (!root) return;
-    const buttons = Array.from(root.querySelectorAll("[data-process-toggle]"));
-    let openPanel = null, openBtn = null;
-
-    buttons.forEach((btn) => {
-      const panel = qs("#" + btn.getAttribute("aria-controls"));
-      if (!panel) return;
-      btn.addEventListener("click", () => toggle(btn, panel));
-    });
-
-    function toggle(btn, panel) {
-      const isOpen = btn.getAttribute("aria-expanded") === "true";
-      if (openPanel && openPanel !== panel) collapse(openBtn, openPanel);
-      if (isOpen) { collapse(btn, panel); openPanel = null; openBtn = null; }
-      else { expand(btn, panel); openPanel = panel; openBtn = btn; }
-    }
-
-    function expand(btn, panel) {
-      btn.setAttribute("aria-expanded", "true");
-      panel.classList.add("open");
-      panel.style.maxHeight = "0px";
-      const h = panel.scrollHeight;
-      panel.style.maxHeight = h + "px";
-      const onEnd = (e) => {
-        if (e.propertyName === "max-height") {
-          panel.style.maxHeight = "none";
-          panel.removeEventListener("transitionend", onEnd);
-        }
-      };
-      panel.addEventListener("transitionend", onEnd);
-    }
-
-    function collapse(btn, panel) {
-      if (btn) btn.setAttribute("aria-expanded", "false");
-      const h = panel.scrollHeight;
-      panel.style.maxHeight = h + "px";
-      requestAnimationFrame(() => {
-        panel.classList.remove("open");
-        panel.style.maxHeight = "0px";
-      });
-    }
+      <div class="process-premium-grid">
+        ${L.steps.map((step, index) => `
+          <div class="process-step process-reveal process-reveal-delay-${Math.min(index + 1, 6)}">
+            <div class="process-step-card">
+              <div class="process-icon-badge" aria-hidden="true">
+                ${getProcessIcon(step.icon)}
+              </div>
+              <div class="process-step-no">${esc(step.no)}</div>
+              <div class="process-step-title">${esc(step.title)}</div>
+              <div class="process-step-desc">${esc(step.desc)}</div>
+            </div>
+          </div>
+        `).join("")}
+      </div>
+    `;
   }
 
+  function getProcessIcon(name) {
+    const icons = {
+      clipboard: `
+        <svg viewBox="0 0 24 24" fill="none">
+          <path d="M9 4.75h6M9.75 3h4.5a1 1 0 0 1 1 1v1h1.75A1.75 1.75 0 0 1 18.75 6.75v11.5A1.75 1.75 0 0 1 17 20H7A1.75 1.75 0 0 1 5.25 18.25V6.75A1.75 1.75 0 0 1 7 5h1.75V4a1 1 0 0 1 1-1Z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M9 9.5h6M9 13h4.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+        </svg>
+      `,
+      chat: `
+        <svg viewBox="0 0 24 24" fill="none">
+          <path d="M7 17.25 3.75 20V6.75A1.75 1.75 0 0 1 5.5 5h13A1.75 1.75 0 0 1 20.25 6.75v7.5A1.75 1.75 0 0 1 18.5 16H8.1L7 17.25Z" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M8 9h8M8 12.5h5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+        </svg>
+      `,
+      calculator: `
+        <svg viewBox="0 0 24 24" fill="none">
+          <rect x="6" y="3.75" width="12" height="16.5" rx="2" stroke="currentColor" stroke-width="1.6"/>
+          <path d="M8.75 7h6.5M9 11.25h.01M12 11.25h.01M15 11.25h.01M9 14.25h.01M12 14.25h.01M15 14.25h.01M9 17.25h.01M12 17.25h.01M15 17.25h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      `,
+      ruler: `
+        <svg viewBox="0 0 24 24" fill="none">
+          <path d="M14.5 4.5 19.5 9.5 9 20H4v-5L14.5 4.5Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+          <path d="M13 6l5 5M7.8 16.2l1.6-1.6M10.5 13.5l1.4-1.4M13.2 10.8l1.4-1.4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+        </svg>
+      `,
+      hammer: `
+        <svg viewBox="0 0 24 24" fill="none">
+          <path d="M14.2 5.2a3.6 3.6 0 0 1 5.1 0l.5.5-3 3-.5-.5a3.6 3.6 0 0 1-2.1-3Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+          <path d="M13.2 7.2 5 15.4V19h3.6l8.2-8.2M10.5 4.5l9 9" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      `,
+      box: `
+        <svg viewBox="0 0 24 24" fill="none">
+          <path d="M12 3.75 19 7.5 12 11.25 5 7.5 12 3.75Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+          <path d="M19 7.5v9L12 20.25 5 16.5v-9M12 11.25v9" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+        </svg>
+      `
+    };
+
+    return icons[name] || icons.clipboard;
+  }
   // ---------- render: why us ----------
   function renderWhyUs() {
     const items = (state.site && state.site.whyUs) ? state.site.whyUs : [];
