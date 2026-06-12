@@ -1582,14 +1582,13 @@ function renderPortfolioPreview() {
       if (contactDesc && !contactDesc.value.trim()) {
         contactDesc.value =
           state.lang === "en"
-            ? "Interested in a precise quote based on the online calculator estimate."
+            ? "Interested in a precise quote based on the online calculator estimate"
             : state.lang === "de"
-              ? "Zainteresovan sam za preciznu ponudu na osnovu online kalkulator procene."
+              ? "Ich interessiere mich für ein genaues Angebot auf Basis der Online-Kalkulator-Schätzung"
               : state.lang === "ru"
-                ? "Интересует точное предложение на основе расчета онлайн-калькулятора."
-                : "Zanima me precizna ponuda na osnovu procene iz online kalkulatora.";
+                ? "Интересует точное предложение на основе расчета онлайн-калькулятора"
+                : "Zanima me precizna ponuda na osnovu procene iz online kalkulatora";
       }
-
       if (carryoverBox) {
         const msg =
           state.lang === "en"
