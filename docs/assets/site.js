@@ -250,9 +250,10 @@
       renderPortfolioPreview();
       renderTestimonials();
       renderFAQ();
-      renderContact();
+    renderContact();
       renderFooter();
       initPriceCalculator();
+      localizeCalculatorUI();
 
       // /projekti/ page
       renderProjectsPage();
