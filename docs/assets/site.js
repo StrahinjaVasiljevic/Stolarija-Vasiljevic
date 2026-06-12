@@ -940,7 +940,321 @@ function renderPortfolioPreview() {
     setText("#footEmailLabel", UI[state.lang].contact.email);
     setText("#footArea", UI[state.lang].contact.area);
   }
+// ---------- calculator UI localization ----------
+  const CALC_UI = {
+    sr: {
+      kicker: "Premium kalkulator cene",
+      title: "Saznajte okvirnu cenu projekta za manje od 30 sekundi",
+      intro: "Unesite osnovne podatke i dobićete realan cenovni raspon na osnovu tipa projekta, materijala, okova i dodatne opreme. Kalkulator je namenjen okvirnoj proceni — tačna cena zavisi od finalnih mera, izabranih detalja i montaže.",
 
+      labelProject: "1. Tip projekta",
+      kitchenTitle: "Kuhinja",
+      kitchenSub: "Najčešće viši nivo opreme i više detalja",
+      wardrobeTitle: "Plakar",
+      wardrobeSub: "Klizna ili krilna vrata, garderobni sistemi",
+      commodeTitle: "TV komoda / komoda",
+      commodeSub: "Kompaktniji projekti sa manjom dubinom",
+
+      labelWidth: "2. Širina (m)",
+      widthHelp: "Unesite ukupnu širinu projekta u metrima.",
+      labelHeight: "3. Visina (m)",
+      heightHelp: "Za komode možete uneti realnu visinu elementa.",
+
+      labelMaterial: "4. Materijal",
+      materialBasic: "Bela iverica — ekonomično",
+      materialStandard: "Dekor / Egger — standard",
+      materialPremium: "MDF / lakirano / furnir — premium",
+      materialHelp: "Materijal je glavni faktor formiranja cene.",
+
+      labelHardware: "5. Okovi",
+      hardwareStandard: "Standard soft-close",
+      hardwarePremium: "Premium okovi (Blum / Hettich)",
+
+      labelExtras: "6. Dodatna oprema",
+      extraLedTitle: "LED rasveta",
+      extraLedSub: "Dodatni vizuelni efekat i funkcionalnost",
+      extraDrawersTitle: "Unutrašnje fioke",
+      extraDrawersSub: "Bolja organizacija i veća vrednost projekta",
+      extraOrgTitle: "Organizatori / unutrašnja oprema",
+      extraOrgSub: "Premium osećaj i viši nivo završne obrade",
+      extraSlidingTitle: "Klizni sistem",
+      extraSlidingSub: "Posebno relevantno za plakare i garderobere",
+
+      labelBudgetLevel: "7. Planirani budžet",
+      budgetUnknown: "Nisam siguran još",
+      budgetLow: "Do 1000€",
+      budgetMid: "1000€ – 3000€",
+      budgetHigh: "3000€+",
+
+      submit: "Izračunaj okvirnu cenu",
+      reset: "Resetuj",
+
+      badge: "Okvirna procena",
+      resultTitle: "Procena investicije",
+      listArea: "Površina za obračun",
+      listFinish: "Nivo obrade",
+      listRecommendation: "Preporuka",
+
+      anchorTitle: "Prosečna vrednost naših projekata",
+      anchorText: "Najčešći projekti se kreću u rasponu od 1.500€ do 4.500€, u zavisnosti od materijala, unutrašnje opreme i složenosti izrade.",
+
+      quote: "Zatraži tačnu ponudu",
+      call: "Pozovi za konsultaciju",
+
+      disclaimer: "Ovo je informativna procena. Konačna cena zavisi od preciznih mera, odabranih detalja, završne obrade, transporta i montaže."
+    },
+
+    en: {
+      kicker: "Premium price calculator",
+      title: "Get an estimated project price in less than 30 seconds",
+      intro: "Enter the basic project details and get a realistic price range based on project type, materials, hardware and additional features. This calculator provides an approximate estimate — the final quote depends on exact measurements, selected details and installation.",
+
+      labelProject: "1. Project type",
+      kitchenTitle: "Kitchen",
+      kitchenSub: "Usually a higher equipment level and more details",
+      wardrobeTitle: "Wardrobe",
+      wardrobeSub: "Sliding or hinged doors, wardrobe systems",
+      commodeTitle: "TV sideboard / cabinet",
+      commodeSub: "More compact projects with smaller depth",
+
+      labelWidth: "2. Width (m)",
+      widthHelp: "Enter the total project width in meters.",
+      labelHeight: "3. Height (m)",
+      heightHelp: "For sideboards, you can enter the real cabinet height.",
+
+      labelMaterial: "4. Material",
+      materialBasic: "White chipboard — budget",
+      materialStandard: "Decor / Egger — standard",
+      materialPremium: "MDF / lacquered / veneer — premium",
+      materialHelp: "Material is the main pricing driver.",
+
+      labelHardware: "5. Hardware",
+      hardwareStandard: "Standard soft-close",
+      hardwarePremium: "Premium hardware (Blum / Hettich)",
+
+      labelExtras: "6. Additional features",
+      extraLedTitle: "LED lighting",
+      extraLedSub: "Additional visual effect and functionality",
+      extraDrawersTitle: "Inner drawers",
+      extraDrawersSub: "Better organization and higher project value",
+      extraOrgTitle: "Organizers / internal accessories",
+      extraOrgSub: "Premium feel and higher finishing level",
+      extraSlidingTitle: "Sliding system",
+      extraSlidingSub: "Especially relevant for wardrobes and closets",
+
+      labelBudgetLevel: "7. Planned budget",
+      budgetUnknown: "Not sure yet",
+      budgetLow: "Up to 1000€",
+      budgetMid: "1000€ – 3000€",
+      budgetHigh: "3000€+",
+
+      submit: "Calculate estimated price",
+      reset: "Reset",
+
+      badge: "Estimated range",
+      resultTitle: "Investment estimate",
+      listArea: "Calculated area",
+      listFinish: "Finish level",
+      listRecommendation: "Recommendation",
+
+      anchorTitle: "Average value of our projects",
+      anchorText: "Most of our projects fall in the 1,500€ to 4,500€ range, depending on materials, internal fittings and production complexity.",
+
+      quote: "Request an exact quote",
+      call: "Call for consultation",
+
+      disclaimer: "This is an informational estimate. Final pricing depends on exact dimensions, selected details, finish, transport and installation."
+    },
+
+    de: {
+      kicker: "Premium Preisrechner",
+      title: "Erhalten Sie in weniger als 30 Sekunden eine Preisindikation",
+      intro: "Geben Sie die grundlegenden Projektdaten ein und erhalten Sie eine realistische Preisspanne basierend auf Projekttyp, Material, Beschlägen und Zusatzausstattung. Der Rechner dient zur Orientierung — das endgültige Angebot hängt von exakten Maßen, ausgewählten Details und Montage ab.",
+
+      labelProject: "1. Projekttyp",
+      kitchenTitle: "Küche",
+      kitchenSub: "Meist höherer Ausstattungsgrad und mehr Details",
+      wardrobeTitle: "Schrank",
+      wardrobeSub: "Schiebe- oder Drehtüren, Garderobensysteme",
+      commodeTitle: "TV-Kommode / Kommode",
+      commodeSub: "Kompaktere Projekte mit geringerer Tiefe",
+
+      labelWidth: "2. Breite (m)",
+      widthHelp: "Geben Sie die Gesamtbreite des Projekts in Metern ein.",
+      labelHeight: "3. Höhe (m)",
+      heightHelp: "Bei Kommoden können Sie die tatsächliche Höhe eingeben.",
+
+      labelMaterial: "4. Material",
+      materialBasic: "Weiße Spanplatte — wirtschaftlich",
+      materialStandard: "Dekor / Egger — Standard",
+      materialPremium: "MDF / lackiert / Furnier — Premium",
+      materialHelp: "Das Material ist der wichtigste Preisfaktor.",
+
+      labelHardware: "5. Beschläge",
+      hardwareStandard: "Standard Soft-Close",
+      hardwarePremium: "Premium-Beschläge (Blum / Hettich)",
+
+      labelExtras: "6. Zusatzausstattung",
+      extraLedTitle: "LED-Beleuchtung",
+      extraLedSub: "Zusätzlicher visueller Effekt und Funktionalität",
+      extraDrawersTitle: "Innenschubladen",
+      extraDrawersSub: "Bessere Organisation und höherer Projektwert",
+      extraOrgTitle: "Organizer / Innenausstattung",
+      extraOrgSub: "Premium-Gefühl und höheres Ausstattungsniveau",
+      extraSlidingTitle: "Schiebesystem",
+      extraSlidingSub: "Besonders relevant für Schränke und Garderoben",
+
+      labelBudgetLevel: "7. Geplantes Budget",
+      budgetUnknown: "Noch nicht sicher",
+      budgetLow: "Bis 1000€",
+      budgetMid: "1000€ – 3000€",
+      budgetHigh: "3000€+",
+
+      submit: "Preisspanne berechnen",
+      reset: "Zurücksetzen",
+
+      badge: "Preisschätzung",
+      resultTitle: "Investitionsschätzung",
+      listArea: "Berechnete Fläche",
+      listFinish: "Ausstattungsniveau",
+      listRecommendation: "Empfehlung",
+
+      anchorTitle: "Durchschnittlicher Projektwert",
+      anchorText: "Die meisten unserer Projekte liegen zwischen 1.500€ und 4.500€, abhängig von Material, Innenausstattung und Fertigungskomplexität.",
+
+      quote: "Genaues Angebot anfordern",
+      call: "Für Beratung anrufen",
+
+      disclaimer: "Dies ist eine unverbindliche Schätzung. Der endgültige Preis hängt von exakten Maßen, ausgewählten Details, Oberfläche, Transport und Montage ab."
+    },
+
+    ru: {
+      kicker: "Премиальный калькулятор цены",
+      title: "Получите ориентировочную стоимость проекта менее чем за 30 секунд",
+      intro: "Введите основные параметры проекта и получите реалистичный ценовой диапазон на основе типа проекта, материалов, фурнитуры и дополнительного оснащения. Калькулятор дает ориентировочную оценку — итоговая цена зависит от точных размеров, выбранных деталей и монтажа.",
+
+      labelProject: "1. Тип проекта",
+      kitchenTitle: "Кухня",
+      kitchenSub: "Обычно более высокий уровень оснащения и больше деталей",
+      wardrobeTitle: "Шкаф",
+      wardrobeSub: "Раздвижные или распашные двери, гардеробные системы",
+      commodeTitle: "ТВ-комод / комод",
+      commodeSub: "Более компактные проекты с меньшей глубиной",
+
+      labelWidth: "2. Ширина (м)",
+      widthHelp: "Введите общую ширину проекта в метрах.",
+      labelHeight: "3. Высота (м)",
+      heightHelp: "Для комодов можно указать фактическую высоту элемента.",
+
+      labelMaterial: "4. Материал",
+      materialBasic: "Белая ЛДСП — экономично",
+      materialStandard: "Декор / Egger — стандарт",
+      materialPremium: "MDF / крашеный / шпон — премиум",
+      materialHelp: "Материал — основной фактор формирования цены.",
+
+      labelHardware: "5. Фурнитура",
+      hardwareStandard: "Стандарт soft-close",
+      hardwarePremium: "Премиальная фурнитура (Blum / Hettich)",
+
+      labelExtras: "6. Дополнительное оснащение",
+      extraLedTitle: "LED-подсветка",
+      extraLedSub: "Дополнительный визуальный эффект и функциональность",
+      extraDrawersTitle: "Внутренние ящики",
+      extraDrawersSub: "Лучшая организация и более высокая ценность проекта",
+      extraOrgTitle: "Органайзеры / внутренняя комплектация",
+      extraOrgSub: "Премиальное ощущение и более высокий уровень отделки",
+      extraSlidingTitle: "Раздвижная система",
+      extraSlidingSub: "Особенно актуально для шкафов и гардеробных",
+
+      labelBudgetLevel: "7. Планируемый бюджет",
+      budgetUnknown: "Пока не уверен",
+      budgetLow: "До 1000€",
+      budgetMid: "1000€ – 3000€",
+      budgetHigh: "3000€+",
+
+      submit: "Рассчитать ориентировочную цену",
+      reset: "Сбросить",
+
+      badge: "Ориентировочная оценка",
+      resultTitle: "Оценка инвестиций",
+      listArea: "Расчетная площадь",
+      listFinish: "Уровень отделки",
+      listRecommendation: "Рекомендация",
+
+      anchorTitle: "Средняя стоимость наших проектов",
+      anchorText: "Большинство наших проектов находятся в диапазоне от 1.500€ до 4.500€, в зависимости от материалов, внутреннего наполнения и сложности изготовления.",
+
+      quote: "Запросить точное предложение",
+      call: "Позвонить для консультации",
+
+      disclaimer: "Это ориентировочная оценка. Итоговая цена зависит от точных размеров, выбранных деталей, отделки, логистики и монтажа."
+    }
+  };
+
+  function localizeCalculatorUI() {
+    const L = CALC_UI[state.lang] || CALC_UI.sr;
+
+    setText("#calcKicker", L.kicker);
+    setText("#calcTitle", L.title);
+    setText("#calcIntroText", L.intro);
+
+    setText("#calcLabelProject", L.labelProject);
+    setText("#calcProjectKitchenTitle", L.kitchenTitle);
+    setText("#calcProjectKitchenSub", L.kitchenSub);
+    setText("#calcProjectWardrobeTitle", L.wardrobeTitle);
+    setText("#calcProjectWardrobeSub", L.wardrobeSub);
+    setText("#calcProjectCommodeTitle", L.commodeTitle);
+    setText("#calcProjectCommodeSub", L.commodeSub);
+
+    setText("#calcLabelWidth", L.labelWidth);
+    setText("#calcWidthHelp", L.widthHelp);
+    setText("#calcLabelHeight", L.labelHeight);
+    setText("#calcHeightHelp", L.heightHelp);
+
+    setText("#calcLabelMaterial", L.labelMaterial);
+    setText("#calcMaterialBasic", L.materialBasic);
+    setText("#calcMaterialStandard", L.materialStandard);
+    setText("#calcMaterialPremium", L.materialPremium);
+    setText("#calcMaterialHelp", L.materialHelp);
+
+    setText("#calcLabelHardware", L.labelHardware);
+    setText("#calcHardwareStandard", L.hardwareStandard);
+    setText("#calcHardwarePremium", L.hardwarePremium);
+
+    setText("#calcLabelExtras", L.labelExtras);
+    setText("#calcExtraLedTitle", L.extraLedTitle);
+    setText("#calcExtraLedSub", L.extraLedSub);
+    setText("#calcExtraDrawersTitle", L.extraDrawersTitle);
+    setText("#calcExtraDrawersSub", L.extraDrawersSub);
+    setText("#calcExtraOrgTitle", L.extraOrgTitle);
+    setText("#calcExtraOrgSub", L.extraOrgSub);
+    setText("#calcExtraSlidingTitle", L.extraSlidingTitle);
+    setText("#calcExtraSlidingSub", L.extraSlidingSub);
+
+    setText("#calcLabelBudgetLevel", L.labelBudgetLevel);
+    setText("#calcBudgetUnknown", L.budgetUnknown);
+    setText("#calcBudgetLow", L.budgetLow);
+    setText("#calcBudgetMid", L.budgetMid);
+    setText("#calcBudgetHigh", L.budgetHigh);
+
+    setText("#calcSubmitBtn", L.submit);
+    setText("#calcResetBtn", L.reset);
+
+    setText("#calcBadge", L.badge);
+    setText("#calcResultTitle", L.resultTitle);
+    setText("#calcListAreaLabel", L.listArea);
+    setText("#calcListFinishLabel", L.listFinish);
+    setText("#calcListRecommendationLabel", L.listRecommendation);
+
+    setText("#calcAnchorTitle", L.anchorTitle);
+    setText("#calcAnchorText", L.anchorText);
+
+    setText("#calcQuoteLink", L.quote);
+    setText("#calcCallLink", L.call);
+
+    setText("#calcDisclaimer", L.disclaimer);
+  }
+  
   // ---------- premium kalkulator ----------
   function initPriceCalculator() {
     const form = qs("#priceCalculator");
