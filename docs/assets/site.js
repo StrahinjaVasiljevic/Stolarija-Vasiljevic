@@ -242,15 +242,11 @@
       initLangDropdown();
       await safeLoadContent();
 
-      renderHeader();
+     renderHeader();
       renderHero();
       renderServices();
-      renderProcess();
-      renderWhyUs();
       renderPortfolioPreview();
-      renderTestimonials();
-      renderFAQ();
-    renderContact();
+      renderContact();
       renderFooter();
       initPriceCalculator();
       localizeCalculatorUI();
