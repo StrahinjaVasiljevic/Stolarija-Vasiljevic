@@ -491,14 +491,14 @@ function applyTheme(theme) {
     const m = qs("#headerPhoneMobile");
     if (m) m.href = telHref(phone);
 
-    const nav = UI[state.lang].nav;
-    ["Services", "Process", "Projects", "About", "FAQ", "Contact"].forEach((k) => {
+  const nav = UI[state.lang].nav;
+    ["Services", "Projects", "About", "Contact"].forEach((k) => {
       const el = qs("#nav" + k);
       if (el) el.textContent = nav[k.toLowerCase()];
       const fl = qs("#foot" + k);
       if (fl) fl.textContent = nav[k.toLowerCase()];
     });
-
+    
     const themeBtn = qs("#themeToggle");
     if (themeBtn) {
       themeBtn.setAttribute("aria-label", UI[state.lang].theme.toggle);
