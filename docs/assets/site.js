@@ -307,18 +307,18 @@ function setLang(lang) {
 function initLangDropdown() {
   setLang(getLang());
 
-  const toggle = qs("#langToggle");
+ const toggle = qs("#langToggle");
   const menu = qs("#langMenu");
-  const flagEl = qs("#langFlag");
   const labelEl = qs("#langLabel");
 
   const flags = { sr: "🇷🇸", en: "🇬🇧", de: "🇩🇪", ru: "🇷🇺" };
   const labels = { sr: "Jezik", en: "Language", de: "Sprache", ru: "Язык" };
-  const abbr = { sr: "srb", en: "eng", de: "deu", ru: "рус" };
+  const abbr = { sr: "RS", en: "EN", de: "DE", ru: "RU" };
 
   function applyLabel() {
-    if (flagEl) flagEl.textContent = flags[state.lang] || "🇷🇸";
-    if (labelEl) labelEl.textContent = `${labels[state.lang] || "Jezik"}: ${abbr[state.lang] || "srb"}`;
+    if (labelEl) {
+      labelEl.textContent = `${labels[state.lang] || "Jezik"}: ${flags[state.lang] || "🇷🇸"} ${abbr[state.lang] || "RS"}`;
+    }
   }
 
   function openMenu() {
