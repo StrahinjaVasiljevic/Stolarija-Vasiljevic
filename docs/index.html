@@ -795,20 +795,24 @@
     }
 
     /* Jezik dropdown */
-    .dropdown{
+   .dropdown{
       position:relative;
     }
 
     #langToggle{
       display:flex;
       align-items:center;
-      gap:6px;
-      padding:6px 10px;
-      min-height:36px;
+      gap:8px;
+      padding:7px 12px;
+      min-height:38px;
       border:1px solid var(--border);
       border-radius:9999px;
       background:var(--card);
       color:var(--text);
+      font-size:14px;
+      font-weight:500;
+      line-height:1;
+      box-shadow:0 6px 18px rgba(0,0,0,0.04);
     }
 
     @media (max-width: 767px){
@@ -818,16 +822,15 @@
       }
     }
 
-    .flag{
-      display:inline-block;
-      font-size:16px;
-      line-height:1;
+    #langLabel{
+      white-space:nowrap;
     }
 
     .chev{
       transition:transform .2s;
       width:14px;
       height:14px;
+      flex:0 0 14px;
     }
 
     .open .chev{
@@ -837,32 +840,34 @@
     .dropdown-menu{
       position:absolute;
       right:0;
-      top:calc(100% + 6px);
-      min-width:160px;
+      top:calc(100% + 8px);
+      min-width:140px;
       background:var(--card);
       border:1px solid var(--border);
-      border-radius:12px;
-      box-shadow:0 8px 30px rgba(0,0,0,0.08);
-      padding:4px;
+      border-radius:14px;
+      box-shadow:0 12px 32px rgba(0,0,0,0.10);
+      padding:6px;
       z-index:50;
     }
 
     .dropdown-item{
       display:flex;
       align-items:center;
-      gap:8px;
+      justify-content:flex-start;
       width:100%;
       text-align:left;
-      padding:6px 8px;
+      padding:9px 10px;
       border-radius:10px;
       color:var(--text);
-      min-height:34px;
+      min-height:38px;
+      font-size:14px;
+      font-weight:500;
+      line-height:1;
     }
 
     .dropdown-item:hover{
       background:var(--secondary-bg);
     }
-
     /* Theme toggle — Sunce / Mesec */
     #themeToggle{
       display:inline-flex;
